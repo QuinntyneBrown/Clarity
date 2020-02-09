@@ -9,7 +9,8 @@ namespace Clarity.Domain.Features.Extensions
         {
             return new TicketDto
             {
-
+                Name = ticket.Name,
+                State = ticket.CurrentTicketState?.State?.Name
             };
         }
     }
