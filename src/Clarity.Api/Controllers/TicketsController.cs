@@ -23,7 +23,7 @@ namespace Clarity.Api.Controllers
         [HttpGet("{name}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetTicketByName.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetTicketByName.Response>> GetById([FromRoute]GetTicketByName.Request request)
+        public async Task<ActionResult<GetTicketByName.Response>> GetByName([FromRoute]GetTicketByName.Request request)
             => await _meditator.Send(request);
     }
 }

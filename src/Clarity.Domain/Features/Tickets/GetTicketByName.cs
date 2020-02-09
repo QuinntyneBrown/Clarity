@@ -1,6 +1,7 @@
 using Clarity.Core.Data;
+using Clarity.Domain.Features.Extensions;
 using MediatR;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,10 +23,11 @@ namespace Clarity.Domain.Features.Tickets
             private readonly IClarityContext _context;
             public Handler(IClarityContext context) => _context = context;
 
-            public Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                throw new NotImplementedException();
-            }
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+                => new Response
+                {
+                    Ticket = (await _context.Tickets.FirstOrDefaultAsync(x => x.Name == request.Name))?.ToDto()
+                };
         }
     }
 }

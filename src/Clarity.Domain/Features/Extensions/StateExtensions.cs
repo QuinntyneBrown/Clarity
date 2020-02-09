@@ -9,7 +9,9 @@ namespace Clarity.Domain.Features.Extensions
         {
             return new StateDto
             {
-
+                Name = state.Name,
+                StateId = state.StateId,
+                Order = state.Order
             };
         }
     }
