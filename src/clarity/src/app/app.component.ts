@@ -11,8 +11,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-  tickets$: Observable<Ticket[]>;
-  states$: Observable<State[]>;
+  tickets$: Observable<Array<Ticket>>;
+  states$: Observable<Array<State>>;
 
   constructor(private ticketService: TicketService, private stateService: StateService) {
 

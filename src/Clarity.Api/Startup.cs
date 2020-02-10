@@ -21,6 +21,14 @@ namespace Clarity.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder => builder
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(isOriginAllowed: _ => true)
+                .AllowCredentials()));
+
             services.AddTransient<IClarityContext, ClarityContext>();
             services.AddMediatR(typeof(GetStates));
             services.AddControllers();
@@ -33,6 +41,7 @@ namespace Clarity.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("CorsPolicy");
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
