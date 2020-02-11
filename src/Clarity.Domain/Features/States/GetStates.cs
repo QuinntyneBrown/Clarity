@@ -1,6 +1,9 @@
 using Clarity.Core.Data;
+using Clarity.Domain.Features.Extensions;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,9 +11,7 @@ namespace Clarity.Domain.Features.States
 {
     public class GetStates
     {
-        public class Request : IRequest<Response> { 
-        
-        }
+        public class Request : IRequest<Response> { }
 
         public class Response
         {
@@ -21,15 +22,13 @@ namespace Clarity.Domain.Features.States
         {
             private readonly IClarityContext _context;
 
-            public Handler(IClarityContext context)
-            {
-                _context = context;
-            }
+            public Handler(IClarityContext context) => _context = context;
 
-            public Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                throw new System.NotImplementedException();
-            }
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+                => new Response
+                {
+                    States = await _context.States.Select(x => x.ToDto()).ToListAsync()
+                };
         }
     }
 }

@@ -1,6 +1,6 @@
 using Clarity.Core.Data;
+using Clarity.Domain.Features.Extensions;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,7 +9,7 @@ namespace Clarity.Domain.Features.States
     public class GetStateById
     {
         public class Request : IRequest<Response> {
-            public Guid StateId { get; set; }
+            public int StateId { get; set; }
         }
 
         public class Response
@@ -22,14 +22,13 @@ namespace Clarity.Domain.Features.States
             private readonly IClarityContext _context;
 
             public Handler(IClarityContext context)
-            {
-                _context = context;
-            }
+                => _context = context;
 
-            public Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                throw new NotImplementedException();
-            }
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+                => new Response
+                {
+                    State = (await _context.States.FindAsync(request.StateId)).ToDto()
+                };
         }
     }
 }
