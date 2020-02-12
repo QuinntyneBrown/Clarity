@@ -6,13 +6,11 @@ namespace Clarity.Domain.Features.Extensions
     public static class StateExtensions
     {
         public static StateDto ToDto(this State state)
-        {
-            return new StateDto
+            => new StateDto
             {
                 Name = state.Name,
                 StateId = state.StateId,
                 Order = state.Order
             };
-        }
     }
 }

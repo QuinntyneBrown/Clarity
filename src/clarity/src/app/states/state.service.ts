@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -6,9 +6,9 @@ import { State } from './state.model';
 
 @Injectable()
 export class StateService {
-  private baseUrl: string;
 
   constructor(
+    @Inject('BASE_URL') private baseUrl: string,
     private client: HttpClient
   ) { }
 

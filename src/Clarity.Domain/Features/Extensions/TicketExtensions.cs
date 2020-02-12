@@ -6,12 +6,10 @@ namespace Clarity.Domain.Features.Extensions
     public static class TicketExtensions
     {
         public static TicketDto ToDto(this Ticket ticket)
-        {
-            return new TicketDto
+            => new TicketDto
             {
                 Name = ticket.Name,
                 State = ticket.CurrentTicketState?.State?.Name
             };
-        }
     }
 }

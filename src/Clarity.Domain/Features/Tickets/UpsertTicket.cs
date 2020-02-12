@@ -15,10 +15,7 @@ namespace Clarity.Domain.Features.Tickets
             public TicketDto Ticket { get; set; }
         }
 
-        public class Response
-        {
-
-        }
+        public class Response { }
 
         public class Handler : IRequestHandler<Request, Response>
         {
@@ -35,7 +32,7 @@ namespace Clarity.Domain.Features.Tickets
                 _context.Tickets.Add(new Ticket
                 {
                     Name = request.Ticket.Name,
-                    TicketStates = new List<TicketState> { new TicketState { State = state } }
+                    TicketStates = new List<TicketState> { new TicketState {  State = state }  }
                 });
 
                 await _context.SaveChangesAsync(cancellationToken);
