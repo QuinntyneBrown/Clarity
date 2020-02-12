@@ -25,16 +25,4 @@ export class StateService {
         map(x => x.state)
       );
   }
-
-  public remove(options: { state: State }): Observable<void> {
-    return this.client.delete<void>(`${this.baseUrl}api/states/${options.state.stateId}`);
-  }
-
-  public create(options: { state: State }): Observable<{ stateId: string }> {
-    return this.client.post<{ stateId: string }>(`${this.baseUrl}api/states`, { state: options.state });
-  }
-
-  public update(options: { state: State }): Observable<{ stateId: string }> {
-    return this.client.put<{ stateId: string }>(`${this.baseUrl}api/states`, { state: options.state });
-  }
 }

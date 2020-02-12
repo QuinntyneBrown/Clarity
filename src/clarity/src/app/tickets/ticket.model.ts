@@ -1,4 +1,4 @@
-import { State } from './state.model';
+import { State } from '../states/state.model';
 
 export class Ticket {
   public ticketId: string;

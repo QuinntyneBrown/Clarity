@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Ticket } from './ticket.model';
-import { State } from './state.model';
-import { TicketService } from './ticket.service';
-import { StateService } from './state.service';
 import { Observable } from 'rxjs';
+import { Ticket, TicketService } from './tickets';
+import { State, StateService } from './states';
 
 @Component({
   selector: 'app-root',
