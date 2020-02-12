@@ -25,5 +25,11 @@ namespace Clarity.Api.Controllers
         [ProducesResponseType(typeof(GetTicketByName.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetTicketByName.Response>> GetByName([FromRoute]GetTicketByName.Request request)
             => await _meditator.Send(request);
+
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(UpsertTicket.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UpsertTicket.Response>> Upsert([FromRoute]UpsertTicket.Request request)
+            => await _meditator.Send(request);
     }
 }
