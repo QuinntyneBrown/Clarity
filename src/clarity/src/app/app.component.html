@@ -1,5 +1,5 @@
-<app-kanban-board-column
-*ngFor='let state of (states$ | async)' 
-[name]='state.name'>
-    
-</app-kanban-board-column>
+<a (click)="handleClick()">Create Ticket</a>
+
+<div class='kanban-board'>
+    <app-kanban-board-column *ngFor='let state of (states$ | async)' [name]='state.name'></app-kanban-board-column>
+</div>

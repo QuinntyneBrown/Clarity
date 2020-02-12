@@ -1,13 +1,22 @@
 :host {
+    width: 100%;  
+}
+
+.kanban-board {
+    height: calc(100vh - 50px);
     display: flex;
     flex-direction: row;
     flex-flow: row;
     width: 100%;
-    justify-content: space-evenly;
-    font-size: 11px;
-    line-height: 20px;
+    justify-content: space-evenly;     
 }
 
 app-kanban-board-column:nth-child(even) {
     background-color: rgb(245,245,245);
+}
+
+a {
+    line-height: 50px;
+    margin: 0 10px;
+    cursor: pointer;
 }
