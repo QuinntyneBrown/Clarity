@@ -6,11 +6,13 @@ import { TicketService } from './tickets';
 import { StateService } from './states';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { KanbanBoardColumnComponent } from './kanban-board/kanban-board-column.component';
 
 @NgModule({
   declarations: [
-    AppComponent
-  ],  
+    AppComponent,
+    KanbanBoardColumnComponent
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,

@@ -12,9 +12,7 @@ export class AppComponent implements OnInit {
   tickets$: Observable<Array<Ticket>>;
   states$: Observable<Array<State>>;
 
-  constructor(private ticketService: TicketService, private stateService: StateService) {
-
-  }
+  constructor(private ticketService: TicketService, private stateService: StateService) { }
 
   ngOnInit() {
     this.tickets$ = this.ticketService.get();

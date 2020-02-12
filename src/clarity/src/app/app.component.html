@@ -1,1 +1,5 @@
-<h1>Clarity</h1>
+<app-kanban-board-column
+*ngFor='let state of (states$ | async)' 
+[name]='state.name'>
+    
+</app-kanban-board-column>
