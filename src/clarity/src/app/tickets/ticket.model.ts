@@ -1,7 +1,5 @@
-import { State } from '../states/state.model';
-
 export class Ticket {
-  public ticketId: string;
+  public ticketId: number;
   public name: string;
-  public currentState: State;
+  public state: string;
 }

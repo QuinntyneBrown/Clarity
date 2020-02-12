@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { OverlayRefWrapper } from '../core/overlay-ref-wrapper';
 import { TicketService } from './ticket.service';
 import { Ticket } from './ticket.model';
 import { map, switchMap, tap, takeUntil } from 'rxjs/operators';
+import { State } from '../states';
 
 @Component({
   templateUrl: './upsert-ticket.component.html',
@@ -14,14 +15,20 @@ import { map, switchMap, tap, takeUntil } from 'rxjs/operators';
 })
 export class UpsertTicketComponent implements OnInit, OnDestroy {
   constructor(
+    private formBuilder: FormBuilder,
     private ticketService: TicketService,
-    private overlay: OverlayRefWrapper) { }
+    private overlay: OverlayRefWrapper) {
+      this.form = formBuilder.group({
+        name: '',
+        state: ''
+      });
+    }
     public ticket$: BehaviorSubject<Ticket> = new BehaviorSubject({} as Ticket);
     public onDestroy: Subject<void> = new Subject<void>();
-    public ticketId: string;
-    public form: FormGroup = new FormGroup({
-      name: new FormControl(null, [])
-    });
+    public ticketId: number;
+    public states: Array<State> = [];
+
+    public form: FormGroup;
 
     ngOnInit() {
     if (this.ticketId) {
@@ -30,7 +37,8 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
           map(x => this.ticket$.next(x)),
           switchMap(x => this.ticket$),
           map(x => this.form.patchValue({
-            name: x.name
+            name: x.name,
+            state: x.state
           }))
         )
         .subscribe();
@@ -49,6 +57,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
     const ticket = new Ticket();
     ticket.ticketId = this.ticketId;
     ticket.name = this.form.value.name;
+    ticket.state = this.form.value.state;
     this.ticketService.create({ ticket })
       .pipe(
         map(x => ticket.ticketId = x.ticketId),

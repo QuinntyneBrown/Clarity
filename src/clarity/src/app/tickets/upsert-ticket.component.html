@@ -1,3 +1,19 @@
 <h2>Create Ticket</h2>
 
-<a (click)='handleCancelClick()'>Cancel</a>
+<form [formGroup]='form'>
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>State</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+  
+    <div class='actions'>
+      <button mat-button (click)='handleSaveClick()'>Save</button>
+      <button mat-button (click)='handleCancelClick()'>Cancel</button>
+    </div>
+  </form>

@@ -2,6 +2,7 @@
 using Clarity.Core.Models;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
+using Clarity.Core.Extensions;
 
 namespace Clarity.Api
 {
@@ -17,19 +18,22 @@ namespace Clarity.Api
     {
         public static void Seed(ClarityContext context, IConfiguration configuration)
         {
+            var order = 0;
 
-            AddStateIfDoesntExist(context, "Backlog", 0);
-            AddStateIfDoesntExist(context, "Analysis", 1);
-            AddStateIfDoesntExist(context, "Analysis Done", 2);
-            AddStateIfDoesntExist(context, "Selected", 3);
-            AddStateIfDoesntExist(context, "Research", 4);
-            AddStateIfDoesntExist(context, "UX", 5);
-            AddStateIfDoesntExist(context, "Ready for Dev", 6);
-            AddStateIfDoesntExist(context, "In Progress", 7);
-            AddStateIfDoesntExist(context, "QA Ready", 8);
-            AddStateIfDoesntExist(context, "Testing", 9);
-            AddStateIfDoesntExist(context, "Deployment", 10);
-            AddStateIfDoesntExist(context, "Done", 11);
+            new string[12] { 
+                "Backlog", 
+                "Analysis",
+                "Analysis Done", 
+                "Selected", 
+                "Research", 
+                "UX", 
+                "Read for Dev", 
+                "In Progress", 
+                "QA Ready", 
+                "Testing", 
+                "Deployment", 
+                "Done" 
+            }.ForEach(name => AddStateIfDoesntExist(context, name, order++));
 
             void AddStateIfDoesntExist (ClarityContext context, string name, int order)
             {
@@ -40,8 +44,9 @@ namespace Clarity.Api
                         Name = name,
                         Order = order
                     });
-                }
+                }                                    
             }
+
             context.SaveChanges();
         }
     }

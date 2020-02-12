@@ -19,7 +19,7 @@ export class TicketService {
       );
   }
 
-  public getById(options: { ticketId: string }): Observable<Ticket> {
+  public getById(options: { ticketId: number }): Observable<Ticket> {
     return this.client.get<{ ticket: Ticket }>(`${this.baseUrl}api/tickets/${options.ticketId}`)
       .pipe(
         map(x => x.ticket)
@@ -30,11 +30,11 @@ export class TicketService {
     return this.client.delete<void>(`${this.baseUrl}api/tickets/${options.ticket.ticketId}`);
   }
 
-  public create(options: { ticket: Ticket }): Observable<{ ticketId: string }> {
-    return this.client.post<{ ticketId: string }>(`${this.baseUrl}api/tickets`, { ticket: options.ticket });
+  public create(options: { ticket: Ticket }): Observable<{ ticketId: number }> {
+    return this.client.post<{ ticketId: number }>(`${this.baseUrl}api/tickets`, { ticket: options.ticket });
   }
 
-  public update(options: { ticket: Ticket }): Observable<{ ticketId: string }> {
-    return this.client.put<{ ticketId: string }>(`${this.baseUrl}api/tickets`, { ticket: options.ticket });
+  public update(options: { ticket: Ticket }): Observable<{ ticketId: number }> {
+    return this.client.put<{ ticketId: number }>(`${this.baseUrl}api/tickets`, { ticket: options.ticket });
   }
 }

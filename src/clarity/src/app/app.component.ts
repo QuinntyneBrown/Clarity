@@ -13,6 +13,9 @@ export class AppComponent implements OnInit {
   tickets$: Observable<Array<Ticket>>;
   states$: Observable<Array<State>>;
 
+  form;
+  formGroup;
+  
   constructor(private ticketService: TicketService, private stateService: StateService, public upsertTicket: UpsertTicket) { }
 
   ngOnInit() {
@@ -24,4 +27,6 @@ export class AppComponent implements OnInit {
   handleClick() {
     this.upsertTicket.create();
   }
+
+
 }
