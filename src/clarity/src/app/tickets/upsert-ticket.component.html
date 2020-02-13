@@ -1,14 +1,14 @@
 <h2>Create Ticket</h2>
 
-<form [formGroup]='form'>
+<form novalidate autocomplete="off" spellcheck="false" [formGroup]='form'>
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
-      <input matInput>
+      <input matInput formControlName="name">
     </mat-form-field>
     
     <mat-form-field appearance="fill">
       <mat-label>State</mat-label>
-      <input matInput>
+      <input matInput formControlName="state">
     </mat-form-field>
 
   

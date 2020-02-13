@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Ticket } from '../tickets';
+import { State } from '../states';
 
 @Component({
   templateUrl: './kanban-board-column.component.html',
@@ -9,9 +9,5 @@ import { Ticket } from '../tickets';
 export class KanbanBoardColumnComponent {
 
   @Input()
-  public name: string;
-
-  @Input()
-  public tickets: Array<Ticket> = [];
-
+  public state: State;
 }

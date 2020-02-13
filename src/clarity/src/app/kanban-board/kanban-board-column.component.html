@@ -1,8 +1,8 @@
 
 <span>
-    {{ name }}
+    {{ state.name }}
 </span>
 
-<app-ticket *ngFor='let ticket of tickets' [ticket]='ticket'>
+<app-ticket *ngFor='let ticket of state.tickets' [ticket]='ticket' cdkDrag>
 
 </app-ticket>

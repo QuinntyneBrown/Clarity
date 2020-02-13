@@ -11,6 +11,21 @@ namespace Clarity.Core.Data
 
         public DbSet<Ticket> Tickets { get; private set; }
         public DbSet<State> States { get; private set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TicketState>()
+                .HasOne(nt => nt.Ticket)
+                .WithMany(n => n.TicketStates)
+                .HasForeignKey(nt => nt.TicketId);
+
+            modelBuilder.Entity<TicketState>()
+                .HasOne(nt => nt.State)
+                .WithMany(t => t.TicketStates)
+                .HasForeignKey(nt => nt.StateId);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 
 }

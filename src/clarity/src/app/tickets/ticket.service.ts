@@ -26,6 +26,13 @@ export class TicketService {
       );
   }
 
+  public getByName(options: { name: string }): Observable<Ticket> {
+    return this.client.get<{ ticket: Ticket }>(`${this.baseUrl}api/tickets/${options.name}`)
+      .pipe(
+        map(x => x.ticket)
+      );
+  }
+
   public remove(options: { ticket: Ticket }): Observable<void> {
     return this.client.delete<void>(`${this.baseUrl}api/tickets/${options.ticket.ticketId}`);
   }

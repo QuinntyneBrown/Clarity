@@ -8,15 +8,33 @@
     flex-direction: row;
     flex-flow: row;
     width: 100%;
-    justify-content: space-evenly;     
+    justify-content: space-evenly;         
 }
 
-app-kanban-board-column:nth-child(even) {
+.kanbanBoard__column {
     background-color: rgba(0,0,0,0.04);
+    padding: 0 5px;
+    margin: 0 5px;
+    text-align: center;
+    width: 100%;
+
+    span {
+        line-height: 30px;
+    }
 }
 
 a {
     line-height: 50px;
     margin: 0 10px;
     cursor: pointer;
+}
+
+.kanbanBoard__ticket, .cdk-drag-preview {
+    display: block;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.cdk-drag-preview {
+    opacity: 0.5;
 }

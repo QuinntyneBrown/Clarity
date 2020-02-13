@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { Ticket, TicketService } from './tickets';
 import { State, StateService } from './states';
 import { UpsertTicket } from './tickets/upsert-ticket';
+import { map } from 'rxjs/operators';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-root',
@@ -10,23 +12,38 @@ import { UpsertTicket } from './tickets/upsert-ticket';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-  tickets$: Observable<Array<Ticket>>;
+  tickets: Array<Ticket>;
   states$: Observable<Array<State>>;
 
-  form;
-  formGroup;
-  
   constructor(private ticketService: TicketService, private stateService: StateService, public upsertTicket: UpsertTicket) { }
 
   ngOnInit() {
-    this.tickets$ = this.ticketService.get();
+    this.ticketService.get().pipe(
+      map(x => this.tickets = x)
+    ).subscribe();
+
     this.states$ = this.stateService.get();
-
   }
 
-  handleClick() {
-    this.upsertTicket.create();
+  public ticketsByState(state: State) { return this.tickets.filter(t => t.state === state.name); }
+
+  drop(event: CdkDragDrop<Ticket[]>, state: State) {
+
+    if (event.previousContainer !== event.container) {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+
+      const ticket: Ticket = event.container.data[event.currentIndex] as Ticket;
+
+      ticket.state = state.name;
+
+      this.ticketService
+      .create({ ticket })
+      .subscribe();
+    }
   }
 
-
+  handleClick() { this.upsertTicket.create(); }
 }

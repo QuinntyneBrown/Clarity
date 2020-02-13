@@ -8,6 +8,7 @@ namespace Clarity.Domain.Features.Extensions
         public static TicketDto ToDto(this Ticket ticket)
             => new TicketDto
             {
+                TicketId = ticket.TicketId,
                 Name = ticket.Name,
                 State = ticket.CurrentTicketState?.State?.Name
             };

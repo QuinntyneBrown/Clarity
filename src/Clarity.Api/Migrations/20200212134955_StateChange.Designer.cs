@@ -4,14 +4,16 @@ using Clarity.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Clarity.Api.Migrations
 {
     [DbContext(typeof(ClarityContext))]
-    partial class ClarityContextModelSnapshot : ModelSnapshot
+    [Migration("20200212134955_StateChange")]
+    partial class StateChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +49,12 @@ namespace Clarity.Api.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("StateId")
+                        .HasColumnType("int");
+
                     b.HasKey("TicketId");
+
+                    b.HasIndex("StateId");
 
                     b.ToTable("Tickets");
                 });
@@ -75,6 +82,13 @@ namespace Clarity.Api.Migrations
                     b.HasIndex("TicketId");
 
                     b.ToTable("TicketState");
+                });
+
+            modelBuilder.Entity("Clarity.Core.Models.Ticket", b =>
+                {
+                    b.HasOne("Clarity.Core.Models.State", null)
+                        .WithMany("Tickets")
+                        .HasForeignKey("StateId");
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.TicketState", b =>

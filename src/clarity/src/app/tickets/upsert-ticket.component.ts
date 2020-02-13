@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { OverlayRefWrapper } from '../core/overlay-ref-wrapper';
 import { TicketService } from './ticket.service';
 import { Ticket } from './ticket.model';
@@ -25,21 +25,26 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
     }
     public ticket$: BehaviorSubject<Ticket> = new BehaviorSubject({} as Ticket);
     public onDestroy: Subject<void> = new Subject<void>();
+    public name: string;
     public ticketId: number;
+
     public states: Array<State> = [];
 
     public form: FormGroup;
 
     ngOnInit() {
-    if (this.ticketId) {
-      this.ticketService.getById({ ticketId: this.ticketId })
+    if (this.name) {
+      this.ticketService.getByName({ name: this.name })
         .pipe(
           map(x => this.ticket$.next(x)),
           switchMap(x => this.ticket$),
-          map(x => this.form.patchValue({
-            name: x.name,
-            state: x.state
-          }))
+          map(x => {
+            this.form.patchValue({
+              name: x.name,
+              state: x.state
+            });
+            this.ticketId = x.ticketId;
+          })
         )
         .subscribe();
     }
@@ -58,6 +63,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
     ticket.ticketId = this.ticketId;
     ticket.name = this.form.value.name;
     ticket.state = this.form.value.state;
+
     this.ticketService.create({ ticket })
       .pipe(
         map(x => ticket.ticketId = x.ticketId),

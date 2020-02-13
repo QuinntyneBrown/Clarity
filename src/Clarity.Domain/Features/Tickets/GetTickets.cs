@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Clarity.Domain.Features.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clarity.Domain.Features.Tickets
 {
@@ -27,7 +28,10 @@ namespace Clarity.Domain.Features.Tickets
             {
                 return await Task.FromResult(new Response
                 {
-                    Tickets = _context.Tickets.Select(x => x.ToDto()).ToList()
+                    Tickets = _context.Tickets
+                    .Include(x => x.TicketStates)
+                    .ThenInclude(x=> x.State)
+                    .Select(x => x.ToDto()).ToList()
                 });
             }
         }

@@ -29,7 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
     UpsertTicketComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,

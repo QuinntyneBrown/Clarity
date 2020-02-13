@@ -27,7 +27,10 @@ namespace Clarity.Domain.Features.States
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response
                 {
-                    States = await _context.States.Select(x => x.ToDto()).ToListAsync()
+                    States = await _context.States
+                    .Include(x => x.TicketStates)
+                    .ThenInclude(x => x.Ticket)
+                    .Select(x => x.ToDto()).ToListAsync()
                 };
         }
     }

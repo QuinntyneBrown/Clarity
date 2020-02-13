@@ -4,14 +4,16 @@ using Clarity.Core.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Clarity.Api.Migrations
 {
     [DbContext(typeof(ClarityContext))]
-    partial class ClarityContextModelSnapshot : ModelSnapshot
+    [Migration("20200212135535_StateChange1")]
+    partial class StateChange1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,5 +1,5 @@
-﻿using Clarity.Domain.Features.States;
-using Clarity.Core.Models;
+﻿using Clarity.Core.Models;
+using Clarity.Domain.Features.States;
 
 namespace Clarity.Domain.Features.Extensions
 {

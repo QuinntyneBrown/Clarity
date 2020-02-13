@@ -12,11 +12,11 @@ export class UpsertTicket {
     public overlayRefProvider: OverlayRefProvider
   ) { }
 
-  public create(options: { ticketId?: number } = {}): Observable<any> {
+  public create(options: { name?: string } = {}): Observable<any> {
     const overlayRef = this.overlayRefProvider.create();
     const overlayRefWrapper = new OverlayRefWrapper(overlayRef);
     const overlayComponent = this.attachOverlayContainer(overlayRef, overlayRefWrapper);
-    overlayComponent.ticketId = options.ticketId;
+    overlayComponent.name = options.name;    
     return overlayRefWrapper.afterClosed();
   }
 

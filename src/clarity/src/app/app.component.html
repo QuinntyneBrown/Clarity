@@ -1,5 +1,9 @@
 <a (click)="handleClick()">Create Ticket</a>
 
-<div class='kanban-board'>
-    <app-kanban-board-column *ngFor='let state of (states$ | async)' [name]='state.name'></app-kanban-board-column>
+<div class='kanban-board' cdkDropListGroup>    
+    <div class='kanbanBoard__column' cdkDropList [cdkDropListData]="ticketsByState(state)" (cdkDropListDropped)="drop($event, state)" *ngFor='let state of (states$ | async)'>
+        <span>{{ state.name }}</span>
+        
+        <app-ticket *ngFor='let ticket of ticketsByState(state)' [ticket]='ticket' cdkDrag></app-ticket>
+    </div>
 </div>
