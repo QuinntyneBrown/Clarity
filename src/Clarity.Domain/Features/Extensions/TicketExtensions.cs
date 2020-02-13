@@ -10,7 +10,8 @@ namespace Clarity.Domain.Features.Extensions
             {
                 TicketId = ticket.TicketId,
                 Name = ticket.Name,
-                State = ticket.CurrentTicketState?.State?.Name
+                State = ticket.CurrentTicketState?.State?.Name,
+                Url = ticket.Url
             };
     }
 }

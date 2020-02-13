@@ -9,6 +9,7 @@ namespace Clarity.Core.Data
     {
         DbSet<Ticket> Tickets { get; }
         DbSet<State> States { get; }
+        DbSet<Note> Notes { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

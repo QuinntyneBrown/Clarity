@@ -11,6 +11,7 @@ namespace Clarity.Core.Data
 
         public DbSet<Ticket> Tickets { get; private set; }
         public DbSet<State> States { get; private set; }
+        public DbSet<Note> Notes { get; private set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

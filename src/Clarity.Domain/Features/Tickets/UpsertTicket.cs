@@ -25,13 +25,12 @@ namespace Clarity.Domain.Features.Tickets
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-
                 var state = _context.States.First(x => x.Name == request.Ticket.State);
                 var ticket = await _context.Tickets.FirstOrDefaultAsync(x => x.Name == request.Ticket.Name);
 
                 if (ticket == null)
                 {
-                    ticket = new Ticket { Name = request.Ticket.Name };
+                    ticket = new Ticket { Name = request.Ticket.Name, Url = ticket.Url };
                     _context.Tickets.Add(ticket);
                 }
 

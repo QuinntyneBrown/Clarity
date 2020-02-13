@@ -25,15 +25,14 @@ namespace Clarity.Domain.Features.Tickets
                 => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                return await Task.FromResult(new Response
+                => await Task.FromResult(new Response
                 {
                     Tickets = _context.Tickets
                     .Include(x => x.TicketStates)
-                    .ThenInclude(x=> x.State)
-                    .Select(x => x.ToDto()).ToList()
+                    .ThenInclude(x => x.State)
+                    .Select(x => x.ToDto())
+                    .ToList()
                 });
-            }
         }
     }
 }

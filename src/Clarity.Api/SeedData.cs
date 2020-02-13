@@ -33,19 +33,14 @@ namespace Clarity.Api
                 "Testing", 
                 "Deployment", 
                 "Done" 
-            }.ForEach(name => AddStateIfDoesntExist(context, name, order++));
-
-            void AddStateIfDoesntExist (ClarityContext context, string name, int order)
-            {
+            }.ForEach(name => {
                 if (context.States.SingleOrDefault(x => x.Name == name) == null)
-                {
                     context.States.Add(new State
                     {
                         Name = name,
                         Order = order
-                    });
-                }                                    
-            }
+                    });                
+            });
 
             context.SaveChanges();
         }
