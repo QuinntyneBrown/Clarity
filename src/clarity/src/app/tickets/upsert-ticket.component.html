@@ -11,6 +11,23 @@
       <input matInput formControlName="state">
     </mat-form-field>
 
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="5"
+                cdkAutosizeMaxRows="5"
+                formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Acceptance Criteria</mat-label>
+      <textarea matInput
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="5"
+                cdkAutosizeMaxRows="5"
+                formControlName="acceptanceCriteria"></textarea>
+    </mat-form-field>    
   
     <div class='actions'>
       <button mat-button (click)='handleSaveClick()'>Save</button>

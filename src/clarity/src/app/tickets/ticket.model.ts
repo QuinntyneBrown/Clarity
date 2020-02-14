@@ -3,4 +3,6 @@ export class Ticket {
   public name: string;
   public state: string;
   public age: number;
+  public description: string;
+  public acceptanceCriteria: string;
 }

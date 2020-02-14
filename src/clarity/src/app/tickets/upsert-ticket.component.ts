@@ -20,7 +20,9 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
     private overlay: OverlayRefWrapper) {
       this.form = formBuilder.group({
         name: '',
-        state: ''
+        state: '',
+        description: '',
+        acceptanceCriteria: ''
       });
     }
     public ticket$: BehaviorSubject<Ticket> = new BehaviorSubject({} as Ticket);
@@ -41,7 +43,9 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
           map(x => {
             this.form.patchValue({
               name: x.name,
-              state: x.state
+              state: x.state,
+              description: x.description,
+              acceptanceCriteria: x.acceptanceCriteria
             });
             this.ticketId = x.ticketId;
           })
@@ -63,6 +67,8 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
     ticket.ticketId = this.ticketId;
     ticket.name = this.form.value.name;
     ticket.state = this.form.value.state;
+    ticket.description = this.form.value.description;
+    ticket.acceptanceCriteria = this.form.value.acceptanceCriteria;
 
     this.ticketService.create({ ticket })
       .pipe(
