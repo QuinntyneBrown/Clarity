@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
       const ticket: Ticket = event.container.data[event.currentIndex] as Ticket;
 
       ticket.state = state.name;
-
+      ticket.age = 0;
       this.ticketService
       .create({ ticket })
       .subscribe();

@@ -1,4 +1,4 @@
-<a (click)="handleClick()">Create Ticket</a>
+<mat-icon aria-hidden="false" aria-label="add icon" (click)="handleClick()">add</mat-icon>
 
 <div class='kanban-board' cdkDropListGroup>    
     <div class='kanbanBoard__column' cdkDropList [cdkDropListData]="ticketsByState(state)" (cdkDropListDropped)="drop($event, state)" *ngFor='let state of (states$ | async)'>

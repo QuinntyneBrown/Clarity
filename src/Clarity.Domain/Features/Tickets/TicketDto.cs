@@ -6,5 +6,8 @@ namespace Clarity.Domain.Features.Tickets
         public string Name { get; set; }
         public string State { get; set; }
         public string Url { get; set; }
+        public int Age { get; set; }
+        public string Description { get; set; }
+        public string AcceptanceCriteria { get; set; }
     }
 }

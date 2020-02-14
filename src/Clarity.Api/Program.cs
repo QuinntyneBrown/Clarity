@@ -1,4 +1,5 @@
 using Clarity.Core.Data;
+using Clarity.Domain;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

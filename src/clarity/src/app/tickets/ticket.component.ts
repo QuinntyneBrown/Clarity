@@ -17,6 +17,6 @@ export class TicketComponent {
   }
 
   public handleEditClick() {
-    //this.upsertTicket.create({ name:  this.ticket.name });
+    this.upsertTicket.create({ name:  this.ticket.name });
   }
 }

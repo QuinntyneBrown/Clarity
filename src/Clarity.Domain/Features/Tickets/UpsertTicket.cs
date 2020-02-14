@@ -30,9 +30,14 @@ namespace Clarity.Domain.Features.Tickets
 
                 if (ticket == null)
                 {
-                    ticket = new Ticket { Name = request.Ticket.Name, Url = ticket.Url };
+                    ticket = new Ticket { };
                     _context.Tickets.Add(ticket);
                 }
+
+                ticket.Name = request.Ticket.Name;
+                ticket.Name = request.Ticket.Url;
+                ticket.Name = request.Ticket.AcceptanceCriteria;
+                ticket.Name = request.Ticket.Description;
 
                 ticket.TicketStates.Clear();
 
