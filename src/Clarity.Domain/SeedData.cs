@@ -12,8 +12,8 @@ namespace Clarity.Domain
         public static void Seed(ClarityContext context, IConfiguration configuration)
         {
             StateConfiguration.Seed(context, configuration);
-            TeamMemberConfiguration.Seed(context, configuration);
-            UserConfiguration.Seed(context, configuration);
+            //TeamMemberConfiguration.Seed(context, configuration);
+            //UserConfiguration.Seed(context, configuration);
         }
     }
 

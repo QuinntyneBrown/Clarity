@@ -35,9 +35,9 @@ namespace Clarity.Domain.Features.Tickets
                 }
 
                 ticket.Name = request.Ticket.Name;
-                ticket.Name = request.Ticket.Url;
-                ticket.Name = request.Ticket.AcceptanceCriteria;
-                ticket.Name = request.Ticket.Description;
+                ticket.Url = request.Ticket.Url;
+                ticket.AcceptanceCriteria = request.Ticket.AcceptanceCriteria;
+                ticket.Description = request.Ticket.Description;
 
                 ticket.TicketStates.Clear();
 

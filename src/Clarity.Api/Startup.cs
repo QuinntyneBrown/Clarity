@@ -1,4 +1,5 @@
 using Clarity.Core.Data;
+using Clarity.Core.Identity;
 using Clarity.Domain.Features.States;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -30,6 +31,8 @@ namespace Clarity.Api
                 .AllowCredentials()));
 
             services.AddTransient<IClarityContext, ClarityContext>();
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddSingleton<ITokenProvider, TokenProvider>();
             services.AddMediatR(typeof(GetStates));
             services.AddControllers();
             services.AddDbContext<ClarityContext>(options =>
