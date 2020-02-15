@@ -11,9 +11,29 @@ namespace Clarity.Domain
     {
         public static void Seed(ClarityContext context, IConfiguration configuration)
         {
+            BoardConfiguration.Seed(context, configuration);
             StateConfiguration.Seed(context, configuration);
             //TeamMemberConfiguration.Seed(context, configuration);
-            //UserConfiguration.Seed(context, configuration);
+            UserConfiguration.Seed(context, configuration);
+        }
+    }
+
+    internal class BoardConfiguration
+    {
+        public static void Seed(ClarityContext context, IConfiguration configuration)
+        {            
+            new string[2] {
+                "General",
+                "Training"
+            }.ForEach(name => {
+                if (context.Boards.SingleOrDefault(x => x.Name == name) == null)
+                    context.Boards.Add(new Board
+                    {
+                        Name = name,
+                    });
+            });
+
+            context.SaveChanges();            
         }
     }
 
@@ -41,8 +61,25 @@ namespace Clarity.Domain
                     context.States.Add(new State
                     {
                         Name = name,
-                        Order = order
+                        Order = order,
+                        BoardId = 1
                     });                
+            });
+
+            order = 0;
+
+            new string[3] {
+                "Backlog",
+                "In Progress",
+                "Done"
+            }.ForEach(name => {
+                if (context.States.SingleOrDefault(x => x.Name == name) == null)
+                    context.States.Add(new State
+                    {
+                        Name = name,
+                        Order = order,
+                        BoardId = 2
+                    });
             });
 
             context.SaveChanges();

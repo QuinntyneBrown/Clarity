@@ -8,6 +8,7 @@ namespace Clarity.Core.Data
         public ClarityContext(DbContextOptions options)
             : base(options) { }
 
+        public DbSet<Board> Boards { get; private set; }
         public DbSet<Ticket> Tickets { get; private set; }
         public DbSet<State> States { get; private set; }
         public DbSet<Note> Notes { get; private set; }

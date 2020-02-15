@@ -2,6 +2,7 @@ import { Component, OnDestroy, Renderer2, ElementRef, AfterContentInit, Inject }
 import { Subject } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Component({
   templateUrl: './login.component.html',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnDestroy, AfterContentInit {
   public onDestroy: Subject<void> = new Subject<void>();
   public username: string;
   public password: string;
-
+  
   public form = new FormGroup({
     username: new FormControl(this.username, [Validators.required]),
     password: new FormControl(this.password, [Validators.required])
@@ -27,9 +28,7 @@ export class LoginComponent implements OnDestroy, AfterContentInit {
     private client: HttpClient,
     private renderer: Renderer2,
     public elementRef: ElementRef
-  ) {
-
-  }
+  ) { }
 
   public get usernameNativeElement() { return this.elementRef.nativeElement.querySelector('#username'); }
 
@@ -37,7 +36,12 @@ export class LoginComponent implements OnDestroy, AfterContentInit {
     this.onDestroy.next();
   }
 
-  public tryToLogin($event: any) {
-
+  public tryToLogin() {
+    const options = { username: this.username, password: this.password };
+    return this.client.post<any>(`${this.baseUrl}api/users/token`, options).pipe(
+      map(response => {
+        localStorage.setItem('accessToken', response.accessToken);
+      })
+    );
   }
 }
