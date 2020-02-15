@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Ticket, TicketService } from './tickets';
 import { State, StateService } from './states';
 import { UpsertTicket } from './tickets/upsert-ticket';
 import { map } from 'rxjs/operators';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Login } from './identity/login';
+import { BoardService } from './boards/board.service';
+import { Board } from './boards/board.model';
 
 @Component({
   selector: 'app-root',
@@ -13,24 +15,37 @@ import { Login } from './identity/login';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit {
-  tickets: Array<Ticket>;
-  states$: Observable<Array<State>>;
-
+  tickets$: BehaviorSubject<Ticket[]> = new BehaviorSubject([]);
+  states$: BehaviorSubject<State[]> = new BehaviorSubject([]);
+  boards$: BehaviorSubject<Board[]> = new BehaviorSubject([]);
+  boardId = 2;
+  public get board() {
+    return this.boards$.value.filter(x => x.boardId === this.boardId)[0];
+  }
   constructor(
+    private boardService: BoardService,
     private login: Login,
     private ticketService: TicketService,
-    private stateService: StateService,
     public upsertTicket: UpsertTicket) { }
 
   ngOnInit() {
-    this.ticketService.get().pipe(
-      map(x => this.tickets = x)
+    this.ticketService.getByBoardId({ boardId: this.boardId }).pipe(
+      map(x => this.tickets$.next(x))
     ).subscribe();
 
-    this.states$ = this.stateService.get();
+    this.boardService.get().pipe(
+      map(x => {
+        this.boards$.next(x);
+        this.states$.next(x[this.boardId - 1].states);
+      })
+    ).subscribe();
   }
 
-  public ticketsByState(state: State) { return this.tickets.filter(t => t.state === state.name); }
+  public ticketsByState$(state: State) {
+    return this.tickets$.pipe(
+      map(x => x.filter(t => t.state === state.name))
+    );
+  }
 
   drop(event: CdkDragDrop<Ticket[]>, state: State) {
 
@@ -50,5 +65,5 @@ export class AppComponent implements OnInit {
     }
   }
 
-  handleClick() { this.login.create(); } //this.upsertTicket.create(); }
+  handleAddClick() { this.upsertTicket.create({ board: this.board }); }
 }

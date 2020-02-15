@@ -26,6 +26,13 @@ export class TicketService {
       );
   }
 
+  public getByBoardId(options: { boardId: number }): Observable<Ticket[]> {
+    return this.client.get<{ tickets: Ticket[]}>(`${this.baseUrl}api/tickets/board/${options.boardId}`)
+      .pipe(
+        map(x => x.tickets)
+      );
+  }
+
   public getByName(options: { name: string }): Observable<Ticket> {
     return this.client.get<{ ticket: Ticket }>(`${this.baseUrl}api/tickets/${options.name}`)
       .pipe(

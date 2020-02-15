@@ -12,6 +12,7 @@ namespace Clarity.Domain.Features.Extensions
                 TicketId = ticket.TicketId,
                 Name = ticket.Name,
                 State = ticket.CurrentTicketState?.State?.Name,
+                StateId = ticket.CurrentTicketState.State.StateId,
                 Url = ticket.Url,
                 Age = Convert.ToInt32((DateTime.UtcNow - ticket.CurrentTicketState.Created.Value).TotalDays),
                 AcceptanceCriteria = ticket.AcceptanceCriteria,

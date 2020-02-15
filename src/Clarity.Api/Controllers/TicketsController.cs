@@ -26,6 +26,12 @@ namespace Clarity.Api.Controllers
         public async Task<ActionResult<GetTicketByName.Response>> GetByName([FromRoute]GetTicketByName.Request request)
             => await _meditator.Send(request);
 
+        [HttpGet("board/{boardId}")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetGetTicketsByBoardId.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetGetTicketsByBoardId.Response>> GetByBoardId([FromRoute]GetGetTicketsByBoardId.Request request)
+            => await _meditator.Send(request);
+
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(UpsertTicket.Response), (int)HttpStatusCode.OK)]

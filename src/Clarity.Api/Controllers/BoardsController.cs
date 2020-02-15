@@ -22,7 +22,7 @@ namespace Clarity.Api.Controllers
         public async Task<ActionResult<GetBoards.Response>> Get()
             => await _mediator.Send(new GetBoards.Request());
 
-        [HttpGet("{id}")]
+        [HttpGet("{boardId}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetBoardById.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetBoardById.Response>> GetById([FromRoute]GetBoardById.Request request)

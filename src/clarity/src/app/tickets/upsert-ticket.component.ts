@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { OverlayRefWrapper } from '../core/overlay-ref-wrapper';
 import { TicketService } from './ticket.service';
 import { Ticket } from './ticket.model';
 import { map, switchMap, tap, takeUntil } from 'rxjs/operators';
 import { State } from '../states';
+import { Board } from '../boards/board.model';
 
 @Component({
   templateUrl: './upsert-ticket.component.html',
@@ -14,8 +15,13 @@ import { State } from '../states';
   host: { 'class': 'mat-typography' }
 })
 export class UpsertTicketComponent implements OnInit, OnDestroy {
+  public boardId = 2;
+  public board: Board;
+  public stateId: number;
+  public ticket: Ticket = new Ticket();
+
   constructor(
-    private formBuilder: FormBuilder,
+    formBuilder: FormBuilder,
     private ticketService: TicketService,
     private overlay: OverlayRefWrapper) {
       this.form = formBuilder.group({
@@ -30,16 +36,16 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
     public name: string;
     public ticketId: number;
 
-    public states: Array<State> = [];
+    public states$: BehaviorSubject<Array<State>> = new BehaviorSubject([]);
 
     public form: FormGroup;
 
     ngOnInit() {
-    if (this.name) {
-      this.ticketService.getByName({ name: this.name })
+      if (this.name) {
+        this.ticketService.getByName({ name: this.name })
         .pipe(
           map(x => this.ticket$.next(x)),
-          switchMap(x => this.ticket$),
+          switchMap(() => this.ticket$),
           map(x => {
             this.form.patchValue({
               name: x.name,
@@ -47,7 +53,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
               description: x.description,
               acceptanceCriteria: x.acceptanceCriteria
             });
-            this.ticketId = x.ticketId;
+            this.ticket = x;
           })
         )
         .subscribe();
@@ -63,17 +69,18 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
   }
 
   public handleSaveClick() {
-    const ticket = new Ticket();
-    ticket.ticketId = this.ticketId;
-    ticket.name = this.form.value.name;
-    ticket.state = this.form.value.state;
-    ticket.description = this.form.value.description;
-    ticket.acceptanceCriteria = this.form.value.acceptanceCriteria;
 
-    this.ticketService.create({ ticket })
+    console.log(JSON.stringify(this.form.value.state));
+
+    this.ticket.name = this.form.value.name;
+    this.ticket.stateId = this.form.value.state.stateId;
+    this.ticket.description = this.form.value.description;
+    this.ticket.acceptanceCriteria = this.form.value.acceptanceCriteria;
+
+    this.ticketService.create({ ticket: this.ticket })
       .pipe(
-        map(x => ticket.ticketId = x.ticketId),
-        tap(x => this.overlay.close(ticket)),
+        map(x => this.ticket.ticketId = x.ticketId),
+        tap(() => this.overlay.close(this.ticket)),
         takeUntil(this.onDestroy)
       )
       .subscribe();

@@ -1,9 +1,9 @@
-<mat-icon aria-hidden="false" aria-label="add icon" (click)="handleClick()">add</mat-icon>
+<mat-icon aria-hidden="false" aria-label="add icon" (click)="handleAddClick()">add</mat-icon>
 
 <div class='kanban-board' cdkDropListGroup>    
-    <div class='kanbanBoard__column' cdkDropList [cdkDropListData]="ticketsByState(state)" (cdkDropListDropped)="drop($event, state)" *ngFor='let state of (states$ | async)'>
+    <div class='kanbanBoard__column' cdkDropList [cdkDropListData]="ticketsByState$(state) | async" (cdkDropListDropped)="drop($event, state)" *ngFor='let state of (states$ | async)'>
         <span>{{ state.name }}</span>
         
-        <app-ticket *ngFor='let ticket of ticketsByState(state)' [ticket]='ticket' cdkDrag></app-ticket>
+        <app-ticket *ngFor='let ticket of (ticketsByState$(state) | async)' [ticket]='ticket' cdkDrag></app-ticket>
     </div>
 </div>

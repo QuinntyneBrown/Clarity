@@ -4,6 +4,7 @@ import { UpsertTicketComponent } from './upsert-ticket.component';
 import { Observable } from 'rxjs';
 import { OverlayRefWrapper } from '../core/overlay-ref-wrapper';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
+import { Board } from '../boards/board.model';
 
 @Injectable()
 export class UpsertTicket {
@@ -12,11 +13,12 @@ export class UpsertTicket {
     public overlayRefProvider: OverlayRefProvider
   ) { }
 
-  public create(options: { name?: string } = {}): Observable<any> {
+  public create(options: { name?: string, board?: Board } = {}): Observable<any> {
     const overlayRef = this.overlayRefProvider.create();
     const overlayRefWrapper = new OverlayRefWrapper(overlayRef);
     const overlayComponent = this.attachOverlayContainer(overlayRef, overlayRefWrapper);
     overlayComponent.name = options.name;
+    overlayComponent.board = options.board;
     return overlayRefWrapper.afterClosed();
   }
 

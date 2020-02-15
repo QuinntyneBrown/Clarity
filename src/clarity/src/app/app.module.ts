@@ -21,7 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { Login } from './identity/login';
 import { LoginComponent } from './identity/login.component';
 import {MatCardModule} from '@angular/material/card';
-
+import { BoardService } from './boards/board.service';
+import {MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,9 +43,11 @@ import {MatCardModule} from '@angular/material/card';
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule
   ],
   providers: [
+    BoardService,
     UpsertTicket,
     Login,
     OverlayRefProvider,

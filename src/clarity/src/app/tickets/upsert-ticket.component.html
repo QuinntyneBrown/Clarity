@@ -6,10 +6,13 @@
       <mat-label>Name</mat-label>
       <input matInput formControlName="name">
     </mat-form-field>
-    
+        
     <mat-form-field appearance="fill">
       <mat-label>State</mat-label>
-      <input matInput formControlName="state">
+      <select matNativeControl formControlName="state">
+        <option></option>
+        <option [value]="state" *ngFor='let state of board.states'>{{ state.name }}</option>
+      </select>
     </mat-form-field>
 
     <mat-form-field>

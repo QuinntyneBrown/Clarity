@@ -25,7 +25,9 @@ namespace Clarity.Domain.Features.Tickets
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                var state = _context.States.First(x => x.Name == request.Ticket.State);
+                
+                var state = await _context.States.FindAsync(request.Ticket.StateId);
+
                 var ticket = await _context.Tickets.FirstOrDefaultAsync(x => x.Name == request.Ticket.Name);
 
                 if (ticket == null)
