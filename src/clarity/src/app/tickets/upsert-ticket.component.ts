@@ -52,7 +52,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
           map(x => {
             this.form.patchValue({
               name: x.name,
-              state: x.state,
+              state: x.stateId,
               description: x.description,
               acceptanceCriteria: x.acceptanceCriteria
             });
