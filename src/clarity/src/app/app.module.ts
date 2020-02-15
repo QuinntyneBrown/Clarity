@@ -18,16 +18,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { Login } from './identity/login';
+import { LoginComponent } from './identity/login.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
     AppComponent,
     KanbanBoardColumnComponent,
     TicketComponent,
-    UpsertTicketComponent
-  ],
-  entryComponents: [
-    UpsertTicketComponent
+    UpsertTicketComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -40,10 +41,12 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
   ],
   providers: [
     UpsertTicket,
+    Login,
     OverlayRefProvider,
     TicketService,
     StateService,

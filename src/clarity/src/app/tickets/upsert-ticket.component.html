@@ -1,6 +1,7 @@
-<h2>Create Ticket</h2>
+<mat-card>
+  <mat-card-title>Create Ticket</mat-card-title>
 
-<form novalidate autocomplete="off" spellcheck="false" [formGroup]='form'>
+  <form novalidate autocomplete="off" spellcheck="false" [formGroup]='form'>
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
       <input matInput formControlName="name">
@@ -34,3 +35,4 @@
       <button mat-button (click)='handleCancelClick()'>Cancel</button>
     </div>
   </form>
+</mat-card>

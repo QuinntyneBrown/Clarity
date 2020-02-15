@@ -5,6 +5,7 @@ import { State, StateService } from './states';
 import { UpsertTicket } from './tickets/upsert-ticket';
 import { map } from 'rxjs/operators';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Login } from './identity/login';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,11 @@ export class AppComponent implements OnInit {
   tickets: Array<Ticket>;
   states$: Observable<Array<State>>;
 
-  constructor(private ticketService: TicketService, private stateService: StateService, public upsertTicket: UpsertTicket) { }
+  constructor(
+    private login: Login,
+    private ticketService: TicketService,
+    private stateService: StateService,
+    public upsertTicket: UpsertTicket) { }
 
   ngOnInit() {
     this.ticketService.get().pipe(
@@ -45,5 +50,5 @@ export class AppComponent implements OnInit {
     }
   }
 
-  handleClick() { this.upsertTicket.create(); }
+  handleClick() { this.login.create(); } //this.upsertTicket.create(); }
 }
