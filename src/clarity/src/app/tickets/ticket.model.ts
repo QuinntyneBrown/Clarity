@@ -6,4 +6,5 @@ export class Ticket {
   public description: string;
   public acceptanceCriteria: string;
   public stateId: number;
+  public boardId: number;
 }

@@ -11,7 +11,7 @@
       <mat-label>State</mat-label>
       <select matNativeControl formControlName="state">
         <option></option>
-        <option [value]="state" *ngFor='let state of board.states'>{{ state.name }}</option>
+        <option [value]="state.stateId" *ngFor='let state of (board$ | async).states'>{{ state.name }}</option>
       </select>
     </mat-form-field>
 

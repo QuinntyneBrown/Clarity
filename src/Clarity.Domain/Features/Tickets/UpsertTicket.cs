@@ -28,7 +28,10 @@ namespace Clarity.Domain.Features.Tickets
                 
                 var state = await _context.States.FindAsync(request.Ticket.StateId);
 
-                var ticket = await _context.Tickets.FirstOrDefaultAsync(x => x.Name == request.Ticket.Name);
+                var ticket = await _context.Tickets
+                    .Include(x => x.TicketStates)
+                    .ThenInclude(x => x.State)
+                    .FirstOrDefaultAsync(x => x.TicketId == request.Ticket.TicketId);
 
                 if (ticket == null)
                 {

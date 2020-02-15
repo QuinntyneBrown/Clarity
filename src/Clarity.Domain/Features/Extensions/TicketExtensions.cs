@@ -16,7 +16,8 @@ namespace Clarity.Domain.Features.Extensions
                 Url = ticket.Url,
                 Age = Convert.ToInt32((DateTime.UtcNow - ticket.CurrentTicketState.Created.Value).TotalDays),
                 AcceptanceCriteria = ticket.AcceptanceCriteria,
-                Description = ticket.Description
+                Description = ticket.Description,
+                BoardId = ticket.CurrentTicketState.State.BoardId
             };
     }
 }

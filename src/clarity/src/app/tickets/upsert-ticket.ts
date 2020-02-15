@@ -18,7 +18,7 @@ export class UpsertTicket {
     const overlayRefWrapper = new OverlayRefWrapper(overlayRef);
     const overlayComponent = this.attachOverlayContainer(overlayRef, overlayRefWrapper);
     overlayComponent.name = options.name;
-    overlayComponent.board = options.board;
+    overlayComponent.board$.next(options.board || new Board());
     return overlayRefWrapper.afterClosed();
   }
 

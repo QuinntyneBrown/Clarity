@@ -57,6 +57,7 @@ export class AppComponent implements OnInit {
 
       const ticket: Ticket = event.container.data[event.currentIndex] as Ticket;
 
+      ticket.stateId = state.stateId;
       ticket.state = state.name;
       ticket.age = 0;
       this.ticketService

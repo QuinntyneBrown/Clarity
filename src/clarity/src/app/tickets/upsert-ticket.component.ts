@@ -7,6 +7,7 @@ import { Ticket } from './ticket.model';
 import { map, switchMap, tap, takeUntil } from 'rxjs/operators';
 import { State } from '../states';
 import { Board } from '../boards/board.model';
+import { BoardService } from '../boards/board.service';
 
 @Component({
   templateUrl: './upsert-ticket.component.html',
@@ -16,11 +17,13 @@ import { Board } from '../boards/board.model';
 })
 export class UpsertTicketComponent implements OnInit, OnDestroy {
   public boardId = 2;
-  public board: Board;
+  public board$: BehaviorSubject<Board> = new BehaviorSubject(new Board());
   public stateId: number;
   public ticket: Ticket = new Ticket();
+  public selected: number;
 
   constructor(
+    public boardService: BoardService,
     formBuilder: FormBuilder,
     private ticketService: TicketService,
     private overlay: OverlayRefWrapper) {
@@ -54,9 +57,17 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
               acceptanceCriteria: x.acceptanceCriteria
             });
             this.ticket = x;
+
+            this.boardService.getById({ boardId: this.ticket.boardId}).pipe(
+              map(l => {
+                this.board$.next(l);
+              })
+              ).subscribe();
           })
         )
         .subscribe();
+
+
     }
   }
 
@@ -69,11 +80,8 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
   }
 
   public handleSaveClick() {
-
-    console.log(JSON.stringify(this.form.value.state));
-
     this.ticket.name = this.form.value.name;
-    this.ticket.stateId = this.form.value.state.stateId;
+    this.ticket.stateId = parseInt(this.form.value.state, null);
     this.ticket.description = this.form.value.description;
     this.ticket.acceptanceCriteria = this.form.value.acceptanceCriteria;
 
