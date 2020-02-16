@@ -13,7 +13,7 @@ namespace Clarity.Domain
         {
             BoardConfiguration.Seed(context, configuration);
             StateConfiguration.Seed(context, configuration);
-            //TeamMemberConfiguration.Seed(context, configuration);
+            TeamMemberConfiguration.Seed(context, configuration);
             UserConfiguration.Seed(context, configuration);
         }
     }
@@ -98,6 +98,8 @@ namespace Clarity.Domain
                 if (context.TeamMembers.SingleOrDefault(x => x.Name == teamMember.Name) == null)
                     context.TeamMembers.Add(teamMember);
             });
+
+            context.SaveChanges();
         }
     }
 
@@ -116,6 +118,8 @@ namespace Clarity.Domain
                     context.Users.Add(user);
                 }
             });
+
+            context.SaveChanges();
         }
     }
 }

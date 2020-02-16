@@ -2,7 +2,8 @@ import { Component, OnDestroy, Renderer2, ElementRef, AfterContentInit, Inject }
 import { Subject } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { OverlayRefWrapper } from '../core/overlay-ref-wrapper';
 
 @Component({
   templateUrl: './login.component.html',
@@ -27,7 +28,8 @@ export class LoginComponent implements OnDestroy, AfterContentInit {
     @Inject('BASE_URL') private baseUrl: string,
     private client: HttpClient,
     private renderer: Renderer2,
-    public elementRef: ElementRef
+    public elementRef: ElementRef,
+    private overlayRefWrapper: OverlayRefWrapper
   ) { }
 
   public get usernameNativeElement() { return this.elementRef.nativeElement.querySelector('#username'); }
@@ -37,11 +39,16 @@ export class LoginComponent implements OnDestroy, AfterContentInit {
   }
 
   public tryToLogin() {
-    const options = { username: this.username, password: this.password };
+    const options = { username: this.form.value.username, password: this.form.value.password };
     return this.client.post<any>(`${this.baseUrl}api/users/token`, options).pipe(
       map(response => {
-        localStorage.setItem('accessToken', response.accessToken);
+        localStorage.setItem('ACCESS_TOKEN', response.accessToken);
+        localStorage.setItem('USER_ID', response.userId);
+        this.overlayRefWrapper.close();
+      }),
+      catchError(x => {
+        return null;
       })
-    );
+    ).subscribe();
   }
 }

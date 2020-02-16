@@ -137,7 +137,7 @@ namespace Clarity.Api.Migrations
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TeamMemberId")
+                    b.Property<int>("TeamMemberId")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -157,7 +157,7 @@ namespace Clarity.Api.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("Created")
+                    b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("StateId")
@@ -216,7 +216,9 @@ namespace Clarity.Api.Migrations
                 {
                     b.HasOne("Clarity.Core.Models.TeamMember", "TeamMember")
                         .WithMany("Tickets")
-                        .HasForeignKey("TeamMemberId");
+                        .HasForeignKey("TeamMemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.TicketState", b =>

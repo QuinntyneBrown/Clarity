@@ -2,7 +2,6 @@
 using Clarity.Core.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,6 +38,8 @@ namespace Clarity.Domain.Features.Tickets
                     _context.Tickets.Add(ticket);
                 }
 
+                //TODO: Implement authentication and team members
+                ticket.TeamMemberId = 1;
                 ticket.Name = request.Ticket.Name;
                 ticket.Url = request.Ticket.Url;
                 ticket.AcceptanceCriteria = request.Ticket.AcceptanceCriteria;
