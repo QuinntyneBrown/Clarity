@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { OverlayRefWrapper } from '../core/overlay-ref-wrapper';
@@ -9,11 +9,11 @@ import { State } from '../states';
 import { Board } from '../boards/board.model';
 import { BoardService } from '../boards/board.service';
 
+@HostBinding('class.mat-typography')
 @Component({
   templateUrl: './upsert-ticket.component.html',
   styleUrls: ['./upsert-ticket.component.less'],
   selector: 'app-upsert-ticket',
-  host: { 'class': 'mat-typography' }
 })
 export class UpsertTicketComponent implements OnInit, OnDestroy {
   public boardId = 2;
@@ -66,8 +66,6 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
           })
         )
         .subscribe();
-
-
     }
   }
 

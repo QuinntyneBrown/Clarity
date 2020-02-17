@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Ticket, TicketService } from './tickets';
 import { State } from './states';
 import { UpsertTicket } from './tickets/upsert-ticket';
@@ -23,7 +23,10 @@ export class AppComponent implements OnInit {
   teamMember$: BehaviorSubject<TeamMember> = new BehaviorSubject({} as TeamMember);
 
   public get isAuthenticated(): string { return localStorage.getItem('ACCESS_TOKEN'); }
-
+  public get board$(): Observable<Board> { return this.boards$.pipe(
+    map(x => x.filter(l => l.boardId === this.boardId)[0] )
+  );
+}
   boardId = 2;
   public get board() {
     return this.boards$.value.filter(x => x.boardId === this.boardId)[0];

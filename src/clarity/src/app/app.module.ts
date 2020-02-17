@@ -25,6 +25,8 @@ import { BoardService } from './boards/board.service';
 import { MatSelectModule } from '@angular/material/select';
 import { OAuthInterceptor } from './identity/oauth.interceptor';
 import { TeamMemberService } from './team-members/team-member.service';
+import { SelectBoard } from './boards/select-board';
+import { SelectBoardComponent } from './boards/select-board.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { TeamMemberService } from './team-members/team-member.service';
     KanbanBoardColumnComponent,
     TicketComponent,
     UpsertTicketComponent,
-    LoginComponent
+    LoginComponent,
+    SelectBoardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -57,6 +60,7 @@ import { TeamMemberService } from './team-members/team-member.service';
     TicketService,
     StateService,
     TeamMemberService,
+    SelectBoard,
     { provide: 'BASE_URL', useValue: 'https://localhost:44354/' },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     {

@@ -23,11 +23,7 @@
     }
 }
 
-mat-icon {
-    line-height: 50px;
-    margin: 0 10px;
-    cursor: pointer;
-}
+
 
 .kanbanBoard__ticket, .cdk-drag-preview {
     display: block;
@@ -38,3 +34,24 @@ mat-icon {
 .cdk-drag-preview {
     opacity: 0.5;
 }
+
+.kanbanBoard_controls {
+    display: flex;
+    height: 50px;
+    width:100%;
+    margin: 0;
+
+    mat-icon {
+        cursor: pointer;    
+        padding: 0;
+        display: inline-block;
+        padding-top: 13px;
+    }
+       
+    span {
+        line-height: 50px;
+        display: inline-block;
+        margin: 0 5px;
+    }
+}
+
