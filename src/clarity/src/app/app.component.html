@@ -1,5 +1,5 @@
 <mat-icon *ngIf='isAuthenticated' aria-hidden="false" aria-label="add icon" (click)="handleAddClick()">add</mat-icon>
-
+<span> {{ (teamMember$ | async).name }}</span>
 <div class='kanban-board' cdkDropListGroup>    
     <div class='kanbanBoard__column' cdkDropList [cdkDropListData]="ticketsByState$(state) | async" (cdkDropListDropped)="drop($event, state)" *ngFor='let state of (states$ | async)'>
         <span>{{ state.name }}</span>

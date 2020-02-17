@@ -8,6 +8,8 @@ import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Login } from './identity/login';
 import { BoardService } from './boards/board.service';
 import { Board } from './boards/board.model';
+import { TeamMemberService } from './team-members/team-member.service';
+import { TeamMember } from './team-members/team-member.model';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +20,8 @@ export class AppComponent implements OnInit {
   tickets$: BehaviorSubject<Ticket[]> = new BehaviorSubject([]);
   states$: BehaviorSubject<State[]> = new BehaviorSubject([]);
   boards$: BehaviorSubject<Board[]> = new BehaviorSubject([]);
+  teamMember$: BehaviorSubject<TeamMember> = new BehaviorSubject({} as TeamMember);
+
   public get isAuthenticated(): string { return localStorage.getItem('ACCESS_TOKEN'); }
 
   boardId = 2;
@@ -28,7 +32,8 @@ export class AppComponent implements OnInit {
     private login: Login,
     private boardService: BoardService,
     private ticketService: TicketService,
-    public upsertTicket: UpsertTicket) { }
+    public upsertTicket: UpsertTicket,
+    public teamMemberService: TeamMemberService) { }
 
   async ensureAuthenticated() {
     return new Promise((resolve, reject) => {
@@ -45,6 +50,10 @@ export class AppComponent implements OnInit {
 
   async ngOnInit() {
     await this.ensureAuthenticated();
+
+    this.teamMemberService.getCurrent().pipe(
+      map(x => this.teamMember$.next(x))
+      ).subscribe();
 
     this.ticketService.getByBoardId({ boardId: this.boardId }).pipe(
       map(x => this.tickets$.next(x))
