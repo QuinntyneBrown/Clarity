@@ -22,5 +22,9 @@ namespace Clarity.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<GetTeamMembers.Response>> Get()
             => await _mediator.Send(new GetTeamMembers.Request());
+
+        [HttpGet]
+        public async Task<ActionResult<GetTeamMembers.Response>> GetCurrent()
+            => await _mediator.Send(new GetTeamMembers.Request());
     }
 }

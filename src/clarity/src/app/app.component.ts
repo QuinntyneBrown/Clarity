@@ -30,25 +30,33 @@ export class AppComponent implements OnInit {
     private ticketService: TicketService,
     public upsertTicket: UpsertTicket) { }
 
-  ngOnInit() {
+  async ensureAuthenticated() {
+    return new Promise((resolve, reject) => {
+      if (this.isAuthenticated) {
+        resolve();
+        return;
+      }
 
-    if (!this.isAuthenticated) {
       this.login.create().pipe(
-        map(x => this.ngOnInit())
+        map(x => { resolve(); })
       ).subscribe();
+    });
+  }
 
-    } else {
-      this.ticketService.getByBoardId({ boardId: this.boardId }).pipe(
-        map(x => this.tickets$.next(x))
-      ).subscribe();
+  async ngOnInit() {
+    await this.ensureAuthenticated();
 
-      this.boardService.get().pipe(
-        map(x => {
-          this.boards$.next(x);
-          this.states$.next(x[this.boardId - 1].states);
-        })
-      ).subscribe();
-    }
+    this.ticketService.getByBoardId({ boardId: this.boardId }).pipe(
+      map(x => this.tickets$.next(x))
+    ).subscribe();
+
+    this.boardService.get().pipe(
+      map(x => {
+        this.boards$.next(x);
+        this.states$.next(x[this.boardId - 1].states);
+      })
+    ).subscribe();
+
   }
 
   public ticketsByState$(state: State) {
