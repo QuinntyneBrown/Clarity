@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     map(x => x.filter(l => l.boardId === this.boardId)[0] )
   );
 }
-  boardId = 2;
+  boardId = parseInt(localStorage.getItem('BOARD_ID'), null) || 2;
   public get board() {
     return this.boards$.value.filter(x => x.boardId === this.boardId)[0];
   }
@@ -98,7 +98,20 @@ export class AppComponent implements OnInit {
     }
   }
 
-  handleAddClick() { this.upsertTicket.create({ board: this.board }); }
+  handleAddClick() {
+    this.upsertTicket.create({ board: this.board })
+    .pipe(map(x => this.ngOnInit())).subscribe();
+  }
 
-  handleSelectBoardClick() { this.selectBoard.create({ boardId: this.boardId }); }
+  handleSelectBoardClick() {
+    this.selectBoard.create({ boardId: this.boardId }).pipe(
+      map(x => {
+        if (x) {
+          this.boardId = x.boardId;
+          localStorage.setItem('BOARD_ID', `${this.boardId}`);
+          this.ngOnInit();
+        }
+      })
+    ).subscribe();
+  }
 }

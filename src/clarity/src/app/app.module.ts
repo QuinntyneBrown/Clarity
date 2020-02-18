@@ -28,6 +28,7 @@ import { TeamMemberService } from './team-members/team-member.service';
 import { SelectBoard } from './boards/select-board';
 import { SelectBoardComponent } from './boards/select-board.component';
 import { MatListModule } from '@angular/material/list';
+import { UnauthorizedResponseInterceptor } from './identity/unauthorized-response.interceptor';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,11 @@ import { MatListModule } from '@angular/material/list';
       useClass: OAuthInterceptor,
       multi: true
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedResponseInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

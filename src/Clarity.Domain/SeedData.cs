@@ -1,9 +1,9 @@
 ﻿using Clarity.Core.Data;
+using Clarity.Core.Extensions;
+using Clarity.Core.Identity;
 using Clarity.Core.Models;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
-using Clarity.Core.Extensions;
-using Clarity.Core.Identity;
 
 namespace Clarity.Domain
 {

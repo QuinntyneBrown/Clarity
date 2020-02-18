@@ -17,7 +17,7 @@ namespace Clarity.Api.Controllers
         }
 
         [HttpPost("token")]
-        public async Task<ActionResult<AuthenticateCommand.Response>> SignIn(AuthenticateCommand.Request request)
+        public async Task<ActionResult<Authenticate.Response>> SignIn(Authenticate.Request request)
         {
             try
             {

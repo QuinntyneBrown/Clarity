@@ -1,16 +1,16 @@
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Security.Claims;
-using System.Collections.Generic;
 using Clarity.Core.Data;
 using Clarity.Core.Identity;
 using Clarity.Core.Models;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Clarity.Domain.Features.Identity
 {
-    public class AuthenticateCommand
+    public class Authenticate
     {
         public class Request : IRequest<Response>
         {
