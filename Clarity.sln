@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clarity.Domain", "src\Clari
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clarity.UnitTests", "test\Clarity.UnitTests\Clarity.UnitTests.csproj", "{F4417ED6-25E4-4B3E-96F3-6565CF784D24}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clarity.IntegrationTests", "test\Clarity.IntegrationTests\Clarity.IntegrationTests.csproj", "{BE891291-1503-499F-8B23-B7A0EABFDF92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{F4417ED6-25E4-4B3E-96F3-6565CF784D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4417ED6-25E4-4B3E-96F3-6565CF784D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4417ED6-25E4-4B3E-96F3-6565CF784D24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE891291-1503-499F-8B23-B7A0EABFDF92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE891291-1503-499F-8B23-B7A0EABFDF92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE891291-1503-499F-8B23-B7A0EABFDF92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE891291-1503-499F-8B23-B7A0EABFDF92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{909BAF2A-B323-4CAA-A81C-9FD1B8205D0C} = {7CE0F61C-52EB-42D4-A8E8-3A50890B9FC4}
 		{6EFB1DB8-9AD1-4D26-9F66-C04366A26C01} = {7CE0F61C-52EB-42D4-A8E8-3A50890B9FC4}
 		{F4417ED6-25E4-4B3E-96F3-6565CF784D24} = {013B5F2E-540A-4A79-8DAC-799E158EF685}
+		{BE891291-1503-499F-8B23-B7A0EABFDF92} = {013B5F2E-540A-4A79-8DAC-799E158EF685}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B9BE1CA7-77E5-4575-A5AE-C5AE135CF5A1}

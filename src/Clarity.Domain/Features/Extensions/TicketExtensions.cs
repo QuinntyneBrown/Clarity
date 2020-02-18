@@ -1,6 +1,7 @@
 ﻿using Clarity.Domain.Features.Tickets;
 using Clarity.Core.Models;
 using System;
+using System.Linq;
 
 namespace Clarity.Domain.Features.Extensions
 {
@@ -17,7 +18,8 @@ namespace Clarity.Domain.Features.Extensions
                 Age = Convert.ToInt32((DateTime.UtcNow - ticket.CurrentTicketState.Created).TotalDays),
                 AcceptanceCriteria = ticket.AcceptanceCriteria,
                 Description = ticket.Description,
-                BoardId = ticket.CurrentTicketState.State.BoardId
+                BoardId = ticket.CurrentTicketState.State.BoardId,
+                Comments = ticket.Comments.Select(x => x.ToDto()).ToList()
             };
     }
 }

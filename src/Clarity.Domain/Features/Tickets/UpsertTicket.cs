@@ -1,6 +1,7 @@
 ﻿using Clarity.Core.Data;
 using Clarity.Core.Models;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,8 +20,12 @@ namespace Clarity.Domain.Features.Tickets
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IClarityContext _context;
-            public Handler(IClarityContext context)
-                => _context = context;
+            private readonly IHttpContextAccessor _httpContextAccessor;
+            public Handler(IClarityContext context, IHttpContextAccessor httpContextAccessor)
+            {
+                _httpContextAccessor = httpContextAccessor;
+                _context = context;
+            }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {

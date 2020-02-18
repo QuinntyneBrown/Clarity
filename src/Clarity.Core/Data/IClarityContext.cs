@@ -8,6 +8,7 @@ namespace Clarity.Core.Data
     public interface IClarityContext
     {
         DbSet<Board> Boards { get; }
+        DbSet<Comment> Comments { get; }
         DbSet<Ticket> Tickets { get; }
         DbSet<State> States { get; }
         DbSet<Note> Notes { get; }
