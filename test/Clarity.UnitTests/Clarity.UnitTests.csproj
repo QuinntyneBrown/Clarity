@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -16,6 +16,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Clarity.Api\Clarity.Api.csproj" />
     <ProjectReference Include="..\..\src\Clarity.Core\Clarity.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Domain\" />
   </ItemGroup>
 
 </Project>

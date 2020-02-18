@@ -1,8 +1,8 @@
 
 <div class='kanbanBoard_controls'>
     <mat-icon *ngIf='isAuthenticated' aria-hidden="false" aria-label="add icon" (click)="handleAddClick()">add</mat-icon>
-    <span> {{ (board$ | async).name }}</span>
-    <span> {{ (teamMember$ | async).name }}</span>
+    <span (click)='handleSelectBoardClick()'> {{ (board$ | async)?.name }}</span>
+    <span> {{ (teamMember$ | async)?.name }}</span>
 </div>
 <div class='kanban-board' cdkDropListGroup>    
     <div class='kanbanBoard__column' cdkDropList [cdkDropListData]="ticketsByState$(state) | async" (cdkDropListDropped)="drop($event, state)" *ngFor='let state of (states$ | async)'>

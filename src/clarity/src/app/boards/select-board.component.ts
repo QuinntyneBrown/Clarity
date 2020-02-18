@@ -34,7 +34,7 @@ export class SelectBoardComponent implements OnInit, OnDestroy {
   public handleCancelClick() {
     this.overlay.close();
   }
-
+  
   public handleSelectClick(board: Board) {
     this.overlay.close(board);
   }

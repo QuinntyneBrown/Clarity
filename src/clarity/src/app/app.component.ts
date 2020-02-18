@@ -10,6 +10,7 @@ import { BoardService } from './boards/board.service';
 import { Board } from './boards/board.model';
 import { TeamMemberService } from './team-members/team-member.service';
 import { TeamMember } from './team-members/team-member.model';
+import { SelectBoard } from './boards/select-board';
 
 @Component({
   selector: 'app-root',
@@ -36,7 +37,8 @@ export class AppComponent implements OnInit {
     private boardService: BoardService,
     private ticketService: TicketService,
     public upsertTicket: UpsertTicket,
-    public teamMemberService: TeamMemberService) { }
+    public teamMemberService: TeamMemberService,
+    public selectBoard: SelectBoard) { }
 
   async ensureAuthenticated() {
     return new Promise((resolve, reject) => {
@@ -97,4 +99,6 @@ export class AppComponent implements OnInit {
   }
 
   handleAddClick() { this.upsertTicket.create({ board: this.board }); }
+
+  handleSelectBoardClick() { this.selectBoard.create({ boardId: this.boardId }); }
 }

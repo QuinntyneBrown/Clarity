@@ -27,6 +27,7 @@ import { OAuthInterceptor } from './identity/oauth.interceptor';
 import { TeamMemberService } from './team-members/team-member.service';
 import { SelectBoard } from './boards/select-board';
 import { SelectBoardComponent } from './boards/select-board.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { SelectBoardComponent } from './boards/select-board.component';
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatListModule
   ],
   providers: [
     BoardService,
