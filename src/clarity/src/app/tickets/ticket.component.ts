@@ -11,9 +11,7 @@ export class TicketComponent {
   @Input()
   public ticket: Ticket;
 
-  constructor(private upsertTicket: UpsertTicket) {
-
-  }
+  constructor(private upsertTicket: UpsertTicket) { }
 
   public handleEditClick() {
     this.upsertTicket.create({ name:  this.ticket.name });

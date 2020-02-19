@@ -59,8 +59,8 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
             this.ticket = x;
 
             this.boardService.getById({ boardId: this.ticket.boardId}).pipe(
-              map(l => {
-                this.board$.next(l);
+              map(board => {
+                this.board$.next(board);
               })
               ).subscribe();
           })
@@ -86,6 +86,15 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
     this.ticketService.create({ ticket: this.ticket })
       .pipe(
         map(x => this.ticket.ticketId = x.ticketId),
+        tap(() => this.overlay.close(this.ticket)),
+        takeUntil(this.onDestroy)
+      )
+      .subscribe();
+  }
+
+  public handleDeleteClick() {
+    this.ticketService.remove({ ticket: this.ticket })
+      .pipe(
         tap(() => this.overlay.close(this.ticket)),
         takeUntil(this.onDestroy)
       )

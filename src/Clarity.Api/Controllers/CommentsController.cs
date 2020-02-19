@@ -12,7 +12,8 @@ namespace Clarity.Api.Controllers
     {
         private readonly IMediator _mediator;
 
-        public CommentsController(IMediator mediator) => _mediator = mediator;
+        public CommentsController(IMediator mediator) 
+            => _mediator = mediator;
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

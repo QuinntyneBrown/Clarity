@@ -11,7 +11,10 @@ namespace Clarity.Domain.Features.Extensions
             {
                 BoardId = board.BoardId,
                 Name = board.Name,
-                States = board.States.Select(x => x.ToDto()).ToList()
+                States = board.States
+                .OrderBy(x => x.Order)
+                .Select(x => x.ToDto())
+                .ToList()
             };
     }
 }

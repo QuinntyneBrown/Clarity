@@ -61,7 +61,7 @@ namespace Clarity.Domain
                     context.States.Add(new State
                     {
                         Name = name,
-                        Order = order,
+                        Order = order++,
                         BoardId = 1
                     });                
             });
@@ -77,7 +77,7 @@ namespace Clarity.Domain
                     context.States.Add(new State
                     {
                         Name = name,
-                        Order = order,
+                        Order = order++,
                         BoardId = 2
                     });
             });

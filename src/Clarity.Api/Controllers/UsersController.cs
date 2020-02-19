@@ -1,7 +1,7 @@
 using Clarity.Domain.Features.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Clarity.Api.Controllers
@@ -12,21 +12,13 @@ namespace Clarity.Api.Controllers
     {
         private readonly IMediator _mediator;
         
-        public UsersController(IMediator mediator) {
-            _mediator = mediator;
-        }
+        public UsersController(IMediator mediator)
+            => _mediator = mediator;
 
         [HttpPost("token")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(Authenticate.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Authenticate.Response>> SignIn(Authenticate.Request request)
-        {
-            try
-            {
-                return await _mediator.Send(request);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
+            => await _mediator.Send(request);
     }
 }

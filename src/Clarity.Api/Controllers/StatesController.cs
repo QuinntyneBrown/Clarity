@@ -12,7 +12,8 @@ namespace Clarity.Api.Controllers
     {
         private readonly IMediator _meditator;
 
-        public StatesController(IMediator mediator) => _meditator = mediator;
+        public StatesController(IMediator mediator) 
+            => _meditator = mediator;
 
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

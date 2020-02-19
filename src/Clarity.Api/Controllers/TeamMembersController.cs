@@ -13,7 +13,8 @@ namespace Clarity.Api.Controllers
     {
         private readonly IMediator _mediator;
 
-        public TeamMembersController(IMediator mediator) => _mediator = mediator;
+        public TeamMembersController(IMediator mediator) 
+            => _mediator = mediator;
 
         [HttpGet("{teamMemberId}")]
         public async Task<ActionResult<GetTeamMemberById.Response>> GetById([FromRoute]GetTeamMemberById.Request request)
