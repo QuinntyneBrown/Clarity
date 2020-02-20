@@ -8,6 +8,7 @@ import { map, switchMap, tap, takeUntil } from 'rxjs/operators';
 import { State } from '../states';
 import { Board } from '../boards/board.model';
 import { BoardService } from '../boards/board.service';
+import { CommentService } from '../comments/comment.service';
 
 @HostBinding('class.mat-typography')
 @Component({
@@ -24,6 +25,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
 
   constructor(
     public boardService: BoardService,
+    public commentService: CommentService,
     formBuilder: FormBuilder,
     private ticketService: TicketService,
     private overlay: OverlayRefWrapper) {
@@ -32,6 +34,10 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
         state: '',
         description: '',
         acceptanceCriteria: ''
+      });
+
+      this.commentForm = formBuilder.group({
+        description: ''
       });
     }
     public ticket$: BehaviorSubject<Ticket> = new BehaviorSubject({} as Ticket);
@@ -42,6 +48,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
     public states$: BehaviorSubject<Array<State>> = new BehaviorSubject([]);
 
     public form: FormGroup;
+    public commentForm: FormGroup;
 
     ngOnInit() {
       if (this.name) {
@@ -99,5 +106,9 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
         takeUntil(this.onDestroy)
       )
       .subscribe();
+  }
+
+  public handleSaveCommentClick() {
+
   }
 }

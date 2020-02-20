@@ -7,4 +7,5 @@ export class Ticket {
   public acceptanceCriteria: string;
   public stateId: number;
   public boardId: number;
+  public comments: Comment[] = [];
 }

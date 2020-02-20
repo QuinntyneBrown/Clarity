@@ -29,6 +29,7 @@ import { SelectBoard } from './boards/select-board';
 import { SelectBoardComponent } from './boards/select-board.component';
 import { MatListModule } from '@angular/material/list';
 import { UnauthorizedResponseInterceptor } from './identity/unauthorized-response.interceptor';
+import { CommentService } from './comments/comment.service';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { UnauthorizedResponseInterceptor } from './identity/unauthorized-respons
   ],
   providers: [
     BoardService,
+    CommentService,
     UpsertTicket,
     Login,
     OverlayRefProvider,
