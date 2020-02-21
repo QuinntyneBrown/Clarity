@@ -30,6 +30,7 @@ import { SelectBoardComponent } from './boards/select-board.component';
 import { MatListModule } from '@angular/material/list';
 import { UnauthorizedResponseInterceptor } from './identity/unauthorized-response.interceptor';
 import { CommentService } from './comments/comment.service';
+import { CreateComponentComponent } from './comments/create-component.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CommentService } from './comments/comment.service';
     TicketComponent,
     UpsertTicketComponent,
     LoginComponent,
-    SelectBoardComponent
+    SelectBoardComponent,
+    CreateComponentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
