@@ -1,0 +1,15 @@
+  
+<form novalidate autocomplete="off" spellcheck="false" [formGroup]='form'>    
+    <mat-form-field>
+        <textarea matInput
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5"
+              formControlName="description">
+            </textarea>
+        </mat-form-field>
+    
+    <div class='actions'>
+        <button mat-button (click)='handleSaveClick()'>Save</button>
+    </div>
+</form>

@@ -39,4 +39,6 @@
       <button mat-button (click)='handleCancelClick()'>Cancel</button>
     </div>
   </form>
+
+  <app-create-comment *ngIf='ticket.ticketId' [ticketId]='ticket.ticketId'></app-create-comment>
 </mat-card>

@@ -3,12 +3,13 @@
 }
 
 .kanban-board {
-    height: calc(100vh - 50px);
+    min-height: calc(100vh - 50px);
     display: flex;
     flex-direction: row;
     flex-flow: row;
     width: 100%;
-    justify-content: space-evenly;         
+    justify-content: space-evenly;    
+       
 }
 
 .kanbanBoard__column {
@@ -17,7 +18,7 @@
     margin: 0 5px;
     text-align: center;
     width: 100%;
-
+    padding-bottom: 30px;  
     span {
         line-height: 30px;
     }

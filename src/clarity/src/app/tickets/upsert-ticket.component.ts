@@ -63,6 +63,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
               description: x.description,
               acceptanceCriteria: x.acceptanceCriteria
             });
+
             this.ticket = x;
 
             this.boardService.getById({ boardId: this.ticket.boardId}).pipe(

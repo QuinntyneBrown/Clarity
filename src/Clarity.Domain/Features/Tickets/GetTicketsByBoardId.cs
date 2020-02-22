@@ -28,11 +28,13 @@ namespace Clarity.Domain.Features.Tickets
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response
                 {
-                    Tickets = await _context.Tickets.Include(x => x.TicketStates)
-                        .ThenInclude(x => x.State)
-                        .Where(x => x.TicketStates.OrderByDescending(ts => ts.Created).First().State.BoardId == request.BoardId)
-                        .Select(x => x.ToDto())
-                        .ToListAsync()
+                    Tickets = await _context.Tickets
+                    .Include(x => x.Comments)
+                    .Include(x => x.TicketStates)
+                    .ThenInclude(x => x.State)
+                    .Where(x => x.TicketStates.OrderByDescending(ts => ts.Created).First().State.BoardId == request.BoardId)
+                    .Select(x => x.ToDto())
+                    .ToListAsync()
                 };
         }
     }
