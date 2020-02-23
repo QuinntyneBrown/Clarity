@@ -41,7 +41,7 @@ export class CreateCommentComponent implements OnDestroy {
     })
     .pipe(
       map(x => {
-        this.commentSave.emit();
+        this.commentSave.emit(comment);
         this.form.patchValue({
           description: ''
         });

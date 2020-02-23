@@ -9,6 +9,7 @@ import { State } from '../states';
 import { Board } from '../boards/board.model';
 import { BoardService } from '../boards/board.service';
 import { CommentService } from '../comments/comment.service';
+import { Comment } from '../comments/comment.model';
 
 @HostBinding('class.mat-typography')
 @Component({
@@ -109,7 +110,8 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  public handleSaveCommentClick() {
-
+  public handleCommentSaved($comment: Comment) {
+    $comment.created = Date.now();
+    this.ticket.comments.unshift($comment);
   }
 }

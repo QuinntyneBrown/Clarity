@@ -40,7 +40,7 @@
     </div>
   </form>
 
-  <app-create-comment *ngIf='ticket.ticketId' [ticketId]='ticket.ticketId'></app-create-comment>
+  <app-create-comment *ngIf='ticket.ticketId' [ticketId]='ticket.ticketId' (commentSave)='handleCommentSaved($event)'></app-create-comment>
 
   <div *ngFor='let comment of ticket.comments' class='comment'>
     <span class='comment__created'>{{ comment.created | date:'medium' }}</span>

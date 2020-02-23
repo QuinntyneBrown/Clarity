@@ -19,7 +19,7 @@ namespace Clarity.Domain.Features.Extensions
                 AcceptanceCriteria = ticket.AcceptanceCriteria,
                 Description = ticket.Description,
                 BoardId = ticket.CurrentTicketState.State.BoardId,
-                Comments = ticket.Comments.Select(x => x.ToDto()).ToList()
+                Comments = ticket.Comments.OrderByDescending(x => x.Created).Select(x => x.ToDto()).ToList()
             };
     }
 }
