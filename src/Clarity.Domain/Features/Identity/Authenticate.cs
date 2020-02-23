@@ -3,6 +3,7 @@ using Clarity.Core.Identity;
 using Clarity.Core.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
@@ -43,12 +44,11 @@ namespace Clarity.Domain.Features.Identity
                     .SingleOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower());
 
                 if (user == null)
-                    throw new System.Exception();
+                    throw new Exception();
 
                 if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
-                    throw new System.Exception();
+                    throw new Exception();
 
-                
                 return new Response()
                 {
                     AccessToken = _tokenProvider.Get(request.Username, new List<Claim>() { }),
