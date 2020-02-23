@@ -9,7 +9,7 @@
             </textarea>
         </mat-form-field>
     
-    <div class='actions'>
+    <div class='actions' *ngIf='form.value.description'>
         <button mat-button (click)='handleSaveClick()'>Save</button>
     </div>
 </form>
