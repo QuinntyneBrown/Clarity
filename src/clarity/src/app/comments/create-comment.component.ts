@@ -15,7 +15,7 @@ export class CreateCommentComponent implements OnDestroy {
   public onDestroy: Subject<void> = new Subject<void>();
   public form: FormGroup;
   public comment: Comment;
-
+  
   @Input()
   public ticketId: number;
 
@@ -36,6 +36,7 @@ export class CreateCommentComponent implements OnDestroy {
     const comment = new Comment();
     comment.ticketId = this.ticketId;
     comment.description = this.form.value.description;
+    comment.teamMemberId = localStorage.getItem('TEAM_MEMBER_ID') as any;
 
     this.commentService.upsert({ comment
     })

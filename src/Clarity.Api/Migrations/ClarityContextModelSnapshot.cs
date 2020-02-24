@@ -47,10 +47,15 @@ namespace Clarity.Api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TicketId")
+                    b.Property<int>("TeamMemberId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TicketId")
                         .HasColumnType("int");
 
                     b.HasKey("CommentId");
+
+                    b.HasIndex("TeamMemberId");
 
                     b.HasIndex("TicketId");
 
@@ -221,11 +226,15 @@ namespace Clarity.Api.Migrations
 
             modelBuilder.Entity("Clarity.Core.Models.Comment", b =>
                 {
-                    b.HasOne("Clarity.Core.Models.Ticket", "Ticket")
+                    b.HasOne("Clarity.Core.Models.TeamMember", "TeamMember")
                         .WithMany("Comments")
-                        .HasForeignKey("TicketId")
+                        .HasForeignKey("TeamMemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Clarity.Core.Models.Ticket", "Ticket")
+                        .WithMany("Comments")
+                        .HasForeignKey("TicketId");
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.Note", b =>

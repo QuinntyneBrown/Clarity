@@ -14,7 +14,6 @@ namespace Clarity.Domain.Features.Tickets
         public string Description { get; set; }
         public string AcceptanceCriteria { get; set; }
         public int? BoardId { get; set; }
-
         public ICollection<CommentDto> Comments { get; set; } = new List<CommentDto>();
     }
 }

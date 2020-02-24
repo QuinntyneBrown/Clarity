@@ -28,9 +28,10 @@ namespace Clarity.Domain.Features.Tickets
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                
+            {                
                 var state = await _context.States.FindAsync(request.Ticket.StateId);
+                var username = _httpContextAccessor.HttpContext.User.Identity.Name;
+                var currentTeamMemberId = (await _context.TeamMembers.SingleAsync(x => x.Name == username)).TeamMemberId;
 
                 var ticket = await _context.Tickets
                     .Include(x => x.TicketStates)
@@ -43,8 +44,7 @@ namespace Clarity.Domain.Features.Tickets
                     _context.Tickets.Add(ticket);
                 }
 
-                //TODO: Implement authentication and team members
-                ticket.TeamMemberId = 1;
+                ticket.TeamMemberId = currentTeamMemberId;
                 ticket.Name = request.Ticket.Name;
                 ticket.Url = request.Ticket.Url;
                 ticket.AcceptanceCriteria = request.Ticket.AcceptanceCriteria;

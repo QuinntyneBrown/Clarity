@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clarity.Api.Migrations
 {
     [DbContext(typeof(ClarityContext))]
-    [Migration("20200215215714_Initial")]
+    [Migration("20200224004058_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,34 @@ namespace Clarity.Api.Migrations
                     b.HasKey("BoardId");
 
                     b.ToTable("Boards");
+                });
+
+            modelBuilder.Entity("Clarity.Core.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeamMemberId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TicketId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("TeamMemberId");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.DigitalAsset", b =>
@@ -196,6 +224,19 @@ namespace Clarity.Api.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Clarity.Core.Models.Comment", b =>
+                {
+                    b.HasOne("Clarity.Core.Models.TeamMember", "TeamMember")
+                        .WithMany("Comments")
+                        .HasForeignKey("TeamMemberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Clarity.Core.Models.Ticket", "Ticket")
+                        .WithMany("Comments")
+                        .HasForeignKey("TicketId");
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.Note", b =>

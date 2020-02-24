@@ -109,6 +109,34 @@ namespace Clarity.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    CommentId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TeamMemberId = table.Column<int>(nullable: false),
+                    TicketId = table.Column<int>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Created = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.CommentId);
+                    table.ForeignKey(
+                        name: "FK_Comments_TeamMembers_TeamMemberId",
+                        column: x => x.TeamMemberId,
+                        principalTable: "TeamMembers",
+                        principalColumn: "TeamMemberId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_Tickets_TicketId",
+                        column: x => x.TicketId,
+                        principalTable: "Tickets",
+                        principalColumn: "TicketId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Notes",
                 columns: table => new
                 {
@@ -157,6 +185,16 @@ namespace Clarity.Api.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_TeamMemberId",
+                table: "Comments",
+                column: "TeamMemberId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_TicketId",
+                table: "Comments",
+                column: "TicketId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Notes_TicketId",
                 table: "Notes",
                 column: "TicketId");
@@ -184,6 +222,9 @@ namespace Clarity.Api.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Comments");
+
             migrationBuilder.DropTable(
                 name: "DigitalAssets");
 

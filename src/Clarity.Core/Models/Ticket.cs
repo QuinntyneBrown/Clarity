@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace Clarity.Core.Models
@@ -6,6 +7,7 @@ namespace Clarity.Core.Models
     public class Ticket
     {
         public int TicketId { get; set; }
+        [ForeignKey("TeamMember")]
         public int TeamMemberId { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }

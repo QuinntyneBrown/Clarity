@@ -109,7 +109,7 @@ export class AppComponent implements OnInit {
         if (x) {
           this.boardId = x.boardId;
           localStorage.setItem('BOARD_ID', `${this.boardId}`);
-          this.ngOnInit();
+          window.location.reload();
         }
       })
     ).subscribe();

@@ -11,7 +11,8 @@ namespace Clarity.Domain.Features.Extensions
                 CommentId = comment.CommentId,
                 Description = comment.Description,
                 Created = comment.Created,
-                TicketId = comment.TicketId
+                TicketId = comment.TicketId,
+                TeamMemberId = comment.TeamMemberId
             };
     }
 }

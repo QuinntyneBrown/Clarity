@@ -28,6 +28,7 @@ namespace Clarity.Domain.Features.Tickets
                 {
                     Ticket = (await _context.Tickets
                     .Include(x => x.Comments)
+                    .ThenInclude(x => x.TeamMember)
                     .Include(x=> x.TicketStates)
                     .ThenInclude(x => x.State)
                     .FirstOrDefaultAsync(x => x.Name == request.Name))?.ToDto()

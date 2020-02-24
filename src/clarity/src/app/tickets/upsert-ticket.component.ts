@@ -110,7 +110,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  public handleCommentSaved($comment: Comment) {
+  public handleCommentSaved($comment: any) {
     $comment.created = Date.now();
     this.ticket.comments.unshift($comment);
   }
