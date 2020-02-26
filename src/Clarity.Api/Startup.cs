@@ -41,6 +41,7 @@ namespace Clarity.Api
             services.AddTransient<IClarityContext, ClarityContext>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddSingleton<ITokenProvider, TokenProvider>();
+            services.AddHealthChecks();
 
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler
             {
@@ -102,7 +103,8 @@ namespace Clarity.Api
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            
+            app.UseHealthChecks("/health");
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
