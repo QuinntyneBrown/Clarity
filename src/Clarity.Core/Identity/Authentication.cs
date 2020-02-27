@@ -1,6 +1,6 @@
 ﻿namespace Clarity.Core.Identity
 {
-    public class AuthenticationSettings
+    public class Authentication
     {
         public string TokenPath { get; set; }
         public int ExpirationMinutes { get; set; }

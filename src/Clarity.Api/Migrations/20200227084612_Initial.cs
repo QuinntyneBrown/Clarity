@@ -137,27 +137,6 @@ namespace Clarity.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Notes",
-                columns: table => new
-                {
-                    NoteId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TicketId = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Notes", x => x.NoteId);
-                    table.ForeignKey(
-                        name: "FK_Notes_Tickets_TicketId",
-                        column: x => x.TicketId,
-                        principalTable: "Tickets",
-                        principalColumn: "TicketId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TicketState",
                 columns: table => new
                 {
@@ -195,11 +174,6 @@ namespace Clarity.Api.Migrations
                 column: "TicketId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notes_TicketId",
-                table: "Notes",
-                column: "TicketId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_States_BoardId",
                 table: "States",
                 column: "BoardId");
@@ -227,9 +201,6 @@ namespace Clarity.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "DigitalAssets");
-
-            migrationBuilder.DropTable(
-                name: "Notes");
 
             migrationBuilder.DropTable(
                 name: "TicketState");

@@ -82,29 +82,6 @@ namespace Clarity.Api.Migrations
                     b.ToTable("DigitalAssets");
                 });
 
-            modelBuilder.Entity("Clarity.Core.Models.Note", b =>
-                {
-                    b.Property<int>("NoteId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.HasKey("NoteId");
-
-                    b.HasIndex("TicketId");
-
-                    b.ToTable("Notes");
-                });
-
             modelBuilder.Entity("Clarity.Core.Models.State", b =>
                 {
                     b.Property<int>("StateId")
@@ -235,15 +212,6 @@ namespace Clarity.Api.Migrations
                     b.HasOne("Clarity.Core.Models.Ticket", "Ticket")
                         .WithMany("Comments")
                         .HasForeignKey("TicketId");
-                });
-
-            modelBuilder.Entity("Clarity.Core.Models.Note", b =>
-                {
-                    b.HasOne("Clarity.Core.Models.Ticket", "Ticket")
-                        .WithMany("Notes")
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.State", b =>

@@ -36,12 +36,12 @@ namespace Clarity.Core.Identity
                 claims.AddRange(customClaims);
 
             var jwt = new JwtSecurityToken(
-                issuer: _configuration["Authentication:JwtIssuer"],
-                audience: _configuration["Authentication:JwtAudience"],
+                issuer: _configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtIssuer)}"],
+                audience: _configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtAudience)}"],
                 claims: claims,
                 notBefore: now,
-                expires: now.AddMinutes(Convert.ToInt16(_configuration["Authentication:ExpirationMinutes"])),
-                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["Authentication:JwtKey"])), SecurityAlgorithms.HmacSha256));
+                expires: now.AddMinutes(Convert.ToInt16(_configuration[$"{nameof(Authentication)}:{nameof(Authentication.ExpirationMinutes)}"])),
+                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration[$"{nameof(Authentication)}:{nameof(Authentication.JwtKey)}"])), SecurityAlgorithms.HmacSha256));
 
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }

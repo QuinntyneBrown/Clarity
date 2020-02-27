@@ -23,16 +23,12 @@ namespace Clarity.Domain.Features.Boards
             public IClarityContext _context { get; set; }
             public Handler(IClarityContext context) => _context = context;
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
-
-                var board = await _context.Boards
-                        .Include(x => x.States)
-                        .FirstOrDefaultAsync(x => x.BoardId == request.BoardId);
-
-                return new Response() { 
-                    Board = board.ToDto()
-                };
-            }
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) 
+                => new Response {
+                    Board = (await _context.Boards
+                    .Include(x => x.States)
+                    .FirstOrDefaultAsync(x => x.BoardId == request.BoardId)).ToDto()
+            };
         }
     }
 }
