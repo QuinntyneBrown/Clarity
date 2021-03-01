@@ -1,0 +1,1 @@
+{"RootNamespace":"Clarity","Namespace":"BuildingBlocks.EventStore","Domain":"Clarity.Domain","Api":"Clarity.Api","Core":"Clarity.Core","EntityIdDataType":"Guid"}
