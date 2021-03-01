@@ -67,7 +67,7 @@ import { OverlayRefProvider } from '@core/overlay-ref-provider';
     StateService,
     TeamMemberService,
     SelectBoard,
-    { provide: 'BASE_URL', useValue: 'https://localhost:44354/' },
+    { provide: 'BASE_URL', useValue: 'https://localhost:5001/' },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     {
       provide: HTTP_INTERCEPTORS,
