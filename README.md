@@ -1,6 +1,6 @@
 # Clarity
 
-Simple Kanban Board using ASP.NET Core and Angular 9
+Simple Kanban Board using ASP.NET Core and Angular
 
 ## Give a Star! :star:
 
