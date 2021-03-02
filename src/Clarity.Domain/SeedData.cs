@@ -1,33 +1,31 @@
-﻿using Clarity.Core.Data;
-using Clarity.Core.Extensions;
-using Clarity.Core.Identity;
+﻿using BuildingBlocks.Core;
+using Clarity.Core;
+using Clarity.Core.Data;
 using Clarity.Core.Models;
-using Microsoft.Extensions.Configuration;
 using System.Linq;
 
 namespace Clarity.Domain
 {
     public static class SeedData
     {
-        public static void Seed(ClarityContext context, IConfiguration configuration)
+        public static void Seed(ClarityContext context)
         {
-            BoardConfiguration.Seed(context, configuration);
-            StateConfiguration.Seed(context, configuration);
-            TeamMemberConfiguration.Seed(context, configuration);
-            UserConfiguration.Seed(context, configuration);
+            BoardConfiguration.Seed(context);
+            StateConfiguration.Seed(context);
+            TeamMemberConfiguration.Seed(context);
+            UserConfiguration.Seed(context);
         }
     }
 
     internal class BoardConfiguration
     {
-        public static void Seed(ClarityContext context, IConfiguration configuration)
+        public static void Seed(ClarityContext context)
         {            
-            new string[2] {
-                "General",
-                "Training"
+            new string[1] {
+                "Default",
             }.ForEach(name => {
                 if (context.Boards.SingleOrDefault(x => x.Name == name) == null)
-                    context.Boards.Add(new Board
+                    context.Boards.Add(new ()
                     {
                         Name = name,
                     });
@@ -39,46 +37,21 @@ namespace Clarity.Domain
 
     internal class StateConfiguration
     {
-        public static void Seed(ClarityContext context, IConfiguration configuration)
+        public static void Seed(ClarityContext context)
         {
             var order = 0;
 
-            new string[12] { 
-                "Backlog", 
-                "Analysis",
-                "Analysis Done", 
-                "Selected", 
-                "Research", 
-                "UX", 
-                "Read for Dev", 
-                "In Progress", 
-                "QA Ready", 
-                "Testing", 
-                "Deployment", 
-                "Done" 
+            new string[3] {
+                Constants.BoardStates.Backlog,
+                Constants.BoardStates.InProgress,
+                Constants.BoardStates.Done
             }.ForEach(name => {
                 if (context.States.SingleOrDefault(x => x.Name == name) == null)
-                    context.States.Add(new State
+                    context.States.Add(new ()
                     {
                         Name = name,
                         Order = order++,
                         BoardId = 1
-                    });                
-            });
-
-            order = 0;
-
-            new string[3] {
-                "Backlog",
-                "In Progress",
-                "Done"
-            }.ForEach(name => {
-                if (context.States.SingleOrDefault(x => x.Name == name) == null)
-                    context.States.Add(new State
-                    {
-                        Name = name,
-                        Order = order++,
-                        BoardId = 2
                     });
             });
 
@@ -88,12 +61,10 @@ namespace Clarity.Domain
 
     internal class TeamMemberConfiguration
     {
-        public static void Seed(ClarityContext context, IConfiguration configuration)
+        public static void Seed(ClarityContext context)
         {
-            new TeamMember[3] {
-                new TeamMember { Name = "Quinntyne" },
-                new TeamMember { Name = "Vanessa" },
-                new TeamMember { Name = "Patrick" }
+            new TeamMember[1] {
+                new () { Name = "Quinntyne" },
             }.ForEach(teamMember => {
                 if (context.TeamMembers.SingleOrDefault(x => x.Name == teamMember.Name) == null)
                     context.TeamMembers.Add(teamMember);
@@ -105,12 +76,10 @@ namespace Clarity.Domain
 
     internal class UserConfiguration
     {
-        public static void Seed(ClarityContext context, IConfiguration configuration)
+        public static void Seed(ClarityContext context)
         {
-            new User[3] {
-                new User { Username = "Quinntyne" },
-                new User { Username = "Vanessa" },
-                new User { Username = "Patrick" }
+            new User[1] {
+                new () { Username = "Quinntyne" }
             }.ForEach(user => {
                 if (context.Users.SingleOrDefault(x => x.Username == user.Username) == null)
                 {

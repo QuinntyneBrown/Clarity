@@ -2,7 +2,7 @@
 using Clarity.Domain.Features.Boards;
 using System.Linq;
 
-namespace Clarity.Domain.Features.Extensions
+namespace Clarity.Domain.Features
 {
     public static class BoardExtensions
     {

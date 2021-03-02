@@ -1,5 +1,5 @@
+using BuildingBlocks.Core;
 using Clarity.Core.Data;
-using Clarity.Core.Identity;
 using Clarity.Domain.Features.States;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

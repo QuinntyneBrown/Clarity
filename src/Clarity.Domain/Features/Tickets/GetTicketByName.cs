@@ -1,5 +1,5 @@
 using Clarity.Core.Data;
-using Clarity.Domain.Features.Extensions;
+using Clarity.Domain.Features;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;

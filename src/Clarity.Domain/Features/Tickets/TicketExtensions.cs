@@ -3,7 +3,7 @@ using Clarity.Core.Models;
 using System;
 using System.Linq;
 
-namespace Clarity.Domain.Features.Extensions
+namespace Clarity.Domain.Features
 {
     public static class TicketExtensions
     {

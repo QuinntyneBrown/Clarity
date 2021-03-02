@@ -1,7 +1,7 @@
 ﻿using Clarity.Core.Models;
 using Clarity.Domain.Features.Comments;
 
-namespace Clarity.Domain.Features.Extensions
+namespace Clarity.Domain.Features
 {
     public static class CommentExtensions
     {

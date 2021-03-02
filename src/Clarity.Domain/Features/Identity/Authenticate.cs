@@ -1,5 +1,5 @@
+using BuildingBlocks.Core;
 using Clarity.Core.Data;
-using Clarity.Core.Identity;
 using Clarity.Core.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

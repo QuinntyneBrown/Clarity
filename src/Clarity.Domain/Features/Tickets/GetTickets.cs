@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Clarity.Domain.Features.Extensions;
+using Clarity.Domain.Features;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clarity.Domain.Features.Tickets

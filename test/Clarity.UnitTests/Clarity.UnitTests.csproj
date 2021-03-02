@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Clarity.Api\Clarity.Api.csproj" />
     <ProjectReference Include="..\..\src\Clarity.Core\Clarity.Core.csproj" />
+    <ProjectReference Include="..\Clarity.Testing\Clarity.Testing.csproj" />
   </ItemGroup>
 
   <ItemGroup>

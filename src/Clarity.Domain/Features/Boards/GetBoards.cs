@@ -1,5 +1,4 @@
 using Clarity.Core.Data;
-using Clarity.Domain.Features.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
