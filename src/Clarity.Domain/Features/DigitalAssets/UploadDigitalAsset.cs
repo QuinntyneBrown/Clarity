@@ -15,7 +15,7 @@ using Clarity.Core.Models;
 
 namespace Clarity.Domain.Features.DigitalAssets
 {
-    public class UploadDigitalAssetCommand
+    public class UploadDigitalAsset
     {
         public class Request : IRequest<Response> { }
 

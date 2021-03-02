@@ -18,12 +18,13 @@ import { SelectBoard } from './boards/select-board';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  tickets$: BehaviorSubject<Ticket[]> = new BehaviorSubject([]);
-  states$: BehaviorSubject<State[]> = new BehaviorSubject([]);
-  boards$: BehaviorSubject<Board[]> = new BehaviorSubject([]);
-  teamMember$: BehaviorSubject<TeamMember> = new BehaviorSubject({} as TeamMember);
+  public readonly tickets$: BehaviorSubject<Ticket[]> = new BehaviorSubject([]);
+  public readonly states$: BehaviorSubject<State[]> = new BehaviorSubject([]);
+  public readonly boards$: BehaviorSubject<Board[]> = new BehaviorSubject([]);
+  public readonly teamMember$: BehaviorSubject<TeamMember> = new BehaviorSubject({} as TeamMember);
 
   public get isAuthenticated(): string { return localStorage.getItem('ACCESS_TOKEN'); }
+  
   public get board$(): Observable<Board> { return this.boards$.pipe(
     map(x => x.filter(l => l.boardId === this.boardId)[0] )
   );

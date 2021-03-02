@@ -1,20 +1,20 @@
 using MediatR;
-using System.Threading.Tasks;
+using System.Threading.Tasks;   
 using System.Threading;
+using System.Collections.Generic;
 using Clarity.Core.Data;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clarity.Domain.Features.DigitalAssets
 {
-    public class RemoveDigitalAssetCommand
+    public class GetDigitalAssets
     {
-        public class Request : IRequest<Response>
-        {
-            public int DigitalAssetId { get; set; }
-        }
+        public class Request : IRequest<Response> { }
 
         public class Response
         {
-
+            public IEnumerable<DigitalAssetDto> DigitalAssets { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -24,11 +24,10 @@ namespace Clarity.Domain.Features.DigitalAssets
             public Handler(IClarityContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {
-                _context.DigitalAssets.Remove(await _context.DigitalAssets.FindAsync(request.DigitalAssetId));
-                await _context.SaveChangesAsync(cancellationToken);
-                return new Response { };
-            }
+                => new Response()
+                {
+                    DigitalAssets = await _context.DigitalAssets.Select(x => DigitalAssetDto.FromDigitalAsset(x)).ToListAsync()
+                };
         }
     }
 }

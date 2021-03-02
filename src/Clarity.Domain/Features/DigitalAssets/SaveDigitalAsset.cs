@@ -7,7 +7,7 @@ using System;
 
 namespace Clarity.Domain.Features.DigitalAssets
 {
-    public class SaveDigitalAssetCommand
+    public class SaveDigitalAsset
     {
         public class Request : IRequest<Response> {
             public DigitalAssetDto DigitalAsset { get; set; }

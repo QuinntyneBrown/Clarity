@@ -49,13 +49,14 @@ import { OverlayRefProvider } from '@core/overlay-ref-provider';
     DragDropModule,
     OverlayModule,
     MatInputModule,
-    MatFormFieldModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
     MatSelectModule,
-    MatListModule
+    MatListModule,
+    SharedWorker
   ],
   providers: [
     BoardService,

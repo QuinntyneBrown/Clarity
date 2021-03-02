@@ -2,19 +2,19 @@ using MediatR;
 using System.Threading.Tasks;
 using System.Threading;
 using Clarity.Core.Data;
-using System;
 
 namespace Clarity.Domain.Features.DigitalAssets
 {
-    public class GetDigitalAssetByIdQuery
+    public class RemoveDigitalAsset
     {
-        public class Request : IRequest<Response> {
-            public Guid DigitalAssetId { get; set; }
+        public class Request : IRequest<Response>
+        {
+            public int DigitalAssetId { get; set; }
         }
 
         public class Response
         {
-            public DigitalAssetDto DigitalAsset { get; set; }
+
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -24,10 +24,11 @@ namespace Clarity.Domain.Features.DigitalAssets
             public Handler(IClarityContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    DigitalAsset = DigitalAssetDto.FromDigitalAsset(await _context.DigitalAssets.FindAsync(request.DigitalAssetId))
-                };
+            {
+                _context.DigitalAssets.Remove(await _context.DigitalAssets.FindAsync(request.DigitalAssetId));
+                await _context.SaveChangesAsync(cancellationToken);
+                return new Response { };
+            }
         }
     }
 }
