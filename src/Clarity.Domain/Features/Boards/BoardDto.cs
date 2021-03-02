@@ -1,4 +1,4 @@
-using Clarity.Domain.Features.States;
+using Clarity.Domain.Features;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +8,7 @@ namespace Clarity.Domain.Features.Boards
     {        
         public int BoardId { get; set; }
         public string Name { get; set; }
-        public ICollection<StateDto> States { get; set; } 
-            = new HashSet<StateDto>();
+        public ICollection<BoardStateDto> States { get; set; } 
+            = new HashSet<BoardStateDto>();
     }
 }

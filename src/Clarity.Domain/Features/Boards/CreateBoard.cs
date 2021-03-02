@@ -18,12 +18,13 @@ namespace Clarity.Domain.Features
         {
             public Validator()
             {
-
+                RuleFor(x => x.Name)
+                    .NotNull()
+                    .NotEmpty();
             }
         }
 
         public class Request : IRequest<Response> {
-            public int UserId { get; set; }
             public string Name { get; set; }
         }
 
@@ -42,40 +43,13 @@ namespace Clarity.Domain.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
 
-                try
-                {
-                    var board = new Board
-                    {
-                        Name = request.Name,
-                    };
+                var board = Board.WithDefaults(request.Name);
 
-                    var defaultStateNames = new string[3]
-                    {
-                        Constants.BoardStates.Backlog,
-                        Constants.BoardStates.InProgress,
-                        Constants.BoardStates.Done,
-                    };
+                _context.Boards.Add(board);
 
-                    foreach (var state in defaultStateNames.Select(x => new State
-                    {
-                        Name = x
-                    }).ToList())
-                    {
-                        board.States.Add(state);
-                    };
+                await _context.SaveChangesAsync(cancellationToken);
 
-                    _context.Boards.Add(board);
-
-                    await _context.SaveChangesAsync(cancellationToken);
-
-                    return new Response()
-                    {
-                        Board = board.ToDto()
-                    };
-                } catch(Exception e)
-                {
-                    throw e;
-                }
+                return new () { Board = board.ToDto() };
             }
         }
     }

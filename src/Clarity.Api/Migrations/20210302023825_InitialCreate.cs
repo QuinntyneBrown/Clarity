@@ -11,9 +11,9 @@ namespace Clarity.Api.Migrations
                 name: "Boards",
                 columns: table => new
                 {
-                    BoardId = table.Column<int>(nullable: false)
+                    BoardId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -24,10 +24,10 @@ namespace Clarity.Api.Migrations
                 name: "DigitalAssets",
                 columns: table => new
                 {
-                    DigitalAssetId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Bytes = table.Column<byte[]>(nullable: true),
-                    ContentType = table.Column<string>(nullable: true)
+                    DigitalAssetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Bytes = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    ContentType = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -38,10 +38,10 @@ namespace Clarity.Api.Migrations
                 name: "TeamMembers",
                 columns: table => new
                 {
-                    TeamMemberId = table.Column<int>(nullable: false)
+                    TeamMemberId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    AvatarUrl = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,11 +52,11 @@ namespace Clarity.Api.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    Salt = table.Column<byte[]>(nullable: true)
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Salt = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,15 +67,15 @@ namespace Clarity.Api.Migrations
                 name: "States",
                 columns: table => new
                 {
-                    StateId = table.Column<int>(nullable: false)
+                    BoardStateId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BoardId = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Order = table.Column<int>(nullable: false)
+                    BoardId = table.Column<int>(type: "int", nullable: true),
+                    Order = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_States", x => x.StateId);
+                    table.PrimaryKey("PK_States", x => x.BoardStateId);
                     table.ForeignKey(
                         name: "FK_States_Boards_BoardId",
                         column: x => x.BoardId,
@@ -88,14 +88,14 @@ namespace Clarity.Api.Migrations
                 name: "Tickets",
                 columns: table => new
                 {
-                    TicketId = table.Column<int>(nullable: false)
+                    TicketId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TeamMemberId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Url = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    AcceptanceCriteria = table.Column<string>(nullable: true),
-                    Priority = table.Column<int>(nullable: false)
+                    TeamMemberId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AcceptanceCriteria = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Priority = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,12 +112,12 @@ namespace Clarity.Api.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    CommentId = table.Column<int>(nullable: false)
+                    CommentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TeamMemberId = table.Column<int>(nullable: false),
-                    TicketId = table.Column<int>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Created = table.Column<DateTime>(nullable: false)
+                    TeamMemberId = table.Column<int>(type: "int", nullable: false),
+                    TicketId = table.Column<int>(type: "int", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -140,11 +140,11 @@ namespace Clarity.Api.Migrations
                 name: "TicketState",
                 columns: table => new
                 {
-                    TicketStateId = table.Column<int>(nullable: false)
+                    TicketStateId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TicketId = table.Column<int>(nullable: false),
-                    StateId = table.Column<int>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false)
+                    TicketId = table.Column<int>(type: "int", nullable: false),
+                    StateId = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -153,7 +153,7 @@ namespace Clarity.Api.Migrations
                         name: "FK_TicketState_States_StateId",
                         column: x => x.StateId,
                         principalTable: "States",
-                        principalColumn: "StateId",
+                        principalColumn: "BoardStateId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TicketState_Tickets_TicketId",

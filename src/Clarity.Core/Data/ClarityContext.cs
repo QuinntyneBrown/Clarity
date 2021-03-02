@@ -11,7 +11,7 @@ namespace Clarity.Core.Data
         public DbSet<Board> Boards { get; private set; }
         public DbSet<Comment> Comments { get; private set; }
         public DbSet<DigitalAsset> DigitalAssets { get; private set; }        
-        public DbSet<State> States { get; private set; }
+        public DbSet<BoardState> States { get; private set; }
         public DbSet<TeamMember> TeamMembers { get; private set; }
         public DbSet<Ticket> Tickets { get; private set; }        
         public DbSet<User> Users { get; private set; }

@@ -1,12 +1,11 @@
 using Clarity.Core.Data;
-using Clarity.Domain.Features;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Clarity.Domain.Features.States
+namespace Clarity.Domain.Features
 {
-    public class GetStateById
+    public class GetBoardStateById
     {
         public class Request : IRequest<Response> {
             public int StateId { get; set; }
@@ -14,7 +13,7 @@ namespace Clarity.Domain.Features.States
 
         public class Response
         {
-            public StateDto State { get; set; }
+            public BoardStateDto State { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

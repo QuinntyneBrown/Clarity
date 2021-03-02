@@ -2,6 +2,7 @@
 using Clarity.Core;
 using Clarity.Core.Data;
 using Clarity.Core.Models;
+using System;
 using System.Linq;
 
 namespace Clarity.Domain
@@ -41,15 +42,11 @@ namespace Clarity.Domain
         {
             var order = 0;
 
-            new string[3] {
-                Constants.BoardStates.Backlog,
-                Constants.BoardStates.InProgress,
-                Constants.BoardStates.Done
-            }.ForEach(name => {
-                if (context.States.SingleOrDefault(x => x.Name == name) == null)
+            Enum.GetValues<StateType>().ForEach(type => {
+                if (context.States.SingleOrDefault(x => x.Type == type) == null)
                     context.States.Add(new ()
                     {
-                        Name = name,
+                        Type = type,
                         Order = order++,
                         BoardId = 1
                     });

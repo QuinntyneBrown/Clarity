@@ -15,8 +15,8 @@ namespace Clarity.Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Clarity.Core.Models.Board", b =>
@@ -32,6 +32,29 @@ namespace Clarity.Api.Migrations
                     b.HasKey("BoardId");
 
                     b.ToTable("Boards");
+                });
+
+            modelBuilder.Entity("Clarity.Core.Models.BoardState", b =>
+                {
+                    b.Property<int>("BoardStateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BoardId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("BoardStateId");
+
+                    b.HasIndex("BoardId");
+
+                    b.ToTable("States");
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.Comment", b =>
@@ -80,29 +103,6 @@ namespace Clarity.Api.Migrations
                     b.HasKey("DigitalAssetId");
 
                     b.ToTable("DigitalAssets");
-                });
-
-            modelBuilder.Entity("Clarity.Core.Models.State", b =>
-                {
-                    b.Property<int>("StateId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BoardId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.HasKey("StateId");
-
-                    b.HasIndex("BoardId");
-
-                    b.ToTable("States");
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.TeamMember", b =>
@@ -201,6 +201,15 @@ namespace Clarity.Api.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Clarity.Core.Models.BoardState", b =>
+                {
+                    b.HasOne("Clarity.Core.Models.Board", "Board")
+                        .WithMany("States")
+                        .HasForeignKey("BoardId");
+
+                    b.Navigation("Board");
+                });
+
             modelBuilder.Entity("Clarity.Core.Models.Comment", b =>
                 {
                     b.HasOne("Clarity.Core.Models.TeamMember", "TeamMember")
@@ -212,13 +221,10 @@ namespace Clarity.Api.Migrations
                     b.HasOne("Clarity.Core.Models.Ticket", "Ticket")
                         .WithMany("Comments")
                         .HasForeignKey("TicketId");
-                });
 
-            modelBuilder.Entity("Clarity.Core.Models.State", b =>
-                {
-                    b.HasOne("Clarity.Core.Models.Board", "Board")
-                        .WithMany("States")
-                        .HasForeignKey("BoardId");
+                    b.Navigation("TeamMember");
+
+                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.Ticket", b =>
@@ -228,11 +234,13 @@ namespace Clarity.Api.Migrations
                         .HasForeignKey("TeamMemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("TeamMember");
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.TicketState", b =>
                 {
-                    b.HasOne("Clarity.Core.Models.State", "State")
+                    b.HasOne("Clarity.Core.Models.BoardState", "State")
                         .WithMany("TicketStates")
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -243,6 +251,34 @@ namespace Clarity.Api.Migrations
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("State");
+
+                    b.Navigation("Ticket");
+                });
+
+            modelBuilder.Entity("Clarity.Core.Models.Board", b =>
+                {
+                    b.Navigation("States");
+                });
+
+            modelBuilder.Entity("Clarity.Core.Models.BoardState", b =>
+                {
+                    b.Navigation("TicketStates");
+                });
+
+            modelBuilder.Entity("Clarity.Core.Models.TeamMember", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("Clarity.Core.Models.Ticket", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("TicketStates");
                 });
 #pragma warning restore 612, 618
         }

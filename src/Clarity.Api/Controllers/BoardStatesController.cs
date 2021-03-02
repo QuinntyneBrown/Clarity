@@ -1,4 +1,4 @@
-﻿    using Clarity.Domain.Features.States;
+﻿using Clarity.Domain.Features;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -8,17 +8,17 @@ namespace Clarity.Api.Controllers
 {
     [ApiController]
     [Route("api/states")]
-    public class StatesController
+    public class BoardStatesController
     {
         private readonly IMediator _meditator;
 
-        public StatesController(IMediator mediator) 
+        public BoardStatesController(IMediator mediator) 
             => _meditator = mediator;
 
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetStates.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetStates.Response>> Get()
-            => await _meditator.Send(new GetStates.Request());
+        [ProducesResponseType(typeof(GetBoardStates.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetBoardStates.Response>> Get()
+            => await _meditator.Send(new GetBoardStates.Request());
     }
 }

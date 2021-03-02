@@ -29,7 +29,7 @@ namespace Clarity.Domain.Features.Tickets
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {                
-                var state = await _context.States.FindAsync(request.Ticket.StateId);
+                var state = await _context.States.FindAsync(request.Ticket.BoardStateId);
                 var username = _httpContextAccessor.HttpContext.User.Identity.Name;
                 var currentTeamMemberId = (await _context.TeamMembers.SingleAsync(x => x.Name == username)).TeamMemberId;
 

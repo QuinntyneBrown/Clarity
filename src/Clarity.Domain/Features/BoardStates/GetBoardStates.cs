@@ -7,15 +7,15 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Clarity.Domain.Features.States
+namespace Clarity.Domain.Features
 {
-    public class GetStates
+    public class GetBoardStates
     {
         public class Request : IRequest<Response> { }
 
         public class Response
         {
-            public IEnumerable<StateDto> States { get; set; }
+            public IEnumerable<BoardStateDto> States { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

@@ -1,6 +1,6 @@
 using BuildingBlocks.Core;
 using Clarity.Core.Data;
-using Clarity.Domain.Features.States;
+using Clarity.Domain.Features;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -70,7 +70,7 @@ namespace Clarity.Api
                     };
                 });
 
-            services.AddMediatR(typeof(GetStates));
+            services.AddMediatR(typeof(GetBoardStates));
             services.AddControllers();
             services.AddDbContext<ClarityContext>(options =>
             {
