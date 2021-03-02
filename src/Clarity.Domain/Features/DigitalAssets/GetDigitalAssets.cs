@@ -6,7 +6,7 @@ using Clarity.Core.Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clarity.Domain.Features.DigitalAssets
+namespace Clarity.Domain.Features
 {
     public class GetDigitalAssets
     {

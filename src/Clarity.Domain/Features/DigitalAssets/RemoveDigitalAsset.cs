@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using Clarity.Core.Data;
 
-namespace Clarity.Domain.Features.DigitalAssets
+namespace Clarity.Domain.Features
 {
     public class RemoveDigitalAsset
     {

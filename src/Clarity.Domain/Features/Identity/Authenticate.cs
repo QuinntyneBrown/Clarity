@@ -9,7 +9,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Clarity.Domain.Features.Identity
+namespace Clarity.Domain.Features
 {
     public class Authenticate
     {

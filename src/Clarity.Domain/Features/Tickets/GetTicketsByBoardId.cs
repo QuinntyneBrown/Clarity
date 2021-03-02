@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Clarity.Domain.Features.Tickets
+namespace Clarity.Domain.Features
 {
     public class GetTicketsByBoardId
     {
@@ -31,8 +31,8 @@ namespace Clarity.Domain.Features.Tickets
                     Tickets = await _context.Tickets
                     .Include(x => x.Comments)
                     .Include(x => x.TicketStates)
-                    .ThenInclude(x => x.State)
-                    .Where(x => x.TicketStates.OrderByDescending(ts => ts.Created).First().State.BoardId == request.BoardId)
+                    .ThenInclude(x => x.BoardState)
+                    .Where(x => x.TicketStates.OrderByDescending(ts => ts.Created).First().BoardState.BoardId == request.BoardId)
                     .Select(x => x.ToDto())
                     .ToListAsync()
                 };

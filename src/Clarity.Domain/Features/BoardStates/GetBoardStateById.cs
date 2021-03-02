@@ -26,7 +26,7 @@ namespace Clarity.Domain.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => new Response
                 {
-                    State = (await _context.States.FindAsync(request.StateId)).ToDto()
+                    State = (await _context.BoardStates.FindAsync(request.StateId)).ToDto()
                 };
         }
     }

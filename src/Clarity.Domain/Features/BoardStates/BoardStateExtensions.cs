@@ -1,5 +1,4 @@
 ﻿using Clarity.Core.Models;
-using Clarity.Domain.Features;
 
 namespace Clarity.Domain.Features
 {

@@ -3,7 +3,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Clarity.Domain.Features.Tickets
+namespace Clarity.Domain.Features
 {
     public class RemoveTicket
     {

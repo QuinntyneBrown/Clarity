@@ -1,4 +1,4 @@
-﻿using Clarity.Domain.Features.Comments;
+﻿using Clarity.Domain.Features;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

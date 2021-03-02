@@ -13,7 +13,7 @@ using Clarity.Core.Data;
 using BuildingBlocks.Core;
 using Clarity.Core.Models;
 
-namespace Clarity.Domain.Features.DigitalAssets
+namespace Clarity.Domain.Features
 {
     public class UploadDigitalAsset
     {

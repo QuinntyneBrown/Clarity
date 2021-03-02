@@ -5,7 +5,7 @@ using Clarity.Core.Models;
 using Clarity.Core.Data;
 using System;
 
-namespace Clarity.Domain.Features.DigitalAssets
+namespace Clarity.Domain.Features
 {
     public class SaveDigitalAsset
     {

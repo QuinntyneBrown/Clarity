@@ -1,5 +1,5 @@
 ﻿using Clarity.Core.Models;
-using Clarity.Domain.Features.Comments;
+using Clarity.Domain.Features;
 
 namespace Clarity.Domain.Features
 {

@@ -2,7 +2,7 @@ using Clarity.Domain.Features;
 using System;
 using System.Collections.Generic;
 
-namespace Clarity.Domain.Features.Boards
+namespace Clarity.Domain.Features
 {
     public class BoardDto
     {        

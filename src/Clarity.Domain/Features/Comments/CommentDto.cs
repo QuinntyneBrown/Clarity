@@ -1,7 +1,7 @@
-﻿using Clarity.Domain.Features.TeamMembers;
+﻿using Clarity.Domain.Features;
 using System;
 
-namespace Clarity.Domain.Features.Comments
+namespace Clarity.Domain.Features
 {
     public class CommentDto
     {

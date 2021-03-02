@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Clarity.Domain.Features.Tickets
+namespace Clarity.Domain.Features
 {
     public class UpsertTicket
     {
@@ -29,13 +29,13 @@ namespace Clarity.Domain.Features.Tickets
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {                
-                var state = await _context.States.FindAsync(request.Ticket.BoardStateId);
+                var state = await _context.BoardStates.FindAsync(request.Ticket.BoardStateId);
                 var username = _httpContextAccessor.HttpContext.User.Identity.Name;
                 var currentTeamMemberId = (await _context.TeamMembers.SingleAsync(x => x.Name == username)).TeamMemberId;
 
                 var ticket = await _context.Tickets
                     .Include(x => x.TicketStates)
-                    .ThenInclude(x => x.State)
+                    .ThenInclude(x => x.BoardState)
                     .FirstOrDefaultAsync(x => x.TicketId == request.Ticket.TicketId);
 
                 if (ticket == null)
@@ -52,7 +52,7 @@ namespace Clarity.Domain.Features.Tickets
 
                 ticket.TicketStates.Clear();
 
-                ticket.TicketStates.Add(new TicketState { State = state });
+                ticket.TicketStates.Add(new TicketState { BoardState = state });
 
                 await _context.SaveChangesAsync(cancellationToken);
 

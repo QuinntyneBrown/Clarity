@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Clarity.Domain.Features;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clarity.Domain.Features.Tickets
+namespace Clarity.Domain.Features
 {
     public class GetTickets
     {
@@ -29,7 +29,7 @@ namespace Clarity.Domain.Features.Tickets
                 {
                     Tickets = _context.Tickets
                     .Include(x => x.TicketStates)
-                    .ThenInclude(x => x.State)
+                    .ThenInclude(x => x.BoardState)
                     .Select(x => x.ToDto())
                     .ToList()
                 });

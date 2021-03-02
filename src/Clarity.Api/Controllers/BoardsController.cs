@@ -1,4 +1,4 @@
-﻿using Clarity.Domain.Features.Boards;
+﻿using Clarity.Domain.Features;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

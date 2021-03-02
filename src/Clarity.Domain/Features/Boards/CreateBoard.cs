@@ -1,7 +1,7 @@
 using Clarity.Core;
 using Clarity.Core.Data;
 using Clarity.Core.Models;
-using Clarity.Domain.Features.Boards;
+using Clarity.Domain.Features;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

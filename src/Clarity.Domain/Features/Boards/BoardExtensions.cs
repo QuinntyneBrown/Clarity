@@ -1,5 +1,4 @@
 ﻿using Clarity.Core.Models;
-using Clarity.Domain.Features.Boards;
 using System.Linq;
 
 namespace Clarity.Domain.Features

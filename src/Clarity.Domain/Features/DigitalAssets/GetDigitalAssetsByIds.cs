@@ -7,7 +7,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace Clarity.Domain.Features.DigitalAssets
+namespace Clarity.Domain.Features
 {
     public class GetDigitalAssetsByIds
     {

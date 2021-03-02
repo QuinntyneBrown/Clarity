@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Clarity.Domain.Features.Comments
+namespace Clarity.Domain.Features
 {
     public class UpsertComment
     {

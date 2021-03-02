@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Clarity.Domain.Features.TeamMembers
+namespace Clarity.Domain.Features
 {
     public class GetTeamMemberById
     {

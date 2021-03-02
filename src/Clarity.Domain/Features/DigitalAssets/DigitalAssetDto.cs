@@ -1,7 +1,7 @@
 using Clarity.Core.Models;
 using System;
 
-namespace Clarity.Domain.Features.DigitalAssets
+namespace Clarity.Domain.Features
 {
     public class DigitalAssetDto
     {        

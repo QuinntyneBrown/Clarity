@@ -43,8 +43,8 @@ namespace Clarity.Domain
             var order = 0;
 
             Enum.GetValues<StateType>().ForEach(type => {
-                if (context.States.SingleOrDefault(x => x.Type == type) == null)
-                    context.States.Add(new ()
+                if (context.BoardStates.SingleOrDefault(x => x.Type == type) == null)
+                    context.BoardStates.Add(new ()
                     {
                         Type = type,
                         Order = order++,

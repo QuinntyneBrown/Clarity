@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Builders\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\building-blocks\BuildingBlocks.Core\BuildingBlocks.Core.csproj" />
     <ProjectReference Include="..\..\src\Clarity.Api\Clarity.Api.csproj" />
     <ProjectReference Include="..\..\src\Clarity.Core\Clarity.Core.csproj" />
@@ -16,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.3" />
+    <PackageReference Include="Moq" Version="4.16.1" />
   </ItemGroup>
 
 </Project>

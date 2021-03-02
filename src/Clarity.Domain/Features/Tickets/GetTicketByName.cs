@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Clarity.Domain.Features.Tickets
+namespace Clarity.Domain.Features
 {
     public class GetTicketByName
     {
@@ -30,7 +30,7 @@ namespace Clarity.Domain.Features.Tickets
                     .Include(x => x.Comments)
                     .ThenInclude(x => x.TeamMember)
                     .Include(x=> x.TicketStates)
-                    .ThenInclude(x => x.State)
+                    .ThenInclude(x => x.BoardState)
                     .FirstOrDefaultAsync(x => x.Name == request.Name))?.ToDto()
                 };
         }
