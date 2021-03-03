@@ -8,14 +8,14 @@ namespace Clarity.Core.Models
     {
         public int BoardId { get; set; }
         public string Name { get; set; }
-        public ICollection<BoardState> States { get; set; } = new HashSet<BoardState>();
+        public ICollection<BoardState> BoardStates { get; set; } = new HashSet<BoardState>();
         public static Board WithDefaults(string name)
         {
             Board board = new() { Name = name };
 
             foreach (var state in Enum.GetValues<StateType>().Select(x => new BoardState(x)).ToList())
             {
-                board.States.Add(state);
+                board.BoardStates.Add(state);
             };
 
             return board;

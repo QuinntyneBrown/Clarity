@@ -9,7 +9,7 @@ namespace BuildingBlocks.Core
 {
     public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
-        where TResponse :ResponseBase, new()
+        where TResponse : ResponseBase, new()
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -29,14 +29,14 @@ namespace BuildingBlocks.Core
             {
                 var response = await next();
 
-                foreach(var failure in failures)
+                foreach (var failure in failures)
                 {
                     response.ValidationErrors.Add(failure.ErrorMessage);
                 }
 
                 return response;
             }
-                
+
 
             return await next();
         }

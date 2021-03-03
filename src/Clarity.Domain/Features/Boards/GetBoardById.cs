@@ -26,7 +26,7 @@ namespace Clarity.Domain.Features
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken) 
                 => new Response {
                     Board = (await _context.Boards
-                    .Include(x => x.States)
+                    .Include(x => x.BoardStates)
                     .FirstOrDefaultAsync(x => x.BoardId == request.BoardId)).ToDto()
             };
         }

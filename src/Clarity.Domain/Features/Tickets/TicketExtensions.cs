@@ -1,5 +1,4 @@
-﻿using Clarity.Domain.Features;
-using Clarity.Core.Models;
+﻿using Clarity.Core.Models;
 using System;
 using System.Linq;
 

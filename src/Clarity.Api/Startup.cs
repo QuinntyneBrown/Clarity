@@ -1,3 +1,4 @@
+using BuildingBlocks.AspNetCore;
 using BuildingBlocks.Core;
 using Clarity.Core.Data;
 using Clarity.Domain.Features;
@@ -69,6 +70,8 @@ namespace Clarity.Api
                         }
                     };
                 });
+
+            services.AddValidation(typeof(Authenticate));
 
             services.AddMediatR(typeof(GetBoardStates));
             services.AddControllers();

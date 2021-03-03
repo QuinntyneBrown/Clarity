@@ -1,7 +1,8 @@
 import { Ticket } from '../tickets';
 
-export class State {
-  public stateId: number;
+export class BoardState {
+  public boardStateId: number;
   public name: string;
+  public type: number;
   public tickets: Ticket[] = [];
 }

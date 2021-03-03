@@ -5,7 +5,7 @@ export class Ticket {
   public age: number;
   public description: string;
   public acceptanceCriteria: string;
-  public stateId: number;
+  public boardStateId: number;
   public boardId: number;
   public comments: Comment[] = [];
 }

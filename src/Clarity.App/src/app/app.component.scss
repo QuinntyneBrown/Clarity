@@ -1,7 +1,6 @@
 :host {
-    width: 100%;  
-  }
-  
+  width: 100%;  
+
   .kanban-board {
     min-height: calc(100vh - 50px);
     display: flex;
@@ -9,7 +8,6 @@
     flex-flow: row;
     width: 100%;
     justify-content: space-evenly;    
-       
   }
   
   .kanbanBoard__column {
@@ -24,8 +22,6 @@
     }
   }
   
-  
-  
   .kanbanBoard__ticket, .cdk-drag-preview {
     display: block;
     background-color: #fff;
@@ -36,7 +32,7 @@
     opacity: 0.5;
   }
   
-  .kanbanBoard_controls {
+  .kanbanBoard__controls {
     display: flex;
     height: 50px;
     width:100%;
@@ -55,5 +51,8 @@
         margin: 0 5px;
         cursor: pointer;
     }
-  }
+  }  
+}
+  
+
   

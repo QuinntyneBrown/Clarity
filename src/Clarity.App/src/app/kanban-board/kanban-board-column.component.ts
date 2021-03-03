@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { State } from '../states';
+import { BoardState } from '../board-states';
 
 @Component({
   templateUrl: './kanban-board-column.component.html',
@@ -9,5 +9,5 @@ import { State } from '../states';
 export class KanbanBoardColumnComponent {
 
   @Input()
-  public state: State;
+  public boardState: BoardState;
 }

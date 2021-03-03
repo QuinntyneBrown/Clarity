@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Ticket, TicketService } from './tickets';
-import { State } from './states';
+import { BoardState } from './board-states';
 import { UpsertTicket } from './tickets/upsert-ticket';
-import { map } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Login } from './identity/login';
 import { BoardService } from './boards/board.service';
@@ -11,15 +11,17 @@ import { Board } from './boards/board.model';
 import { TeamMemberService } from './team-members/team-member.service';
 import { TeamMember } from './team-members/team-member.model';
 import { SelectBoard } from './boards/select-board';
+import { LookUpService } from '@core/look-up.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+  private readonly _destroyed$: Subject<void> = new Subject();
   public readonly tickets$: BehaviorSubject<Ticket[]> = new BehaviorSubject([]);
-  public readonly states$: BehaviorSubject<State[]> = new BehaviorSubject([]);
+  public readonly boardStates$: BehaviorSubject<BoardState[]> = new BehaviorSubject([]);
   public readonly boards$: BehaviorSubject<Board[]> = new BehaviorSubject([]);
   public readonly teamMember$: BehaviorSubject<TeamMember> = new BehaviorSubject({} as TeamMember);
 
@@ -29,7 +31,7 @@ export class AppComponent implements OnInit {
     map(x => x.filter(l => l.boardId === this.boardId)[0] )
   );
 }
-  boardId = parseInt(localStorage.getItem('BOARD_ID'), null) || 2;
+  boardId = parseInt(localStorage.getItem('BOARD_ID'), null) || 1;
   public get board() {
     return this.boards$.value.filter(x => x.boardId === this.boardId)[0];
   }
@@ -37,6 +39,7 @@ export class AppComponent implements OnInit {
     private login: Login,
     private boardService: BoardService,
     private ticketService: TicketService,
+    private readonly _lookUpService: LookUpService,
     public upsertTicket: UpsertTicket,
     public teamMemberService: TeamMemberService,
     public selectBoard: SelectBoard) { }
@@ -57,6 +60,11 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
     await this.ensureAuthenticated();
 
+    this._lookUpService.getState()
+    .pipe(
+      takeUntil(this._destroyed$),      
+    ).subscribe();
+
     this.teamMemberService.getCurrent().pipe(
       map(x => this.teamMember$.next(x))
       ).subscribe();
@@ -68,19 +76,19 @@ export class AppComponent implements OnInit {
     this.boardService.get().pipe(
       map(x => {
         this.boards$.next(x);
-        this.states$.next(x[this.boardId - 1].states);
+        this.boardStates$.next(x[this.boardId - 1].states);
       })
     ).subscribe();
 
   }
 
-  public ticketsByState$(state: State) {
+  public ticketsByState$(state: BoardState) {
     return this.tickets$.pipe(
       map(x => x.filter(t => t.state === state.name))
     );
   }
 
-  drop(event: CdkDragDrop<Ticket[]>, state: State) {
+  drop(event: CdkDragDrop<Ticket[]>, state: BoardState) {
 
     if (event.previousContainer !== event.container) {
       transferArrayItem(event.previousContainer.data,
@@ -90,7 +98,7 @@ export class AppComponent implements OnInit {
 
       const ticket: Ticket = event.container.data[event.currentIndex] as Ticket;
 
-      ticket.stateId = state.stateId;
+      ticket.boardStateId = state.boardStateId;
       ticket.state = state.name;
       ticket.age = 0;
       this.ticketService
@@ -101,11 +109,16 @@ export class AppComponent implements OnInit {
 
   handleAddClick() {
     this.upsertTicket.create({ board: this.board })
-    .pipe(map(x => this.ngOnInit())).subscribe();
+    .pipe(
+      takeUntil(this._destroyed$),
+      map(x => this.ngOnInit()
+      )
+      ).subscribe();
   }
 
   handleSelectBoardClick() {
     this.selectBoard.create({ boardId: this.boardId }).pipe(
+      takeUntil(this._destroyed$),
       map(x => {
         if (x) {
           this.boardId = x.boardId;
@@ -114,5 +127,10 @@ export class AppComponent implements OnInit {
         }
       })
     ).subscribe();
+  }
+
+  ngOnDestroy() {
+    this._destroyed$.next();
+    this._destroyed$.complete();
   }
 }

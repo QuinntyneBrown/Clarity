@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\building-blocks\BuildingBlocks.AspNetCore\BuildingBlocks.AspNetCore.csproj" />
     <ProjectReference Include="..\Clarity.Core\Clarity.Core.csproj" />
     <ProjectReference Include="..\Clarity.Domain\Clarity.Domain.csproj" />
   </ItemGroup>

@@ -10,7 +10,7 @@ namespace Clarity.Domain.Features
             {
                 BoardId = board.BoardId,
                 Name = board.Name,
-                States = board.States
+                States = board.BoardStates
                 .OrderBy(x => x.Order)
                 .Select(x => x.ToDto())
                 .ToList()

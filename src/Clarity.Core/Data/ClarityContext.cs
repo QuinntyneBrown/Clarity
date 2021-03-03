@@ -1,4 +1,5 @@
 ﻿using Clarity.Core.Models;
+using Clarity.Core.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clarity.Core.Data
@@ -27,6 +28,24 @@ namespace Clarity.Core.Data
                 .HasOne(nt => nt.BoardState)
                 .WithMany(t => t.TicketStates)
                 .HasForeignKey(nt => nt.BoardStateId);
+
+            modelBuilder.Entity<Ticket>()
+                .Property(x => x.Description)
+                .HasConversion(
+                property => (string)property,
+                property => (Html)property);
+
+            modelBuilder.Entity<Ticket>()
+                .Property(x => x.AcceptanceCriteria)
+                .HasConversion(
+                property => (string)property,
+                property => (Html)property);
+
+            modelBuilder.Entity<Comment>()
+                .Property(x => x.Description)
+                .HasConversion(
+                property => (string)property,
+                property => (Html)property);
 
             base.OnModelCreating(modelBuilder);
         }

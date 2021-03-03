@@ -19,7 +19,7 @@ namespace Clarity.Domain.Features
             public string Password { get; set; }
         }
 
-        public class Response
+        public class Response : ResponseBase
         {
             public string AccessToken { get; set; }
             public int UserId { get; set; }

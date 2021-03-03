@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Clarity.Core.ValueObjects;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
@@ -11,8 +12,8 @@ namespace Clarity.Core.Models
         public int TeamMemberId { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
-        public string Description { get; set; }
-        public string AcceptanceCriteria { get; set; }
+        public Html Description { get; set; }
+        public Html AcceptanceCriteria { get; set; }
         public int Priority { get; set; }
         public TeamMember TeamMember { get; set; }
         public ICollection<TicketState> TicketStates { get; set; } = new HashSet<TicketState>();

@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { TicketService } from './ticket.service';
 import { Ticket } from './ticket.model';
 import { map, switchMap, tap, takeUntil } from 'rxjs/operators';
-import { State } from '../states';
+import { BoardState } from '../board-states';
 import { Board } from '../boards/board.model';
 import { BoardService } from '../boards/board.service';
 import { CommentService } from '../comments/comment.service';
@@ -46,7 +46,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
     public name: string;
     public ticketId: number;
 
-    public states$: BehaviorSubject<Array<State>> = new BehaviorSubject([]);
+    public states$: BehaviorSubject<Array<BoardState>> = new BehaviorSubject([]);
 
     public form: FormGroup;
     public commentForm: FormGroup;
@@ -60,7 +60,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
           map(x => {
             this.form.patchValue({
               name: x.name,
-              state: x.stateId,
+              state: x.boardStateId,
               description: x.description,
               acceptanceCriteria: x.acceptanceCriteria
             });
@@ -88,7 +88,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
 
   public handleSaveClick() {
     this.ticket.name = this.form.value.name;
-    this.ticket.stateId = parseInt(this.form.value.state, null);
+    this.ticket.boardStateId = parseInt(this.form.value.state, null);
     this.ticket.description = this.form.value.description;
     this.ticket.acceptanceCriteria = this.form.value.acceptanceCriteria;
 

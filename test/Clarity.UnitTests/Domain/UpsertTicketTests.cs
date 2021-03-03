@@ -40,7 +40,7 @@ namespace Clarity.UnitTests.Domain
         {
             var expectedName = "Test1";
 
-            SetUp($"{nameof(UpsertTicketTests)}{nameof(CanCreateTicket)}");
+            SetUp($"{nameof(UpsertTicketTests)}{nameof(CanUpdateTicket)}");
 
             var ticket = new Ticket()
             {

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clarity.Api.Migrations
 {
     [DbContext(typeof(ClarityContext))]
-    [Migration("20210302023825_InitialCreate")]
+    [Migration("20210302174722_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,7 +56,7 @@ namespace Clarity.Api.Migrations
 
                     b.HasIndex("BoardId");
 
-                    b.ToTable("States");
+                    b.ToTable("BoardStates");
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.Comment", b =>
@@ -164,18 +164,18 @@ namespace Clarity.Api.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("BoardStateId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("StateId")
-                        .HasColumnType("int");
 
                     b.Property<int>("TicketId")
                         .HasColumnType("int");
 
                     b.HasKey("TicketStateId");
 
-                    b.HasIndex("StateId");
+                    b.HasIndex("BoardStateId");
 
                     b.HasIndex("TicketId");
 
@@ -206,7 +206,7 @@ namespace Clarity.Api.Migrations
             modelBuilder.Entity("Clarity.Core.Models.BoardState", b =>
                 {
                     b.HasOne("Clarity.Core.Models.Board", "Board")
-                        .WithMany("States")
+                        .WithMany("BoardStates")
                         .HasForeignKey("BoardId");
 
                     b.Navigation("Board");
@@ -242,9 +242,9 @@ namespace Clarity.Api.Migrations
 
             modelBuilder.Entity("Clarity.Core.Models.TicketState", b =>
                 {
-                    b.HasOne("Clarity.Core.Models.BoardState", "State")
+                    b.HasOne("Clarity.Core.Models.BoardState", "BoardState")
                         .WithMany("TicketStates")
-                        .HasForeignKey("StateId")
+                        .HasForeignKey("BoardStateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -254,14 +254,14 @@ namespace Clarity.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("State");
+                    b.Navigation("BoardState");
 
                     b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.Board", b =>
                 {
-                    b.Navigation("States");
+                    b.Navigation("BoardStates");
                 });
 
             modelBuilder.Entity("Clarity.Core.Models.BoardState", b =>

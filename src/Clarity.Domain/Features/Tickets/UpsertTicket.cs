@@ -1,5 +1,7 @@
-﻿using Clarity.Core.Data;
+﻿using BuildingBlocks.Core;
+using Clarity.Core.Data;
 using Clarity.Core.Models;
+using Clarity.Core.ValueObjects;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +17,7 @@ namespace Clarity.Domain.Features
             public TicketDto Ticket { get; set; }
         }
 
-        public class Response { }
+        public class Response : ResponseBase { }
 
         public class Handler : IRequestHandler<Request, Response>
         {
@@ -40,15 +42,15 @@ namespace Clarity.Domain.Features
 
                 if (ticket == null)
                 {
-                    ticket = new Ticket { };
+                    ticket = new ();
                     _context.Tickets.Add(ticket);
                 }
 
                 ticket.TeamMemberId = currentTeamMemberId;
                 ticket.Name = request.Ticket.Name;
                 ticket.Url = request.Ticket.Url;
-                ticket.AcceptanceCriteria = request.Ticket.AcceptanceCriteria;
-                ticket.Description = request.Ticket.Description;
+                ticket.AcceptanceCriteria = (Html)request.Ticket.AcceptanceCriteria;
+                ticket.Description = (Html)request.Ticket.Description;
 
                 ticket.TicketStates.Clear();
 

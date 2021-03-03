@@ -1,3 +1,4 @@
+using BuildingBlocks.Core;
 using Clarity.Core.Data;
 using MediatR;
 using System.Threading;
@@ -11,7 +12,7 @@ namespace Clarity.Domain.Features
             public int TicketId { get; set; }
         }
 
-        public class Response { }
+        public class Response : ResponseBase { }
 
         public class Handler : IRequestHandler<Request, Response>
         {
@@ -25,9 +26,7 @@ namespace Clarity.Domain.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-			    return new Response() { 
-                
-                };
+                return new();
             }
         }
     }

@@ -1,8 +1,8 @@
 
 <span>
-    {{ state.name }}
+    {{ boardState.type }}
 </span>
 
-<app-ticket *ngFor='let ticket of state.tickets' [ticket]='ticket' cdkDrag>
+<app-ticket *ngFor='let ticket of boardState.tickets' [ticket]='ticket' cdkDrag>
 
 </app-ticket>

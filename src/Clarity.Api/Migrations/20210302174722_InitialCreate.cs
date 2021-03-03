@@ -64,7 +64,7 @@ namespace Clarity.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "States",
+                name: "BoardStates",
                 columns: table => new
                 {
                     BoardStateId = table.Column<int>(type: "int", nullable: false)
@@ -75,9 +75,9 @@ namespace Clarity.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_States", x => x.BoardStateId);
+                    table.PrimaryKey("PK_BoardStates", x => x.BoardStateId);
                     table.ForeignKey(
-                        name: "FK_States_Boards_BoardId",
+                        name: "FK_BoardStates_Boards_BoardId",
                         column: x => x.BoardId,
                         principalTable: "Boards",
                         principalColumn: "BoardId",
@@ -143,16 +143,16 @@ namespace Clarity.Api.Migrations
                     TicketStateId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TicketId = table.Column<int>(type: "int", nullable: false),
-                    StateId = table.Column<int>(type: "int", nullable: false),
+                    BoardStateId = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TicketState", x => x.TicketStateId);
                     table.ForeignKey(
-                        name: "FK_TicketState_States_StateId",
-                        column: x => x.StateId,
-                        principalTable: "States",
+                        name: "FK_TicketState_BoardStates_BoardStateId",
+                        column: x => x.BoardStateId,
+                        principalTable: "BoardStates",
                         principalColumn: "BoardStateId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -162,6 +162,11 @@ namespace Clarity.Api.Migrations
                         principalColumn: "TicketId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BoardStates_BoardId",
+                table: "BoardStates",
+                column: "BoardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_TeamMemberId",
@@ -174,19 +179,14 @@ namespace Clarity.Api.Migrations
                 column: "TicketId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_States_BoardId",
-                table: "States",
-                column: "BoardId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_TeamMemberId",
                 table: "Tickets",
                 column: "TeamMemberId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TicketState_StateId",
+                name: "IX_TicketState_BoardStateId",
                 table: "TicketState",
-                column: "StateId");
+                column: "BoardStateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TicketState_TicketId",
@@ -209,7 +209,7 @@ namespace Clarity.Api.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "States");
+                name: "BoardStates");
 
             migrationBuilder.DropTable(
                 name: "Tickets");

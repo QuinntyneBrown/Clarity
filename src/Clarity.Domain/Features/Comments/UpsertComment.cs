@@ -1,5 +1,7 @@
+using BuildingBlocks.Core;
 using Clarity.Core.Data;
 using Clarity.Core.Models;
+using Clarity.Core.ValueObjects;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
@@ -13,7 +15,7 @@ namespace Clarity.Domain.Features
             public CommentDto Comment { get; set; }
         }
 
-        public class Response
+        public class Response: ResponseBase
         {
             public int CommentId { get;set; }
         }
@@ -32,7 +34,7 @@ namespace Clarity.Domain.Features
                     _context.Comments.Add(comment);
                 }
 
-                comment.Description = request.Comment.Description;
+                comment.Description = (Html)request.Comment.Description;
                 comment.TicketId = request.Comment.TicketId;
 
                 await _context.SaveChangesAsync(cancellationToken);

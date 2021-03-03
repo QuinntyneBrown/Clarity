@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clarity.Core.ValueObjects;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Clarity.Core.Models
@@ -10,7 +11,7 @@ namespace Clarity.Core.Models
         public int TeamMemberId { get; set; }
         [ForeignKey("Ticket")]
         public int? TicketId { get; set; }
-        public string Description { get; set; }
+        public Html Description { get; set; }
         public Ticket Ticket { get; set; }
         public DateTime Created { get; set; } = DateTime.UtcNow;
         public TeamMember TeamMember { get; set; }

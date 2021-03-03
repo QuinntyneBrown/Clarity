@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TicketService } from './tickets';
-import { StateService } from './states';
+import { BoardStateService } from './board-states';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -56,7 +56,6 @@ import { OverlayRefProvider } from '@core/overlay-ref-provider';
     MatCardModule,
     MatSelectModule,
     MatListModule,
-    SharedWorker
   ],
   providers: [
     BoardService,
@@ -65,7 +64,7 @@ import { OverlayRefProvider } from '@core/overlay-ref-provider';
     Login,
     OverlayRefProvider,
     TicketService,
-    StateService,
+    BoardStateService,
     TeamMemberService,
     SelectBoard,
     { provide: 'BASE_URL', useValue: 'https://localhost:5001/' },

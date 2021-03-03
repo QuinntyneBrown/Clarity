@@ -39,6 +39,12 @@ namespace Clarity.Api.Controllers
         public async Task<ActionResult<UpsertTicket.Response>> Upsert([FromBody]UpsertTicket.Request request)
             => await _mediator.Send(request);
 
+        [HttpPost("import")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(UpsertTicket.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<UploadTickets.Response>> Import([FromBody] UploadTickets.Request request)
+            => await _mediator.Send(request);
+
         [HttpDelete("{ticketId}")]
         public async Task Remove([FromRoute]RemoveTicket.Request request)
             => await _mediator.Send(request);
