@@ -1,0 +1,1 @@
+export const baseUrl: string = "BASE_URL";

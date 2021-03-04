@@ -2,15 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { baseUrl } from './contants';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LookUpService {
-
   constructor(
     private readonly _client: HttpClient,
-    @Inject("BASE_URL") private readonly _baseUrl: string) { 
+    @Inject(baseUrl) private readonly _baseUrl: string) { 
 
   }
 

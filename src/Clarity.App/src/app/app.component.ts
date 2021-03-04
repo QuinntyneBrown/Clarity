@@ -32,11 +32,10 @@ export class AppComponent implements OnInit, OnDestroy {
   );
 }
   boardId = parseInt(localStorage.getItem('BOARD_ID'), null) || 1;
-  public get board() {
-    return this.boards$.value.filter(x => x.boardId === this.boardId)[0];
-  }
+  public get board() { return this.boards$.value.filter(x => x.boardId === this.boardId)[0]; }
+
   constructor(
-    private login: Login,
+    private _login: Login,
     private boardService: BoardService,
     private ticketService: TicketService,
     private readonly _lookUpService: LookUpService,
@@ -51,7 +50,7 @@ export class AppComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.login.create().pipe(
+      this._login.create().pipe(
         map(x => { resolve(null); })
       ).subscribe();
     });

@@ -1,4 +1,5 @@
 ﻿using Clarity.Core.Models;
+using Clarity.Domain.Features;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,13 +16,18 @@ namespace Clarity.Api.Controllers
         [HttpGet("states",Name = "GetStatesRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public ActionResult<List<KeyValuePair<int, string>>> GetStates()
+        public ActionResult<List<StateDto>> GetStates()
         {
-            var results = new List<KeyValuePair<int, string>>();
+            var results = new List<StateDto>();
 
             foreach (var type in Enum.GetValues<StateType>())
             {
-                results.Add(new((int)type, type.ToString()));
+                results.Add(new StateDto
+                {
+                    Id = (int)type,
+                    Name = type.ToString(),
+                    DisplayName = ""
+                });
             }
 
             return new OkObjectResult(new { 
