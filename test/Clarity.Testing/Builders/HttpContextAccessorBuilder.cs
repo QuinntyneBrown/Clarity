@@ -65,7 +65,7 @@ namespace Clarity.Testing.Builders
 
         public ClaimsPrincipalBuilder()
         {
-           _mockClaimsPrincipal = new Mock<ClaimsPrincipal>();
+            _mockClaimsPrincipal = new Mock<ClaimsPrincipal>();
         }
 
         public ClaimsPrincipalBuilder WithUser(User user)

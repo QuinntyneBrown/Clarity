@@ -30,7 +30,8 @@ namespace Clarity.Domain.Features
             private readonly IClarityContext _context;
             private readonly IHttpContextAccessor _httpContextAccessor;
 
-            public Handler(IClarityContext context, IHttpContextAccessor httpContextAccessor) {            
+            public Handler(IClarityContext context, IHttpContextAccessor httpContextAccessor)
+            {
                 _context = context;
                 _httpContextAccessor = httpContextAccessor;
             }
@@ -70,8 +71,8 @@ namespace Clarity.Domain.Features
                             {
                                 await section.Body.CopyToAsync(targetStream);
                                 ticket.Name = $"{contentDisposition.FileName}".Trim(new char[] { '"' }).Replace("&", "and");
-/*                                digitalAsset.Bytes = StreamHelper.ReadToEnd(targetStream);
-                                digitalAsset.ContentType = section.ContentType;*/
+                                /*                                digitalAsset.Bytes = StreamHelper.ReadToEnd(targetStream);
+                                                                digitalAsset.ContentType = section.ContentType;*/
                             }
                         }
                     }

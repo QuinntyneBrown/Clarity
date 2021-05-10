@@ -20,8 +20,8 @@ namespace Clarity.Domain.Features
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IClarityContext _context;
-            
-			public Handler(IClarityContext context) => _context = context;
+
+            public Handler(IClarityContext context) => _context = context;
 
             public Task<Response> Handle(Request request, CancellationToken cancellationToken)
                 => Task.FromResult(new Response()

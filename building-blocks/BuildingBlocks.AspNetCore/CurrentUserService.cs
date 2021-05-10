@@ -7,7 +7,7 @@ namespace BuildingBlocks.AspNetCore
     {
         ClaimsPrincipal Get();
     }
-    public class CurrentUserService: ICurrentUserService
+    public class CurrentUserService : ICurrentUserService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 

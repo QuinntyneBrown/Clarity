@@ -12,7 +12,7 @@ namespace Clarity.Api.Controllers
     {
         private readonly IMediator _mediator;
 
-        public TicketsController(IMediator mediator) 
+        public TicketsController(IMediator mediator)
             => _mediator = mediator;
 
         [HttpGet]
@@ -24,19 +24,19 @@ namespace Clarity.Api.Controllers
         [HttpGet("{name}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetTicketByName.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetTicketByName.Response>> GetByName([FromRoute]GetTicketByName.Request request)
+        public async Task<ActionResult<GetTicketByName.Response>> GetByName([FromRoute] GetTicketByName.Request request)
             => await _mediator.Send(request);
 
         [HttpGet("board/{boardId}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetTicketsByBoardId.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetTicketsByBoardId.Response>> GetByBoardId([FromRoute]GetTicketsByBoardId.Request request)
+        public async Task<ActionResult<GetTicketsByBoardId.Response>> GetByBoardId([FromRoute] GetTicketsByBoardId.Request request)
             => await _mediator.Send(request);
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(UpsertTicket.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<UpsertTicket.Response>> Upsert([FromBody]UpsertTicket.Request request)
+        public async Task<ActionResult<UpsertTicket.Response>> Upsert([FromBody] UpsertTicket.Request request)
             => await _mediator.Send(request);
 
         [HttpPost("import")]
@@ -46,7 +46,7 @@ namespace Clarity.Api.Controllers
             => await _mediator.Send(request);
 
         [HttpDelete("{ticketId}")]
-        public async Task Remove([FromRoute]RemoveTicket.Request request)
+        public async Task Remove([FromRoute] RemoveTicket.Request request)
             => await _mediator.Send(request);
     }
 }

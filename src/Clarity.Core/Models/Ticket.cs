@@ -17,7 +17,7 @@ namespace Clarity.Core.Models
         public int Priority { get; set; }
         public TeamMember TeamMember { get; set; }
         public ICollection<TicketState> TicketStates { get; set; } = new HashSet<TicketState>();
-        public TicketState CurrentTicketState { get => TicketStates.OrderByDescending(x => x.Created).First(); }        
+        public TicketState CurrentTicketState { get => TicketStates.OrderByDescending(x => x.Created).First(); }
         public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
     }
 }

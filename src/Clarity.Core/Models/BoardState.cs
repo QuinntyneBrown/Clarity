@@ -20,6 +20,6 @@ namespace Clarity.Core.Models
         public Board Board { get; set; }
         public StateType Type { get; set; }
         public ICollection<TicketState> TicketStates { get; set; }
-        
+
     }
 }

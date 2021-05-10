@@ -12,7 +12,7 @@ namespace Clarity.Api.Controllers
     {
         private readonly IMediator _meditator;
 
-        public BoardStatesController(IMediator mediator) 
+        public BoardStatesController(IMediator mediator)
             => _meditator = mediator;
 
         [HttpGet]

@@ -9,7 +9,8 @@ namespace Clarity.Domain.Features
 {
     public class GetTeamMemberById
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public int TeamMemberId { get; set; }
         }
 
@@ -21,14 +22,14 @@ namespace Clarity.Domain.Features
         public class Handler : IRequestHandler<Request, Response>
         {
             private readonly IClarityContext _context;
-            
-			public Handler(IClarityContext context) => _context = context;
+
+            public Handler(IClarityContext context) => _context = context;
 
             public Task<Response> Handle(Request request, CancellationToken cancellationToken)
-			     => Task.FromResult(new Response()
-                {
-                    TeamMember = _context.TeamMembers.First(x => x.TeamMemberId == request.TeamMemberId).ToDto()
-                });
+                 => Task.FromResult(new Response()
+                 {
+                     TeamMember = _context.TeamMembers.First(x => x.TeamMemberId == request.TeamMemberId).ToDto()
+                 });
         }
     }
 }

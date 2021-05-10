@@ -21,7 +21,8 @@ namespace Clarity.Domain.Features
         {
             private readonly IClarityContext _context;
             private readonly IHttpContextAccessor _httpContextAccessor;
-            public Handler(IClarityContext context, IHttpContextAccessor httpContextAccessor) {
+            public Handler(IClarityContext context, IHttpContextAccessor httpContextAccessor)
+            {
                 _context = context;
                 _httpContextAccessor = httpContextAccessor;
             }

@@ -11,16 +11,18 @@ namespace BuildingBlocks.EventStore
         public CorrelationIdAccessor(IHttpContextAccessor httpContextAccessor)
             => _httpContextAccessor = httpContextAccessor;
 
-        public Guid CorrelationId { get
+        public Guid CorrelationId
+        {
+            get
             {
-                if(_httpContextAccessor == null || _httpContextAccessor.HttpContext == null || _httpContextAccessor.HttpContext.Request.Headers["correlationId"] == default(StringValues))
+                if (_httpContextAccessor == null || _httpContextAccessor.HttpContext == null || _httpContextAccessor.HttpContext.Request.Headers["correlationId"] == default(StringValues))
                 {
                     return Guid.NewGuid();
                 }
 
 
-                return  new Guid(_httpContextAccessor.HttpContext.Request.Headers["correlationId"]);
-            } 
+                return new Guid(_httpContextAccessor.HttpContext.Request.Headers["correlationId"]);
+            }
         }
     }
 }

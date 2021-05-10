@@ -9,19 +9,20 @@ namespace Clarity.Domain.Features
 {
     public class SaveDigitalAsset
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public DigitalAssetDto DigitalAsset { get; set; }
         }
 
         public class Response
-        {            
+        {
             public Guid DigitalAssetId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
         {
             public IClarityContext _context { get; set; }
-            
+
             public Handler(IClarityContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)

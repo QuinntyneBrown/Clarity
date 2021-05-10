@@ -21,19 +21,21 @@ namespace Clarity.Domain.Features
 
         public class Response
         {
-            public List<Guid> DigitalAssetIds { get;set; }
+            public List<Guid> DigitalAssetIds { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
         {
             public IClarityContext _context { get; set; }
             public IHttpContextAccessor _httpContextAccessor { get; set; }
-            public Handler(IClarityContext context, IHttpContextAccessor httpContextAccessor) {
+            public Handler(IClarityContext context, IHttpContextAccessor httpContextAccessor)
+            {
                 _context = context;
                 _httpContextAccessor = httpContextAccessor;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
 
                 var httpContext = _httpContextAccessor.HttpContext;
                 var defaultFormOptions = new FormOptions();
@@ -76,7 +78,7 @@ namespace Clarity.Domain.Features
                     _context.DigitalAssets.Add(digitalAsset);
 
                     digitalAssets.Add(digitalAsset);
-                    
+
                     section = await reader.ReadNextSectionAsync();
                 }
 

@@ -21,11 +21,15 @@ namespace Clarity.UnitTests.Domain
         {
             SetUp($"{nameof(UpsertTicketTests)}{nameof(CanCreateTicket)}");
 
-            var actual = await _sut.Handle(new() { Ticket = new() {
-                Name = "Test",
-                BoardId = 1,
-                BoardStateId = 1
-            } }, default);
+            var actual = await _sut.Handle(new()
+            {
+                Ticket = new()
+                {
+                    Name = "Test",
+                    BoardId = 1,
+                    BoardStateId = 1
+                }
+            }, default);
 
             var boardState = await _context.BoardStates
                 .Include(x => x.TicketStates)
@@ -45,7 +49,7 @@ namespace Clarity.UnitTests.Domain
             var ticket = new Ticket()
             {
                 Name = "Test",
-                TeamMemberId = 1,                
+                TeamMemberId = 1,
             };
 
             _context.Tickets.Add(ticket);
@@ -56,7 +60,7 @@ namespace Clarity.UnitTests.Domain
             {
                 Ticket = new()
                 {
-                    TicketId=  ticket.TicketId,
+                    TicketId = ticket.TicketId,
                     Name = expectedName,
                     BoardId = 1,
                     BoardStateId = 1
@@ -75,7 +79,7 @@ namespace Clarity.UnitTests.Domain
             _httpContextAccessor = new HttpContextAccessorBuilder()
                 .WithUser(_context.Users.Find(1))
                 .Build();
-            _sut = new UpsertTicket.Handler(_context,_httpContextAccessor);
+            _sut = new UpsertTicket.Handler(_context, _httpContextAccessor);
         }
 
         private UpsertTicket.Handler Create()

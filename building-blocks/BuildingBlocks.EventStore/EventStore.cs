@@ -19,7 +19,7 @@ namespace BuildingBlocks.EventStore
 
         protected readonly List<IAggregateRoot> _trackedAggregates = new List<IAggregateRoot>();
         protected List<IAggregateRoot> TrackedAggregates { get; }
-        public EventStore(DbContextOptions<EventStore> options,IDateTime dateTime, ICorrelationIdAccessor correlationIdAccessor, IMediator mediator)
+        public EventStore(DbContextOptions<EventStore> options, IDateTime dateTime, ICorrelationIdAccessor correlationIdAccessor, IMediator mediator)
             : base(options)
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;

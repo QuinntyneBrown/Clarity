@@ -21,18 +21,19 @@ namespace Clarity.Domain
     internal class BoardConfiguration
     {
         public static void Seed(ClarityContext context)
-        {            
+        {
             new string[1] {
                 "Default",
-            }.ForEach(name => {
+            }.ForEach(name =>
+            {
                 if (context.Boards.SingleOrDefault(x => x.Name == name) == null)
-                    context.Boards.Add(new ()
+                    context.Boards.Add(new()
                     {
                         Name = name,
                     });
             });
 
-            context.SaveChanges();            
+            context.SaveChanges();
         }
     }
 
@@ -42,9 +43,10 @@ namespace Clarity.Domain
         {
             var order = 0;
 
-            Enum.GetValues<StateType>().ForEach(type => {
+            Enum.GetValues<StateType>().ForEach(type =>
+            {
                 if (context.BoardStates.SingleOrDefault(x => x.Type == type) == null)
-                    context.BoardStates.Add(new ()
+                    context.BoardStates.Add(new()
                     {
                         Type = type,
                         Order = order++,
@@ -62,7 +64,8 @@ namespace Clarity.Domain
         {
             new TeamMember[1] {
                 new () { Name = "Quinntyne" },
-            }.ForEach(teamMember => {
+            }.ForEach(teamMember =>
+            {
                 if (context.TeamMembers.SingleOrDefault(x => x.Name == teamMember.Name) == null)
                     context.TeamMembers.Add(teamMember);
             });
@@ -77,7 +80,8 @@ namespace Clarity.Domain
         {
             new User[1] {
                 new () { Username = "Quinntyne" }
-            }.ForEach(user => {
+            }.ForEach(user =>
+            {
                 if (context.Users.SingleOrDefault(x => x.Username == user.Username) == null)
                 {
                     user.Password = new PasswordHasher().HashPassword(user.Salt, "P@ssw0rd");

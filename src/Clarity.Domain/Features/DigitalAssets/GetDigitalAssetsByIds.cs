@@ -11,7 +11,8 @@ namespace Clarity.Domain.Features
 {
     public class GetDigitalAssetsByIds
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public Guid[] DigitalAssetIds { get; set; }
         }
 

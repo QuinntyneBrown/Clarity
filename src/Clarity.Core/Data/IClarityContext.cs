@@ -9,8 +9,8 @@ namespace Clarity.Core.Data
     {
         DbSet<Board> Boards { get; }
         DbSet<Comment> Comments { get; }
-        DbSet<DigitalAsset> DigitalAssets { get; }        
-        DbSet<BoardState> BoardStates { get; }        
+        DbSet<DigitalAsset> DigitalAssets { get; }
+        DbSet<BoardState> BoardStates { get; }
         DbSet<TeamMember> TeamMembers { get; }
         DbSet<Ticket> Tickets { get; }
         DbSet<User> Users { get; }

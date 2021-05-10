@@ -1,5 +1,5 @@
 using MediatR;
-using System.Threading.Tasks;   
+using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
 using Clarity.Core.Data;
@@ -20,7 +20,7 @@ namespace Clarity.Domain.Features
         public class Handler : IRequestHandler<Request, Response>
         {
             public IClarityContext _context { get; set; }
-            
+
             public Handler(IClarityContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)

@@ -7,7 +7,7 @@ namespace Clarity.Domain.Features
         public static BoardStateDto ToDto(this BoardState boardState)
             => new BoardStateDto
             {
-                
+
                 StateId = boardState.BoardStateId,
                 Order = boardState.Order,
                 Type = boardState.Type

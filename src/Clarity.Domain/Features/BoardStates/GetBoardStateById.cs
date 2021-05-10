@@ -7,7 +7,8 @@ namespace Clarity.Domain.Features
 {
     public class GetBoardStateById
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public int StateId { get; set; }
         }
 

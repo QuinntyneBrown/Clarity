@@ -11,13 +11,14 @@ namespace Clarity.Domain.Features
 {
     public class UpsertComment
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public CommentDto Comment { get; set; }
         }
 
-        public class Response: ResponseBase
+        public class Response : ResponseBase
         {
-            public int CommentId { get;set; }
+            public int CommentId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>
@@ -25,10 +26,11 @@ namespace Clarity.Domain.Features
             public IClarityContext _context { get; set; }
             public Handler(IClarityContext context) => _context = context;
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
                 var comment = await _context.Comments.FirstOrDefaultAsync(x => x.CommentId == request.Comment.CommentId);
 
-                if(comment == null)
+                if (comment == null)
                 {
                     comment = new Comment();
                     _context.Comments.Add(comment);
@@ -39,7 +41,8 @@ namespace Clarity.Domain.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response() {
+                return new Response()
+                {
                     CommentId = comment.CommentId
                 };
             }

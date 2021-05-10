@@ -19,7 +19,7 @@ namespace Clarity.UnitTests.Domain
 
             SetUp($"{nameof(CreateBoardTests)}{nameof(CanCreateBoard)}");
 
-            var actual = await _sut.Handle(new () { Name = "Test" }, default);
+            var actual = await _sut.Handle(new() { Name = "Test" }, default);
 
             Assert.Equal(expectedStates, actual.Board.States.Count);
             Assert.Equal(expectedName, actual.Board.Name);

@@ -9,7 +9,8 @@ namespace Clarity.Domain.Features
 {
     public class GetTicketByName
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public string Name { get; set; }
         }
 
@@ -29,7 +30,7 @@ namespace Clarity.Domain.Features
                     Ticket = (await _context.Tickets
                     .Include(x => x.Comments)
                     .ThenInclude(x => x.TeamMember)
-                    .Include(x=> x.TicketStates)
+                    .Include(x => x.TicketStates)
                     .ThenInclude(x => x.BoardState)
                     .FirstOrDefaultAsync(x => x.Name == request.Name))?.ToDto()
                 };

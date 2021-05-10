@@ -4,7 +4,7 @@ using System;
 namespace Clarity.Domain.Features
 {
     public class DigitalAssetDto
-    {        
+    {
         public Guid DigitalAssetId { get; set; }
         public string Name { get; set; }
         public string RelativePath { get { return $"api/digitalassets/serve/{DigitalAssetId}"; } }

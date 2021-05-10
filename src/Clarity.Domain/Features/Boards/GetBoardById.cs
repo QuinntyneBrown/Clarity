@@ -9,7 +9,8 @@ namespace Clarity.Domain.Features
 {
     public class GetBoardById
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public int BoardId { get; set; }
         }
 
@@ -23,12 +24,13 @@ namespace Clarity.Domain.Features
             public IClarityContext _context { get; set; }
             public Handler(IClarityContext context) => _context = context;
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) 
-                => new Response {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+                => new Response
+                {
                     Board = (await _context.Boards
                     .Include(x => x.BoardStates)
                     .FirstOrDefaultAsync(x => x.BoardId == request.BoardId)).ToDto()
-            };
+                };
         }
     }
 }

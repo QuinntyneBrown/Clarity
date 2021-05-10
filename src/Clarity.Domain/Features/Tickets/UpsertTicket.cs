@@ -12,7 +12,7 @@ namespace Clarity.Domain.Features
 {
     public class UpsertTicket
     {
-        public class Request: IRequest<Response>
+        public class Request : IRequest<Response>
         {
             public TicketDto Ticket { get; set; }
         }
@@ -30,7 +30,7 @@ namespace Clarity.Domain.Features
             }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-            {                
+            {
                 var state = await _context.BoardStates.FindAsync(request.Ticket.BoardStateId);
                 var username = _httpContextAccessor.HttpContext.User.Identity.Name;
                 var currentTeamMemberId = (await _context.TeamMembers.SingleAsync(x => x.Name == username)).TeamMemberId;
@@ -42,7 +42,7 @@ namespace Clarity.Domain.Features
 
                 if (ticket == null)
                 {
-                    ticket = new ();
+                    ticket = new();
                     _context.Tickets.Add(ticket);
                 }
 

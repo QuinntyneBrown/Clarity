@@ -13,7 +13,7 @@ namespace Clarity.Api.Controllers
     public class LookUpController
     {
         [Authorize]
-        [HttpGet("states",Name = "GetStatesRoute")]
+        [HttpGet("states", Name = "GetStatesRoute")]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         public ActionResult<List<StateDto>> GetStates()
@@ -30,7 +30,8 @@ namespace Clarity.Api.Controllers
                 });
             }
 
-            return new OkObjectResult(new { 
+            return new OkObjectResult(new
+            {
                 States = results
             });
         }

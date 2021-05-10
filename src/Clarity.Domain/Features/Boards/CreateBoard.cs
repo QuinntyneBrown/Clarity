@@ -24,7 +24,8 @@ namespace Clarity.Domain.Features
             }
         }
 
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public string Name { get; set; }
         }
 
@@ -37,11 +38,13 @@ namespace Clarity.Domain.Features
         {
             private readonly IClarityContext _context;
 
-            public Handler(IClarityContext context) {            
+            public Handler(IClarityContext context)
+            {
                 _context = context;
             }
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
 
                 var board = Board.WithDefaults(request.Name);
 
@@ -49,7 +52,7 @@ namespace Clarity.Domain.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new () { Board = board.ToDto() };
+                return new() { Board = board.ToDto() };
             }
         }
     }

@@ -8,7 +8,8 @@ namespace Clarity.Domain.Features
 {
     public class RemoveTicket
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public int TicketId { get; set; }
         }
 
@@ -19,7 +20,8 @@ namespace Clarity.Domain.Features
             private readonly IClarityContext _context;
             public Handler(IClarityContext context) => _context = context;
 
-            public async Task<Response> Handle(Request request, CancellationToken cancellationToken) {
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
                 var ticket = await _context.Tickets.FindAsync(request.TicketId);
 
                 _context.Tickets.Remove(ticket);

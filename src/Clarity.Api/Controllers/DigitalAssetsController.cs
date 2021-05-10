@@ -20,27 +20,27 @@ namespace Clarity.Api.Controllers
             => await _mediator.Send(request);
 
         [HttpGet("range")]
-        public async Task<ActionResult<GetDigitalAssetsByIds.Response>> GetByIds([FromQuery]GetDigitalAssetsByIds.Request request)
+        public async Task<ActionResult<GetDigitalAssetsByIds.Response>> GetByIds([FromQuery] GetDigitalAssetsByIds.Request request)
             => await _mediator.Send(request);
 
         [HttpDelete("{digitalAssetId}")]
         public async Task Remove(RemoveDigitalAsset.Request request)
-            => await _mediator.Send(request);            
+            => await _mediator.Send(request);
 
         [HttpGet("{digitalAssetId}")]
-        public async Task<ActionResult<GetDigitalAssetById.Response>> GetById([FromRoute]GetDigitalAssetById.Request request)
+        public async Task<ActionResult<GetDigitalAssetById.Response>> GetById([FromRoute] GetDigitalAssetById.Request request)
             => await _mediator.Send(request);
 
         [HttpPost("upload"), DisableRequestSizeLimit]
         public async Task<ActionResult<UploadDigitalAsset.Response>> Save()
             => await _mediator.Send(new UploadDigitalAsset.Request());
-        
+
         [AllowAnonymous]
         [HttpGet("serve/{digitalAssetId}")]
-        public async Task<IActionResult> Serve([FromRoute]GetDigitalAssetById.Request request)
+        public async Task<IActionResult> Serve([FromRoute] GetDigitalAssetById.Request request)
         {
             var response = await _mediator.Send(request);
-            return new FileContentResult(response.DigitalAsset.Bytes, response.DigitalAsset.ContentType);            
+            return new FileContentResult(response.DigitalAsset.Bytes, response.DigitalAsset.ContentType);
         }
 
         [HttpGet]

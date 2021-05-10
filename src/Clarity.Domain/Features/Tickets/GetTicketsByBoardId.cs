@@ -11,7 +11,8 @@ namespace Clarity.Domain.Features
 {
     public class GetTicketsByBoardId
     {
-        public class Request : IRequest<Response> {
+        public class Request : IRequest<Response>
+        {
             public int BoardId { get; set; }
         }
 
