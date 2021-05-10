@@ -2,7 +2,8 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Comment } from './comment.model';
-import { baseUrl } from '@core/contants';
+import { baseUrl } from '@core';
+
 
 @Injectable()
 export class CommentService {

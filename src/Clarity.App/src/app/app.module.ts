@@ -31,7 +31,7 @@ import { UnauthorizedResponseInterceptor } from './identity/unauthorized-respons
 import { CommentService } from './comments/comment.service';
 import { CreateCommentComponent } from './comments/create-comment.component';
 import { OverlayRefProvider } from '@core/overlay-ref-provider';
-import { baseUrl } from '@core/contants';
+import { baseUrl } from '@core/constants';
 
 @NgModule({
   declarations: [
@@ -69,7 +69,7 @@ import { baseUrl } from '@core/contants';
     TeamMemberService,
     SelectBoard,
     { provide: baseUrl, useValue: 'https://localhost:5001/' },
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: OAuthInterceptor,

@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BoardState } from './board-state.model';
+import { baseUrl } from '@core';
 
 @Injectable()
 export class BoardStateService {
 
   constructor(
-    @Inject('BASE_URL') private baseUrl: string,
+    @Inject(baseUrl) private baseUrl: string,
     private client: HttpClient
   ) { }
 
