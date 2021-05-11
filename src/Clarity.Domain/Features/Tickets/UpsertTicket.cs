@@ -42,15 +42,13 @@ namespace Clarity.Domain.Features
 
                 if (ticket == null)
                 {
-                    ticket = new();
+                    ticket = new(currentTeamMemberId, request.Ticket.Name, request.Ticket.Url, (Html)request.Ticket.AcceptanceCriteria, (Html)request.Ticket.Description);
                     _context.Tickets.Add(ticket);
                 }
-
-                ticket.TeamMemberId = currentTeamMemberId;
-                ticket.Name = request.Ticket.Name;
-                ticket.Url = request.Ticket.Url;
-                ticket.AcceptanceCriteria = (Html)request.Ticket.AcceptanceCriteria;
-                ticket.Description = (Html)request.Ticket.Description;
+                else
+                {
+                    ticket.Update(currentTeamMemberId, request.Ticket.Name, request.Ticket.Url, (Html)request.Ticket.AcceptanceCriteria, (Html)request.Ticket.Description);
+                }
 
                 ticket.TicketStates.Clear();
 

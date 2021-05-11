@@ -59,7 +59,7 @@ namespace Clarity.Domain.Features
                 while (section != null)
                 {
 
-                    var ticket = new Ticket();
+                    //var ticket = new Ticket();
 
                     var hasContentDispositionHeader = ContentDispositionHeaderValue.TryParse(section.ContentDisposition, out ContentDispositionHeaderValue contentDisposition);
 
@@ -70,16 +70,16 @@ namespace Clarity.Domain.Features
                             using (var targetStream = new MemoryStream())
                             {
                                 await section.Body.CopyToAsync(targetStream);
-                                ticket.Name = $"{contentDisposition.FileName}".Trim(new char[] { '"' }).Replace("&", "and");
+                                //ticket.Name = $"{contentDisposition.FileName}".Trim(new char[] { '"' }).Replace("&", "and");
                                 /*                                digitalAsset.Bytes = StreamHelper.ReadToEnd(targetStream);
                                                                 digitalAsset.ContentType = section.ContentType;*/
                             }
                         }
                     }
 
-                    _context.Tickets.Add(ticket);
+                    //_context.Tickets.Add(ticket);
 
-                    tickets.Add(ticket);
+                    //tickets.Add(ticket);
 
                     section = await reader.ReadNextSectionAsync();
                 }

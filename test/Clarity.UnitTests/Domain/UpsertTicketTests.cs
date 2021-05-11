@@ -46,11 +46,7 @@ namespace Clarity.UnitTests.Domain
 
             SetUp($"{nameof(UpsertTicketTests)}{nameof(CanUpdateTicket)}");
 
-            var ticket = new Ticket()
-            {
-                Name = "Test",
-                TeamMemberId = 1,
-            };
+            var ticket = new Ticket(1, "Test", default, default, default);
 
             _context.Tickets.Add(ticket);
 
