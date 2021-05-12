@@ -95,6 +95,8 @@ namespace Clarity.Api.Migrations
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AcceptanceCriteria = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StoryPoints = table.Column<int>(type: "int", nullable: false),
+                    Effort = table.Column<int>(type: "int", nullable: false),
                     Priority = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -134,6 +136,27 @@ namespace Clarity.Api.Migrations
                         principalTable: "Tickets",
                         principalColumn: "TicketId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TicketEffortChanged",
+                columns: table => new
+                {
+                    TicketId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Effort = table.Column<int>(type: "int", nullable: false),
+                    Changed = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TicketEffortChanged", x => new { x.TicketId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_TicketEffortChanged_Tickets_TicketId",
+                        column: x => x.TicketId,
+                        principalTable: "Tickets",
+                        principalColumn: "TicketId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -201,6 +224,9 @@ namespace Clarity.Api.Migrations
 
             migrationBuilder.DropTable(
                 name: "DigitalAssets");
+
+            migrationBuilder.DropTable(
+                name: "TicketEffortChanged");
 
             migrationBuilder.DropTable(
                 name: "TicketState");

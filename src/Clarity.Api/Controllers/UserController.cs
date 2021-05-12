@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace Clarity.Api.Controllers
 {
     [ApiController]
-    [Route("api/users")]
-    public class UsersController
+    [Route("api/[controller]")]
+    public class UserController
     {
         private readonly IMediator _mediator;
 
-        public UsersController(IMediator mediator)
+        public UserController(IMediator mediator)
             => _mediator = mediator;
 
         [HttpPost("token")]

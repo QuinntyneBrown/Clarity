@@ -8,12 +8,12 @@ namespace Clarity.Api.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/teamMembers")]
-    public class TeamMembersController
+    [Route("api/[controller]")]
+    public class TeamMemberController
     {
         private readonly IMediator _mediator;
 
-        public TeamMembersController(IMediator mediator)
+        public TeamMemberController(IMediator mediator)
             => _mediator = mediator;
 
         [HttpGet("{teamMemberId}")]

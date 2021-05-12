@@ -8,12 +8,12 @@ namespace Clarity.Api.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/digitalAssets")]
-    public class DigitalAssetsController
+    [Route("api/[controller]")]
+    public class DigitalAssetController
     {
         private readonly IMediator _mediator;
 
-        public DigitalAssetsController(IMediator mediator) => _mediator = mediator;
+        public DigitalAssetController(IMediator mediator) => _mediator = mediator;
 
         [HttpPost]
         public async Task<ActionResult<SaveDigitalAsset.Response>> Save(SaveDigitalAsset.Request request)

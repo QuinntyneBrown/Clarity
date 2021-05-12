@@ -136,10 +136,16 @@ namespace Clarity.Api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Effort")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StoryPoints")
                         .HasColumnType("int");
 
                     b.Property<int>("TeamMemberId")
@@ -234,6 +240,32 @@ namespace Clarity.Api.Migrations
                         .HasForeignKey("TeamMemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.OwnsMany("Clarity.Core.DomainEvents.TicketEffortChanged", "EffortChangedEvents", b1 =>
+                        {
+                            b1.Property<int>("TicketId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int")
+                                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                            b1.Property<DateTime>("Changed")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<int>("Effort")
+                                .HasColumnType("int");
+
+                            b1.HasKey("TicketId", "Id");
+
+                            b1.ToTable("TicketEffortChanged");
+
+                            b1.WithOwner()
+                                .HasForeignKey("TicketId");
+                        });
+
+                    b.Navigation("EffortChangedEvents");
 
                     b.Navigation("TeamMember");
                 });

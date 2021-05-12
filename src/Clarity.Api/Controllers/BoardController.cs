@@ -9,11 +9,11 @@ namespace Clarity.Api.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/boards")]
-    public class BoardsController
+    [Route("api/[controller]")]
+    public class BoardController
     {
         private readonly IMediator _mediator;
-        public BoardsController(IMediator mediator)
+        public BoardController(IMediator mediator)
             => _mediator = mediator;
 
         [HttpGet]

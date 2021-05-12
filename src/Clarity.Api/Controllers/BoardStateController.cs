@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace Clarity.Api.Controllers
 {
     [ApiController]
-    [Route("api/states")]
-    public class BoardStatesController
+    [Route("api/[controller]")]
+    public class BoardStateController
     {
         private readonly IMediator _meditator;
 
-        public BoardStatesController(IMediator mediator)
+        public BoardStateController(IMediator mediator)
             => _meditator = mediator;
 
         [HttpGet]

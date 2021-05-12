@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace Clarity.Api.Controllers
 {
     [ApiController]
-    [Route("api/comments")]
-    public class CommentsController
+    [Route("api/[controller]")]
+    public class CommentController
     {
         private readonly IMediator _mediator;
 
-        public CommentsController(IMediator mediator)
+        public CommentController(IMediator mediator)
             => _mediator = mediator;
 
         [HttpPost]
