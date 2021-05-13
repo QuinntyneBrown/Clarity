@@ -31,7 +31,7 @@ namespace Clarity.IntegrationTests.Controllers
 
             using var client = _fixture.CreateClient();
 
-            var httpResponseMessage = await client.PostAsync(Endpoints.Post.CreateBoard, stringContent);
+            var httpResponseMessage = await client.PostAsync(Post.CreateBoard, stringContent);
 
             var response = JsonConvert.DeserializeObject<CreateBoard.Response>(await httpResponseMessage.Content.ReadAsStringAsync());
 
@@ -122,28 +122,28 @@ namespace Clarity.IntegrationTests.Controllers
         {
             public static class Post
             {
-                public static string CreateBoard = "api/boards";
+                public static string CreateBoard = "api/board";
             }
 
             public static class Put
             {
-                public static string Update = "api/boards";
+                public static string Update = "api/board";
             }
 
             public static class Delete
             {
                 public static string By(int boardId)
                 {
-                    return $"api/boards/{boardId}";
+                    return $"api/board/{boardId}";
                 }
             }
 
             public static class Get
             {
-                public static string Boards = "api/boards";
+                public static string Boards = "api/board";
                 public static string By(int boardId)
                 {
-                    return $"api/boards/{boardId}";
+                    return $"api/board/{boardId}";
                 }
             }
         }
