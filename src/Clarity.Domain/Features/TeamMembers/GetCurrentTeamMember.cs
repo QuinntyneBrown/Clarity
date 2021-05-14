@@ -1,5 +1,4 @@
 using Clarity.Core.Data;
-using Clarity.Domain.Features;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +30,7 @@ namespace Clarity.Domain.Features
             {
                 var username = _httpContextAccessor.HttpContext.User.Identity.Name;
 
-                return new Response
+                return new ()
                 {
                     TeamMember = (await _context.TeamMembers.FirstOrDefaultAsync(x => x.Name == username)).ToDto()
                 };

@@ -1,7 +1,6 @@
 using Clarity.Core.Data;
-using Clarity.Domain.Features;
 using MediatR;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,11 +24,13 @@ namespace Clarity.Domain.Features
 
             public Handler(IClarityContext context) => _context = context;
 
-            public Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                 => Task.FromResult(new Response()
-                 {
-                     TeamMember = _context.TeamMembers.First(x => x.TeamMemberId == request.TeamMemberId).ToDto()
-                 });
+            public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+            {
+                return new ()
+                {
+                    TeamMember = (await _context.TeamMembers.FirstOrDefaultAsync(x => x.TeamMemberId == request.TeamMemberId)).ToDto()
+                };
+            }                
         }
     }
 }

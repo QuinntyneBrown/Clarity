@@ -1,4 +1,3 @@
-using Clarity.Core.Models;
 using Clarity.Domain.Features;
 
 namespace Clarity.Testing.Builders

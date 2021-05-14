@@ -1,11 +1,10 @@
 using Clarity.Core.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Clarity.Domain.Features;
-using Microsoft.EntityFrameworkCore;
 
 namespace Clarity.Domain.Features
 {
@@ -22,17 +21,21 @@ namespace Clarity.Domain.Features
         {
             private readonly IClarityContext _context;
             public Handler(IClarityContext context)
-                => _context = context;
+            {
+                _context = context;
+            }
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => await Task.FromResult(new Response
+            {
+                return new ()
                 {
-                    Tickets = _context.Tickets
+                    Tickets = await _context.Tickets
                     .Include(x => x.TicketStates)
                     .ThenInclude(x => x.BoardState)
                     .Select(x => x.ToDto())
-                    .ToList()
-                });
+                    .ToListAsync()
+                };
+            }
         }
     }
 }

@@ -56,7 +56,7 @@ namespace Clarity.Domain.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response { };
+                return new();
             }
         }
     }

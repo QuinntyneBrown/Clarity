@@ -27,7 +27,7 @@ namespace Clarity.Domain.Features
             public Handler(IClarityContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response
+                => new ()
                 {
                     Tickets = await _context.Tickets
                     .Include(x => x.Comments)

@@ -1,5 +1,4 @@
 using Clarity.Core.Data;
-using Clarity.Domain.Features;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
@@ -25,7 +24,7 @@ namespace Clarity.Domain.Features
             public Handler(IClarityContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response
+                => new ()
                 {
                     Ticket = (await _context.Tickets
                     .Include(x => x.Comments)
