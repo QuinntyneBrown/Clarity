@@ -25,10 +25,10 @@ namespace Clarity.Domain.Features
                 => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response
-                {
-                    State = (await _context.BoardStates.FindAsync(request.StateId)).ToDto()
-                };
+                => new()
+            {
+                State = (await _context.BoardStates.FindAsync(request.StateId)).ToDto()
+            };
         }
     }
 }

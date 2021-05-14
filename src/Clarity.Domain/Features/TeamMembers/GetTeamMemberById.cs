@@ -26,11 +26,11 @@ namespace Clarity.Domain.Features
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-                return new ()
+                return new()
                 {
                     TeamMember = (await _context.TeamMembers.FirstOrDefaultAsync(x => x.TeamMemberId == request.TeamMemberId)).ToDto()
                 };
-            }                
+            }
         }
     }
 }

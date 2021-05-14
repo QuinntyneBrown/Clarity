@@ -27,16 +27,16 @@ namespace Clarity.Domain.Features
             public Handler(IClarityContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new ()
-                {
-                    Tickets = await _context.Tickets
+                => new()
+            {
+                Tickets = await _context.Tickets
                     .Include(x => x.Comments)
                     .Include(x => x.TicketStates)
                     .ThenInclude(x => x.BoardState)
                     .Where(x => x.TicketStates.OrderByDescending(ts => ts.Created).First().BoardState.BoardId == request.BoardId)
                     .Select(x => x.ToDto())
                     .ToListAsync()
-                };
+            };
         }
     }
 }

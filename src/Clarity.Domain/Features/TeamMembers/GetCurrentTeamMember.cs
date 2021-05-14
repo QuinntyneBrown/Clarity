@@ -30,7 +30,7 @@ namespace Clarity.Domain.Features
             {
                 var username = _httpContextAccessor.HttpContext.User.Identity.Name;
 
-                return new ()
+                return new()
                 {
                     TeamMember = (await _context.TeamMembers.FirstOrDefaultAsync(x => x.Name == username)).ToDto()
                 };

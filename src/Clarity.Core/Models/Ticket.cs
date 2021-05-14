@@ -52,7 +52,7 @@ namespace Clarity.Core.Models
         public void UpdateEffort(int effort)
         {
             Effort = effort;
-            EffortChangedEvents.Add(new (effort, DateTime.UtcNow));
+            EffortChangedEvents.Add(new(effort, DateTime.UtcNow));
         }
     }
 }

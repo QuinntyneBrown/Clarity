@@ -84,7 +84,7 @@ namespace Clarity.IntegrationTests.Controllers
 
             var context = _fixture.Context;
 
-            
+
             await context.SaveChangesAsync(default);
 
             var httpResponseMessage = await _fixture.CreateClient().GetAsync(Get.Tickets);
