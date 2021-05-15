@@ -6,8 +6,8 @@ using Newtonsoft.Json;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using Xunit;
 using System.Threading.Tasks;
+using Xunit;
 using static Clarity.IntegrationTests.Controllers.TicketControllerTests.Endpoints;
 
 namespace Clarity.IntegrationTests.Controllers
@@ -84,7 +84,6 @@ namespace Clarity.IntegrationTests.Controllers
 
             var context = _fixture.Context;
 
-
             await context.SaveChangesAsync(default);
 
             var httpResponseMessage = await _fixture.CreateClient().GetAsync(Get.Tickets);
@@ -95,8 +94,6 @@ namespace Clarity.IntegrationTests.Controllers
 
             Assert.True(response.Tickets.Any());
         }
-
-
 
         internal static class Endpoints
         {

@@ -1,5 +1,4 @@
 ﻿using BuildingBlocks.Core;
-using Clarity.Core;
 using Clarity.Core.Data;
 using Clarity.Core.Models;
 using System;
@@ -27,10 +26,7 @@ namespace Clarity.Domain
             }.ForEach(name =>
             {
                 if (context.Boards.SingleOrDefault(x => x.Name == name) == null)
-                    context.Boards.Add(new()
-                    {
-                        Name = name,
-                    });
+                    context.Boards.Add(new(name));
             });
 
             context.SaveChanges();

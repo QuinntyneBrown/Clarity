@@ -8,7 +8,7 @@ namespace Clarity.Testing.Builders
 
         public static Board WithDefaults()
         {
-            return new Board();
+            return Board.WithDefaults("Test");
         }
 
         public BoardBuilder()
