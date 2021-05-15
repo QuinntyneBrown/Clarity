@@ -11,9 +11,10 @@ namespace Clarity.Core.Models
         public ICollection<BoardState> BoardStates { get; private set; } = new HashSet<BoardState>();
         public static Board WithDefaults(string name)
         {
+            int order = 1;
             Board board = new() { Name = name };
 
-            foreach (var state in Enum.GetValues<StateType>().Select(x => new BoardState(x)).ToList())
+            foreach (var state in Enum.GetValues<StateType>().Select(x => new BoardState(x, order++, board.BoardId)).ToList())
             {
                 board.BoardStates.Add(state);
             };

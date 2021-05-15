@@ -4,22 +4,22 @@ namespace Clarity.Core.Models
 {
     public class BoardState
     {
-        public BoardState()
+        public int BoardStateId { get; private set; }
+        public int? BoardId { get; private set; }
+        public int Order { get; private set; }
+        public Board Board { get; private set; }
+        public StateType Type { get; private set; }
+        public List<TicketState> TicketStates { get; private set; } = new ();
+        private BoardState()
         {
 
         }
 
-        public BoardState(StateType type)
+        public BoardState(StateType type, int order, int boardId)
         {
             Type = type;
+            Order = order;
+            BoardId = boardId;
         }
-
-        public int BoardStateId { get; set; }
-        public int? BoardId { get; set; }
-        public int Order { get; set; }
-        public Board Board { get; set; }
-        public StateType Type { get; set; }
-        public ICollection<TicketState> TicketStates { get; set; }
-
     }
 }

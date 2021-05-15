@@ -42,12 +42,7 @@ namespace Clarity.Domain
             Enum.GetValues<StateType>().ForEach(type =>
             {
                 if (context.BoardStates.SingleOrDefault(x => x.Type == type) == null)
-                    context.BoardStates.Add(new()
-                    {
-                        Type = type,
-                        Order = order++,
-                        BoardId = 1
-                    });
+                    context.BoardStates.Add(new (type, order++, 1));
             });
 
             context.SaveChanges();
