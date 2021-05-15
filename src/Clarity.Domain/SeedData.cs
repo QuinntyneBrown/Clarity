@@ -75,13 +75,12 @@ namespace Clarity.Domain
         public static void Seed(ClarityContext context)
         {
             new User[1] {
-                new () { Username = "Quinntyne" }
+                new ("Quinntyne")
             }.ForEach(user =>
             {
                 if (context.Users.SingleOrDefault(x => x.Username == user.Username) == null)
                 {
-                    user.Password = new PasswordHasher().HashPassword(user.Salt, "P@ssw0rd");
-                    context.Users.Add(user);
+                    context.Users.Add(user.SetPassword("P@ssw0rd"));
                 }
             });
 

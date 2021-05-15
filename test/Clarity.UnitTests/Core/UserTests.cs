@@ -8,7 +8,7 @@ namespace Clarity.UnitTests.Core
         [Fact]
         public void ShouldHaveSaltByDefault()
         {
-            var user = new User();
+            var user = new User(default);
             Assert.NotEqual(default, user.Salt);
         }
     }

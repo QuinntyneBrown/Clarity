@@ -8,7 +8,7 @@ namespace Clarity.Testing.Builders
 
         public static User WithDefaults()
         {
-            return new User();
+            return new User(default);
         }
 
         public UserBuilder()
