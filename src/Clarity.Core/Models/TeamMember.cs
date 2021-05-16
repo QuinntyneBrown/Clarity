@@ -4,10 +4,20 @@ namespace Clarity.Core.Models
 {
     public class TeamMember
     {
-        public int TeamMemberId { get; set; }
-        public string Name { get; set; }
-        public string AvatarUrl { get; set; }
-        public ICollection<Ticket> Tickets { get; set; } = new HashSet<Ticket>();
-        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
+        public int TeamMemberId { get; private set; }
+        public string Name { get; private set; }
+        public string AvatarUrl { get; private set; }
+        public List<Ticket> Tickets { get; private set; } = new ();
+        public List<Comment> Comments { get; private set; } = new ();
+
+        public TeamMember(string name)
+        {
+            Name = name;
+        }
+
+        public TeamMember()
+        {
+
+        }
     }
 }

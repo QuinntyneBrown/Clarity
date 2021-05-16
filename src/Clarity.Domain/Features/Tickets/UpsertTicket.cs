@@ -52,7 +52,7 @@ namespace Clarity.Domain.Features
 
                 ticket.TicketStates.Clear();
 
-                ticket.TicketStates.Add(new TicketState { BoardState = state });
+                ticket.TicketStates.Add(new (state));
 
                 await _context.SaveChangesAsync(cancellationToken);
 

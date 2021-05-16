@@ -8,7 +8,7 @@ namespace Clarity.Testing.Builders
 
         public static Comment WithDefaults()
         {
-            return new Comment();
+            return new Comment(default, default);
         }
 
         public CommentBuilder()

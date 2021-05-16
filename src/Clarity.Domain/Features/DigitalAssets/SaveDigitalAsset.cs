@@ -29,9 +29,7 @@ namespace Clarity.Domain.Features
             {
                 var digitalAsset = await _context.DigitalAssets.FindAsync(request.DigitalAsset.DigitalAssetId);
 
-                if (digitalAsset == null) _context.DigitalAssets.Add(digitalAsset = new DigitalAsset());
-
-                digitalAsset.Name = request.DigitalAsset.Name;
+                if (digitalAsset == null) _context.DigitalAssets.Add(digitalAsset = new DigitalAsset(request.DigitalAsset.Name));
 
                 await _context.SaveChangesAsync(cancellationToken);
 

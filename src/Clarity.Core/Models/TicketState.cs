@@ -4,11 +4,22 @@ namespace Clarity.Core.Models
 {
     public class TicketState
     {
-        public int TicketStateId { get; set; }
-        public int TicketId { get; set; }
-        public int BoardStateId { get; set; }
-        public Ticket Ticket { get; set; }
-        public BoardState BoardState { get; set; }
-        public DateTime Created { get; set; } = DateTime.UtcNow;
+        public int TicketStateId { get; private set; }
+        public int TicketId { get; private set; }
+        public int BoardStateId { get; private set; }
+        public Ticket Ticket { get; private set; }
+        public BoardState BoardState { get; private set; }
+        public DateTime Created { get; private set; } = DateTime.UtcNow;
+
+        public TicketState(BoardState boardState)
+        {
+            BoardState = boardState;
+        }
+
+        private TicketState()
+        {
+
+        }
+
     }
 }

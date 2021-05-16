@@ -54,7 +54,7 @@ namespace Clarity.Domain
         public static void Seed(ClarityContext context)
         {
             new TeamMember[1] {
-                new () { Name = "Quinntyne" },
+                new ("Quinntyne"),
             }.ForEach(teamMember =>
             {
                 if (context.TeamMembers.SingleOrDefault(x => x.Name == teamMember.Name) == null)

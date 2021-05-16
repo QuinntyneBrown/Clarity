@@ -57,7 +57,7 @@ namespace Clarity.Domain.Features
                 while (section != null)
                 {
 
-                    var digitalAsset = new DigitalAsset();
+                    DigitalAsset digitalAsset = default;
 
                     var hasContentDispositionHeader = ContentDispositionHeaderValue.TryParse(section.ContentDisposition, out ContentDispositionHeaderValue contentDisposition);
 
@@ -68,9 +68,12 @@ namespace Clarity.Domain.Features
                             using (var targetStream = new MemoryStream())
                             {
                                 await section.Body.CopyToAsync(targetStream);
-                                digitalAsset.Name = $"{contentDisposition.FileName}".Trim(new char[] { '"' }).Replace("&", "and");
-                                digitalAsset.Bytes = StreamHelper.ReadToEnd(targetStream);
-                                digitalAsset.ContentType = section.ContentType;
+                                
+                                var name = $"{contentDisposition.FileName}".Trim(new char[] { '"' }).Replace("&", "and");
+                                var bytes = StreamHelper.ReadToEnd(targetStream);
+                                var contentType = section.ContentType;
+
+                                digitalAsset = new DigitalAsset(name, bytes, contentType);
                             }
                         }
                     }

@@ -32,16 +32,17 @@ namespace Clarity.Domain.Features
 
                 if (comment == null)
                 {
-                    comment = new Comment();
+                    comment = new Comment((Html)request.Comment.Description, request.Comment.TicketId.Value);
                     _context.Comments.Add(comment);
                 }
-
-                comment.Description = (Html)request.Comment.Description;
-                comment.TicketId = request.Comment.TicketId;
-
+                else
+                {
+                    comment.Update((Html)request.Comment.Description, request.Comment.TicketId.Value);
+                }
+                
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new ()
                 {
                     CommentId = comment.CommentId
                 };
