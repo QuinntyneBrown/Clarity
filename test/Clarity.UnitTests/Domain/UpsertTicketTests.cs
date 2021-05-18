@@ -4,6 +4,7 @@ using Clarity.Domain.Features;
 using Clarity.Testing.Builders;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -26,14 +27,14 @@ namespace Clarity.UnitTests.Domain
                 Ticket = new()
                 {
                     Name = "Test",
-                    BoardId = 1,
-                    BoardStateId = 1
+                    BoardId = Guid.NewGuid(),
+                    BoardStateId = Guid.NewGuid()
                 }
             }, default);
 
             var boardState = await _context.BoardStates
                 .Include(x => x.TicketStates)
-                .SingleAsync(x => x.BoardStateId == 1);
+                .SingleAsync(x => x.BoardStateId == Guid.NewGuid());
 
             Assert.Single(boardState.TicketStates);
             Assert.Equal("Test", boardState.TicketStates.First().Ticket.Name);
@@ -46,7 +47,7 @@ namespace Clarity.UnitTests.Domain
 
             SetUp($"{nameof(UpsertTicketTests)}{nameof(CanUpdateTicket)}");
 
-            var ticket = new Ticket(1, "Test", default, default, default);
+            var ticket = new Ticket(Guid.NewGuid(), "Test", default, default, default);
 
             _context.Tickets.Add(ticket);
 
@@ -58,8 +59,8 @@ namespace Clarity.UnitTests.Domain
                 {
                     TicketId = ticket.TicketId,
                     Name = expectedName,
-                    BoardId = 1,
-                    BoardStateId = 1
+                    BoardId = Guid.NewGuid(),
+                    BoardStateId = Guid.NewGuid()
                 }
             }, default);
 

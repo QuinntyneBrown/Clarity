@@ -5,11 +5,11 @@ namespace Clarity.Domain.Features
 {
     public class CommentDto
     {
-        public int CommentId { get; set; }
-        public int? TicketId { get; set; }
+        public Guid CommentId { get; set; }
+        public Guid? TicketId { get; set; }
         public string Description { get; set; }
         public DateTime Created { get; set; }
-        public int TeamMemberId { get; set; }
+        public Guid TeamMemberId { get; set; }
         public TeamMemberDto TeamMember { get; set; }
     }
 }

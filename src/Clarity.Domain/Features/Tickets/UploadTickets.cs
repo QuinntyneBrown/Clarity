@@ -22,7 +22,7 @@ namespace Clarity.Domain.Features
 
         public class Response
         {
-            public List<int> TicketIds { get; set; }
+            public List<Guid> TicketIds { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

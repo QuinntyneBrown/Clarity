@@ -6,7 +6,7 @@ namespace Clarity.Core.Models
 {
     public class Board
     {
-        public int BoardId { get; private set; }
+        public Guid BoardId { get; private set; }
         public string Name { get; private set; }
         public ICollection<BoardState> BoardStates { get; private set; } = new HashSet<BoardState>();
         public static Board WithDefaults(string name)

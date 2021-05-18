@@ -4,6 +4,7 @@ using Clarity.Core.Models;
 using Clarity.Core.ValueObjects;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace Clarity.Domain.Features
 
         public class Response : ResponseBase
         {
-            public int CommentId { get; set; }
+            public Guid CommentId { get; set; }
         }
 
         public class Handler : IRequestHandler<Request, Response>

@@ -2,6 +2,7 @@ using Clarity.Core.Data;
 using Clarity.Domain.Features;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace Clarity.Domain.Features
     {
         public class Request : IRequest<Response>
         {
-            public int BoardId { get; set; }
+            public Guid BoardId { get; set; }
         }
 
         public class Response

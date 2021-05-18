@@ -9,6 +9,7 @@ using System.Text;
 using Xunit;
 using System.Threading.Tasks;
 using static Clarity.IntegrationTests.Controllers.TeamMemberControllerTests.Endpoints;
+using System;
 
 namespace Clarity.IntegrationTests.Controllers
 {
@@ -76,7 +77,7 @@ namespace Clarity.IntegrationTests.Controllers
             {
                 public static string TeamMembers = "api/teamMember";
 
-                public static string ById(int id)
+                public static string ById(Guid id)
                 {
                     return $"api/teamMember/{id}";
                 }

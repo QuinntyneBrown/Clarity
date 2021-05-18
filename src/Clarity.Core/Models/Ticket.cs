@@ -9,10 +9,10 @@ namespace Clarity.Core.Models
 {
     public class Ticket
     {
-        public int TicketId { get; private set; }
+        public Guid TicketId { get; private set; }
 
         [ForeignKey("TeamMember")]
-        public int TeamMemberId { get; private set; }
+        public Guid TeamMemberId { get; private set; }
         public string Name { get; private set; }
         public string Url { get; private set; }
         public Html Description { get; private set; }
@@ -26,7 +26,7 @@ namespace Clarity.Core.Models
         public ICollection<Comment> Comments { get; private set; } = new HashSet<Comment>();
         public List<TicketEffortChanged> EffortChangedEvents { get; private set; } = new();
 
-        public Ticket(int teamMemberId, string name, string url, Html acceptanceCriteria, Html description)
+        public Ticket(Guid teamMemberId, string name, string url, Html acceptanceCriteria, Html description)
         {
             TeamMemberId = teamMemberId;
             Name = name;
@@ -40,7 +40,7 @@ namespace Clarity.Core.Models
 
         }
 
-        public void Update(int teamMemberId, string name, string url, Html acceptanceCriteria, Html description)
+        public void Update(Guid teamMemberId, string name, string url, Html acceptanceCriteria, Html description)
         {
             TeamMemberId = teamMemberId;
             Name = name;

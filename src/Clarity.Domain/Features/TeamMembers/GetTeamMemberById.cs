@@ -1,6 +1,7 @@
 using Clarity.Core.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace Clarity.Domain.Features
     {
         public class Request : IRequest<Response>
         {
-            public int TeamMemberId { get; set; }
+            public Guid TeamMemberId { get; set; }
         }
 
         public class Response

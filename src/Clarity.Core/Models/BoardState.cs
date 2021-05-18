@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Clarity.Core.Models
 {
     public class BoardState
     {
-        public int BoardStateId { get; private set; }
-        public int? BoardId { get; private set; }
+        public Guid BoardStateId { get; private set; }
+        public Guid? BoardId { get; private set; }
         public int Order { get; private set; }
         public Board Board { get; private set; }
         public StateType Type { get; private set; }
@@ -15,7 +16,7 @@ namespace Clarity.Core.Models
 
         }
 
-        public BoardState(StateType type, int order, int boardId)
+        public BoardState(StateType type, int order, Guid boardId)
         {
             Type = type;
             Order = order;

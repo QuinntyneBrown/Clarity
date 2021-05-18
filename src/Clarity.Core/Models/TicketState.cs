@@ -4,9 +4,9 @@ namespace Clarity.Core.Models
 {
     public class TicketState
     {
-        public int TicketStateId { get; private set; }
-        public int TicketId { get; private set; }
-        public int BoardStateId { get; private set; }
+        public Guid TicketStateId { get; private set; }
+        public Guid TicketId { get; private set; }
+        public Guid BoardStateId { get; private set; }
         public Ticket Ticket { get; private set; }
         public BoardState BoardState { get; private set; }
         public DateTime Created { get; private set; } = DateTime.UtcNow;

@@ -1,11 +1,12 @@
 ﻿using BuildingBlocks.Core;
+using System;
 using System.Security.Cryptography;
 
 namespace Clarity.Core.Models
 {
     public class User
     {
-        public int UserId { get; private set; }
+        public Guid UserId { get; private set; }
         public string Username { get; private set; }
         public string Password { get; private set; }
         public byte[] Salt { get; private set; }

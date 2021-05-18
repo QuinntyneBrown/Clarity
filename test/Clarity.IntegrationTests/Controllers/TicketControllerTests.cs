@@ -3,6 +3,7 @@ using Clarity.Domain.Features;
 using Clarity.Testing;
 using Clarity.Testing.Builders;
 using Newtonsoft.Json;
+using System;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -109,7 +110,7 @@ namespace Clarity.IntegrationTests.Controllers
 
             public static class Delete
             {
-                public static string ById(int ticketId)
+                public static string ById(Guid ticketId)
                 {
                     return $"api/ticket/{ticketId}";
                 }
@@ -118,7 +119,7 @@ namespace Clarity.IntegrationTests.Controllers
             public static class Get
             {
                 public static string Tickets = "api/ticket";
-                public static string ById(int ticketId)
+                public static string ById(Guid ticketId)
                 {
                     return $"api/ticket/{ticketId}";
                 }
