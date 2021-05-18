@@ -9,6 +9,6 @@ namespace Clarity.Domain.Features
         public string Name { get; set; }
         public int Order { get; set; }
         public StateType Type { get; set; }
-        public ICollection<TicketDto> Tickets { get; set; } = new List<TicketDto>();
+        public List<TicketDto> Tickets { get; set; } = new();
     }
 }

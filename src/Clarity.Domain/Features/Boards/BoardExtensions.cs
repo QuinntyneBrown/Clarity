@@ -6,14 +6,14 @@ namespace Clarity.Domain.Features
     public static class BoardExtensions
     {
         public static BoardDto ToDto(this Board board)
-            => new BoardDto
-            {
-                BoardId = board.BoardId,
-                Name = board.Name,
-                States = board.BoardStates
+            => new()
+        {
+            BoardId = board.BoardId,
+            Name = board.Name,
+            States = board.BoardStates
                 .OrderBy(x => x.Order)
                 .Select(x => x.ToDto())
                 .ToList()
-            };
+        };
     }
 }

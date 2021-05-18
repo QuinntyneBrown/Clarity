@@ -1,6 +1,5 @@
 ﻿using BuildingBlocks.Core;
 using Clarity.Core.Data;
-using Clarity.Core.Models;
 using Clarity.Core.ValueObjects;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -52,7 +51,7 @@ namespace Clarity.Domain.Features
 
                 ticket.TicketStates.Clear();
 
-                ticket.TicketStates.Add(new (state));
+                ticket.TicketStates.Add(new(state));
 
                 await _context.SaveChangesAsync(cancellationToken);
 

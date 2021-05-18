@@ -86,7 +86,7 @@ namespace Clarity.Domain.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new()
                 {
                     TicketIds = tickets.Select(x => x.TicketId).ToList()
                 };

@@ -23,15 +23,13 @@ namespace Clarity.Domain.Features
             public Handler(IClarityContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
+                => new()
             {
-                return new Response
-                {
-                    Boards = await _context.Boards
+                Boards = await _context.Boards
                     .Include(x => x.BoardStates)
                     .Select(x => x.ToDto())
                     .ToListAsync()
-                };
-            }
+            };
         }
     }
 }

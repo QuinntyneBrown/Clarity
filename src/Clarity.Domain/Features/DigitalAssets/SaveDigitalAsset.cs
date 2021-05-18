@@ -33,7 +33,7 @@ namespace Clarity.Domain.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response() { DigitalAssetId = digitalAsset.DigitalAssetId };
+                return new() { DigitalAssetId = digitalAsset.DigitalAssetId };
             }
         }
     }

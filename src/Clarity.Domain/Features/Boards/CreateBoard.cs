@@ -1,12 +1,7 @@
-using Clarity.Core;
 using Clarity.Core.Data;
 using Clarity.Core.Models;
-using Clarity.Domain.Features;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

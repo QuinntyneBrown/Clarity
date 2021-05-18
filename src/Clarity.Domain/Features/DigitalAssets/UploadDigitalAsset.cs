@@ -68,7 +68,7 @@ namespace Clarity.Domain.Features
                             using (var targetStream = new MemoryStream())
                             {
                                 await section.Body.CopyToAsync(targetStream);
-                                
+
                                 var name = $"{contentDisposition.FileName}".Trim(new char[] { '"' }).Replace("&", "and");
                                 var bytes = StreamHelper.ReadToEnd(targetStream);
                                 var contentType = section.ContentType;
@@ -87,7 +87,7 @@ namespace Clarity.Domain.Features
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new Response()
+                return new()
                 {
                     DigitalAssetIds = digitalAssets.Select(x => x.DigitalAssetId).ToList()
                 };

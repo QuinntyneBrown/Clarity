@@ -27,12 +27,12 @@ namespace Clarity.Domain.Features
             public Handler(IClarityContext context) => _context = context;
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-                => new Response()
-                {
-                    DigitalAssets = await _context.DigitalAssets
+                => new()
+            {
+                DigitalAssets = await _context.DigitalAssets
                     .Where(x => request.DigitalAssetIds.Contains(x.DigitalAssetId))
                     .Select(x => DigitalAssetDto.FromDigitalAsset(x)).ToListAsync()
-                };
+            };
         }
     }
 }

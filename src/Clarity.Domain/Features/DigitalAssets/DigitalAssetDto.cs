@@ -11,12 +11,12 @@ namespace Clarity.Domain.Features
         public byte[] Bytes { get; set; }
         public string ContentType { get; set; }
         public static DigitalAssetDto FromDigitalAsset(DigitalAsset digitalAsset)
-            => new DigitalAssetDto
-            {
-                DigitalAssetId = digitalAsset.DigitalAssetId,
-                Name = digitalAsset.Name,
-                Bytes = digitalAsset.Bytes,
-                ContentType = digitalAsset.ContentType
-            };
+            => new()
+        {
+            DigitalAssetId = digitalAsset.DigitalAssetId,
+            Name = digitalAsset.Name,
+            Bytes = digitalAsset.Bytes,
+            ContentType = digitalAsset.ContentType
+        };
     }
 }

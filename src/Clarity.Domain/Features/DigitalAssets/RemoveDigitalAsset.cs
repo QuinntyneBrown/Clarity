@@ -27,7 +27,7 @@ namespace Clarity.Domain.Features
             {
                 _context.DigitalAssets.Remove(await _context.DigitalAssets.FindAsync(request.DigitalAssetId));
                 await _context.SaveChangesAsync(cancellationToken);
-                return new Response { };
+                return new();
             }
         }
     }

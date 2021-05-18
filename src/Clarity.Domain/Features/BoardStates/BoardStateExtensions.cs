@@ -5,12 +5,12 @@ namespace Clarity.Domain.Features
     public static class BoardStateExtensions
     {
         public static BoardStateDto ToDto(this BoardState boardState)
-            => new BoardStateDto
-            {
+            => new()
+        {
 
-                StateId = boardState.BoardStateId,
-                Order = boardState.Order,
-                Type = boardState.Type
-            };
+            StateId = boardState.BoardStateId,
+            Order = boardState.Order,
+            Type = boardState.Type
+        };
     }
 }

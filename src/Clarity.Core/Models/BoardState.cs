@@ -9,7 +9,7 @@ namespace Clarity.Core.Models
         public int Order { get; private set; }
         public Board Board { get; private set; }
         public StateType Type { get; private set; }
-        public List<TicketState> TicketStates { get; private set; } = new ();
+        public List<TicketState> TicketStates { get; private set; } = new();
         private BoardState()
         {
 

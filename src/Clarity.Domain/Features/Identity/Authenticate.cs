@@ -49,7 +49,7 @@ namespace Clarity.Domain.Features
                 if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
                     throw new Exception();
 
-                return new Response()
+                return new()
                 {
                     AccessToken = _tokenProvider.Get(request.Username, new List<Claim>() { }),
                     UserId = user.UserId

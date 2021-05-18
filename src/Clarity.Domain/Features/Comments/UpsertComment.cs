@@ -39,10 +39,10 @@ namespace Clarity.Domain.Features
                 {
                     comment.Update((Html)request.Comment.Description, request.Comment.TicketId.Value);
                 }
-                
+
                 await _context.SaveChangesAsync(cancellationToken);
 
-                return new ()
+                return new()
                 {
                     CommentId = comment.CommentId
                 };
