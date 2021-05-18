@@ -11,10 +11,10 @@ using static Clarity.IntegrationTests.Controllers.CommentControllerTests.Endpoin
 
 namespace Clarity.IntegrationTests.Controllers
 {
-    public class CommentControllerTests : IClassFixture<ApiFixture>
+    public class CommentControllerTests : IClassFixture<ApiTestFixture>
     {
-        private readonly ApiFixture _fixture;
-        public CommentControllerTests(ApiFixture fixture)
+        private readonly ApiTestFixture _fixture;
+        public CommentControllerTests(ApiTestFixture fixture)
         {
             _fixture = fixture;
         }

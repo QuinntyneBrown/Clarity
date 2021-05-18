@@ -12,10 +12,10 @@ using static Clarity.IntegrationTests.Controllers.BoardControllerTests.Endpoints
 
 namespace Clarity.IntegrationTests.Controllers
 {
-    public class BoardControllerTests : IClassFixture<ApiFixture>
+    public class BoardControllerTests : IClassFixture<ApiTestFixture>
     {
-        private readonly ApiFixture _fixture;
-        public BoardControllerTests(ApiFixture fixture)
+        private readonly ApiTestFixture _fixture;
+        public BoardControllerTests(ApiTestFixture fixture)
         {
             _fixture = fixture;
         }

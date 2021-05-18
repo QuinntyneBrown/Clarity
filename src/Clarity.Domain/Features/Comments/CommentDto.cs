@@ -1,5 +1,4 @@
-﻿using Clarity.Domain.Features;
-using System;
+﻿using System;
 
 namespace Clarity.Domain.Features
 {

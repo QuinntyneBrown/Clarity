@@ -13,10 +13,10 @@ using System;
 
 namespace Clarity.IntegrationTests.Controllers
 {
-    public class TeamMemberControllerTests : IClassFixture<ApiFixture>
+    public class TeamMemberControllerTests : IClassFixture<ApiTestFixture>
     {
-        private readonly ApiFixture _fixture;
-        public TeamMemberControllerTests(ApiFixture fixture)
+        private readonly ApiTestFixture _fixture;
+        public TeamMemberControllerTests(ApiTestFixture fixture)
         {
             _fixture = fixture;
         }

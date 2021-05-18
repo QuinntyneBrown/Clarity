@@ -13,10 +13,10 @@ using static Clarity.IntegrationTests.Controllers.TicketControllerTests.Endpoint
 
 namespace Clarity.IntegrationTests.Controllers
 {
-    public class TicketControllerTests : IClassFixture<ApiFixture>
+    public class TicketControllerTests : IClassFixture<ApiTestFixture>
     {
-        private readonly ApiFixture _fixture;
-        public TicketControllerTests(ApiFixture fixture)
+        private readonly ApiTestFixture _fixture;
+        public TicketControllerTests(ApiTestFixture fixture)
         {
             _fixture = fixture;
         }
