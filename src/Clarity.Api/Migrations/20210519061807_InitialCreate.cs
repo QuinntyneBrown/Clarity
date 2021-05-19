@@ -11,8 +11,7 @@ namespace Clarity.Api.Migrations
                 name: "Boards",
                 columns: table => new
                 {
-                    BoardId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BoardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -38,8 +37,7 @@ namespace Clarity.Api.Migrations
                 name: "TeamMembers",
                 columns: table => new
                 {
-                    TeamMemberId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TeamMemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -52,8 +50,7 @@ namespace Clarity.Api.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Salt = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
@@ -67,9 +64,8 @@ namespace Clarity.Api.Migrations
                 name: "BoardStates",
                 columns: table => new
                 {
-                    BoardStateId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BoardId = table.Column<int>(type: "int", nullable: true),
+                    BoardStateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BoardId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Order = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false)
                 },
@@ -88,9 +84,8 @@ namespace Clarity.Api.Migrations
                 name: "Tickets",
                 columns: table => new
                 {
-                    TicketId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TeamMemberId = table.Column<int>(type: "int", nullable: false),
+                    TicketId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamMemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -114,10 +109,9 @@ namespace Clarity.Api.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    CommentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TeamMemberId = table.Column<int>(type: "int", nullable: false),
-                    TicketId = table.Column<int>(type: "int", nullable: true),
+                    CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamMemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TicketId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -142,7 +136,7 @@ namespace Clarity.Api.Migrations
                 name: "TicketEffortChanged",
                 columns: table => new
                 {
-                    TicketId = table.Column<int>(type: "int", nullable: false),
+                    TicketId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Effort = table.Column<int>(type: "int", nullable: false),
@@ -163,10 +157,9 @@ namespace Clarity.Api.Migrations
                 name: "TicketState",
                 columns: table => new
                 {
-                    TicketStateId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TicketId = table.Column<int>(type: "int", nullable: false),
-                    BoardStateId = table.Column<int>(type: "int", nullable: false),
+                    TicketStateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TicketId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    BoardStateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>

@@ -21,10 +21,9 @@ namespace Clarity.Api.Migrations
 
             modelBuilder.Entity("Clarity.Core.Models.Board", b =>
                 {
-                    b.Property<int>("BoardId")
+                    b.Property<Guid>("BoardId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -36,13 +35,12 @@ namespace Clarity.Api.Migrations
 
             modelBuilder.Entity("Clarity.Core.Models.BoardState", b =>
                 {
-                    b.Property<int>("BoardStateId")
+                    b.Property<Guid>("BoardStateId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("BoardId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("BoardId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
@@ -59,10 +57,9 @@ namespace Clarity.Api.Migrations
 
             modelBuilder.Entity("Clarity.Core.Models.Comment", b =>
                 {
-                    b.Property<int>("CommentId")
+                    b.Property<Guid>("CommentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -70,11 +67,11 @@ namespace Clarity.Api.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TeamMemberId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TeamMemberId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("TicketId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("TicketId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("CommentId");
 
@@ -107,10 +104,9 @@ namespace Clarity.Api.Migrations
 
             modelBuilder.Entity("Clarity.Core.Models.TeamMember", b =>
                 {
-                    b.Property<int>("TeamMemberId")
+                    b.Property<Guid>("TeamMemberId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AvatarUrl")
                         .HasColumnType("nvarchar(max)");
@@ -125,10 +121,9 @@ namespace Clarity.Api.Migrations
 
             modelBuilder.Entity("Clarity.Core.Models.Ticket", b =>
                 {
-                    b.Property<int>("TicketId")
+                    b.Property<Guid>("TicketId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AcceptanceCriteria")
                         .HasColumnType("nvarchar(max)");
@@ -148,8 +143,8 @@ namespace Clarity.Api.Migrations
                     b.Property<int>("StoryPoints")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeamMemberId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TeamMemberId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
@@ -163,19 +158,18 @@ namespace Clarity.Api.Migrations
 
             modelBuilder.Entity("Clarity.Core.Models.TicketState", b =>
                 {
-                    b.Property<int>("TicketStateId")
+                    b.Property<Guid>("TicketStateId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("BoardStateId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("BoardStateId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TicketId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("TicketStateId");
 
@@ -188,10 +182,9 @@ namespace Clarity.Api.Migrations
 
             modelBuilder.Entity("Clarity.Core.Models.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
@@ -243,8 +236,8 @@ namespace Clarity.Api.Migrations
 
                     b.OwnsMany("Clarity.Core.DomainEvents.TicketEffortChanged", "EffortChangedEvents", b1 =>
                         {
-                            b1.Property<int>("TicketId")
-                                .HasColumnType("int");
+                            b1.Property<Guid>("TicketId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<int>("Id")
                                 .ValueGeneratedOnAdd()
