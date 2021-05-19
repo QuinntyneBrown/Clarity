@@ -10,7 +10,7 @@
     justify-content: space-evenly;    
   }
   
-  .kanbanBoard__column {
+  .kanban-board__column {
     background-color: rgba(0,0,0,0.04);
     padding: 0 5px;
     margin: 0 5px;
@@ -22,7 +22,7 @@
     }
   }
   
-  .kanbanBoard__ticket, .cdk-drag-preview {
+  .kanban-board__ticket, .cdk-drag-preview {
     display: block;
     background-color: #fff;
     cursor: pointer;
@@ -32,7 +32,7 @@
     opacity: 0.5;
   }
   
-  .kanbanBoard__controls {
+  .kanban-board__controls {
     display: flex;
     height: 50px;
     width:100%;

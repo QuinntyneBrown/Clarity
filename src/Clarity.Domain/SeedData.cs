@@ -38,11 +38,12 @@ namespace Clarity.Domain
         public static void Seed(ClarityContext context)
         {
             var order = 0;
+            var board = context.Boards.Single(x => x.Name == "Default");
 
             Enum.GetValues<StateType>().ForEach(type =>
             {
                 if (context.BoardStates.SingleOrDefault(x => x.Type == type) == null)
-                    context.BoardStates.Add(new(type, order++, Guid.NewGuid()));
+                    context.BoardStates.Add(new(type, order++, board.BoardId));
             });
 
             context.SaveChanges();

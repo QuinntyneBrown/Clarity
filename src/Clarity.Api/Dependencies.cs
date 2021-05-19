@@ -1,6 +1,7 @@
 ﻿using BuildingBlocks.AspNetCore;
 using BuildingBlocks.Core;
 using Clarity.Core.Data;
+using Clarity.Domain.Features;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
@@ -29,8 +30,8 @@ namespace Clarity.Api
                 {
                     Version = "v1",
                     Title = "Clarity",
-                    Description = "Web Store",
-                    TermsOfService = new Uri("https://example.com/terms"),
+                    Description = "Simple Kanban Api",
+                    TermsOfService = new Uri("https://api.clarity.com/terms"),
                     Contact = new OpenApiContact
                     {
                         Name = "Quinntyne Brown",
@@ -63,7 +64,7 @@ namespace Clarity.Api
 
             services.AddHttpContextAccessor();
 
-            services.AddMediatR(typeof(IClarityContext));
+            services.AddMediatR(typeof(Authenticate));
 
             services.AddTransient<IClarityContext, ClarityContext>();
 

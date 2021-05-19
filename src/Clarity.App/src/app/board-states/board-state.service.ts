@@ -14,14 +14,14 @@ export class BoardStateService {
   ) { }
 
   public get(): Observable<Array<BoardState>> {
-    return this.client.get<{ boardStates: Array<BoardState> }>(`${this.baseUrl}api/board-states`)
+    return this.client.get<{ boardStates: Array<BoardState> }>(`${this.baseUrl}api/boardstate`)
       .pipe(
         map(x => x.boardStates)
       );
   }
 
   public getById(options: { boardStateId: string }): Observable<BoardState> {
-    return this.client.get<{ boardState: BoardState }>(`${this.baseUrl}api/board-states/${options.boardStateId}`)
+    return this.client.get<{ boardState: BoardState }>(`${this.baseUrl}api/boardstate/${options.boardStateId}`)
       .pipe(
         map(x => x.boardState)
       );

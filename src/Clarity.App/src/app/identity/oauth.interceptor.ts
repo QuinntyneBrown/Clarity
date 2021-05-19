@@ -6,11 +6,18 @@ import {
   HttpRequest,
   HttpHandler
 } from '@angular/common/http';
+import { LocalStorageService } from '@core/local-storage.service';
+import { accessTokenKey } from '@core';
 
 @Injectable()
 export class OAuthInterceptor implements HttpInterceptor {
+  constructor(
+    private readonly _localStorageService: LocalStorageService
+  ) {
+
+  }
   intercept(httpRequest: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('ACCESS_TOKEN') || '';
+    const token = this._localStorageService.get({ name: accessTokenKey }) || '';
     return next.handle(
       httpRequest.clone({
         headers: httpRequest.headers

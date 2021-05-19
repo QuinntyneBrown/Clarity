@@ -13,28 +13,28 @@ export class BoardService {
   ) { }
 
   public get(): Observable<Array<Board>> {
-    return this.client.get<{ boards: Array<Board> }>(`${this._baseUrl}api/boards`)
+    return this.client.get<{ boards: Array<Board> }>(`${this._baseUrl}api/board`)
       .pipe(
         map(x => x.boards)
       );
   }
 
   public getById(options: { boardId: number }): Observable<Board> {
-    return this.client.get<{ board: Board }>(`${this._baseUrl}api/boards/${options.boardId}`)
+    return this.client.get<{ board: Board }>(`${this._baseUrl}api/board/${options.boardId}`)
       .pipe(
         map(x => x.board)
       );
   }
 
   public remove(options: { board: Board }): Observable<void> {
-    return this.client.delete<void>(`${this._baseUrl}api/boards/${options.board.boardId}`);
+    return this.client.delete<void>(`${this._baseUrl}api/board/${options.board.boardId}`);
   }
 
   public create(options: { board: Board }): Observable<{ boardId: number }> {
-    return this.client.post<{ boardId: number }>(`${this._baseUrl}api/boards`, { board: options.board });
+    return this.client.post<{ boardId: number }>(`${this._baseUrl}api/board`, { board: options.board });
   }
 
   public update(options: { board: Board }): Observable<{ boardId: string }> {
-    return this.client.put<{ boardId: string }>(`${this._baseUrl}api/boards`, { board: options.board });
+    return this.client.put<{ boardId: string }>(`${this._baseUrl}api/board`, { board: options.board });
   }
 }

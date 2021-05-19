@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clarity.Api.Migrations
 {
     [DbContext(typeof(ClarityContext))]
-    [Migration("20210519061807_InitialCreate")]
+    [Migration("20210519102253_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

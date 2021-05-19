@@ -12,6 +12,8 @@ import { TeamMemberService } from './team-members/team-member.service';
 import { TeamMember } from './team-members/team-member.model';
 import { SelectBoard } from './boards/select-board';
 import { LookUpService } from '@core/look-up.service';
+import { LocalStorageService } from '@core/local-storage.service';
+import { accessTokenKey } from '@core';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public readonly boards$: BehaviorSubject<Board[]> = new BehaviorSubject([]);
   public readonly teamMember$: BehaviorSubject<TeamMember> = new BehaviorSubject({} as TeamMember);
 
-  public get isAuthenticated(): string { return localStorage.getItem('ACCESS_TOKEN'); }
+  public get isAuthenticated(): string { return this._localStorageService.get({ name: accessTokenKey }) }
   
   public get board$(): Observable<Board> { return this.boards$.pipe(
     map(x => x.filter(l => l.boardId === this.boardId)[0] )
@@ -41,7 +43,9 @@ export class AppComponent implements OnInit, OnDestroy {
     private readonly _lookUpService: LookUpService,
     public upsertTicket: UpsertTicket,
     public teamMemberService: TeamMemberService,
-    public selectBoard: SelectBoard) { }
+    public selectBoard: SelectBoard,
+    private readonly _localStorageService: LocalStorageService
+    ) { }
 
   async ensureAuthenticated() {
     return new Promise((resolve, reject) => {

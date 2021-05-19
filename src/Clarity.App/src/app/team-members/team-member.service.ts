@@ -13,35 +13,35 @@ export class TeamMemberService {
   ) { }
 
   public getCurrent(): Observable<TeamMember> {
-    return this.client.get<{ teamMember: TeamMember }>(`${this._baseUrl}api/teamMembers/current`)
+    return this.client.get<{ teamMember: TeamMember }>(`${this._baseUrl}api/teamMember/current`)
       .pipe(
         map(x => x.teamMember)
       );
   }
 
   public get(): Observable<Array<TeamMember>> {
-    return this.client.get<{ teamMembers: Array<TeamMember> }>(`${this._baseUrl}api/teamMembers`)
+    return this.client.get<{ teamMembers: Array<TeamMember> }>(`${this._baseUrl}api/teamMember`)
       .pipe(
         map(x => x.teamMembers)
       );
   }
 
   public getById(options: { teamMemberId: string }): Observable<TeamMember> {
-    return this.client.get<{ teamMember: TeamMember }>(`${this._baseUrl}api/teamMembers/${options.teamMemberId}`)
+    return this.client.get<{ teamMember: TeamMember }>(`${this._baseUrl}api/teamMember/${options.teamMemberId}`)
       .pipe(
         map(x => x.teamMember)
       );
   }
 
   public remove(options: { teamMember: TeamMember }): Observable<void> {
-    return this.client.delete<void>(`${this._baseUrl}api/teamMembers/${options.teamMember.teamMemberId}`);
+    return this.client.delete<void>(`${this._baseUrl}api/teamMember/${options.teamMember.teamMemberId}`);
   }
 
   public create(options: { teamMember: TeamMember }): Observable<{ teamMemberId: string }> {
-    return this.client.post<{ teamMemberId: string }>(`${this._baseUrl}api/teamMembers`, { teamMember: options.teamMember });
+    return this.client.post<{ teamMemberId: string }>(`${this._baseUrl}api/teamMember`, { teamMember: options.teamMember });
   }
 
   public update(options: { teamMember: TeamMember }): Observable<{ teamMemberId: string }> {
-    return this.client.put<{ teamMemberId: string }>(`${this._baseUrl}api/teamMembers`, { teamMember: options.teamMember });
+    return this.client.put<{ teamMemberId: string }>(`${this._baseUrl}api/teamMember`, { teamMember: options.teamMember });
   }
 }

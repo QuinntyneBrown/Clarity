@@ -13,6 +13,6 @@ export class CommentService {
   ) { }
 
   public upsert(options: { comment: Comment }): Observable<{ commentId: number }> {
-    return this.client.post<{ commentId: number }>(`${this._baseUrl}api/comments`, { comment: options.comment });
+    return this.client.post<{ commentId: number }>(`${this._baseUrl}api/comment`, { comment: options.comment });
   }
 }

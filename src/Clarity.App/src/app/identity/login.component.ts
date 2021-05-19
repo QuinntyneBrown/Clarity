@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { OverlayRefWrapper } from '@core/overlay-ref-wrapper';
+import { accessTokenKey, baseUrl, userIdKey } from '@core';
+import { LocalStorageService } from '@core/local-storage.service';
 
 
 @Component({
@@ -22,11 +24,12 @@ export class LoginComponent implements OnDestroy, AfterContentInit {
   });
 
   constructor(
-    @Inject('BASE_URL') private baseUrl: string,
+    @Inject(baseUrl) private readonly _baseUrl: string,
     private readonly _client: HttpClient,
     private readonly _renderer: Renderer2,
     private readonly _elementRef: ElementRef,
-    private readonly _overlayRefWrapper: OverlayRefWrapper
+    private readonly _overlayRefWrapper: OverlayRefWrapper,
+    private readonly _localStorageService: LocalStorageService
   ) { }
 
   public get usernameNativeElement() { return this._elementRef.nativeElement.querySelector('#username'); }
@@ -41,10 +44,10 @@ export class LoginComponent implements OnDestroy, AfterContentInit {
 
   public tryToLogin() {
     const options = { username: this.form.value.username, password: this.form.value.password };
-    return this._client.post<any>(`${this.baseUrl}api/users/token`, options).pipe(
+    return this._client.post<any>(`${this._baseUrl}api/user/token`, options).pipe(
       map(response => {
-        localStorage.setItem('ACCESS_TOKEN', response.accessToken);
-        localStorage.setItem('USER_ID', response.userId);
+        this._localStorageService.put({ name: accessTokenKey, value: response.accessToken });
+        this._localStorageService.put({ name: userIdKey, value: response.userId });
         this._overlayRefWrapper.close();
       }),
       catchError(x => {

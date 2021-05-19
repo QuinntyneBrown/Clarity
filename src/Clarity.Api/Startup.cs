@@ -42,7 +42,7 @@ namespace Clarity.Api
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "eShop.Api.Api");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Clarity.Api");
                 c.RoutePrefix = string.Empty;
             });
         }

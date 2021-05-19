@@ -1,13 +1,14 @@
-
-<div *ngIf='isAuthenticated' class='kanbanBoard__controls'>
-  <mat-icon aria-hidden="false" aria-label="add icon" (click)="handleAddClick()">add</mat-icon>
-  <span (click)='handleSelectBoardClick()'> {{ (board$ | async)?.name }}</span>
-  <span> {{ (teamMember$ | async)?.name }}</span>
-</div>
-<div *ngIf='isAuthenticated' class='kanban-board' cdkDropListGroup>    
-  <div class='kanbanBoard__column' cdkDropList [cdkDropListData]="ticketsByState$(boardState) | async" (cdkDropListDropped)="drop($event, boardState)" *ngFor='let boardState of (boardStates$ | async)'>
-      <span>{{ boardState.type }}</span>
-      
-      <app-ticket *ngFor='let ticket of (ticketsByState$(boardState) | async)' [ticket]='ticket' cdkDrag></app-ticket>
+<ng-container *ngIf='isAuthenticated'>
+  <div  class='kanban-board__controls'>
+    <mat-icon aria-hidden="false" aria-label="add icon" (click)="handleAddClick()">add</mat-icon>
+    <span (click)='handleSelectBoardClick()'> {{ (board$ | async)?.name }}</span>
+    <span> {{ (teamMember$ | async)?.name }}</span>
   </div>
-</div>
+  <div *ngIf='isAuthenticated' class='kanban-board' cdkDropListGroup>    
+    <div class='kanban-board__column' cdkDropList [cdkDropListData]="ticketsByState$(boardState) | async" (cdkDropListDropped)="drop($event, boardState)" *ngFor='let boardState of (boardStates$ | async)'>
+        <span>{{ boardState.type }}</span>
+        
+        <app-ticket *ngFor='let ticket of (ticketsByState$(boardState) | async)' [ticket]='ticket' cdkDrag></app-ticket>
+    </div>
+  </div>
+</ng-container>

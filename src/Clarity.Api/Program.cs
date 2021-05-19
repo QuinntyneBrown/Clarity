@@ -48,7 +48,7 @@ namespace Clarity.Api
                 {
                     context.Database.EnsureCreated();
 
-                    //SeedData.Seed(context);
+                    SeedData.Seed(context);
                 }
 
                 if (args.Contains("secret"))
