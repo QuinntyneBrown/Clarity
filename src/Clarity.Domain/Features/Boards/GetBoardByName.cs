@@ -1,17 +1,16 @@
 using Clarity.Core.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Clarity.Domain.Features
 {
-    public class GetBoardById
+    public class GetBoardByName
     {
         public class Request : IRequest<Response>
         {
-            public Guid BoardId { get; set; }
+            public string Name { get; set; }
         }
 
         public class Response
@@ -29,7 +28,7 @@ namespace Clarity.Domain.Features
             {
                 Board = (await _context.Boards
                     .Include(x => x.BoardStates)
-                    .FirstOrDefaultAsync(x => x.BoardId == request.BoardId)).ToDto()
+                    .FirstOrDefaultAsync(x => x.Name == request.Name)).ToDto()
             };
         }
     }

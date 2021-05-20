@@ -27,5 +27,11 @@ namespace Clarity.Api.Controllers
         [ProducesResponseType(typeof(GetBoardById.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetBoardById.Response>> GetById([FromRoute] GetBoardById.Request request)
             => await _mediator.Send(request);
+
+        [HttpGet("name/{name}")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetBoardByName.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetBoardByName.Response>> GetByName([FromRoute] GetBoardByName.Request request)
+            => await _mediator.Send(request);
     }
 }

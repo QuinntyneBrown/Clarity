@@ -29,6 +29,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public get isAuthenticated(): string { return this._localStorageService.get({ name: accessTokenKey }) }
   
+
+  public vm$: Observable<{ board: Board }> = this._boardService.getByName({ name: "Default"})
+  .pipe(
+    map(board => ({ board }))
+  );
+
   public get board$(): Observable<Board> { return this.boards$.pipe(
     map(x => x.filter(l => l.boardId === this.boardId)[0] )
   );
@@ -37,14 +43,14 @@ export class AppComponent implements OnInit, OnDestroy {
   public get board() { return this.boards$.value.filter(x => x.boardId === this.boardId)[0]; }
 
   constructor(
-    private _login: Login,
-    private boardService: BoardService,
-    private ticketService: TicketService,
+    private readonly _login: Login,
+    private readonly _boardService: BoardService,
+    private readonly _ticketService: TicketService,
     private readonly _lookUpService: LookUpService,
-    public upsertTicket: UpsertTicket,
-    public teamMemberService: TeamMemberService,
-    public selectBoard: SelectBoard,
-    private readonly _localStorageService: LocalStorageService
+    private readonly _teamMemberService: TeamMemberService,
+    private readonly _localStorageService: LocalStorageService,
+    public upsertTicket: UpsertTicket,    
+    public selectBoard: SelectBoard,    
     ) { }
 
   async ensureAuthenticated() {
@@ -68,15 +74,15 @@ export class AppComponent implements OnInit, OnDestroy {
       takeUntil(this._destroyed$),      
     ).subscribe();
 
-    this.teamMemberService.getCurrent().pipe(
+    this._teamMemberService.getCurrent().pipe(
       map(x => this.teamMember$.next(x))
       ).subscribe();
 
-    this.ticketService.getByBoardId({ boardId: this.boardId }).pipe(
+    this._ticketService.getByBoardId({ boardId: this.boardId }).pipe(
       map(x => this.tickets$.next(x))
     ).subscribe();
 
-    this.boardService.get().pipe(
+    this._boardService.get().pipe(
       map(x => {
         this.boards$.next(x);
         this.boardStates$.next(x[this.boardId - 1].states);
@@ -104,7 +110,7 @@ export class AppComponent implements OnInit, OnDestroy {
       ticket.boardStateId = state.boardStateId;
       ticket.state = state.name;
       ticket.age = 0;
-      this.ticketService
+      this._ticketService
       .create({ ticket })
       .subscribe();
     }

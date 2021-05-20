@@ -26,6 +26,13 @@ export class BoardService {
       );
   }
 
+  public getByName(options: { name: string }): Observable<Board> {
+    return this.client.get<{ board: Board }>(`${this._baseUrl}api/board/name/${options.name}`)
+      .pipe(
+        map(x => x.board)
+      );
+  }
+
   public remove(options: { board: Board }): Observable<void> {
     return this.client.delete<void>(`${this._baseUrl}api/board/${options.board.boardId}`);
   }

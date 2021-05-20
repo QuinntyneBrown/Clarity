@@ -1,4 +1,4 @@
-<ng-container *ngIf='isAuthenticated'>
+<ng-container *ngIf='vm$ | async as vm'>
   <div  class='kanban-board__controls'>
     <mat-icon aria-hidden="false" aria-label="add icon" (click)="handleAddClick()">add</mat-icon>
     <span (click)='handleSelectBoardClick()'> {{ (board$ | async)?.name }}</span>
