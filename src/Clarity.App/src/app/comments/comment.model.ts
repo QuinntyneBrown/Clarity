@@ -1,7 +1,7 @@
-export class Comment {
-  public commentId: number;
-  public ticketId: number;
-  public teamMemberId: number;
-  public description: string;
-  public created: number;
+export type Comment = {
+  commentId: number;
+  ticketId: number;
+  teamMemberId: number;
+  description: string;
+  created: number;
 }

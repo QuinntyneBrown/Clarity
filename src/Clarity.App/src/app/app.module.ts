@@ -10,9 +10,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { KanbanBoardColumnComponent } from './kanban-board/kanban-board-column.component';
-import { TicketComponent } from './tickets/ticket.component';
-import { UpsertTicket } from './tickets/upsert-ticket';
-import { UpsertTicketComponent } from './tickets/upsert-ticket.component';
+import { UpsertTicket, UpsertTicketComponent, TicketComponent } from './tickets';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,6 +30,9 @@ import { CommentService } from './comments/comment.service';
 import { CreateCommentComponent } from './comments/create-comment.component';
 import { OverlayRefProvider } from '@core/overlay-ref-provider';
 import { baseUrl } from '@core/constants';
+import { KanbanBoardControlsComponent } from './kanban-board/kanban-board-controls/kanban-board-controls.component';
+import { TicketEditorComponent } from './tickets/ticket-editor/ticket-editor.component';
+import { CommentEditorComponent } from './comments/comment-editor/comment-editor.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,10 @@ import { baseUrl } from '@core/constants';
     UpsertTicketComponent,
     LoginComponent,
     SelectBoardComponent,
-    CreateCommentComponent
+    CreateCommentComponent,
+    KanbanBoardControlsComponent,
+    TicketEditorComponent,
+    CommentEditorComponent
   ],
   imports: [
     HttpClientModule,

@@ -1,11 +1,11 @@
-export class Ticket {
-  public ticketId: number;
-  public name: string;
-  public state: string;
-  public age: number;
-  public description: string;
-  public acceptanceCriteria: string;
-  public boardStateId: number;
-  public boardId: number;
-  public comments: Comment[] = [];
+export type Ticket = {
+  ticketId: number;
+  name: string;
+  state: string;
+  age: number;
+  description: string;
+  acceptanceCriteria: string;
+  boardStateId: number;
+  boardId: number;
+  comments: Comment[];
 }

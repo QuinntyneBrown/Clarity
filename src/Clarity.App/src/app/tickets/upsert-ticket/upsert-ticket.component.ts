@@ -1,15 +1,14 @@
 import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { TicketService } from './ticket.service';
-import { Ticket } from './ticket.model';
 import { map, switchMap, tap, takeUntil } from 'rxjs/operators';
-import { BoardState } from '../board-states';
-import { Board } from '../boards/board.model';
-import { BoardService } from '../boards/board.service';
-import { CommentService } from '../comments/comment.service';
-import { Comment } from '../comments/comment.model';
+import { Board } from 'src/app/boards/board.model';
 import { OverlayRefWrapper } from '@core/overlay-ref-wrapper';
+import { CommentService } from 'src/app/comments/comment.service';
+import { Ticket } from '../ticket.model';
+import { BoardService } from 'src/app/boards/board.service';
+import { TicketService } from '../ticket.service';
+import { BoardState } from 'src/app/board-states';
 
 @HostBinding('class.mat-typography')
 @Component({
@@ -18,10 +17,12 @@ import { OverlayRefWrapper } from '@core/overlay-ref-wrapper';
   selector: 'app-upsert-ticket',
 })
 export class UpsertTicketComponent implements OnInit, OnDestroy {
+  private readonly _destroyed$: Subject<void> = new Subject<void>();
+
   public boardId = 2;
   public board$: BehaviorSubject<Board> = new BehaviorSubject(new Board());
   public stateId: number;
-  public ticket: Ticket = new Ticket();
+  public ticket: Ticket = {} as Ticket;
   public selected: number;
 
   constructor(
@@ -42,7 +43,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
       });
     }
     public ticket$: BehaviorSubject<Ticket> = new BehaviorSubject({} as Ticket);
-    public onDestroy: Subject<void> = new Subject<void>();
+    
     public name: string;
     public ticketId: number;
 
@@ -67,7 +68,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
 
             this.ticket = x;
 
-            this.boardService.getById({ boardId: this.ticket.boardId}).pipe(
+            this.boardService.getById({ boardId: this.ticket.boardId }).pipe(
               map(board => {
                 this.board$.next(board);
               })
@@ -79,7 +80,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.onDestroy.next();
+    this._destroyed$.next();
   }
 
   public handleCancelClick() {
@@ -96,7 +97,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
       .pipe(
         map(x => this.ticket.ticketId = x.ticketId),
         tap(() => this.overlay.close(this.ticket)),
-        takeUntil(this.onDestroy)
+        takeUntil(this._destroyed$)
       )
       .subscribe();
   }
@@ -105,7 +106,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
     this.ticketService.remove({ ticket: this.ticket })
       .pipe(
         tap(() => this.overlay.close(this.ticket)),
-        takeUntil(this.onDestroy)
+        takeUntil(this._destroyed$)
       )
       .subscribe();
   }

@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Ticket } from './ticket.model';
-import { UpsertTicket } from './upsert-ticket';
+import { Ticket } from '../ticket.model';
+import { UpsertTicket } from '../upsert-ticket/upsert-ticket';
+
 
 @Component({
   templateUrl: './ticket.component.html',

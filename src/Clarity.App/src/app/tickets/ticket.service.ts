@@ -34,6 +34,13 @@ export class TicketService {
       );
   }
 
+  public getByBoardName(options: { name: string }): Observable<Ticket[]> {
+    return this.client.get<{ tickets: Ticket[]}>(`${this._baseUrl}api/ticket/board/name/${options.name}`)
+      .pipe(
+        map(x => x.tickets)
+      );
+  }  
+
   public getByName(options: { name: string }): Observable<Ticket> {
     return this.client.get<{ ticket: Ticket }>(`${this._baseUrl}api/ticket/${options.name}`)
       .pipe(

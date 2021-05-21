@@ -2,9 +2,9 @@ import { Injectable, Injector, ComponentRef } from '@angular/core';
 import { UpsertTicketComponent } from './upsert-ticket.component';
 import { Observable } from 'rxjs';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
-import { Board } from '../boards/board.model';
 import { OverlayRefWrapper } from '@core/overlay-ref-wrapper';
 import { OverlayRefProvider } from '@core/overlay-ref-provider';
+import { Board } from 'src/app/boards/board.model';
 
 @Injectable()
 export class UpsertTicket {

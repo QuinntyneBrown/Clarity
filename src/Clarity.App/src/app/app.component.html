@@ -1,14 +1,14 @@
 <ng-container *ngIf='vm$ | async as vm'>
   <div  class='kanban-board__controls'>
-    <mat-icon aria-hidden="false" aria-label="add icon" (click)="handleAddClick()">add</mat-icon>
-    <span (click)='handleSelectBoardClick()'> {{ (board$ | async)?.name }}</span>
-    <span> {{ (teamMember$ | async)?.name }}</span>
+    <mat-icon aria-hidden="false" aria-label="add icon" (click)="handleAddClick(vm)">add</mat-icon>
+    <span (click)='handleSelectBoardClick(vm)'> {{ vm.board.name }}</span>
+    <span> {{ vm.teamMember.name }}</span>
   </div>
-  <div *ngIf='isAuthenticated' class='kanban-board' cdkDropListGroup>    
-    <div class='kanban-board__column' cdkDropList [cdkDropListData]="ticketsByState$(boardState) | async" (cdkDropListDropped)="drop($event, boardState)" *ngFor='let boardState of (boardStates$ | async)'>
+  <div class='kanban-board' cdkDropListGroup>    
+    <div class='kanban-board__column' cdkDropList [cdkDropListData]="ticketsByState(vm.board, boardState)" (cdkDropListDropped)="drop($event, boardState)" *ngFor='let boardState of vm.boardStates'>
         <span>{{ boardState.type }}</span>
         
-        <app-ticket *ngFor='let ticket of (ticketsByState$(boardState) | async)' [ticket]='ticket' cdkDrag></app-ticket>
+        <app-ticket *ngFor='let ticket of ticketsByState(vm.board, boardState)' [ticket]='ticket' cdkDrag></app-ticket>
     </div>
   </div>
 </ng-container>
