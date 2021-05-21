@@ -1,7 +1,7 @@
 import { BoardState } from '../board-states';
 
-export class Board {
-  public boardId: number;
-  public name: string;
-  public states: Array<BoardState> = [];
+export type Board = {
+  boardId: number;
+  name: string;
+  states: Array<BoardState>;
 }

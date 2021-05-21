@@ -1,15 +1,6 @@
   
-<form novalidate autocomplete="off" spellcheck="false" [formGroup]='form'>    
-    <mat-form-field>
-        <textarea matInput
-              cdkTextareaAutosize
-              cdkAutosizeMinRows="1"
-              cdkAutosizeMaxRows="5"
-              formControlName="description">
-            </textarea>
-        </mat-form-field>
-    
-    <div class='actions' *ngIf='form.value.description'>
-        <button mat-button (click)='handleSaveClick()'>Save</button>
-    </div>
-</form>
+<app-comment-editor [formControl]="commentControl"></app-comment-editor>
+
+<div class='actions' *ngIf='commentControl.value'>
+    <button mat-button (click)='handleSaveClick()'>Save</button>
+</div>

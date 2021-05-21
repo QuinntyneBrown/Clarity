@@ -20,7 +20,7 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
   private readonly _destroyed$: Subject<void> = new Subject<void>();
 
   public boardId = 2;
-  public board$: BehaviorSubject<Board> = new BehaviorSubject(new Board());
+  public board$: BehaviorSubject<Board> = new BehaviorSubject({} as Board);
   public stateId: number;
   public ticket: Ticket = {} as Ticket;
   public selected: number;

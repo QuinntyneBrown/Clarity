@@ -5,15 +5,15 @@ import { BoardState } from './board-states';
 import { UpsertTicket } from './tickets';
 import { map, takeUntil } from 'rxjs/operators';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Login } from './identity/login';
 import { BoardService } from './boards/board.service';
 import { Board } from './boards/board.model';
 import { TeamMemberService } from './team-members/team-member.service';
 import { TeamMember } from './team-members/team-member.model';
-import { SelectBoard } from './boards/select-board';
 import { LookUpService } from '@core/look-up.service';
 import { LocalStorageService } from '@core/local-storage.service';
 import { accessTokenKey } from '@core';
+import { Login } from './identity/login/login';
+import { SelectBoard } from './boards/select-board/select-board';
 
 @Component({
   selector: 'app-root',

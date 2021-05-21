@@ -1,6 +1,5 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
-import { fromEvent } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { fromEvent, Subject } from 'rxjs';
 
@@ -33,7 +32,7 @@ export class TicketEditorComponent implements ControlValueAccessor,  Validator  
   ) { }
   
   validate(control: AbstractControl): ValidationErrors {
-      ? null
+      return this.form.value ? null
       : Object.keys(this.form.controls).reduce(
           (accumulatedErrors, formControlName) => {
             const errors = { ...accumulatedErrors };
