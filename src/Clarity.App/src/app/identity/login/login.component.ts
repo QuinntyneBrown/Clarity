@@ -2,7 +2,7 @@ import { Component, OnDestroy, Renderer2, ElementRef, AfterContentInit, Inject }
 import { Subject } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, takeUntil } from 'rxjs/operators';
 import { OverlayRefWrapper } from '@core/overlay-ref-wrapper';
 import { accessTokenKey, baseUrl, userIdKey } from '@core';
 import { LocalStorageService } from '@core/local-storage.service';
@@ -14,7 +14,7 @@ import { LocalStorageService } from '@core/local-storage.service';
   selector: 'app-login'
 })
 export class LoginComponent implements OnDestroy, AfterContentInit {
-  public onDestroy: Subject<void> = new Subject<void>();
+  private readonly _destroyed$: Subject<void> = new Subject<void>();
   public username: string = ""
   public password: string = "";
 
@@ -32,19 +32,18 @@ export class LoginComponent implements OnDestroy, AfterContentInit {
     private readonly _localStorageService: LocalStorageService
   ) { }
 
-  public get usernameNativeElement() { return this._elementRef.nativeElement.querySelector('#username'); }
+  public get usernameNativeElement() { 
+    return this._elementRef.nativeElement.querySelector('input:nth-of-type[0]'); 
+  }
 
   ngAfterContentInit(): void {
     this._renderer.selectRootElement(this.usernameNativeElement).focus();
   }
   
-  public ngOnDestroy() {
-    this.onDestroy.next();
-  }
-
   public tryToLogin() {
     const options = { username: this.form.value.username, password: this.form.value.password };
     return this._client.post<any>(`${this._baseUrl}api/user/token`, options).pipe(
+      takeUntil(this._destroyed$),
       map(response => {
         this._localStorageService.put({ name: accessTokenKey, value: response.accessToken });
         this._localStorageService.put({ name: userIdKey, value: response.userId });
@@ -54,5 +53,10 @@ export class LoginComponent implements OnDestroy, AfterContentInit {
         return null;
       })
     ).subscribe();
+  }
+
+  public ngOnDestroy() {
+    this._destroyed$.next();
+    this._destroyed$.complete();
   }
 }

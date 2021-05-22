@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable, Subject } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { forkJoin, Observable, Subject } from 'rxjs';
 import { Ticket, TicketService } from './tickets';
 import { BoardState } from './board-states';
 import { UpsertTicket } from './tickets';
@@ -9,11 +9,10 @@ import { BoardService } from './boards/board.service';
 import { Board } from './boards/board.model';
 import { TeamMemberService } from './team-members/team-member.service';
 import { TeamMember } from './team-members/team-member.model';
-import { LookUpService } from '@core/look-up.service';
 import { LocalStorageService } from '@core/local-storage.service';
-import { accessTokenKey } from '@core';
 import { Login } from './identity/login/login';
 import { SelectBoard } from './boards/select-board/select-board';
+import { currentBoardIdKey } from '@core';
 
 @Component({
   selector: 'app-root',
@@ -51,8 +50,8 @@ export class AppComponent implements OnDestroy {
     private readonly _ticketService: TicketService,
     private readonly _teamMemberService: TeamMemberService,
     private readonly _localStorageService: LocalStorageService,
-    public upsertTicket: UpsertTicket,    
-    public selectBoard: SelectBoard,    
+    private readonly _upsertTicket: UpsertTicket,    
+    private readonly _selectBoard: SelectBoard,    
     ) { }
 
   public ticketsByState(vm:any, state: BoardState) {
@@ -81,18 +80,18 @@ export class AppComponent implements OnDestroy {
   }
 
   handleAddClick(vm:any) {
-    this.upsertTicket.create({ board: vm.board })
+    this._upsertTicket.create({ board: vm.board })
     .pipe(takeUntil(this._destroyed$))
     .subscribe();
   }
 
   handleSelectBoardClick(vm) {
-    this.selectBoard.create({ boardId: vm.board.boardId }).pipe(
+    this._selectBoard.create({ boardId: vm.board.boardId }).pipe(
       takeUntil(this._destroyed$),
       map(x => {
         if (x) {
           vm.board.boardId = x.boardId;
-          this._localStorageService.put({ name: "boardId", value: vm.board.boardId })
+          this._localStorageService.put({ name: currentBoardIdKey, value: vm.board.boardId })
           window.location.reload();
         }
       })

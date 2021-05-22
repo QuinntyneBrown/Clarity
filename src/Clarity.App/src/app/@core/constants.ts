@@ -5,3 +5,4 @@ export const userIdKey = `${storageKey}:userIdKey`;
 export const baseUrl = 'baseUrl';
 export const currentUserKey = `${storageKey}:currentUserKey`;
 export const currentProfileKey = `${storageKey}:currentProfileKey`;
+export const currentBoardIdKey = `${storageKey}:currentBoardIdKey`;

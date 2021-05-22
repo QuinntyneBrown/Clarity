@@ -17,10 +17,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { BoardService } from './boards/board.service';
 import { MatSelectModule } from '@angular/material/select';
-import { OAuthInterceptor } from './identity/oauth.interceptor';
+import { OAuthInterceptor } from './@core/oauth.interceptor';
 import { TeamMemberService } from './team-members/team-member.service';
 import { MatListModule } from '@angular/material/list';
-import { UnauthorizedResponseInterceptor } from './identity/unauthorized-response.interceptor';
+import { UnauthorizedResponseInterceptor } from './@core/unauthorized-response.interceptor';
 import { CommentService } from './comments/comment.service';
 import { OverlayRefProvider } from '@core/overlay-ref-provider';
 import { baseUrl } from '@core/constants';
@@ -55,12 +55,6 @@ import { SelectBoard } from './boards/select-board/select-board';
     OverlayModule,
     MatInputModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatIconModule,
-    MatCardModule,
-    MatSelectModule,
-    MatListModule,
   ],
   providers: [
     BoardService,
