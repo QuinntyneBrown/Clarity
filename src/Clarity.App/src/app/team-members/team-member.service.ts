@@ -5,7 +5,9 @@ import { map } from 'rxjs/operators';
 import { TeamMember } from './team-member.model';
 import { baseUrl } from '@core';
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class TeamMemberService {
   constructor(
     @Inject(baseUrl) private _baseUrl: string,

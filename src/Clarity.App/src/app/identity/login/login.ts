@@ -1,13 +1,13 @@
 import { Injectable, Injector, ComponentRef } from '@angular/core';
-
 import { LoginComponent } from './login.component';
-
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
 import { Observable } from 'rxjs';
 import { OverlayRefWrapper } from '@core/overlay-ref-wrapper';
 import { OverlayRefProvider } from '@core/overlay-ref-provider';
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class Login  {
   constructor(
     public injector: Injector,

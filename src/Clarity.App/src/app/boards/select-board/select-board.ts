@@ -5,7 +5,9 @@ import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
 import { OverlayRefProvider } from '@core/overlay-ref-provider';
 import { OverlayRefWrapper } from '@core/overlay-ref-wrapper';
 
-@Injectable()
+@Injectable({
+  providedIn:"root"
+})
 export class SelectBoard {
   constructor(
     public injector: Injector,

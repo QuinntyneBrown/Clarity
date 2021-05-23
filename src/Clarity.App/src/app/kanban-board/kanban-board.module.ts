@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { TicketsModule } from '../tickets/tickets.module';
 import { KanbanBoardColumnComponent } from './kanban-board-column/kanban-board-column.component';
 import { KanbanBoardControlsComponent } from './kanban-board-controls/kanban-board-controls.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '@shared/shared.module';
 
 
 
@@ -17,7 +19,10 @@ import { KanbanBoardControlsComponent } from './kanban-board-controls/kanban-boa
   ],
   imports: [
     CommonModule,  
-    TicketsModule  
+    TicketsModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SharedModule
   ]
 })
 export class KanbanBoardModule { }

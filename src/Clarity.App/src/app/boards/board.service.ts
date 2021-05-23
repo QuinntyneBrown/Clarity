@@ -5,7 +5,9 @@ import { map } from 'rxjs/operators';
 import { Board } from './board.model';
 import { baseUrl } from '@core';
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class BoardService {
   constructor(
     @Inject(baseUrl) private _baseUrl: string,
