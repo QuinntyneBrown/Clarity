@@ -20,5 +20,11 @@ namespace Clarity.Api.Controllers
         [ProducesResponseType(typeof(Authenticate.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<Authenticate.Response>> SignIn(Authenticate.Request request)
             => await _mediator.Send(request);
+
+        [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(GetCurrentUser.Response), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<GetCurrentUser.Response>> GetCurrentUser(GetCurrentUser.Request request)
+            => await _mediator.Send(request);            
     }
 }
