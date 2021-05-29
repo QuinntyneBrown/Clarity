@@ -21,9 +21,9 @@ namespace Clarity.Core.Models
         public int Effort { get; private set; }
         public int Priority { get; private set; }
         public TeamMember TeamMember { get; private set; }
-        public List<TicketState> TicketStates { get; private set; } = new ();
+        public List<TicketState> TicketStates { get; private set; } = new();
         public TicketState CurrentTicketState { get => TicketStates.OrderByDescending(x => x.Created).First(); }
-        public List<Comment> Comments { get; private set; } = new ();
+        public List<Comment> Comments { get; private set; } = new();
         public List<TicketEffortChanged> EffortChangedEvents { get; private set; } = new();
 
         public Ticket(Guid teamMemberId, string name, string url, Html acceptanceCriteria, Html description)

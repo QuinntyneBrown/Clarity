@@ -8,7 +8,7 @@ namespace Clarity.Core.Models
     {
         public Guid BoardId { get; private set; }
         public string Name { get; private set; }
-        public List<BoardState> BoardStates { get; private set; } = new ();
+        public List<BoardState> BoardStates { get; private set; } = new();
         public static Board WithDefaults(string name)
         {
             int order = 1;

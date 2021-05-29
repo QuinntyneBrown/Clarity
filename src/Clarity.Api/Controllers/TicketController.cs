@@ -37,7 +37,7 @@ namespace Clarity.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetTicketsByBoardName.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetTicketsByBoardName.Response>> GetByBoardName([FromRoute] GetTicketsByBoardName.Request request)
-            => await _mediator.Send(request);            
+            => await _mediator.Send(request);
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]

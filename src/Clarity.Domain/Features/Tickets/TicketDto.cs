@@ -15,6 +15,6 @@ namespace Clarity.Domain.Features
         public string Description { get; set; }
         public string AcceptanceCriteria { get; set; }
         public Guid? BoardId { get; set; }
-        public List<CommentDto> Comments { get; set; } = new ();
+        public List<CommentDto> Comments { get; set; } = new();
     }
 }

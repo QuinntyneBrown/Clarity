@@ -25,6 +25,6 @@ namespace Clarity.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(GetCurrentUser.Response), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<GetCurrentUser.Response>> GetCurrentUser(GetCurrentUser.Request request)
-            => await _mediator.Send(request);            
+            => await _mediator.Send(request);
     }
 }
