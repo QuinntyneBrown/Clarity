@@ -3,51 +3,148 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "@global/styles": {
+      "projectType": "library",
+      "root": "projects/global/styles",
+      "sourceRoot": "projects/global/styles/src",
+      "prefix": "g",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/global/styles/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/global/styles/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/global/styles/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": true,
+          "style": "scss"
+        },
+        "@schematics/angular:directive": {
+          "standalone": true
+        }
+      }
+    },
+    "@global/components": {
+      "projectType": "library",
+      "root": "projects/global/components",
+      "sourceRoot": "projects/global/components/src",
+      "prefix": "g",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/global/components/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/global/components/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/global/components/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": true,
+          "style": "scss"
+        },
+        "@schematics/angular:directive": {
+          "standalone": true
+        }
+      }
+    },
+    "@identity/core": {
+      "projectType": "library",
+      "root": "projects/identity/core",
+      "sourceRoot": "projects/identity/core/src",
+      "prefix": "idp",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/identity/core/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/identity/core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/identity/core/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": true,
+          "style": "scss"
+        },
+        "@schematics/angular:directive": {
+          "standalone": true
+        }
+      }
+    },
     "app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "standalone": true,
           "style": "scss"
+        },
+        "@schematics/angular:directive": {
+          "standalone": true
         }
       },
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/app",
+      "sourceRoot": "projects/app/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/app",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
-            "aot": true,
+            "index": "projects/app/src/index.html",
+            "main": "projects/app/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/app/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "projects/app/src/favicon.ico",
+              "projects/app/src/assets"
             ],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "projects/app/src/styles.scss"
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -59,20 +156,31 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "app:build"
-          },
           "configurations": {
             "production": {
               "browserTarget": "app:build:production"
+            },
+            "development": {
+              "browserTarget": "app:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -81,53 +189,44 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/jest:run"
+        }
+      }
+    },
+    "@kanban/core": {
+      "projectType": "library",
+      "root": "projects/kanban/core",
+      "sourceRoot": "projects/kanban/core/src",
+      "prefix": "kb",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
-            ],
-            "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "app:serve"
+            "project": "projects/kanban/core/ng-package.json"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "app:serve:production"
+              "tsConfig": "projects/kanban/core/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/kanban/core/tsconfig.lib.json"
             }
-          }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        }
+      },
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": true,
+          "style": "scss"
+        },
+        "@schematics/angular:directive": {
+          "standalone": true
         }
       }
     }
-  },
-  "defaultProject": "app",
-  "cli": {
-    "analytics": false
   }
 }

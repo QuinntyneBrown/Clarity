@@ -17,7 +17,12 @@ public static class ConfigureServices
 
         services.AddSecurity(environment, configuration);
 
+        services.AddMessagingUdpServices();
+
         services.AddTelemetryServices();
+
+        services.AddHostedService<ServiceBusMessageConsumer>();
+
     }
 }
 

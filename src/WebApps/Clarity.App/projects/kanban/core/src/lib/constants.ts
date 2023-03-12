@@ -1,0 +1,1 @@
+export const BASE_URL = '@KANBAN/CORE:BASE_URL';

@@ -1,12 +1,12 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using System.Net;
-using System.Threading.Tasks;
+using Clarity.Core.AggregateModel.UserAggregate.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Mime;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Net;
+using System.Net.Mime;
 
 namespace Clarity.Api.Controllers;
 
@@ -26,6 +26,18 @@ public class UserController
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    [SwaggerOperation(
+        Summary = "Authenticate",
+        Description = @"Authenticate"
+    )]
+    [HttpPost("token", Name = "authenticate")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(AuthenticateResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<AuthenticateResponse>> Authenticate([FromBody] AuthenticateRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
+    }
 }
 
 
