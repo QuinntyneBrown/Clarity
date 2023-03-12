@@ -9,37 +9,35 @@ using System.Threading.Tasks;
 
 namespace Clarity.Core.AggregateModel.UserAggregate.Queries;
 
- public class GetCurrentUser
+ public class GetCurrentUserRequest : IRequest<GetCurrentUserResponse> { }
+
+ public class GetCurrentUserResponse : ResponseBase
  {
-     public class Request : IRequest<Response>
-     { }
-     public class Response : ResponseBase
+     public UserDto User { get; set; }
+ }
+ public class GetCurrentUserRequestHandler : IRequestHandler<GetCurrentUserRequest, GetCurrentUserResponse>
+ {
+     private readonly IClarityDbContext _context;
+     private readonly IHttpContextAccessor _httpContextAccessor;
+     public GetCurrentUserRequestHandler(IClarityDbContext context, IHttpContextAccessor httpContextAccessor)
      {
-         public UserDto User { get; set; }
+         _context = context;
+         _httpContextAccessor = httpContextAccessor;
      }
-     public class Handler : IRequestHandler<Request, Response>
+     public async Task<GetCurrentUserResponse> Handle(GetCurrentUserRequest request, CancellationToken cancellationToken)
      {
-         private readonly IClarityDbContext _context;
-         private readonly IHttpContextAccessor _httpContextAccessor;
-         public Handler(IClarityDbContext context, IHttpContextAccessor httpContextAccessor)
+         var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
+         var user = await _context.Users.SingleAsync(x => x.UserId == userId);
+         if (user == null)
+             throw new Exception();
+         return new()
          {
-             _context = context;
-             _httpContextAccessor = httpContextAccessor;
-         }
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
-             var user = await _context.Users.SingleAsync(x => x.UserId == userId);
-             if (user == null)
-                 throw new Exception();
-             return new()
+             User = new UserDto
              {
-                 User = new UserDto
-                 {
-                     Username = user.Username,
-                     UserId = user.UserId
-                 }
-             };
-         }
+                 Username = user.Username,
+                 UserId = user.UserId
+             }
+         };
      }
  }
+

@@ -5,47 +5,44 @@ using System.Threading.Tasks;
 
 namespace Clarity.Core.AggregateModel.BoardAggregate.Commands;
 
-public class CreateBoard
+public class CreateBoardValidator : AbstractValidator<CreateBoardRequest>
 {
-    public class Validator : AbstractValidator<Request>
+    public CreateBoardValidator()
     {
-        public Validator()
-        {
-            RuleFor(x => x.Name)
-                .NotNull()
-                .NotEmpty();
-        }
+        RuleFor(x => x.Name)
+            .NotNull()
+            .NotEmpty();
+    }
+}
+
+public class CreateBoardRequest : IRequest<CreateBoardResponse>
+{
+    public string Name { get; set; }
+}
+
+public class CreateBoardResponse
+{
+    public BoardDto Board { get; set; }
+}
+
+public class CreateBoardRequestHandler : IRequestHandler<CreateBoardRequest, CreateBoardResponse>
+{
+    private readonly IClarityDbContext _context;
+
+    public CreateBoardRequestHandler(IClarityDbContext context)
+    {
+        _context = context;
     }
 
-    public class Request : IRequest<Response>
+    public async Task<CreateBoardResponse> Handle(CreateBoardRequest request, CancellationToken cancellationToken)
     {
-        public string Name { get; set; }
-    }
 
-    public class Response
-    {
-        public BoardDto Board { get; set; }
-    }
+        var board = Board.WithDefaults(request.Name);
 
-    public class Handler : IRequestHandler<Request, Response>
-    {
-        private readonly IClarityDbContext _context;
+        _context.Boards.Add(board);
 
-        public Handler(IClarityDbContext context)
-        {
-            _context = context;
-        }
+        await _context.SaveChangesAsync(cancellationToken);
 
-        public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-        {
-
-            var board = Board.WithDefaults(request.Name);
-
-            _context.Boards.Add(board);
-
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return new() { Board = board.ToDto() };
-        }
+        return new() { Board = board.ToDto() };
     }
 }

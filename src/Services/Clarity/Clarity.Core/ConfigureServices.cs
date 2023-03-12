@@ -14,6 +14,10 @@ public static class ConfigureServices
         services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<IClarityDbContext>());
 
         services.AddValidation(typeof(IClarityDbContext));
+
+        services.AddSecurity(environment, configuration);
+
+        services.AddTelemetryServices();
     }
 }
 

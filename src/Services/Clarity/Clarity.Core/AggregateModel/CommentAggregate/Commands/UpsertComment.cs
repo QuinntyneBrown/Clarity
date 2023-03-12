@@ -1,4 +1,3 @@
-using Clarity.Core.AggregateModel.CommentAggregate;
 using Clarity.Core.ValueObjects;
 using Kernel;
 using MediatR;
