@@ -1,4 +1,7 @@
-﻿using Clarity.Core.Data;
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+using Clarity.Core.Data;
 using Clarity.Domain.Features;
 using Clarity.Testing.Builders;
 using System.Threading.Tasks;
@@ -35,3 +38,4 @@ namespace Clarity.UnitTests.Domain
             => new CreateBoard.Handler(_context);
     }
 }
+

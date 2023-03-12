@@ -1,4 +1,7 @@
-﻿using Clarity.Core.AggregateModel.BoardAggregate;
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+using Clarity.Core.AggregateModel.BoardAggregate;
 using Clarity.Core.AggregateModel.BoardStateAggregate;
 using Clarity.Core.AggregateModel.CommentAggregate;
 using Clarity.Core.AggregateModel.DigitalAssetAggregate;
@@ -22,3 +25,4 @@ public interface IClarityDbContext
     DbSet<User> Users { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -47,3 +50,4 @@ export class TeamMemberService {
     return this.client.put<{ teamMemberId: string }>(`${this._baseUrl}api/teamMember`, { teamMember: options.teamMember });
   }
 }
+

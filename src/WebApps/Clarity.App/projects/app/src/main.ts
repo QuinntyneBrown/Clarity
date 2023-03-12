@@ -4,16 +4,17 @@
 import { importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { BASE_URL } from '@kanban/core';
 
 
 bootstrapApplication(AppComponent, {
   providers: [
+    { provide: BASE_URL, useValue: "https://localhost:50124/" },
     importProvidersFrom(
-      RouterModule.forRoot([
-
-      ]), BrowserAnimationsModule,     
+      HttpClientModule,
+      BrowserAnimationsModule,     
     )
   ]
 }).catch((err) => console.error(err));

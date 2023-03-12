@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Injector, ComponentRef } from '@angular/core';
 import { SelectBoardComponent } from './select-board.component';
 import { Observable } from 'rxjs';
@@ -31,3 +34,4 @@ export class SelectBoard {
     return overlayPortalRef.instance;
   }
 }
+

@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+using Microsoft.Extensions.Configuration;
 using System.IO;
 
 namespace Clarity.Testing
@@ -22,3 +25,4 @@ namespace Clarity.Testing
         }
     }
 }
+

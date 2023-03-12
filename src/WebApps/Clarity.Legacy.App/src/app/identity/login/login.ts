@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Injectable, Injector, ComponentRef } from '@angular/core';
 import { LoginComponent } from './login.component';
 import { PortalInjector, ComponentPortal } from '@angular/cdk/portal';
@@ -31,3 +34,4 @@ export class Login  {
     return overlayPortalRef.instance;
   }
 }
+

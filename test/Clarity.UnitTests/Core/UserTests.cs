@@ -1,4 +1,7 @@
-﻿using Clarity.Core.Models;
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+using Clarity.Core.Models;
 using Xunit;
 
 namespace Clarity.UnitTests.Core
@@ -13,3 +16,4 @@ namespace Clarity.UnitTests.Core
         }
     }
 }
+

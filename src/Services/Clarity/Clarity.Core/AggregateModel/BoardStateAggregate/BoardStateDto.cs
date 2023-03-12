@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Clarity.Core.AggregateModel.BoardStateAggregate;
 using System;
 using System.Collections.Generic;
@@ -12,3 +15,4 @@ public class BoardStateDto
     public StateType Type { get; set; }
     public List<TicketDto> Tickets { get; set; } = new();
 }
+

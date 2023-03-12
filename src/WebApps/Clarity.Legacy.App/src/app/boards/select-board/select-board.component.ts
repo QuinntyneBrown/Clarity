@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -39,3 +42,4 @@ export class SelectBoardComponent implements OnInit, OnDestroy {
     this._overlay.close(board);
   }
 }
+

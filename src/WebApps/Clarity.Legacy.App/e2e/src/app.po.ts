@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { browser, by, element } from 'protractor';
 
 export class AppPage {
@@ -9,3 +12,4 @@ export class AppPage {
     return element(by.css('app-root .content span')).getText();
   }
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Clarity.Core.AggregateModel.TicketAggregate;
 using System;
 using System.Linq;
@@ -21,3 +24,4 @@ public static class TicketExtensions
             Comments = ticket.Comments.OrderByDescending(x => x.Created).Select(x => x.ToDto()).ToList()
         };
 }
+

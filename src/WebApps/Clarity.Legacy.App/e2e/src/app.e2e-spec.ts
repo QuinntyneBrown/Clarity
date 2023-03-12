@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { AppPage } from './app.po';
 import { browser, logging } from 'protractor';
 
@@ -21,3 +24,4 @@ describe('workspace-project App', () => {
     } as logging.Entry));
   });
 });
+

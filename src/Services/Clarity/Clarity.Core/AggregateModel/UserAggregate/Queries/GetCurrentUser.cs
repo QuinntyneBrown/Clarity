@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Kernel;
 using Clarity.Core.AggregateModel.Identity;
 using MediatR;
@@ -40,4 +43,5 @@ public class GetCurrentUserRequestHandler : IRequestHandler<GetCurrentUserReques
         };
     }
 }
+
 

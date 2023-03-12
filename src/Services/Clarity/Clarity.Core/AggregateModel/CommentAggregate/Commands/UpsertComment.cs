@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Clarity.Core.ValueObjects;
 using Kernel;
 using MediatR;
@@ -45,3 +48,4 @@ public class UpsertCommentHandler : IRequestHandler<UpsertCommentRequest, Upsert
         };
     }
 }
+

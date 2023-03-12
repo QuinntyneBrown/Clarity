@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Clarity.Core.AggregateModel.BoardStateAggregate;
 using Clarity.Core.AggregateModel.TicketAggregate;
 using System;
@@ -24,3 +27,4 @@ public class TicketDto
     public Guid? BoardId { get; set; }
     public List<CommentDto> Comments { get; set; } = new();
 }
+

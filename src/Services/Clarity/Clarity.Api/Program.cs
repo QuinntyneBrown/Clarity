@@ -24,7 +24,9 @@ try
 
     builder.Services.AddCoreServices(builder.Environment, builder.Configuration);
 
-    builder.Services.AddInfrastructureServices(builder.Configuration["ConnectionStrings:DefualtConnection"]!);
+    var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+
+    builder.Services.AddInfrastructureServices(connectionString);
 
     builder.Services.AddApiServices();
 
@@ -69,7 +71,7 @@ try
 
         if (args.Contains("seeddb"))
         {
-            //context.Seed();
+            context.Seed();
         }
 
         if (args.Contains("stop"))

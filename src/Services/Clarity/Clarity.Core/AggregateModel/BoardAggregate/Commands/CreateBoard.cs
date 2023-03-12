@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using FluentValidation;
 using MediatR;
 using System.Threading;
@@ -36,7 +39,6 @@ public class CreateBoardRequestHandler : IRequestHandler<CreateBoardRequest, Cre
 
     public async Task<CreateBoardResponse> Handle(CreateBoardRequest request, CancellationToken cancellationToken)
     {
-
         var board = Board.WithDefaults(request.Name);
 
         _context.Boards.Add(board);
@@ -46,3 +48,4 @@ public class CreateBoardRequestHandler : IRequestHandler<CreateBoardRequest, Cre
         return new() { Board = board.ToDto() };
     }
 }
+

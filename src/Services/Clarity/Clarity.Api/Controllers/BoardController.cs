@@ -1,14 +1,12 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using System.Net;
-using System.Threading.Tasks;
+using Clarity.Core.AggregateModel.BoardAggregate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Mime;
 using Swashbuckle.AspNetCore.Annotations;
-using Microsoft.Extensions.Logging;
-using System;
+using System.Net;
+using System.Net.Mime;
 
 namespace Clarity.Api.Controllers;
 
@@ -28,6 +26,18 @@ public class BoardController
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    [SwaggerOperation(
+        Summary = "Get Board By Name",
+        Description = @"Get Board By Name"
+    )]
+    [HttpGet("name/{name}", Name = "getBoardByName")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetBoardByNameResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetBoardByNameResponse>> GetByName([FromRoute] GetBoardByNameRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
+    }
 }
 
 

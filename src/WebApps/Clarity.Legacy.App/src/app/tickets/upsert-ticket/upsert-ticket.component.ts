@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -116,3 +119,4 @@ export class UpsertTicketComponent implements OnInit, OnDestroy {
     this.ticket.comments.unshift($comment);
   }
 }
+

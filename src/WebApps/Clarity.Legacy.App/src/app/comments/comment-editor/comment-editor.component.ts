@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, ElementRef, forwardRef } from '@angular/core';
 import { AbstractControl, ControlValueAccessor,  FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
@@ -82,3 +85,4 @@ export class CommentEditorComponent implements ControlValueAccessor,  Validator 
     isDisabled ? this.form.disable() : this.form.enable();
   }
 }
+

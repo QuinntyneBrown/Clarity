@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, Input } from '@angular/core';
 import { BoardState } from 'src/app/board-states';
 
@@ -12,3 +15,4 @@ export class KanbanBoardColumnComponent {
   @Input()
   public boardState: BoardState;
 }
+

@@ -1,4 +1,7 @@
-﻿using System.Linq.Expressions;
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+using System.Linq.Expressions;
 using static System.Linq.Expressions.Expression;
 
 namespace Microsoft.EntityFrameworkCore;
@@ -45,3 +48,4 @@ public static class IQueryableExtensions
         return source.Where(Lambda<Func<T, bool>>(selector, itemParameter));
     }
 }
+

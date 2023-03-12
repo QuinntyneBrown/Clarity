@@ -1,4 +1,7 @@
-﻿namespace Clarity.Core;
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+namespace Clarity.Core;
 
 public class Constants
 {
@@ -15,3 +18,4 @@ public class Constants
         public static readonly string Role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
     }
 }
+

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpEventType } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { accessTokenKey } from '@core';
@@ -28,3 +31,4 @@ export class UnauthorizedResponseInterceptor implements HttpInterceptor {
             );
         }
     }
+

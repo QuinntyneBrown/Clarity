@@ -2,8 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { BoardService } from 'projects/kanban/core/src/lib/models';
 
 @Component({
   selector: 'app-root',
@@ -16,5 +17,6 @@ import { RouterModule } from '@angular/router';
   ]
 })
 export class AppComponent {
-  title = 'app';
+  private readonly _boardService = inject(BoardService);
+  
 }

@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using Clarity.Api;
 using Clarity.Core.Data;
 using Clarity.Domain;
@@ -72,3 +75,4 @@ namespace Clarity.Testing
         }
     }
 }
+

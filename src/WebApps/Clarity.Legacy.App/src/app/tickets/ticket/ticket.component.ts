@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, Input } from '@angular/core';
 import { Ticket } from '../ticket.model';
 import { UpsertTicket } from '../upsert-ticket/upsert-ticket';
@@ -18,3 +21,4 @@ export class TicketComponent {
     this.upsertTicket.create({ name:  this.ticket.name });
   }
 }
+

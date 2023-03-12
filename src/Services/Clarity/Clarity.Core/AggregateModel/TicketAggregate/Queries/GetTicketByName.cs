@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
@@ -30,4 +33,5 @@ public class GetTicketByNameRequestHandler : IRequestHandler<GetTicketByNameRequ
             .FirstOrDefaultAsync(x => x.Name == request.Name))?.ToDto()
         };
 }
+
 

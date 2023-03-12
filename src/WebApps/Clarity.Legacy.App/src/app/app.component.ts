@@ -1,3 +1,6 @@
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
 import { Component, OnDestroy } from '@angular/core';
 import { forkJoin, Observable, Subject } from 'rxjs';
 import { Ticket, TicketService } from './tickets';

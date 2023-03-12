@@ -1,4 +1,7 @@
-﻿using Clarity.Core;
+// Copyright (c) Quinntyne Brown. All Rights Reserved.
+// Licensed under the MIT License. See License.txt in the project root for license information.
+
+using Clarity.Core;
 using Clarity.Core.AggregateModel.BoardAggregate;
 using Clarity.Core.AggregateModel.BoardStateAggregate;
 using Clarity.Core.AggregateModel.CommentAggregate;
@@ -57,3 +60,4 @@ public class ClarityDbContext : DbContext, IClarityDbContext
         base.OnModelCreating(modelBuilder);
     }
 }
+
