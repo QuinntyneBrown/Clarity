@@ -1,7 +1,9 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Clarity.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
@@ -51,6 +53,8 @@ public static class ConfigureServices {
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 
         }).AddSwaggerGenNewtonsoftSupport();
+
+        services.AddHttpContextAccessor();
 
         services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder => builder

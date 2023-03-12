@@ -2,7 +2,8 @@ using MediatR;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Clarity.Domain.Features;
+using Clarity.Core.AggregateModel.DigitalAssetAggregate.Queries;
+using Clarity.Core.AggregateModel.DigitalAssetAggregate.Commands;
 
 namespace Clarity.Api.Controllers
 {

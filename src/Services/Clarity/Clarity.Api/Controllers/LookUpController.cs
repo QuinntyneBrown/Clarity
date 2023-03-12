@@ -1,10 +1,10 @@
-﻿using Clarity.Core.Models;
-using Clarity.Domain.Features;
+﻿using Clarity.Core.AggregateModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Net;
+using Clarity.Core.AggregateModel.BoardStateAggregate;
 
 namespace Clarity.Api.Controllers
 {

@@ -1,4 +1,5 @@
-﻿using Clarity.Domain.Features;
+﻿using Clarity.Core.AggregateModel.TicketAggregate.Commands;
+using Clarity.Core.AggregateModel.TicketAggregate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

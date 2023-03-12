@@ -1,4 +1,4 @@
-﻿using Clarity.Domain.Features;
+﻿using Clarity.Core.AggregateModel.BoardStateAggregate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;

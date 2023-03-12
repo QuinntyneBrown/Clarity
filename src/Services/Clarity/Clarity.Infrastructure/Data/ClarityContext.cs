@@ -1,5 +1,11 @@
 ﻿using Clarity.Core;
-using Clarity.Core.Models;
+using Clarity.Core.AggregateModel.BoardAggregate;
+using Clarity.Core.AggregateModel.BoardStateAggregate;
+using Clarity.Core.AggregateModel.CommentAggregate;
+using Clarity.Core.AggregateModel.DigitalAssetAggregate;
+using Clarity.Core.AggregateModel.TeamMemberAggregate;
+using Clarity.Core.AggregateModel.TicketAggregate;
+using Clarity.Core.AggregateModel.UserAggregate;
 using Clarity.Core.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
