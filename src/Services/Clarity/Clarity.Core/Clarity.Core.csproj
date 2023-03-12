@@ -22,10 +22,4 @@
     <ProjectReference Include="..\..\..\BuildingBlocks\Validation\Validation\Validation.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="AggregateModel\BoardStateAggregate\Commands\" />
-    <Folder Include="AggregateModel\CommentAggregate\Queries\" />
-    <Folder Include="AggregateModel\TeamMemberAggregate\Commands\" />
-  </ItemGroup>
-
 </Project>

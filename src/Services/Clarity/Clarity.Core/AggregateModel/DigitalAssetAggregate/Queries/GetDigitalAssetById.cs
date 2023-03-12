@@ -5,24 +5,21 @@ using System;
 
 namespace Clarity.Core.AggregateModel.DigitalAssetAggregate.Queries;
 
- public class GetDigitalAssetById
- {
-     public class Request : IRequest<Response>
-     {
-         public Guid DigitalAssetId { get; set; }
-     }
-     public class Response
-     {
-         public DigitalAssetDto DigitalAsset { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         public IClarityDbContext _context { get; set; }
-         public Handler(IClarityDbContext context) => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-             => new()
-             {
-                 DigitalAsset = DigitalAssetDto.FromDigitalAsset(await _context.DigitalAssets.FindAsync(request.DigitalAssetId))
-             };
-     }
- }
+public class GetDigitalAssetByIdRequest : IRequest<GetDigitalAssetByIdResponse>
+{
+    public Guid DigitalAssetId { get; set; }
+}
+public class GetDigitalAssetByIdResponse
+{
+    public DigitalAssetDto DigitalAsset { get; set; }
+}
+public class GetDigitalAssetByIdHandler : IRequestHandler<GetDigitalAssetByIdRequest, GetDigitalAssetByIdResponse>
+{
+    public IClarityDbContext _context { get; set; }
+    public GetDigitalAssetByIdHandler(IClarityDbContext context) => _context = context;
+    public async Task<GetDigitalAssetByIdResponse> Handle(GetDigitalAssetByIdRequest request, CancellationToken cancellationToken)
+        => new()
+        {
+            DigitalAsset = DigitalAssetDto.FromDigitalAsset(await _context.DigitalAssets.FindAsync(request.DigitalAssetId))
+        };
+}

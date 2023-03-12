@@ -7,21 +7,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Clarity.Core.AggregateModel.DigitalAssetAggregate.Queries;
 
- public class GetDigitalAssets
- {
-     public class Request : IRequest<Response> { }
-     public class Response
-     {
-         public IEnumerable<DigitalAssetDto> DigitalAssets { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         public IClarityDbContext _context { get; set; }
-         public Handler(IClarityDbContext context) => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-             => new()
-             {
-                 DigitalAssets = await _context.DigitalAssets.Select(x => DigitalAssetDto.FromDigitalAsset(x)).ToListAsync()
-             };
-     }
- }
+public class GetDigitalAssetsRequest : IRequest<GetDigitalAssetsResponse> { }
+public class GetDigitalAssetsResponse
+{
+    public IEnumerable<DigitalAssetDto> DigitalAssets { get; set; }
+}
+public class GetDigitalAssetsHandler : IRequestHandler<GetDigitalAssetsRequest, GetDigitalAssetsResponse>
+{
+    public IClarityDbContext _context { get; set; }
+    public GetDigitalAssetsHandler(IClarityDbContext context) => _context = context;
+    public async Task<GetDigitalAssetsResponse> Handle(GetDigitalAssetsRequest request, CancellationToken cancellationToken)
+        => new()
+        {
+            DigitalAssets = await _context.DigitalAssets.Select(x => DigitalAssetDto.FromDigitalAsset(x)).ToListAsync()
+        };
+}

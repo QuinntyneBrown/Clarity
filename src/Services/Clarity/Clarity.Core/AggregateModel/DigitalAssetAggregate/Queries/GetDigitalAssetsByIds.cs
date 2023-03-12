@@ -8,26 +8,23 @@ using System;
 
 namespace Clarity.Core.AggregateModel.DigitalAssetAggregate.Queries;
 
- public class GetDigitalAssetsByIds
- {
-     public class Request : IRequest<Response>
-     {
-         public Guid[] DigitalAssetIds { get; set; }
-     }
-     public class Response
-     {
-         public IEnumerable<DigitalAssetDto> DigitalAssets { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         public IClarityDbContext _context { get; set; }
-         public Handler(IClarityDbContext context) => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-             => new()
-             {
-                 DigitalAssets = await _context.DigitalAssets
-                 .Where(x => request.DigitalAssetIds.Contains(x.DigitalAssetId))
-                 .Select(x => DigitalAssetDto.FromDigitalAsset(x)).ToListAsync()
-             };
-     }
- }
+public class GetDigitalAssetsByIdsRequest : IRequest<GetDigitalAssetsByIdsResponse>
+{
+    public Guid[] DigitalAssetIds { get; set; }
+}
+public class GetDigitalAssetsByIdsResponse
+{
+    public IEnumerable<DigitalAssetDto> DigitalAssets { get; set; }
+}
+public class GetDigitalAssetsByIdsHandler : IRequestHandler<GetDigitalAssetsByIdsRequest, GetDigitalAssetsByIdsResponse>
+{
+    public IClarityDbContext _context { get; set; }
+    public GetDigitalAssetsByIdsHandler(IClarityDbContext context) => _context = context;
+    public async Task<GetDigitalAssetsByIdsResponse> Handle(GetDigitalAssetsByIdsRequest request, CancellationToken cancellationToken)
+        => new()
+        {
+            DigitalAssets = await _context.DigitalAssets
+            .Where(x => request.DigitalAssetIds.Contains(x.DigitalAssetId))
+            .Select(x => DigitalAssetDto.FromDigitalAsset(x)).ToListAsync()
+        };
+}

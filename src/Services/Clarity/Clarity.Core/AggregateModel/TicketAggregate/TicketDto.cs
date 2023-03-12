@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 namespace Clarity.Core.AggregateModel;
 
- public class TicketDto
- {
+public class TicketDto
+{
     public TicketDto()
     {
         State = StateType.Backlog;
@@ -23,4 +23,4 @@ namespace Clarity.Core.AggregateModel;
     public TicketType TicketType { get; set; }
     public Guid? BoardId { get; set; }
     public List<CommentDto> Comments { get; set; } = new();
- }
+}

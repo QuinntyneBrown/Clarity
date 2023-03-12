@@ -23,7 +23,7 @@ public class GetTicketsByBoardIdRequestHandler : IRequestHandler<GetTicketsByBoa
     public IClarityDbContext _context { get; set; }
 
     public GetTicketsByBoardIdRequestHandler(IClarityDbContext context) => _context = context;
-    
+
     public async Task<GetTicketsByBoardIdResponse> Handle(GetTicketsByBoardIdRequest request, CancellationToken cancellationToken)
         => new()
         {

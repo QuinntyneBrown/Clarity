@@ -1,9 +1,9 @@
 
 namespace Clarity.Core.AggregateModel.BoardStateAggregate;
 
- public enum StateType
- {
-     Backlog = 0,
-     InProgress,
-     Done
- }
+public enum StateType
+{
+    Backlog = 0,
+    InProgress,
+    Done
+}

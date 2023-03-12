@@ -10,7 +10,7 @@ using System.Linq;
 namespace Clarity.Core.AggregateModel.TicketAggregate;
 
 public class Ticket
- {
+{
     public Guid TicketId { get; private set; }
 
     [ForeignKey("TeamMember")]
@@ -55,4 +55,4 @@ public class Ticket
         Effort = effort;
         EffortChangedEvents.Add(new(effort, DateTime.UtcNow));
     }
- }
+}

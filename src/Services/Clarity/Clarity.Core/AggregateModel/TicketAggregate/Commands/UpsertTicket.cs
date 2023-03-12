@@ -27,16 +27,16 @@ public class UpsertTicketRequestHandler : IRequestHandler<UpsertTicketRequest, U
     public async Task<UpsertTicketResponse> Handle(UpsertTicketRequest request, CancellationToken cancellationToken)
     {
         var state = await _context.BoardStates.FindAsync(request.Ticket.BoardStateId);
-        
+
         var username = _httpContextAccessor.HttpContext.User.Identity.Name;
-        
+
         var currentTeamMemberId = (await _context.TeamMembers.SingleAsync(x => x.Name == username)).TeamMemberId;
-        
+
         var ticket = await _context.Tickets
             .Include(x => x.TicketStates)
             .ThenInclude(x => x.BoardState)
             .FirstOrDefaultAsync(x => x.TicketId == request.Ticket.TicketId);
-        
+
         if (ticket == null)
         {
             ticket = new(currentTeamMemberId, request.Ticket.Name, request.Ticket.Url, (Html)request.Ticket.AcceptanceCriteria, (Html)request.Ticket.Description);
@@ -46,13 +46,13 @@ public class UpsertTicketRequestHandler : IRequestHandler<UpsertTicketRequest, U
         {
             ticket.Update(currentTeamMemberId, request.Ticket.Name, request.Ticket.Url, (Html)request.Ticket.AcceptanceCriteria, (Html)request.Ticket.Description);
         }
-        
+
         ticket.TicketStates.Clear();
-        
+
         ticket.TicketStates.Add(new(state));
-        
+
         await _context.SaveChangesAsync(cancellationToken);
-        
+
         return new();
     }
 }

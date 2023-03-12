@@ -6,26 +6,26 @@ using System.Threading.Tasks;
 
 namespace Clarity.Core.AggregateModel.TeamMemberAggregate.Queries;
 
- public class GetTeamMemberById
- {
-     public class Request : IRequest<Response>
-     {
-         public Guid TeamMemberId { get; set; }
-     }
-     public class Response
-     {
-         public TeamMemberDto TeamMember { get; set; }
-     }
-     public class Handler : IRequestHandler<Request, Response>
-     {
-         private readonly IClarityDbContext _context;
-         public Handler(IClarityDbContext context) => _context = context;
-         public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
-         {
-             return new()
-             {
-                 TeamMember = (await _context.TeamMembers.FirstOrDefaultAsync(x => x.TeamMemberId == request.TeamMemberId)).ToDto()
-             };
-         }
-     }
- }
+public class GetTeamMemberById
+{
+    public class GetTeamMemberByIdRequest : IRequest<GetTeamMemberByIdResponse>
+    {
+        public Guid TeamMemberId { get; set; }
+    }
+    public class GetTeamMemberByIdResponse
+    {
+        public TeamMemberDto TeamMember { get; set; }
+    }
+    public class GetTeamMemberByIdHandler : IRequestHandler<GetTeamMemberByIdRequest, GetTeamMemberByIdResponse>
+    {
+        private readonly IClarityDbContext _context;
+        public GetTeamMemberByIdHandler(IClarityDbContext context) => _context = context;
+        public async Task<GetTeamMemberByIdResponse> Handle(GetTeamMemberByIdRequest request, CancellationToken cancellationToken)
+        {
+            return new()
+            {
+                TeamMember = (await _context.TeamMembers.FirstOrDefaultAsync(x => x.TeamMemberId == request.TeamMemberId)).ToDto()
+            };
+        }
+    }
+}

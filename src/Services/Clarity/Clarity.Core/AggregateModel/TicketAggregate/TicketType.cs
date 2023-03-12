@@ -3,7 +3,8 @@
 
 namespace Clarity.Core.AggregateModel.TicketAggregate;
 
-public enum TicketType { 
+public enum TicketType
+{
 
     Story,
     Chore

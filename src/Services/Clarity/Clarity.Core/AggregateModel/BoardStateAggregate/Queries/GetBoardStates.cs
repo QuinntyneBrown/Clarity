@@ -13,7 +13,7 @@ public class GetBoardStatesResponse
 {
     public IEnumerable<BoardStateDto> States { get; set; }
 }
- 
+
 public class GetBoardStatesRequestHandler : IRequestHandler<GetBoardStatesRequest, GetBoardStatesResponse>
 {
     private readonly IClarityDbContext _context;
