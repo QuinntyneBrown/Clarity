@@ -1,4 +1,3 @@
-using Clarity.Core.AggregateModel.BoardAggregate;
 using FluentValidation;
 using MediatR;
 using System.Threading;

@@ -1,24 +1,22 @@
-﻿using Clarity.Core.AggregateModel.BoardStateAggregate.Queries;
+using Clarity.Core.AggregateModel.BoardStateAggregate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Clarity.Api.Controllers
-{
-    [ApiController]
-    [Route("api/[controller]")]
-    public class BoardStateController
-    {
-        private readonly IMediator _meditator;
+namespace Clarity.Api.Controllers;
 
-        public BoardStateController(IMediator mediator)
-            => _meditator = mediator;
+ [ApiController]
+ [Route("api/[controller]")]
+ public class BoardStateController
+ {
+    private readonly IMediator _meditator;
+    public BoardStateController(IMediator mediator)
+        => _meditator = mediator;
 
-        [HttpGet]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(GetBoardStates.Response), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<GetBoardStates.Response>> Get()
-            => await _meditator.Send(new GetBoardStates.Request());
-    }
-}
+    [HttpGet]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetBoardStates.Response), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetBoardStates.Response>> Get()
+        => await _meditator.Send(new GetBoardStates.Request());
+ }
