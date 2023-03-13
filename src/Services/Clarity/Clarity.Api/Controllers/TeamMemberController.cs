@@ -33,7 +33,7 @@ public class TeamMemberController
         Summary = "Get Current Team Member",
         Description = @"Get Current Team Member"
     )]
-    [HttpGet(Name = "getCurrentTeamMember")]
+    [HttpGet("current", Name = "getCurrentTeamMember")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetCurrentTeamMemberResponse), (int)HttpStatusCode.OK)]

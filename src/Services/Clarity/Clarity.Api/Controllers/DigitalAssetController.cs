@@ -29,8 +29,8 @@ public class DigitalAssetController
     }
 
     [SwaggerOperation(
-        Summary = "Get DigitalAssets",
-        Description = @"Get DigitalAssets"
+        Summary = "Get Digital Assets",
+        Description = @"Get Digital Assets"
     )]
     [HttpGet(Name = "getDigitalAssets")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
@@ -68,7 +68,7 @@ public class DigitalAssetController
         Summary = "Get Digital Assets By Ids",
         Description = @"Get Digital Assets By Ids"
     )]
-    [HttpGet(Name = "getDigitalAssetsByIds")]
+    [HttpGet("ids", Name = "getDigitalAssetsByIds")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetDigitalAssetsByIdsResponse), (int)HttpStatusCode.OK)]

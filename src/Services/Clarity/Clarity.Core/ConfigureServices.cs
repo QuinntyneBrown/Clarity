@@ -11,6 +11,8 @@ public static class ConfigureServices
 {
     public static void AddCoreServices(this IServiceCollection services, IWebHostEnvironment environment, IConfiguration configuration)
     {
+        services.AddSignalR();
+
         services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining<IClarityDbContext>());
 
         services.AddValidation(typeof(IClarityDbContext));
@@ -25,5 +27,3 @@ public static class ConfigureServices
 
     }
 }
-
-

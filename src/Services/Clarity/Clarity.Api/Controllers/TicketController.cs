@@ -58,7 +58,7 @@ public class TicketController
         Summary = "Get Ticket by Name",
         Description = @"Get Ticket by Name"
     )]
-    [HttpGet("{name}", Name = "getTicketByName")]
+    [HttpGet("name/{name}", Name = "getTicketByName")]
     [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
@@ -96,7 +96,7 @@ public class TicketController
         Summary = "Get Tickets By Board Id",
         Description = @"Get Tickets By Board Id"
     )]
-    [HttpGet(Name = "getTicketsByBoardId")]
+    [HttpGet("board/{boardId:guid}", Name = "getTicketsByBoardId")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetTicketsByBoardIdResponse), (int)HttpStatusCode.OK)]
@@ -109,7 +109,7 @@ public class TicketController
         Summary = "Get Tickets By Board Name",
         Description = @"Get Tickets By Board Name"
     )]
-    [HttpGet(Name = "getTicketsByBoardName")]
+    [HttpGet("board/name/{name}", Name = "getTicketsByBoardName")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetTicketsByBoardNameResponse), (int)HttpStatusCode.OK)]
