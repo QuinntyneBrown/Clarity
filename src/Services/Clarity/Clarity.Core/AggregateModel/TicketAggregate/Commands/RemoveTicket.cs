@@ -3,6 +3,7 @@
 
 using Kernel;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace Clarity.Core.AggregateModel.TicketAggregate.Commands;
 
 public class RemoveTicketRequest : IRequest<RemoveTicketResponse>
 {
-    public int TicketId { get; set; }
+    public Guid TicketId { get; set; }
 }
 
 public class RemoveTicketResponse : ResponseBase { }

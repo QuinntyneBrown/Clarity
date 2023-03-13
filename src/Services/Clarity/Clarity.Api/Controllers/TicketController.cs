@@ -85,7 +85,7 @@ public class TicketController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(RemoveTicketResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<RemoveTicketResponse>> Delete([FromRoute]int ticketId,CancellationToken cancellationToken)
+    public async Task<ActionResult<RemoveTicketResponse>> Delete([FromRoute]Guid ticketId,CancellationToken cancellationToken)
     {
         var request = new RemoveTicketRequest() { TicketId = ticketId };
 
