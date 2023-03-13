@@ -1,6 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Clarity.Core.AggregateModel.BoardAggregate.Commands;
 using Clarity.Core.AggregateModel.BoardAggregate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,19 @@ public class BoardController
     public BoardController(IMediator mediator,ILogger<BoardController> logger){
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
+
+    [SwaggerOperation(
+        Summary = "Create Board",
+        Description = @"Create Board"
+    )]
+    [HttpPost(Name = "createBoard")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreateBoardResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateBoardResponse>> CreateBoard([FromBody] CreateBoardRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
     }
 
     [SwaggerOperation(
