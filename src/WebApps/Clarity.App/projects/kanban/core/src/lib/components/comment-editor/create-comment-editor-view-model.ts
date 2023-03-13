@@ -3,13 +3,9 @@
 
 import { inject } from "@angular/core";
 import { map,of } from "rxjs";
-import { BoardService } from "../../models";
 
-export function createKanbanBoardViewModel() {
-
-  const boardService = inject(BoardService);
-  
-  return of("kanban-board works!").pipe(
+export function createCommentEditorViewModel() {
+  return of("comment-editor works!").pipe(
     map(message => ({ message }))
   );
 };
