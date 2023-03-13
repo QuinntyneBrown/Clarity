@@ -28,6 +28,32 @@ public class BoardController
     }
 
     [SwaggerOperation(
+        Summary = "Get Board By Id",
+        Description = @"Get Board By Id"
+    )]
+    [HttpGet("{boardId:guid}",Name = "getBoardById")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetBoardByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetBoardByIdResponse>> GetBoardById([FromRoute] GetBoardByIdRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
+    }
+
+    [SwaggerOperation(
+        Summary = "Get Boards",
+        Description = @"Get Boards"
+    )]
+    [HttpGet(Name = "getBoards")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetBoardsResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetBoardsResponse>> GetBoards(CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(new GetBoardsRequest(), cancellationToken);
+    }
+
+    [SwaggerOperation(
         Summary = "Create Board",
         Description = @"Create Board"
     )]

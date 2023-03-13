@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 using Swashbuckle.AspNetCore.Annotations;
+using Clarity.Core.AggregateModel.BoardStateAggregate.Queries;
 
 namespace Clarity.Api.Controllers;
 
@@ -24,6 +25,32 @@ public class BoardStateController
     public BoardStateController(IMediator mediator,ILogger<BoardStateController> logger){
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
+
+    [SwaggerOperation(
+        Summary = "Get Board State By Id",
+        Description = @"Get Board State By Id"
+    )]
+    [HttpGet("{boardStateId:guid}", Name = "getBoardStateById")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetBoardStateByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetBoardStateByIdResponse>> GetBoardStateById([FromRoute] GetBoardStateByIdRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
+    }
+
+    [SwaggerOperation(
+        Summary = "Get Board States",
+        Description = @"Get Board States"
+    )]
+    [HttpGet(Name = "getBoardStates")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetBoardStatesResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetBoardStatesResponse>> GetBoardStates(CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(new GetBoardStatesRequest(), cancellationToken);
     }
 
 }

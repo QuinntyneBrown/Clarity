@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Clarity.Core.AggregateModel.UserAggregate.Commands;
+using Clarity.Core.AggregateModel.UserAggregate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -37,6 +38,19 @@ public class UserController
     public async Task<ActionResult<AuthenticateResponse>> Authenticate([FromBody] AuthenticateRequest request, CancellationToken cancellationToken)
     {
         return await _mediator.Send(request, cancellationToken);
+    }
+
+    [SwaggerOperation(
+        Summary = "Get Current User",
+        Description = @"Get Current User"
+    )]
+    [HttpGet(Name = "getCurrentUser")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetCurrentUserResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetCurrentUserResponse>> GetCurrentUser(CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(new GetCurrentUserRequest(), cancellationToken);
     }
 }
 

@@ -2,13 +2,9 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Clarity.Infrastructure.Data;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Events;
-using System;
-using System.Linq;
 
 Log.Logger = new LoggerConfiguration()
 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
@@ -24,9 +20,7 @@ try
 
     builder.Services.AddCoreServices(builder.Environment, builder.Configuration);
 
-    var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
-
-    builder.Services.AddInfrastructureServices(connectionString);
+    builder.Services.AddInfrastructureServices(builder.Configuration["ConnectionStrings:DefaultConnection"]!);
 
     builder.Services.AddApiServices();
 

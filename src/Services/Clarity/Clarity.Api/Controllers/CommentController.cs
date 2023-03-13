@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 using Swashbuckle.AspNetCore.Annotations;
+using Clarity.Core.AggregateModel.CommentAggregate.Commands;
 
 namespace Clarity.Api.Controllers;
 
@@ -26,6 +27,18 @@ public class CommentController
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    [SwaggerOperation(
+        Summary = "Upsert Comment",
+        Description = @"Upsert Comment"
+    )]
+    [HttpPost(Name = "upsertComment")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpsertCommentResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpsertCommentResponse>> UpsertComment([FromBody] UpsertCommentRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
+    }
 }
 
 
