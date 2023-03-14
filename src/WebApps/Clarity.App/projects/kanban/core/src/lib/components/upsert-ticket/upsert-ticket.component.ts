@@ -54,19 +54,13 @@ export class UpsertTicketComponent {
     description: ''
   });
 
-
-  ngOnDestroy() {    
-    this._destroyed$.next(null);
-    this._destroyed$.complete();
-  }
-
   public handleCancelClick() {
-
+    this._overlayRef.dispose();
   }
 
   public handleSaveClick() {
     this.ticket.name = this.form.value.name;
-    //this.ticket.stateId = parseInt(this.form.value.state, null);
+    this.ticket.state = this.form.value.state;
     this.ticket.description = this.form.value.description;
     this.ticket.acceptanceCriteria = this.form.value.acceptanceCriteria;
 
@@ -92,4 +86,10 @@ export class UpsertTicketComponent {
     $comment.created = Date.now();
     this.ticket.comments.unshift($comment);
   }
+
+  public ngOnDestroy() {    
+    this._destroyed$.next(null);
+    this._destroyed$.complete();
+  }
+
 }
