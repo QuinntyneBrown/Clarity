@@ -3,20 +3,20 @@
 
 import { inject } from "@angular/core";
 import { combineLatest, map,of } from "rxjs";
-import { BoardService, LookUpService, TicketService } from "../../models";
+import { BoardService, BoardState, BoardStateService, LookUpService, Ticket, TicketService } from "../../models";
 
 export function createKanbanViewModel() {
 
   const boardService = inject(BoardService);
   const ticketService = inject(TicketService);
-  const lookUpService = inject(LookUpService);
+  const boardStateService = inject(BoardStateService);
   
   const name = "Default";
 
   return combineLatest([
     boardService.getByName({ name }),
     ticketService.getTicketsByBoardName({ boardName: name }),
-    lookUpService.getStates()
+    boardStateService.get()
   ]) .pipe(
     map(([board,tickets, boardStates]) => {
       return { 

@@ -1,10 +1,11 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { createTicketViewModel } from './create-ticket-view-model';
 import { PushModule } from '@ngrx/component';
+import { Ticket } from '../../models';
 
 @Component({
   selector: 'app-ticket',
@@ -16,4 +17,6 @@ import { PushModule } from '@ngrx/component';
 })
 export class TicketComponent {
   public vm$ = createTicketViewModel();
+
+  @Input() ticket!:Ticket;
 }

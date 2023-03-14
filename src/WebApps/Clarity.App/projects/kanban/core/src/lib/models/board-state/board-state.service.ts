@@ -4,7 +4,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '../../constants';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { BoardState } from './board-state';
 
 @Injectable({
@@ -18,9 +18,9 @@ export class BoardStateService {
   ) { }
 
   public get(): Observable<Array<BoardState>> {
-    return this._client.get<{ boardStates: Array<BoardState> }>(`${this._baseUrl}api/1.0/boardState`)
+    return this._client.get<{ states: Array<BoardState> }>(`${this._baseUrl}api/1.0/boardState`)
       .pipe(
-        map(x => x.boardStates)
+        map(x => x.states)
       );
   }
 

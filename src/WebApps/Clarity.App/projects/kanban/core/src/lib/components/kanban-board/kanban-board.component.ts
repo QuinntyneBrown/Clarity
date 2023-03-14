@@ -24,7 +24,10 @@ import { TicketComponent } from '../ticket';
   ],
   templateUrl: './kanban-board.component.html',
   styleUrls: ['./kanban-board.component.scss'],
-  hostDirectives:[CdkDropListGroup]
+  hostDirectives:[{
+    directive: CdkDropListGroup,
+    inputs:[]
+  }]
 })
 export class KanbanBoardComponent implements OnDestroy {
 
@@ -36,12 +39,12 @@ export class KanbanBoardComponent implements OnDestroy {
   
   public vm$ = createKanbanBoardViewModel();
 
-  @Input() boardStates!: State[];
+  @Input() boardStates!: BoardState[];
 
   @Input() tickets!:Ticket[];
 
-  public ticketsByState(tickets:Ticket[], state: BoardState) {
-    return tickets.filter(t => t.state === state.name);
+  public ticketsByState(tickets:Ticket[], state: BoardState) {    
+    return tickets.filter(t => t.name as unknown === state.name);
   }
 
   drop(event: CdkDragDrop<Ticket[]>, state: BoardState) {

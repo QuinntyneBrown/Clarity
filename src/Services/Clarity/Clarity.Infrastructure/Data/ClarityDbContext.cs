@@ -29,6 +29,7 @@ public class ClarityDbContext : DbContext, IClarityDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
         modelBuilder.Entity<TicketState>()
             .HasOne(nt => nt.Ticket)
             .WithMany(n => n.TicketStates)
