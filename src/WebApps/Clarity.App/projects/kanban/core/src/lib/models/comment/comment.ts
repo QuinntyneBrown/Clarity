@@ -3,6 +3,10 @@
 
 export type Comment = {
   commentId?: string;
+  ticketId: string;
+  teamMemberId: string;
+  description: string;
+  created: Date;  
 };
 
 

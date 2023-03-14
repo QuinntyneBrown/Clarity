@@ -2,6 +2,7 @@ export * from './board-list';
 export * from './comment-editor';
 export * from './create-comment';
 export * from './current-team-member';
+export * from './kanban';
 export * from './kanban-board';
 export * from './kanban-board-columns';
 export * from './kanban-board-controls';

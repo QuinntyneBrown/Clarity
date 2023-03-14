@@ -1,3 +1,6 @@
-<ng-container *ngIf="vm$ | ngrxPush as vm">
-    <h1>{{ vm.message }}</h1>
-</ng-container>
+<div class='kanban-board__column' cdkDropList [cdkDropListData]="ticketsByState(tickets, boardState)" (cdkDropListDropped)="drop($event, boardState)" *ngFor='let boardState of boardStates'>
+    
+    <span>{{ boardState.type }}</span>
+    
+    <!-- <app-ticket *ngFor='let ticket of ticketsByState(vm.board, boardState)' [ticket]='ticket' cdkDrag></app-ticket> -->
+</div>

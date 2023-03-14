@@ -7,7 +7,7 @@ import { exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
 import { Ticket } from "./ticket";
 import { TicketService } from "./ticket.service";
 
-export interface TicketState {
+interface TicketState {
     tickets: Ticket[]
 }
 

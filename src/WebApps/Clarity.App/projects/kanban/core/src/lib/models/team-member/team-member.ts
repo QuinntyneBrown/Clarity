@@ -3,6 +3,7 @@
 
 export type TeamMember = {
   teamMemberId?: string;
+  name?:string; 
 };
 
 

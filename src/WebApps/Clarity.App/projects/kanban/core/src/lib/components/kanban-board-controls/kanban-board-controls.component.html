@@ -1,3 +1,2 @@
-<ng-container *ngIf="vm$ | ngrxPush as vm">
-    <h1>{{ vm.message }}</h1>
-</ng-container>
+<mat-icon aria-hidden="false" aria-label="add icon" (click)="handleClick()">add</mat-icon>
+<span (click)='handleSelectBoardClick()'> {{ board.name }}</span>

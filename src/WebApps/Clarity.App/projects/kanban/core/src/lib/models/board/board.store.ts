@@ -7,7 +7,7 @@ import { exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
 import { Board } from "./board";
 import { BoardService } from "./board.service";
 
-export interface BoardState {
+interface BoardState {
     boards: Board[]
 }
 

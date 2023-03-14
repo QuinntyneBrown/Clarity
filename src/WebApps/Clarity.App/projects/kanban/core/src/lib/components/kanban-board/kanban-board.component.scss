@@ -1,0 +1,8 @@
+:host {
+    min-height: calc(100vh - 50px);
+    display: flex;
+    flex-direction: row;
+    flex-flow: row;
+    width: 100%;
+    justify-content: space-evenly; 
+}

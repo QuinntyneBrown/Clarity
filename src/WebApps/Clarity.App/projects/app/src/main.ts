@@ -7,11 +7,12 @@ import { AppComponent } from './app/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { BASE_URL } from '@kanban/core';
-
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: BASE_URL, useValue: "https://localhost:50124/" },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
     importProvidersFrom(
       HttpClientModule,
       BrowserAnimationsModule,     
