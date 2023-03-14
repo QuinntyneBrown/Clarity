@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { BoardState, LookUpService, State, Ticket, TicketService } from '../../models';
 import { Subject, takeUntil } from 'rxjs';
 import { TicketComponent } from '../ticket';
+import { Destroyable } from '../destroyable';
 
 @Component({
   selector: 'app-kanban-board',
@@ -29,11 +30,7 @@ import { TicketComponent } from '../ticket';
     inputs:[]
   }]
 })
-export class KanbanBoardComponent implements OnDestroy {
-
-  private readonly _destroyed$ = new Subject();
-
-  private readonly _lookUpService = inject(LookUpService);
+export class KanbanBoardComponent extends Destroyable {
 
   private readonly _ticketService = inject(TicketService);
   
@@ -66,10 +63,5 @@ export class KanbanBoardComponent implements OnDestroy {
       .pipe(takeUntil(this._destroyed$))
       .subscribe();
     }
-  }
-
-  ngOnDestroy() {
-    this._destroyed$.next(null);
-    this._destroyed$.complete();
   }
 }

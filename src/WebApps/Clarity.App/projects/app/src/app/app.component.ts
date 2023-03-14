@@ -8,8 +8,7 @@ import { KanbanComponent } from '@kanban/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  template: '<app-kanban />',
   standalone: true,
   imports: [
     CommonModule,
