@@ -63,7 +63,7 @@ public class TicketController
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(GetTicketByNameResponse), (int)HttpStatusCode.OK)]
-    public async Task<ActionResult<GetTicketByNameResponse>> GetById([FromRoute]string name,CancellationToken cancellationToken)
+    public async Task<ActionResult<GetTicketByNameResponse>> GetTicketByName([FromRoute]string name,CancellationToken cancellationToken)
     {
         var request = new GetTicketByNameRequest(){ Name = name};
 

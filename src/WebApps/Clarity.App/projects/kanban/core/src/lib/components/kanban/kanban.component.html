@@ -1,4 +1,4 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
     <app-kanban-board-controls [board]="vm.board" />
-    <app-kanban-board />
+    <app-kanban-board [tickets]="vm.tickets" [boardStates]="vm.boardStates" />
 </ng-container>

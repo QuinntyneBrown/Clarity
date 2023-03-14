@@ -2,14 +2,10 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System.Net;
-using System.Threading.Tasks;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
-using Swashbuckle.AspNetCore.Annotations;
 using Clarity.Core.AggregateModel.BoardStateAggregate;
 using Clarity.Core.AggregateModel;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Clarity.Api.Controllers;
 
@@ -20,15 +16,6 @@ namespace Clarity.Api.Controllers;
 [Consumes(MediaTypeNames.Application.Json)]
 public class LookUpController
 {
-    private readonly IMediator _mediator;
-
-    private readonly ILogger<LookUpController> _logger;
-
-    public LookUpController(IMediator mediator,ILogger<LookUpController> logger){
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    }
-
     [HttpGet("states", Name = "GetStatesRoute")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
@@ -51,7 +38,4 @@ public class LookUpController
             States = results
         });
     }
-
 }
-
-

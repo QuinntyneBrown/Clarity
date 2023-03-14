@@ -52,7 +52,4 @@ public class BoardStateController
     {
         return await _mediator.Send(new GetBoardStatesRequest(), cancellationToken);
     }
-
 }
-
-

@@ -31,6 +31,20 @@ export class TicketService {
       );
   }
 
+  public getTicketsByBoardId(options: { boardId: string }): Observable<Ticket[]> {
+    return this._client.get<{ tickets: Ticket[] }>(`${this._baseUrl}api/1.0/ticket/board/${options.boardId}`)
+      .pipe(
+        map(x => x.tickets)
+      );
+  }  
+
+  public getTicketsByBoardName(options: { boardName: string }): Observable<Ticket[]> {
+    return this._client.get<{ tickets: Ticket[] }>(`${this._baseUrl}api/1.0/ticket/board/name/${options.boardName}`)
+      .pipe(
+        map(x => x.tickets)
+      );
+  }  
+
   public delete(options: { ticket: Ticket }): Observable<void> {
     return this._client.delete<void>(`${this._baseUrl}api/1.0/ticket/${options.ticket.ticketId}`);
   }

@@ -2,19 +2,27 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { inject } from "@angular/core";
-import { map,of } from "rxjs";
-import { BoardService } from "../../models";
+import { combineLatest, map,of } from "rxjs";
+import { BoardService, LookUpService, TicketService } from "../../models";
 
 export function createKanbanViewModel() {
 
   const boardService = inject(BoardService);
+  const ticketService = inject(TicketService);
+  const lookUpService = inject(LookUpService);
   
   const name = "Default";
 
-  return boardService.getByName({ name }).pipe(
-    map(board => {
+  return combineLatest([
+    boardService.getByName({ name }),
+    ticketService.getTicketsByBoardName({ boardName: name }),
+    lookUpService.getStates()
+  ]) .pipe(
+    map(([board,tickets, boardStates]) => {
       return { 
-        board
+        board,
+        tickets,
+        boardStates
       };
     })
   );
