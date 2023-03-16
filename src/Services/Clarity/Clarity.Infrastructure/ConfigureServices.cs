@@ -13,11 +13,12 @@ public static class ConfigureServices
     {
         services.AddTransient<IClarityDbContext, ClarityDbContext>();
 
-        services.AddDbContext<ClarityDbContext>(options =>
+        services.AddDbContextPool<ClarityDbContext>(options =>
         {
             options.UseSqlServer(connectionString,
                 builder => builder.MigrationsAssembly("Clarity.Infrastructure")
                     .EnableRetryOnFailure())
+            .EnableThreadSafetyChecks(false)
             .LogTo(Console.WriteLine)
             .EnableSensitiveDataLogging();
         });

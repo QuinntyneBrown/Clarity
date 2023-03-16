@@ -3,12 +3,11 @@
 
 using Clarity.Core.AggregateModel.TicketAggregate.Commands;
 using Clarity.Core.AggregateModel.TicketAggregate.Queries;
-using System.Net;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Mime;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Net;
+using System.Net.Mime;
 
 namespace Clarity.Api.Controllers;
 
@@ -29,10 +28,36 @@ public class TicketController
     }
 
     [SwaggerOperation(
+        Summary = "Create Ticket",
+        Description = @"Create Ticket"
+    )]
+    [HttpPost(Name = "createTicket")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CreateTicketResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CreateTicketResponse>> CreateTicket([FromBody] CreateTicketRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
+    }
+
+    [SwaggerOperation(
+        Summary = "Update Ticket",
+        Description = @"Update Ticket"
+    )]
+    [HttpPut(Name = "updateTicket")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpdateTicketResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpdateTicketResponse>> UpdateTicket([FromBody] UpdateTicketRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
+    }
+
+    [SwaggerOperation(
         Summary = "Upsert Ticket",
         Description = @"Upsert Ticket"
     )]
-    [HttpPut(Name = "upsertTicket")]
+    [HttpPut("upsert", Name = "upsertTicket")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(UpsertTicketResponse), (int)HttpStatusCode.OK)]

@@ -7,7 +7,8 @@ import { createTicketViewModel } from './create-ticket-view-model';
 import { PushModule } from '@ngrx/component';
 import { Ticket } from '../../models';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
-import { UpsertTicketComponent } from '../upsert-ticket';
+import { UpdateTicketComponent } from '../update-ticket';
+
 
 @Component({
   selector: 'app-ticket',
@@ -25,7 +26,7 @@ export class TicketComponent {
   @Input() ticket!:Ticket;
 
   public handleEditClick() {
-    this._dialog.open(UpsertTicketComponent, {
+    this._dialog.open(UpdateTicketComponent, {
 
     }).closed
     .subscribe();

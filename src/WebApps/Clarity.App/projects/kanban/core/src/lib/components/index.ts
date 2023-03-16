@@ -1,6 +1,7 @@
 export * from './board-list';
 export * from './comment-editor';
 export * from './create-comment';
+export * from './create-ticket';
 export * from './current-team-member';
 export * from './kanban';
 export * from './kanban-board';
@@ -9,4 +10,7 @@ export * from './kanban-board-controls';
 export * from './select-board';
 export * from './ticket';
 export * from './ticket-editor';
+export * from './update-ticket';
 export * from './upsert-ticket';
+export * from './base-control';
+export * from './destroyable';

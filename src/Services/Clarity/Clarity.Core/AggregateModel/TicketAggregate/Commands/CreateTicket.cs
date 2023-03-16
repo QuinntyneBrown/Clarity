@@ -1,6 +1,13 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+
 namespace Clarity.Core.AggregateModel.TicketAggregate.Commands;
 
 public class CreateTicketRequestValidator: AbstractValidator<CreateTicketRequest>
@@ -39,11 +46,10 @@ public class CreateTicketRequestHandler: IRequestHandler<CreateTicketRequest,Cre
 
     public async Task<CreateTicketResponse> Handle(CreateTicketRequest request,CancellationToken cancellationToken)
     {
-        var ticket = new Ticket();
+        var ticket = new Ticket(default,"","",default,default);
 
         _context.Tickets.Add(ticket);
 
-        ticket.Name = request.Name;
 
         await _context.SaveChangesAsync(cancellationToken);
 
