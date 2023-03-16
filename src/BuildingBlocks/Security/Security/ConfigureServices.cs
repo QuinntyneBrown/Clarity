@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
@@ -60,6 +59,7 @@ public static class ServiceCollectionExtensions
                     ClockSkew = TimeSpan.Zero,
                     NameClaimType = JwtRegisteredClaimNames.UniqueName
                 };
+
                 options.Events = new JwtBearerEvents
                 {
                     OnMessageReceived = context =>

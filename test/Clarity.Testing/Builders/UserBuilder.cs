@@ -1,28 +1,26 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Clarity.Core.Models;
+using Clarity.Core.AggregateModel.UserAggregate;
 
-namespace Clarity.Testing.Builders
+namespace Clarity.Testing.Builders;
+
+public class UserBuilder
 {
-    public class UserBuilder
+    private User _user;
+    public static User WithDefaults()
     {
-        private User _user;
+        return new User(default);
+    }
 
-        public static User WithDefaults()
-        {
-            return new User(default);
-        }
+    public UserBuilder()
+    {
+        _user = WithDefaults();
+    }
 
-        public UserBuilder()
-        {
-            _user = WithDefaults();
-        }
-
-        public User Build()
-        {
-            return _user;
-        }
+    public User Build()
+    {
+        return _user;
     }
 }
 

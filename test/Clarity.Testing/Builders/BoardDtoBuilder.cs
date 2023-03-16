@@ -1,28 +1,27 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Clarity.Domain.Features;
+using Clarity.Core.AggregateModel;
 
-namespace Clarity.Testing.Builders
+namespace Clarity.Testing.Builders;
+
+public class BoardDtoBuilder
 {
-    public class BoardDtoBuilder
+    private BoardDto _boardDto;
+
+    public static BoardDto WithDefaults()
     {
-        private BoardDto _boardDto;
+        return new BoardDto();
+    }
 
-        public static BoardDto WithDefaults()
-        {
-            return new BoardDto();
-        }
+    public BoardDtoBuilder()
+    {
+        _boardDto = WithDefaults();
+    }
 
-        public BoardDtoBuilder()
-        {
-            _boardDto = WithDefaults();
-        }
-
-        public BoardDto Build()
-        {
-            return _boardDto;
-        }
+    public BoardDto Build()
+    {
+        return _boardDto;
     }
 }
 

@@ -1,20 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\building-blocks\BuildingBlocks.Core\BuildingBlocks.Core.csproj" />
-    <ProjectReference Include="..\..\src\Clarity.Api\Clarity.Api.csproj" />
-    <ProjectReference Include="..\..\src\Clarity.Core\Clarity.Core.csproj" />
+    <ProjectReference Include="..\..\src\Services\Clarity\Clarity.Api\Clarity.Api.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.3" />
-    <PackageReference Include="Moq" Version="4.16.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.0" />    
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.4" />
+    <PackageReference Include="Moq" Version="4.18.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="7.0.4" />    
   </ItemGroup>
 
 </Project>

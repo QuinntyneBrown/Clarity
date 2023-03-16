@@ -11,14 +11,14 @@ export function createCreateTicketViewModel() {
 
   const ticketStore = inject(TicketStore);
 
+  const dialogRef = inject(DialogRef);
+
   const form = new UntypedFormGroup({
     name: new FormControl(null, [Validators.required]),
     state: new FormControl(null, [Validators.required]),
     description: new FormControl(null, [Validators.required]),
     acceptanceCriteria: new FormControl(null, [Validators.required])
-  });
-
-  const dialogRef = inject(DialogRef);
+  });  
 
   const saveSubject = new Subject();
 
@@ -47,5 +47,3 @@ export function createCreateTicketViewModel() {
     })
   )
 };
-
-

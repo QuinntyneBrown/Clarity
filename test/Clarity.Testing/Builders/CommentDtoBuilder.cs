@@ -1,28 +1,27 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Clarity.Domain.Features;
+using Clarity.Core.AggregateModel;
 
-namespace Clarity.Testing.Builders
+namespace Clarity.Testing.Builders;
+
+public class CommentDtoBuilder
 {
-    public class CommentDtoBuilder
+    private CommentDto _commentDto;
+
+    public static CommentDto WithDefaults()
     {
-        private CommentDto _commentDto;
+        return new CommentDto();
+    }
 
-        public static CommentDto WithDefaults()
-        {
-            return new CommentDto();
-        }
+    public CommentDtoBuilder()
+    {
+        _commentDto = WithDefaults();
+    }
 
-        public CommentDtoBuilder()
-        {
-            _commentDto = WithDefaults();
-        }
-
-        public CommentDto Build()
-        {
-            return _commentDto;
-        }
+    public CommentDto Build()
+    {
+        return _commentDto;
     }
 }
 

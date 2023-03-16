@@ -1,15 +1,12 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using System.Net;
-using System.Threading.Tasks;
+using Clarity.Core.AggregateModel.TeamMemberAggregate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Mime;
 using Swashbuckle.AspNetCore.Annotations;
-using static Clarity.Core.AggregateModel.TeamMemberAggregate.Queries.GetCurrentTeamMember;
-using static Clarity.Core.AggregateModel.TeamMemberAggregate.Queries.GetTeamMemberById;
-using static Clarity.Core.AggregateModel.TeamMemberAggregate.Queries.GetTeamMembers;
+using System.Net;
+using System.Net.Mime;
 
 namespace Clarity.Api.Controllers;
 

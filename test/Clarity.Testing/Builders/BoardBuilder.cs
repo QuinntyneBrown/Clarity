@@ -1,28 +1,27 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-using Clarity.Core.Models;
+using Clarity.Core.AggregateModel.BoardAggregate;
 
-namespace Clarity.Testing.Builders
+namespace Clarity.Testing.Builders;
+
+public class BoardBuilder
 {
-    public class BoardBuilder
+    private Board _board;
+    
+    public static Board WithDefaults()
     {
-        private Board _board;
+        return Board.WithDefaults("Test");
+    }
 
-        public static Board WithDefaults()
-        {
-            return Board.WithDefaults("Test");
-        }
+    public BoardBuilder()
+    {
+        _board = WithDefaults();
+    }
 
-        public BoardBuilder()
-        {
-            _board = WithDefaults();
-        }
-
-        public Board Build()
-        {
-            return _board;
-        }
+    public Board Build()
+    {
+        return _board;
     }
 }
 
