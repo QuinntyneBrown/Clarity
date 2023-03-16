@@ -8,7 +8,6 @@ using Clarity.Testing.Builders;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using static Clarity.IntegrationTests.Controllers.CommentControllerTests.Endpoints;
 

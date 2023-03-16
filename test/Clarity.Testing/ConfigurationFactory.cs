@@ -8,21 +8,22 @@ namespace Clarity.Testing;
 
 public static class ConfigurationFactory
 {
-    private static IConfiguration configuration;
+    private static IConfiguration _configuration;
 
     public static IConfiguration Create()
     {
-        if (configuration == null)
+        if (_configuration == null)
         {
             var basePath = Path.GetFullPath("../../src/Services/Clarity/Clarity.Api");
 
-            configuration = new ConfigurationBuilder()
+            _configuration = new ConfigurationBuilder()
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json", false)
+                .AddUserSecrets<Program>()
                 .Build();
         }
 
-        return configuration;
+        return _configuration;
     }
 }
 

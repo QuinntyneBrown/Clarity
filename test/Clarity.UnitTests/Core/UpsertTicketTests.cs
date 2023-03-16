@@ -11,7 +11,7 @@ using System.Linq;
 using Xunit;
 
 
-namespace Clarity.UnitTests.Domain;
+namespace Clarity.UnitTests.Core;
 
 public class UpsertTicketTests
 {

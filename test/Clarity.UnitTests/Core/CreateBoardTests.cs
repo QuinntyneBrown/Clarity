@@ -6,7 +6,7 @@ using Clarity.Testing.Builders;
 using Xunit;
 
 
-namespace Clarity.UnitTests.Domain;
+namespace Clarity.UnitTests.Core;
 
 public class CreateBoardTests
 {
