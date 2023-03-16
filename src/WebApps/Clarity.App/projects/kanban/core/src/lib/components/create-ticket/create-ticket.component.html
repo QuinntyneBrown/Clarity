@@ -1,3 +1,41 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
-    <h1>{{ vm.message }}</h1>
+    <h1>Create Ticket</h1>
+
+    <form novalidate autocomplete="off" spellcheck="false" [formGroup]='vm.form'>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+            
+        <mat-form-field>
+          <mat-label>State</mat-label>
+          <select matNativeControl formControlName="state">
+            <option></option>
+            <option [value]="state.state" *ngFor='let state of vm.states'>{{ state.name }}</option>
+          </select>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Description</mat-label>
+          <textarea matInput
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="5"
+                    cdkAutosizeMaxRows="5"
+                    formControlName="description"></textarea>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Acceptance Criteria</mat-label>
+          <textarea matInput
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="5"
+                    cdkAutosizeMaxRows="5"
+                    formControlName="acceptanceCriteria"></textarea>
+        </mat-form-field>    
+      
+        <div class='actions'>
+          <button mat-button (click)='vm.save()'>Save</button>
+          <button mat-button (click)='vm.cancel()'>Cancel</button>
+        </div>
+      </form>
 </ng-container>
