@@ -21,7 +21,7 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<IdentitySe
             .AddJsonFile("appsettings.json", false)
             .Build();
 
-        var connectionString = configuration.GetConnectionString("DefualtConnection");
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         builder.UseSqlServer(connectionString);
 

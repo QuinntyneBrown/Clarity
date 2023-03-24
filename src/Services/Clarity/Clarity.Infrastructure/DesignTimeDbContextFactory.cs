@@ -12,15 +12,31 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ClarityDbC
 {
     public ClarityDbContext CreateDbContext(string[] args)
     {
+        /*        var builder = new DbContextOptionsBuilder<ClarityDbContext>();
+
+                var basePath = Path.GetFullPath("./Clarity.Api");
+
+                var configuration = new ConfigurationBuilder()
+                    .SetBasePath(basePath)
+                    .AddJsonFile("appsettings.json", false)
+                    .Build();
+
+                builder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+
+                return new ClarityDbContext(builder.Options);*/
+
         var builder = new DbContextOptionsBuilder<ClarityDbContext>();
-        var basePath = Path.GetFullPath("../Clarity/Clarity.Api");
+
+        var basePath = Path.GetFullPath("../Clarity.Api");
 
         var configuration = new ConfigurationBuilder()
             .SetBasePath(basePath)
             .AddJsonFile("appsettings.json", false)
             .Build();
 
-        builder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+
+        builder.UseSqlServer(connectionString);
 
         return new ClarityDbContext(builder.Options);
     }

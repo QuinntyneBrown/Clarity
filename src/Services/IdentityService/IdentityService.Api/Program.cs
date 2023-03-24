@@ -20,7 +20,7 @@ try
 
     builder.Services.AddCoreServices(builder.Environment, builder.Configuration);
 
-    builder.Services.AddInfrastructureServices(builder.Configuration["ConnectionStrings:DefualtConnection"]!);
+    builder.Services.AddInfrastructureServices(builder.Configuration.GetConnectionString("DefaultConnection")!);
 
     builder.Services.AddApiServices();
 
@@ -54,7 +54,17 @@ try
 
         if (args.Contains("dropdb"))
         {
-            context.Database.EnsureDeleted();
+            context.Database.ExecuteSql($"DROP TABLE [Identity].[RoleUser]");
+
+            context.Database.ExecuteSql($"DROP TABLE [Identity].[Privileges]");
+
+            context.Database.ExecuteSql($"DROP TABLE [Identity].[Roles]");
+
+            context.Database.ExecuteSql($"DROP TABLE [Identity].[Users]");
+
+            context.Database.ExecuteSql($"DROP SCHEMA [Identity]");
+
+            context.Database.ExecuteSql($"DELETE from __EFMigrationsHistory where MigrationId like '%_Identity_%';");
         }
 
         if (args.Contains("migratedb"))

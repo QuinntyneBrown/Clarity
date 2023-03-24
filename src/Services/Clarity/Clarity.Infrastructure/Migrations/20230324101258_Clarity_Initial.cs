@@ -1,7 +1,4 @@
-// Copyright (c) Quinntyne Brown. All Rights Reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
-
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -9,13 +6,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Clarity.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class ClarityInitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "Clarity");
+
             migrationBuilder.CreateTable(
                 name: "Boards",
+                schema: "Clarity",
                 columns: table => new
                 {
                     BoardId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -28,6 +29,7 @@ namespace Clarity.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "DigitalAssets",
+                schema: "Clarity",
                 columns: table => new
                 {
                     DigitalAssetId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -42,6 +44,7 @@ namespace Clarity.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "TeamMembers",
+                schema: "Clarity",
                 columns: table => new
                 {
                     TeamMemberId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -55,6 +58,7 @@ namespace Clarity.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Users",
+                schema: "Clarity",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -69,6 +73,7 @@ namespace Clarity.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "BoardStates",
+                schema: "Clarity",
                 columns: table => new
                 {
                     BoardStateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -82,12 +87,14 @@ namespace Clarity.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_BoardStates_Boards_BoardId",
                         column: x => x.BoardId,
+                        principalSchema: "Clarity",
                         principalTable: "Boards",
                         principalColumn: "BoardId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Tickets",
+                schema: "Clarity",
                 columns: table => new
                 {
                     TicketId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -107,6 +114,7 @@ namespace Clarity.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_Tickets_TeamMembers_TeamMemberId",
                         column: x => x.TeamMemberId,
+                        principalSchema: "Clarity",
                         principalTable: "TeamMembers",
                         principalColumn: "TeamMemberId",
                         onDelete: ReferentialAction.Cascade);
@@ -114,6 +122,7 @@ namespace Clarity.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Comments",
+                schema: "Clarity",
                 columns: table => new
                 {
                     CommentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -128,18 +137,21 @@ namespace Clarity.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_Comments_TeamMembers_TeamMemberId",
                         column: x => x.TeamMemberId,
+                        principalSchema: "Clarity",
                         principalTable: "TeamMembers",
                         principalColumn: "TeamMemberId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comments_Tickets_TicketId",
                         column: x => x.TicketId,
+                        principalSchema: "Clarity",
                         principalTable: "Tickets",
                         principalColumn: "TicketId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "TicketEffortChanged",
+                schema: "Clarity",
                 columns: table => new
                 {
                     TicketId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -154,6 +166,7 @@ namespace Clarity.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_TicketEffortChanged_Tickets_TicketId",
                         column: x => x.TicketId,
+                        principalSchema: "Clarity",
                         principalTable: "Tickets",
                         principalColumn: "TicketId",
                         onDelete: ReferentialAction.Cascade);
@@ -161,6 +174,7 @@ namespace Clarity.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "TicketState",
+                schema: "Clarity",
                 columns: table => new
                 {
                     TicketStateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -174,12 +188,14 @@ namespace Clarity.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_TicketState_BoardStates_BoardStateId",
                         column: x => x.BoardStateId,
+                        principalSchema: "Clarity",
                         principalTable: "BoardStates",
                         principalColumn: "BoardStateId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TicketState_Tickets_TicketId",
                         column: x => x.TicketId,
+                        principalSchema: "Clarity",
                         principalTable: "Tickets",
                         principalColumn: "TicketId",
                         onDelete: ReferentialAction.Cascade);
@@ -187,31 +203,37 @@ namespace Clarity.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_BoardStates_BoardId",
+                schema: "Clarity",
                 table: "BoardStates",
                 column: "BoardId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_TeamMemberId",
+                schema: "Clarity",
                 table: "Comments",
                 column: "TeamMemberId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_TicketId",
+                schema: "Clarity",
                 table: "Comments",
                 column: "TicketId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_TeamMemberId",
+                schema: "Clarity",
                 table: "Tickets",
                 column: "TeamMemberId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TicketState_BoardStateId",
+                schema: "Clarity",
                 table: "TicketState",
                 column: "BoardStateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TicketState_TicketId",
+                schema: "Clarity",
                 table: "TicketState",
                 column: "TicketId");
         }
@@ -220,32 +242,40 @@ namespace Clarity.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comments");
+                name: "Comments",
+                schema: "Clarity");
 
             migrationBuilder.DropTable(
-                name: "DigitalAssets");
+                name: "DigitalAssets",
+                schema: "Clarity");
 
             migrationBuilder.DropTable(
-                name: "TicketEffortChanged");
+                name: "TicketEffortChanged",
+                schema: "Clarity");
 
             migrationBuilder.DropTable(
-                name: "TicketState");
+                name: "TicketState",
+                schema: "Clarity");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Users",
+                schema: "Clarity");
 
             migrationBuilder.DropTable(
-                name: "BoardStates");
+                name: "BoardStates",
+                schema: "Clarity");
 
             migrationBuilder.DropTable(
-                name: "Tickets");
+                name: "Tickets",
+                schema: "Clarity");
 
             migrationBuilder.DropTable(
-                name: "Boards");
+                name: "Boards",
+                schema: "Clarity");
 
             migrationBuilder.DropTable(
-                name: "TeamMembers");
+                name: "TeamMembers",
+                schema: "Clarity");
         }
     }
 }
-
