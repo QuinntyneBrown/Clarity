@@ -50,10 +50,10 @@ export class TicketService {
   }
 
   public create(options: { ticket: Ticket }): Observable<{ ticketId: string  }> {
-    return this._client.post<{ ticketId: string }>(`${this._baseUrl}api/1.0/ticket`, { ticket: options.ticket });
+    return this._client.put<{ ticketId: string }>(`${this._baseUrl}api/1.0/ticket/upsert`, { ticket: options.ticket });
   }
 
   public update(options: { ticket: Ticket }): Observable<{ ticketId: string }> {
-    return this._client.post<{ ticketId: string }>(`${this._baseUrl}api/1.0/ticket`, { ticket: options.ticket });
+    return this._client.put<{ ticketId: string }>(`${this._baseUrl}api/1.0/ticket/upsert`, { ticket: options.ticket });
   }
 }

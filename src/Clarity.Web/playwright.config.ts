@@ -20,7 +20,7 @@ export default defineConfig({
   ],
   webServer: [
     {
-      command: 'dotnet run --project ../Services/Clarity/Clarity.Api/Clarity.Api.csproj -- --urls "https://localhost:50124" migratedb seeddb',
+      command: 'dotnet run --project ../Services/Clarity/Clarity.Api/Clarity.Api.csproj -- --urls "https://localhost:50124" dropdb migratedb seeddb',
       url: 'https://localhost:50124/swagger/v1/swagger.json',
       reuseExistingServer: !process.env['CI'],
       timeout: 120000,

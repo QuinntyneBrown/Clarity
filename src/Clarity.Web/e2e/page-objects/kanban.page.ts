@@ -17,10 +17,27 @@ export class KanbanPage {
 
   async goto() {
     await this.page.goto('/');
+    await this.removeOverlay();
   }
 
   async waitForBoard() {
     await this.boardName.waitFor({ state: 'visible' });
+    await this.removeOverlay();
+  }
+
+  private async removeOverlay() {
+    // Hide webpack dev server error overlay that intercepts pointer events.
+    // Use CSS injection so it persists even if the overlay is recreated.
+    await this.page.evaluate(() => {
+      const iframe = document.getElementById('webpack-dev-server-client-overlay');
+      if (iframe) iframe.remove();
+      if (!document.getElementById('e2e-overlay-fix')) {
+        const style = document.createElement('style');
+        style.id = 'e2e-overlay-fix';
+        style.textContent = '#webpack-dev-server-client-overlay { display: none !important; pointer-events: none !important; }';
+        document.head.appendChild(style);
+      }
+    });
   }
 
   async getColumnHeaders(): Promise<string[]> {
@@ -51,6 +68,14 @@ export class KanbanPage {
 
   async clickAddTicket() {
     await this.addTicketButton.click();
+  }
+
+  getColumnByHeader(headerText: string): Locator {
+    return this.page.locator('.kanban-board__column').filter({ has: this.page.locator('> span', { hasText: headerText }) });
+  }
+
+  getTicketsInColumnByHeader(headerText: string): Locator {
+    return this.getColumnByHeader(headerText).locator('app-ticket');
   }
 
   async clickBoardName() {

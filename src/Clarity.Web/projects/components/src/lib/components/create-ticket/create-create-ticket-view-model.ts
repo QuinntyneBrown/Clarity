@@ -5,11 +5,14 @@ import { DialogRef } from "@angular/cdk/dialog";
 import { inject } from "@angular/core";
 import { FormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { combineLatest, EMPTY, map,merge,of, startWith, Subject, switchMap, tap } from "rxjs";
+import { BoardStateService } from "@api";
 import { TicketStore } from "../../stores";
 
 export function createCreateTicketViewModel() {
 
   const ticketStore = inject(TicketStore);
+
+  const boardStateService = inject(BoardStateService);
 
   const dialogRef = inject(DialogRef);
 
@@ -35,14 +38,15 @@ export function createCreateTicketViewModel() {
 
   return combineLatest([
     of(form),
-    actions$
+    actions$,
+    boardStateService.get()
   ]).pipe(
-    map(([form]) => {
+    map(([form, _, states]) => {
       return {
         form,
         save: () => saveSubject.next(null),
         cancel: () => cancelSubject.next(null),
-        states: [] as any[]
+        states
       }
     })
   )

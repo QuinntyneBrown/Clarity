@@ -10,7 +10,8 @@ public static class BoardStateExtensions
     public static BoardStateDto ToDto(this BoardState boardState)
         => new()
         {
-            StateId = boardState.BoardStateId,
+            BoardStateId = boardState.BoardStateId,
+            Name = boardState.Type.ToString(),
             Order = boardState.Order,
             Type = boardState.Type
         };

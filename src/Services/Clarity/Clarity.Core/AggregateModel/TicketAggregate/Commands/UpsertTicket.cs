@@ -29,11 +29,15 @@ public class UpsertTicketRequestHandler : IRequestHandler<UpsertTicketRequest, U
     }
     public async Task<UpsertTicketResponse> Handle(UpsertTicketRequest request, CancellationToken cancellationToken)
     {
-        var state = await _context.BoardStates.FindAsync(request.Ticket.BoardStateId);
+        var state = request.Ticket.BoardStateId != Guid.Empty
+            ? await _context.BoardStates.FindAsync(request.Ticket.BoardStateId)
+            : await _context.BoardStates.FirstAsync(x => x.Type == request.Ticket.State);
 
-        var username = _httpContextAccessor.HttpContext.User.Identity.Name;
+        var username = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
 
-        var currentTeamMemberId = (await _context.TeamMembers.SingleAsync(x => x.Name == username)).TeamMemberId;
+        var currentTeamMemberId = !string.IsNullOrEmpty(username)
+            ? (await _context.TeamMembers.SingleAsync(x => x.Name == username)).TeamMemberId
+            : (await _context.TeamMembers.FirstAsync()).TeamMemberId;
 
         var ticket = await _context.Tickets
             .Include(x => x.TicketStates)

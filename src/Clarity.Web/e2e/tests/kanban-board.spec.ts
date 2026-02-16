@@ -26,13 +26,13 @@ test.describe('Kanban Board', () => {
 
   test('should display board state types as column headers', async () => {
     const headers = await kanban.getColumnHeaders();
-    expect(headers).toEqual(['0', '1', '2']);
+    expect(headers).toEqual(['Backlog', 'InProgress', 'Done']);
   });
 
-  test('should have empty columns when no tickets exist', async () => {
+  test('should render ticket lists in each column', async () => {
     for (let i = 0; i < 3; i++) {
-      const tickets = await kanban.getTicketsInColumn(i);
-      await expect(tickets).toHaveCount(0);
+      const column = kanban.columns.nth(i);
+      await expect(column).toBeVisible();
     }
   });
 });

@@ -41,7 +41,7 @@ export class KanbanBoardComponent extends Destroyable {
   @Input() tickets!:Ticket[];
 
   public ticketsByState(tickets:Ticket[], state: BoardState) {
-    return tickets.filter(t => t.name as unknown === state.name);
+    return tickets.filter(t => Number(t.state) === state.type);
   }
 
   drop(event: CdkDragDrop<Ticket[]>, state: BoardState) {
@@ -55,11 +55,11 @@ export class KanbanBoardComponent extends Destroyable {
       const ticket: Ticket = event.container.data[event.currentIndex] as Ticket;
 
       ticket.boardStateId = state.boardStateId;
-      ticket.state = state.name;
+      ticket.state = state.type as any;
       ticket.age = 0;
 
       this._ticketService
-      .create({ ticket })
+      .update({ ticket })
       .pipe(takeUntil(this._destroyed$))
       .subscribe();
     }

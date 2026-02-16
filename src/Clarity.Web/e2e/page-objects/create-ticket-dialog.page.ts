@@ -45,6 +45,10 @@ export class CreateTicketDialog {
     await this.acceptanceCriteriaTextarea.fill(criteria);
   }
 
+  async selectState(stateName: string) {
+    await this.stateSelect.selectOption({ label: stateName });
+  }
+
   async clickSave() {
     await this.saveButton.click();
   }
