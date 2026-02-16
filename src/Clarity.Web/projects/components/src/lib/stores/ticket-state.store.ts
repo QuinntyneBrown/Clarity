@@ -2,7 +2,8 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { inject, Injectable } from "@angular/core";
-import { ComponentStore, tapResponse } from "@ngrx/component-store";
+import { ComponentStore } from "@ngrx/component-store";
+import { tapResponse } from "@ngrx/operators";
 import { exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
 import { TicketState, TicketStateService } from "@api";
 
@@ -50,7 +51,7 @@ export class TicketStateStore extends ComponentStore<TicketStateState> {
         exhaustMap((ticketState) => this._ticketStateService.delete({ ticketState: ticketState }).pipe(
             withLatestFrom(this.select(x => x.ticketStates )),
             tapResponse(
-                ([_, ticketStates]) => this.patchState({ ticketStates: ticketStates.filter(t => t.ticketStateId != ticketState.ticketStateId )}),
+                ([_, ticketStates]: [any, TicketState[]]) => this.patchState({ ticketStates: ticketStates.filter(t => t.ticketStateId != ticketState.ticketStateId )}),
                 noop
             )
         ))
@@ -59,7 +60,7 @@ export class TicketStateStore extends ComponentStore<TicketStateState> {
     readonly load = this.effect<void>(
         exhaustMap(_ => this._ticketStateService.get().pipe(
             tapResponse(
-                ticketStates => this.patchState({ ticketStates }),
+                (ticketStates: TicketState[]) => this.patchState({ ticketStates }),
                 noop
             )
         ))

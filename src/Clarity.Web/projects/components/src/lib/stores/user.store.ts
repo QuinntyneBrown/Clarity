@@ -2,7 +2,8 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { inject, Injectable } from "@angular/core";
-import { ComponentStore, tapResponse } from "@ngrx/component-store";
+import { ComponentStore } from "@ngrx/component-store";
+import { tapResponse } from "@ngrx/operators";
 import { exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
 import { User, UserService } from "@api";
 
@@ -50,7 +51,7 @@ export class UserStore extends ComponentStore<UserState> {
         exhaustMap((user) => this._userService.delete({ user: user }).pipe(
             withLatestFrom(this.select(x => x.users )),
             tapResponse(
-                ([_, users]) => this.patchState({ users: users.filter(t => t.userId != user.userId )}),
+                ([_, users]: [any, User[]]) => this.patchState({ users: users.filter(t => t.userId != user.userId )}),
                 noop
             )
         ))
@@ -59,7 +60,7 @@ export class UserStore extends ComponentStore<UserState> {
     readonly load = this.effect<void>(
         exhaustMap(_ => this._userService.get().pipe(
             tapResponse(
-                users => this.patchState({ users }),
+                (users: User[]) => this.patchState({ users }),
                 noop
             )
         ))

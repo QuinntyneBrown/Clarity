@@ -6,7 +6,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { map, switchMap, tap, takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import { PushModule } from '@ngrx/component';
+import { PushPipe } from '@ngrx/component';
 import { DialogModule } from '@angular/cdk/dialog';
 import { Board, BoardService, CommentService, Ticket, TicketService } from '@api';
 import { OverlayRef } from '@angular/cdk/overlay';
@@ -15,19 +15,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CreateCommentComponent } from '../create-comment';
 
 @Component({
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    PushModule,
-    DialogModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    CreateCommentComponent
-  ],
-  templateUrl: './upsert-ticket.component.html',
-  styleUrls: ['./upsert-ticket.component.scss']
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        PushPipe,
+        DialogModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        CreateCommentComponent
+    ],
+    templateUrl: './upsert-ticket.component.html',
+    styleUrls: ['./upsert-ticket.component.scss']
 })
 export class UpsertTicketComponent {
 

@@ -4,24 +4,23 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { createKanbanBoardControlsViewModel } from './create-kanban-board-controls-view-model';
-import { PushModule } from '@ngrx/component';
+import { PushPipe } from '@ngrx/component';
 import { MatIconModule } from '@angular/material/icon';
 import { Board } from '@api';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { CreateTicketComponent } from '../create-ticket';
 
 @Component({
-  selector: 'app-kanban-board-controls',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    PushModule,
-    MatIconModule,
-    DialogModule
-  ],
-  templateUrl: './kanban-board-controls.component.html',
-  styleUrls: ['./kanban-board-controls.component.scss']
+    selector: 'app-kanban-board-controls',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        PushPipe,
+        MatIconModule,
+        DialogModule
+    ],
+    templateUrl: './kanban-board-controls.component.html',
+    styleUrls: ['./kanban-board-controls.component.scss']
 })
 export class KanbanBoardControlsComponent {
   public vm$ = createKanbanBoardControlsViewModel();

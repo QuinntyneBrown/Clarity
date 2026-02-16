@@ -139,10 +139,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "clarity:build:production"
+              "buildTarget": "clarity:build:production"
             },
             "development": {
-              "browserTarget": "clarity:build:development"
+              "buildTarget": "clarity:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -150,7 +150,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "clarity:build"
+            "buildTarget": "clarity:build"
           }
         },
         "test": {

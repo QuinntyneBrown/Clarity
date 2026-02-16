@@ -2,7 +2,8 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { inject, Injectable } from "@angular/core";
-import { ComponentStore, tapResponse } from "@ngrx/component-store";
+import { ComponentStore } from "@ngrx/component-store";
+import { tapResponse } from "@ngrx/operators";
 import { exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
 import { TeamMember, TeamMemberService } from "@api";
 
@@ -50,7 +51,7 @@ export class TeamMemberStore extends ComponentStore<TeamMemberState> {
         exhaustMap((teamMember) => this._teamMemberService.delete({ teamMember: teamMember }).pipe(
             withLatestFrom(this.select(x => x.teamMembers )),
             tapResponse(
-                ([_, teamMembers]) => this.patchState({ teamMembers: teamMembers.filter(t => t.teamMemberId != teamMember.teamMemberId )}),
+                ([_, teamMembers]: [any, TeamMember[]]) => this.patchState({ teamMembers: teamMembers.filter(t => t.teamMemberId != teamMember.teamMemberId )}),
                 noop
             )
         ))
@@ -59,7 +60,7 @@ export class TeamMemberStore extends ComponentStore<TeamMemberState> {
     readonly load = this.effect<void>(
         exhaustMap(_ => this._teamMemberService.get().pipe(
             tapResponse(
-                teamMembers => this.patchState({ teamMembers }),
+                (teamMembers: TeamMember[]) => this.patchState({ teamMembers }),
                 noop
             )
         ))

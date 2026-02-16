@@ -4,15 +4,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { createUpdateTicketViewModel } from './create-update-ticket-view-model';
-import { PushModule } from '@ngrx/component';
+import { PushPipe } from '@ngrx/component';
 
 @Component({
-  selector: 'app-update-ticket',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, PushModule],
-  templateUrl: './update-ticket.component.html',
-  styleUrls: ['./update-ticket.component.scss']
+    selector: 'app-update-ticket',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, PushPipe],
+    templateUrl: './update-ticket.component.html',
+    styleUrls: ['./update-ticket.component.scss']
 })
 export class UpdateTicketComponent {
   public vm$ = createUpdateTicketViewModel();

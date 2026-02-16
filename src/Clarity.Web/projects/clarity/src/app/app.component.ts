@@ -7,13 +7,12 @@ import { RouterModule } from '@angular/router';
 import { KanbanComponent } from '@components';
 
 @Component({
-  selector: 'app-root',
-  template: '<app-kanban />',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    KanbanComponent
-  ]
+    selector: 'app-root',
+    template: '<app-kanban />',
+    imports: [
+        CommonModule,
+        RouterModule,
+        KanbanComponent
+    ]
 })
 export class AppComponent { }

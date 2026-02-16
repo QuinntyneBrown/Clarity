@@ -2,7 +2,8 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { inject, Injectable } from "@angular/core";
-import { ComponentStore, tapResponse } from "@ngrx/component-store";
+import { ComponentStore } from "@ngrx/component-store";
+import { tapResponse } from "@ngrx/operators";
 import { exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
 import { State, LookUpService } from "@api";
 
@@ -27,7 +28,7 @@ export class StateStore extends ComponentStore<StateState> {
     readonly load = this.effect<void>(
         exhaustMap(_ => this._stateService.getStates().pipe(
             tapResponse(
-                states => this.patchState({ states }),
+                (states: State[]) => this.patchState({ states }),
                 noop
             )
         ))

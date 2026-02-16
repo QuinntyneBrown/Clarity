@@ -4,7 +4,7 @@
 import { ChangeDetectionStrategy, Component, inject, Input, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { createKanbanBoardViewModel } from './create-kanban-board-view-model';
-import { PushModule } from '@ngrx/component';
+import { PushPipe } from '@ngrx/component';
 import { CdkDragDrop, CdkDropListGroup, DragDropModule, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
 import { BoardState, LookUpService, State, Ticket, TicketService } from '@api';
@@ -13,22 +13,21 @@ import { TicketComponent } from '../ticket';
 import { Destroyable } from '../../base';
 
 @Component({
-  selector: 'app-kanban-board',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    PushModule,
-    DragDropModule,
-    MatIconModule,
-    TicketComponent
-  ],
-  templateUrl: './kanban-board.component.html',
-  styleUrls: ['./kanban-board.component.scss'],
-  hostDirectives:[{
-    directive: CdkDropListGroup,
-    inputs:[]
-  }]
+    selector: 'app-kanban-board',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        PushPipe,
+        DragDropModule,
+        MatIconModule,
+        TicketComponent
+    ],
+    templateUrl: './kanban-board.component.html',
+    styleUrls: ['./kanban-board.component.scss'],
+    hostDirectives: [{
+            directive: CdkDropListGroup,
+            inputs: []
+        }]
 })
 export class KanbanBoardComponent extends Destroyable {
 

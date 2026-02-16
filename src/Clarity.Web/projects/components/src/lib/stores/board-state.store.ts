@@ -2,7 +2,8 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { inject, Injectable } from "@angular/core";
-import { ComponentStore, tapResponse } from "@ngrx/component-store";
+import { ComponentStore } from "@ngrx/component-store";
+import { tapResponse } from "@ngrx/operators";
 import { exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
 import { BoardState, BoardStateService } from "@api";
 
@@ -50,7 +51,7 @@ export class BoardStateStore extends ComponentStore<BoardStateState> {
         exhaustMap((boardState) => this._boardStateService.delete({ boardState: boardState }).pipe(
             withLatestFrom(this.select(x => x.boardStates )),
             tapResponse(
-                ([_, boardStates]) => this.patchState({ boardStates: boardStates.filter(t => t.boardStateId != boardState.boardStateId )}),
+                ([_, boardStates]: [any, BoardState[]]) => this.patchState({ boardStates: boardStates.filter(t => t.boardStateId != boardState.boardStateId )}),
                 noop
             )
         ))
@@ -59,7 +60,7 @@ export class BoardStateStore extends ComponentStore<BoardStateState> {
     readonly load = this.effect<void>(
         exhaustMap(_ => this._boardStateService.get().pipe(
             tapResponse(
-                boardStates => this.patchState({ boardStates }),
+                (boardStates: BoardState[]) => this.patchState({ boardStates }),
                 noop
             )
         ))

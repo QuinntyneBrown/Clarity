@@ -4,19 +4,18 @@
 import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { createTicketViewModel } from './create-ticket-view-model';
-import { PushModule } from '@ngrx/component';
+import { PushPipe } from '@ngrx/component';
 import { Ticket } from '@api';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { UpdateTicketComponent } from '../update-ticket';
 
 
 @Component({
-  selector: 'app-ticket',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, PushModule, DialogModule],
-  templateUrl: './ticket.component.html',
-  styleUrls: ['./ticket.component.scss']
+    selector: 'app-ticket',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, PushPipe, DialogModule],
+    templateUrl: './ticket.component.html',
+    styleUrls: ['./ticket.component.scss']
 })
 export class TicketComponent {
   public vm$ = createTicketViewModel();

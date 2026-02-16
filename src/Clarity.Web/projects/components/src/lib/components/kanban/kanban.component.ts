@@ -4,22 +4,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { createKanbanViewModel } from './create-kanban-view-model';
-import { PushModule } from '@ngrx/component';
+import { PushPipe } from '@ngrx/component';
 import { KanbanBoardControlsComponent } from '../kanban-board-controls';
 import { KanbanBoardComponent } from '../kanban-board';
 
 @Component({
-  selector: 'app-kanban',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    PushModule,
-    KanbanBoardComponent,
-    KanbanBoardControlsComponent
-  ],
-  templateUrl: './kanban.component.html',
-  styleUrls: ['./kanban.component.scss']
+    selector: 'app-kanban',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        PushPipe,
+        KanbanBoardComponent,
+        KanbanBoardControlsComponent
+    ],
+    templateUrl: './kanban.component.html',
+    styleUrls: ['./kanban.component.scss']
 })
 export class KanbanComponent {
   public vm$ = createKanbanViewModel();

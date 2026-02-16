@@ -2,7 +2,8 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { inject, Injectable } from "@angular/core";
-import { ComponentStore, tapResponse } from "@ngrx/component-store";
+import { ComponentStore } from "@ngrx/component-store";
+import { tapResponse } from "@ngrx/operators";
 import { exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
 import { Comment, CommentService } from "@api";
 
@@ -50,7 +51,7 @@ export class CommentStore extends ComponentStore<CommentState> {
         exhaustMap((comment) => this._commentService.delete({ comment: comment }).pipe(
             withLatestFrom(this.select(x => x.comments )),
             tapResponse(
-                ([_, comments]) => this.patchState({ comments: comments.filter(t => t.commentId != comment.commentId )}),
+                ([_, comments]: [any, Comment[]]) => this.patchState({ comments: comments.filter(t => t.commentId != comment.commentId )}),
                 noop
             )
         ))
@@ -59,7 +60,7 @@ export class CommentStore extends ComponentStore<CommentState> {
     readonly load = this.effect<void>(
         exhaustMap(_ => this._commentService.get().pipe(
             tapResponse(
-                comments => this.patchState({ comments }),
+                (comments: Comment[]) => this.patchState({ comments }),
                 noop
             )
         ))
