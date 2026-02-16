@@ -25,10 +25,8 @@ public class TeamMemberControllerTests : IClassFixture<ApiTestFixture>
     [Fact]
     public async Task Should_GetTeamMembers()
     {
-        var teamMember = TeamMemberBuilder.WithDefaults();
-        var context = _fixture.Context;
-        await context.SaveChangesAsync(default);
-        var httpResponseMessage = await _fixture.CreateClient().GetAsync(Get.TeamMembers);
+        var client = _fixture.CreateClient();
+        var httpResponseMessage = await client.GetAsync(Get.TeamMembers);
         httpResponseMessage.EnsureSuccessStatusCode();
         var response = JsonConvert.DeserializeObject<GetTeamMembersResponse>(await httpResponseMessage.Content.ReadAsStringAsync());
         Assert.True(response.TeamMembers.Any());
@@ -36,10 +34,10 @@ public class TeamMemberControllerTests : IClassFixture<ApiTestFixture>
     [Fact]
     public async Task Should_GetTeamMemberById()
     {
-        var teamMember = TeamMemberBuilder.WithDefaults();
+        var client = _fixture.CreateClient();
         var context = _fixture.Context;
-        await context.SaveChangesAsync(default);
-        var httpResponseMessage = await _fixture.CreateClient().GetAsync(Get.ById(teamMember.TeamMemberId));
+        var teamMember = context.TeamMembers.First();
+        var httpResponseMessage = await client.GetAsync(Get.ById(teamMember.TeamMemberId));
         httpResponseMessage.EnsureSuccessStatusCode();
         var response = JsonConvert.DeserializeObject<GetTeamMemberByIdResponse>(await httpResponseMessage.Content.ReadAsStringAsync());
         Assert.NotNull(response);

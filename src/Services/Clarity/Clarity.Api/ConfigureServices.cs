@@ -23,6 +23,7 @@ public static class ConfigureServices
             options.ReportApiVersions = true;
             options.AssumeDefaultVersionWhenUnspecified = true;
             options.DefaultApiVersion = new ApiVersion(1, 0);
+            options.ApiVersionReader = new UrlSegmentApiVersionReader();
         }).AddMvc();
 
         services.AddEndpointsApiExplorer();

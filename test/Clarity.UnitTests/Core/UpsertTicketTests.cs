@@ -3,6 +3,7 @@
 
 using Clarity.Core.AggregateModel.TicketAggregate;
 using Clarity.Core.AggregateModel.TicketAggregate.Commands;
+using Clarity.Core.AggregateModel.UserAggregate;
 using Clarity.Testing.Builders;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -24,22 +25,26 @@ public class UpsertTicketTests
     {
         SetUp($"{nameof(UpsertTicketTests)}{nameof(CanCreateTicket)}");
 
+        var board = _context.Boards.Include(b => b.BoardStates).First();
+        var boardState = board.BoardStates.First();
+
         var actual = await _sut.Handle(new()
         {
             Ticket = new()
             {
                 Name = "Test",
-                BoardId = Guid.NewGuid(),
-                BoardStateId = Guid.NewGuid()
+                BoardId = board.BoardId,
+                BoardStateId = boardState.BoardStateId
             }
         }, default);
 
-        var boardState = await _context.BoardStates
+        var updatedBoardState = await _context.BoardStates
             .Include(x => x.TicketStates)
-            .SingleAsync(x => x.BoardStateId == Guid.NewGuid());
+            .ThenInclude(x => x.Ticket)
+            .SingleAsync(x => x.BoardStateId == boardState.BoardStateId);
 
-        Assert.Single(boardState.TicketStates);
-        Assert.Equal("Test", boardState.TicketStates.First().Ticket.Name);
+        Assert.Single(updatedBoardState.TicketStates);
+        Assert.Equal("Test", updatedBoardState.TicketStates.First().Ticket.Name);
     }
 
     [Fact]
@@ -48,6 +53,9 @@ public class UpsertTicketTests
         var expectedName = "Test1";
 
         SetUp($"{nameof(UpsertTicketTests)}{nameof(CanUpdateTicket)}");
+
+        var board = _context.Boards.Include(b => b.BoardStates).First();
+        var boardState = board.BoardStates.First();
 
         var ticket = new Ticket(Guid.NewGuid(), "Test", default, default, default);
 
@@ -61,8 +69,8 @@ public class UpsertTicketTests
             {
                 TicketId = ticket.TicketId,
                 Name = expectedName,
-                BoardId = Guid.NewGuid(),
-                BoardStateId = Guid.NewGuid()
+                BoardId = board.BoardId,
+                BoardStateId = boardState.BoardStateId
             }
         }, default);
 
@@ -75,8 +83,10 @@ public class UpsertTicketTests
     private void SetUp(string databaseName = "")
     {
         _context = ClarityDbContextBuilder.WithDefaults(databaseName);
+        var teamMember = _context.TeamMembers.First();
+        var user = new User(teamMember.Name);
         _httpContextAccessor = new HttpContextAccessorBuilder()
-            .WithUser(_context.Users.Find(1))
+            .WithUser(user)
             .Build();
         _sut = new UpsertTicketRequestHandler(_context, _httpContextAccessor);
     }
@@ -84,5 +94,3 @@ public class UpsertTicketTests
     private UpsertTicketRequestHandler Create()
         => new UpsertTicketRequestHandler(_context, _httpContextAccessor);
 }
-
-

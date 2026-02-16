@@ -3,15 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve clarity",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "watch:global-styles": "ng build @global/styles --watch",
-    "watch:libs": "npm-run-all --parallel watch:global-styles watch:global-components watch:identity-core watch:kanban-core",
-    "watch:global-components": "ng build @global/components --watch",
-    "watch:identity-core": "ng build @identity/core --watch",
-    "watch:kanban-core": "ng build @kanban/core --watch"
+    "watch:api": "ng build @api --watch",
+    "watch:components": "ng build @components --watch",
+    "watch:libs": "npm-run-all --parallel watch:api watch:components"
   },
   "private": true,
   "dependencies": {

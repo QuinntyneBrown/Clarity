@@ -1,0 +1,15 @@
+:host {
+    display: block;
+    background-color: #fff;
+    padding: 20px;
+    outline: none;
+    h1 {
+        padding: 0;
+        margin: 0;
+        line-height: 2em;
+    }
+
+    mat-form-field {
+        display: block;
+    }
+}

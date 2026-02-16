@@ -3,17 +3,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@global/components": [
-        "dist/global/components"
+      "@api": [
+        "dist/api"
       ],
-      "@global/styles": [
-        "dist/global/styles"
-      ],
-      "@identity/core": [
-        "dist/identity/core"
-      ],
-      "@kanban/core": [
-        "dist/kanban/core"
+      "@components": [
+        "dist/components"
       ]
     },
     "baseUrl": "./",

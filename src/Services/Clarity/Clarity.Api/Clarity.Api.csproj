@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Using Include="Asp.Versioning" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Clarity.Infrastructure\Clarity.Infrastructure.csproj" />
   </ItemGroup>
 
