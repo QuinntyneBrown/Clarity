@@ -11,7 +11,9 @@
     "watch:components": "ng build @components --watch",
     "watch:libs": "npm-run-all --parallel watch:api watch:components",
     "e2e": "npx playwright test",
-    "e2e:headed": "npx playwright test --headed"
+    "e2e:headed": "npx playwright test --headed",
+    "smoke": "npx playwright test e2e/tests/smoke-local.spec.ts",
+    "smoke:azure": "npx playwright test e2e/tests/smoke-azure.spec.ts"
   },
   "private": true,
   "dependencies": {
