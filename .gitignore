@@ -278,6 +278,10 @@ __pycache__/
 # tools/**
 # !tools/packages.config
 
+# Playwright
+playwright-report/
+test-results/
+
 # Telerik's JustMock configuration file
 *.jmconfig
 
