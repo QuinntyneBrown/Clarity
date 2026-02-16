@@ -1,6 +1,8 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Azure.Identity;
+using Azure.Extensions.AspNetCore.Configuration.Secrets;
 using Clarity.Core;
 using Clarity.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +21,13 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
+    var keyVaultName = builder.Configuration["KeyVaultName"];
+    if (!string.IsNullOrEmpty(keyVaultName))
+    {
+        var kvUri = new Uri($"https://{keyVaultName}.vault.azure.net");
+        builder.Configuration.AddAzureKeyVault(kvUri, new DefaultAzureCredential());
+    }
+
     builder.Services.AddCoreServices(builder.Environment, builder.Configuration);
 
     builder.Services.AddInfrastructureServices(builder.Configuration.GetConnectionString("DefaultConnection")!);
@@ -32,7 +41,7 @@ try
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Clarity");
-        options.RoutePrefix = string.Empty;
+        options.RoutePrefix = "swagger";
         options.DisplayOperationId();
     });
 
@@ -42,9 +51,14 @@ try
 
     app.UseAuthorization();
 
+    app.UseDefaultFiles();
+    app.UseStaticFiles();
+
     app.MapControllers();
 
     app.MapHub<ClarityHub>("/hub");
+
+    app.MapFallbackToFile("index.html");
 
     var services = (IServiceScopeFactory)app.Services.GetRequiredService(typeof(IServiceScopeFactory));
 

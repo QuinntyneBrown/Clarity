@@ -9,9 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { BASE_URL } from '@api';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
+const apiBaseUrl = window.location.hostname === 'localhost'
+  ? 'https://localhost:50124/'
+  : `${window.location.origin}/`;
+
 bootstrapApplication(AppComponent, {
   providers: [
-    { provide: BASE_URL, useValue: "https://localhost:50124/" },
+    { provide: BASE_URL, useValue: apiBaseUrl },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
     importProvidersFrom(
       HttpClientModule,
