@@ -29,11 +29,10 @@ export class TicketStore extends ComponentStore<TicketState> {
 
         const apiRequest$ = ticket.ticketId ? this._ticketService.update({ ticket }) : this._ticketService.create({ ticket });
 
-        const updateFn = ticket?.ticketId ? ([response, tickets]: [any, Ticket[]]) => this.patchState({
-
-            tickets: tickets.map(t => response.ticket.ticketId == t.ticketId ? response.ticket : t)
+        const updateFn = ticket?.ticketId ? ([_, tickets]: [any, Ticket[]]) => this.patchState({
+            tickets: tickets.map(t => t.ticketId == ticket.ticketId ? ticket : t)
         })
-        :(([response, tickets]: [any, Ticket[]]) => this.patchState({ tickets: [...tickets, response.ticket ]}));
+        : noop;
 
         return this.effect<void>(
             exhaustMap(()=> apiRequest$.pipe(

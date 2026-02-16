@@ -111,4 +111,47 @@ test.describe('Update Ticket Dialog', () => {
     await dialog.waitForClosed();
     await expect(dialog.dialog).not.toBeVisible();
   });
+
+  test('should remove ticket from board after deleting without refresh', async () => {
+    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
+    const ticketName = await firstTicket.innerText();
+    const countBefore = await kanban.page.locator('app-ticket').count();
+
+    await kanban.clickTicket(ticketName);
+    await dialog.waitForOpen();
+    await dialog.clickDelete();
+    await dialog.waitForClosed();
+
+    // Ticket should be gone from the board without a page refresh
+    await expect(kanban.getTicketByName(ticketName)).not.toBeVisible({ timeout: 5000 });
+    const countAfter = await kanban.page.locator('app-ticket').count();
+    expect(countAfter).toBe(countBefore - 1);
+  });
+
+  test('should persist edited acceptance criteria when re-opening dialog', async ({ page }) => {
+    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
+    const ticketName = await firstTicket.innerText();
+
+    // Open dialog, edit acceptance criteria, save
+    await kanban.clickTicket(ticketName);
+    await dialog.waitForOpen();
+    const updatedCriteria = `Updated criteria ${Date.now()}`;
+    await dialog.fillAcceptanceCriteria(updatedCriteria);
+
+    const responsePromise = page.waitForResponse(resp =>
+      resp.url().includes('/api/1.0/ticket/upsert') && resp.status() === 200
+    );
+    await dialog.clickSave();
+    await responsePromise;
+    await dialog.waitForClosed();
+
+    // Re-open the same ticket without refreshing
+    await kanban.clickTicket(ticketName);
+    await dialog.waitForOpen();
+    await expect(dialog.acceptanceCriteriaTextarea).toHaveValue(updatedCriteria);
+    await dialog.clickCancel();
+    await dialog.waitForClosed();
+  });
 });
