@@ -6,6 +6,8 @@ using Clarity.Core.AggregateModel.BoardAggregate;
 using Clarity.Core.AggregateModel.BoardStateAggregate;
 using Clarity.Core.AggregateModel.CommentAggregate;
 using Clarity.Core.AggregateModel.DigitalAssetAggregate;
+using Clarity.Core.AggregateModel.PrivilegeAggregate;
+using Clarity.Core.AggregateModel.RoleAggregate;
 using Clarity.Core.AggregateModel.TeamMemberAggregate;
 using Clarity.Core.AggregateModel.TicketAggregate;
 using Clarity.Core.AggregateModel.UserAggregate;
@@ -16,21 +18,21 @@ namespace Clarity.Infrastructure.Data;
 
 public class ClarityDbContext : DbContext, IClarityDbContext
 {
-    public ClarityDbContext(DbContextOptions options)
+    public ClarityDbContext(DbContextOptions<ClarityDbContext> options)
         : base(options) { }
 
     public DbSet<Board> Boards { get; private set; }
     public DbSet<Comment> Comments { get; private set; }
     public DbSet<DigitalAsset> DigitalAssets { get; private set; }
     public DbSet<BoardState> BoardStates { get; private set; }
+    public DbSet<Privilege> Privileges { get; private set; }
+    public DbSet<Role> Roles { get; private set; }
     public DbSet<TeamMember> TeamMembers { get; private set; }
     public DbSet<Ticket> Tickets { get; private set; }
     public DbSet<User> Users { get; private set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasDefaultSchema("Clarity");
-
         modelBuilder.Entity<TicketState>()
             .HasOne(nt => nt.Ticket)
             .WithMany(n => n.TicketStates)
@@ -59,7 +61,15 @@ public class ClarityDbContext : DbContext, IClarityDbContext
             property => (string)property,
             property => (Html)property);
 
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Roles)
+            .WithMany(r => r.Users);
+
+        modelBuilder.Entity<Role>()
+            .HasMany(r => r.Privileges)
+            .WithOne()
+            .HasForeignKey(p => p.RoleId);
+
         base.OnModelCreating(modelBuilder);
     }
 }
-

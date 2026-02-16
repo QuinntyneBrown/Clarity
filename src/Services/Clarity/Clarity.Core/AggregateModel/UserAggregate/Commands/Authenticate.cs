@@ -1,17 +1,23 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using FluentValidation;
 using Kernel;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Security;
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
+using SerilogTimings;
 
 namespace Clarity.Core.AggregateModel.UserAggregate.Commands;
+
+public class AuthenticateRequestValidator : AbstractValidator<AuthenticateRequest>
+{
+    public AuthenticateRequestValidator()
+    {
+        RuleFor(x => x.Username).NotEmpty().NotNull();
+        RuleFor(x => x.Password).NotEmpty().NotNull();
+    }
+}
 
 public class AuthenticateRequest : IRequest<AuthenticateResponse>
 {
@@ -40,28 +46,30 @@ public class AuthenticateRequestHandler : IRequestHandler<AuthenticateRequest, A
 
     public async Task<AuthenticateResponse> Handle(AuthenticateRequest request, CancellationToken cancellationToken)
     {
-        var user = await _context.Users
-            .SingleOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower());
-
-        if (user == null)
-            throw new Exception();
-
-        if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
-            throw new Exception();
-
-        return new()
+        using (Operation.Time("Users.Authenticate"))
         {
-            AccessToken = _tokenProvider.Get(request.Username, new List<Claim>() { }),
-            UserId = user.UserId
-        };
-    }
+            var user = await _context.Users
+                .SingleOrDefaultAsync(x => x.Username.ToLower() == request.Username.ToLower());
 
-    public bool ValidateUser(User user, string transformedPassword)
-    {
-        if (user == null || transformedPassword == null)
-            return false;
+            if (user == null)
+                throw new Exception();
 
-        return user.Password == transformedPassword;
+            if (!ValidateUser(user, _passwordHasher.HashPassword(user.Salt, request.Password)))
+                throw new Exception();
+
+            return new()
+            {
+                AccessToken = _tokenProvider.Get(request.Username),
+                UserId = user.UserId
+            };
+        }
+
+        bool ValidateUser(User user, string transformedPassword)
+        {
+            if (user == null || transformedPassword == null)
+                return false;
+
+            return user.Password == transformedPassword;
+        }
     }
 }
-

@@ -18,7 +18,7 @@ dotnet run
 ```
 4. Open your browser to: `https://localhost:5001`.
 5. [Download and install the node package manager](https://nodejs.org/en/download)
-6. Open a terminal such as **PowerShell**, **Command Prompt**, or **bash** and navigate to the `src/Clarity.App` folder
+6. Open a terminal such as **PowerShell**, **Command Prompt**, or **bash** and navigate to the `src/Clarity.Web` folder
 7. Run the following commands:
 ```sh
 npm install -g @angular/cli

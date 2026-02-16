@@ -2,13 +2,10 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Kernel;
-using Clarity.Core.AggregateModel.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace Clarity.Core.AggregateModel.UserAggregate.Queries;
 
@@ -16,32 +13,32 @@ public class GetCurrentUserRequest : IRequest<GetCurrentUserResponse> { }
 
 public class GetCurrentUserResponse : ResponseBase
 {
-    public UserDto User { get; set; }
+    public required UserDto User { get; set; }
 }
+
 public class GetCurrentUserRequestHandler : IRequestHandler<GetCurrentUserRequest, GetCurrentUserResponse>
 {
-    private readonly IClarityDbContext _context;
+    private readonly ILogger<GetCurrentUserRequestHandler> _logger;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    public GetCurrentUserRequestHandler(IClarityDbContext context, IHttpContextAccessor httpContextAccessor)
+    private readonly IClarityDbContext _context;
+
+    public GetCurrentUserRequestHandler(
+        ILogger<GetCurrentUserRequestHandler> logger,
+        IHttpContextAccessor httpContextAccessor,
+        IClarityDbContext context)
     {
-        _context = context;
-        _httpContextAccessor = httpContextAccessor;
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+        _context = context ?? throw new ArgumentNullException(nameof(context));
     }
+
     public async Task<GetCurrentUserResponse> Handle(GetCurrentUserRequest request, CancellationToken cancellationToken)
     {
-        var userId = new Guid(_httpContextAccessor.HttpContext.User.FindFirst(Constants.ClaimTypes.UserId).Value);
-        var user = await _context.Users.SingleAsync(x => x.UserId == userId);
-        if (user == null)
-            throw new Exception();
+        var name = _httpContextAccessor.HttpContext!.User.Identity!.Name;
+
         return new()
         {
-            User = new UserDto
-            {
-                Username = user.Username,
-                UserId = user.UserId
-            }
+            User = (await _context.Users.Where(x => x.Username == name).SingleAsync()).ToDto()
         };
     }
 }
-
-

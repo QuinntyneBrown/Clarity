@@ -57,27 +57,7 @@ try
 
         if (args.Contains("dropdb"))
         {
-            context.Database.ExecuteSql($"DROP TABLE TicketState");
-
-            context.Database.ExecuteSql($"DROP TABLE Boards");
-
-            context.Database.ExecuteSql($"DROP TABLE BoardStates");
-
-            context.Database.ExecuteSql($"DROP TABLE Comments");
-
-            context.Database.ExecuteSql($"DROP TABLE TicketEffortChanged");
-
-            context.Database.ExecuteSql($"DROP TABLE Tickets");
-
-            context.Database.ExecuteSql($"DROP TABLE Users");
-
-            context.Database.ExecuteSql($"DROP TABLE Digitalassets");
-
-            context.Database.ExecuteSql($"DROP TABLE TeamMembers");
-
-            context.Database.ExecuteSql($"DROP SCHEMA Clarity");
-
-            context.Database.ExecuteSql($"DELETE from __EFMigrationsHistory where MigrationId like '%_Clarity_%';");
+            context.Database.EnsureDeleted();
         }
 
         if (args.Contains("migratedb"))

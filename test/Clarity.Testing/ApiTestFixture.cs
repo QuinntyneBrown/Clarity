@@ -8,10 +8,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace Clarity.Testing;
 
@@ -25,28 +21,28 @@ public class ApiTestFixture : WebApplicationFactory<Program>
 
         builder.ConfigureServices(services =>
         {
-            services.AddEntityFrameworkInMemoryDatabase();
+            // Remove the existing DbContext registration
+            var descriptor = services.SingleOrDefault(
+                d => d.ServiceType == typeof(DbContextOptions<ClarityDbContext>));
 
-            var provider = services
-                .AddEntityFrameworkInMemoryDatabase()
-                .BuildServiceProvider();
-            
+            if (descriptor != null)
+                services.Remove(descriptor);
+
             services.AddDbContext<ClarityDbContext>(options =>
             {
                 options.UseInMemoryDatabase($"InMemoryDbForTesting-{Guid.NewGuid()}");
-                options.UseInternalServiceProvider(provider);
             });
-            
+
             var serviceProvider = services.BuildServiceProvider();
-            
+
             var scope = serviceProvider.CreateScope();
-            
+
             var scopedServices = scope.ServiceProvider;
-            
+
             Context = scopedServices.GetRequiredService<ClarityDbContext>();
-            
+
             Context.Database.EnsureCreated();
-            
+
             SeedData.Seed(Context);
         });
     }
@@ -65,9 +61,8 @@ public class ApiTestFixture : WebApplicationFactory<Program>
             });
         }).CreateClient();
 
-        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme, token);
+        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue(scheme, token);
 
         return client;
     }
 }
-

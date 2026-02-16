@@ -12,16 +12,16 @@ public class ClarityDbContextBuilder
 
     public static ClarityDbContext WithDefaults(string databaseName)
     {
-        var dbContextOptions = new DbContextOptionsBuilder()
+        var dbContextOptions = new DbContextOptionsBuilder<ClarityDbContext>()
             .UseInMemoryDatabase(databaseName)
             .Options;
 
         var context = new ClarityDbContext(dbContextOptions);
-        
+
         SeedData.Seed(context);
-        
+
         context.ChangeTracker.Clear();
-        
+
         return context;
     }
 
@@ -35,4 +35,3 @@ public class ClarityDbContextBuilder
         return _ClarityDbContext;
     }
 }
-

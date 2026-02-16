@@ -11,19 +11,14 @@ public static class ConfigureServices
 {
     public static void AddInfrastructureServices(this IServiceCollection services, string connectionString)
     {
-        services.AddTransient<IClarityDbContext, ClarityDbContext>();
+        services.AddScoped<IClarityDbContext, ClarityDbContext>();
 
-        services.AddDbContextPool<ClarityDbContext>(options =>
+        services.AddDbContext<ClarityDbContext>(options =>
         {
             options.UseSqlServer(connectionString,
                 builder => builder.MigrationsAssembly("Clarity.Infrastructure")
                     .EnableRetryOnFailure())
-            .EnableThreadSafetyChecks(false)
-            .LogTo(Console.WriteLine)
-            .EnableSensitiveDataLogging();
+            .LogTo(Console.WriteLine);
         });
-
     }
 }
-
-
