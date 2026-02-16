@@ -1,35 +1,67 @@
 # Clarity
 
-Simple Kanban Board using ASP.NET Core and Angular
+A Kanban board application built with ASP.NET Core and Angular.
 
-## Give a Star! :star:
+## Tech Stack
 
-If you like or are using this project to learn or start your solution, please give it a star. Thanks!
+**Backend:** .NET 8, ASP.NET Core, Entity Framework Core, MediatR, Serilog
 
-## How to run locally
+**Frontend:** Angular 19, Angular Material 19, NgRx Component Store, RxJS, TypeScript 5.8
 
-1. [Download and install the .NET Core SDK](https://dotnet.microsoft.com/download)
-    * If you don't have `localdb` available on your system, [Download and install SQL Server Express](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb)
-2. Open a terminal such as **PowerShell**, **Command Prompt**, or **bash** and navigate to the `src/Clarity.Api` folder
-3. Run the following `dotnet` commands:
+**Testing:** Playwright (E2E), xUnit (.NET)
+
+## Project Structure
+
+```
+src/
+  Clarity.Api/              ASP.NET Core Web API
+  Clarity.Core/             Domain models and interfaces
+  Clarity.Infrastructure/   Data access and EF Core
+  Clarity.Web/              Angular frontend
+test/
+  Clarity.UnitTests/        .NET unit tests
+  Clarity.IntegrationTests/ .NET integration tests
+  Clarity.Testing/          Shared test utilities
+```
+
+## Prerequisites
+
+- [.NET 8 SDK](https://dotnet.microsoft.com/download)
+- [Node.js 18.19+](https://nodejs.org/en/download)
+- SQL Server LocalDB or SQL Server Express
+
+## Running Locally
+
+### API
+
 ```sh
-dotnet build
+cd src/Clarity.Api
 dotnet run
 ```
-4. Open your browser to: `https://localhost:5001`.
-5. [Download and install the node package manager](https://nodejs.org/en/download)
-6. Open a terminal such as **PowerShell**, **Command Prompt**, or **bash** and navigate to the `src/Clarity.Web` folder
-7. Run the following commands:
+
+The API will be available at `https://localhost:5001`.
+
+### Frontend
+
 ```sh
-npm install -g @angular/cli
+cd src/Clarity.Web
 npm install
-ng serve
+npm start
 ```
-8. Open your browser to: `https://localhost:4200`.
 
-## To Run the tests
-1. [Download and install the .NET Core SDK](https://dotnet.microsoft.com/download)
-    * If you don't have `localdb` available on your system, [Download and install SQL Server Express](https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb)
-2. Open a terminal such as **PowerShell**, **Command Prompt**, or **bash** and run the following command:
-`dotnet test`
+The app will be available at `http://localhost:4200`.
 
+## Tests
+
+### .NET Tests
+
+```sh
+dotnet test
+```
+
+### E2E Tests
+
+```sh
+cd src/Clarity.Web
+npx playwright test
+```
