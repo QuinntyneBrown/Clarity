@@ -26,7 +26,7 @@ export class TicketComponent {
 
   public handleEditClick() {
     this._dialog.open(UpdateTicketComponent, {
-
+      data: this.ticket
     }).closed
     .subscribe();
   }
