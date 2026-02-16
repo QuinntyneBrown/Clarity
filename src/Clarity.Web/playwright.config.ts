@@ -8,7 +8,7 @@ export default defineConfig({
   workers: 1,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:4200',
+    baseURL: 'http://localhost:4201',
     trace: 'on-first-retry',
     ignoreHTTPSErrors: true,
   },
@@ -28,8 +28,8 @@ export default defineConfig({
       env: { ASPNETCORE_ENVIRONMENT: 'Development' },
     },
     {
-      command: 'npx ng serve clarity --port 4200',
-      url: 'http://localhost:4200',
+      command: 'npx ng serve clarity --port 4201',
+      url: 'http://localhost:4201',
       reuseExistingServer: !process.env['CI'],
       timeout: 120000,
     },
