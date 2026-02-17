@@ -5,7 +5,7 @@ import { DialogRef } from "@angular/cdk/dialog";
 import { inject } from "@angular/core";
 import { FormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { combineLatest, EMPTY, map,merge,of, startWith, Subject, switchMap, tap } from "rxjs";
-import { BoardStateService } from "@api";
+import { BoardStateService, TeamMemberService } from "@api";
 import { TicketStore } from "../../stores";
 
 export function createCreateTicketViewModel() {
@@ -14,13 +14,16 @@ export function createCreateTicketViewModel() {
 
   const boardStateService = inject(BoardStateService);
 
+  const teamMemberService = inject(TeamMemberService);
+
   const dialogRef = inject(DialogRef);
 
   const form = new UntypedFormGroup({
     name: new FormControl(null, [Validators.required]),
     state: new FormControl(null, [Validators.required]),
     description: new FormControl(null, [Validators.required]),
-    acceptanceCriteria: new FormControl(null, [Validators.required])
+    acceptanceCriteria: new FormControl(null, [Validators.required]),
+    teamMemberId: new FormControl(null)
   });
 
   const saveSubject = new Subject();
@@ -39,14 +42,16 @@ export function createCreateTicketViewModel() {
   return combineLatest([
     of(form),
     actions$,
-    boardStateService.get()
+    boardStateService.get(),
+    teamMemberService.get()
   ]).pipe(
-    map(([form, _, states]) => {
+    map(([form, _, states, teamMembers]) => {
       return {
         form,
         save: () => saveSubject.next(null),
         cancel: () => cancelSubject.next(null),
-        states
+        states,
+        teamMembers
       }
     })
   )

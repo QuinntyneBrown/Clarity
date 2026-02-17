@@ -4,6 +4,14 @@
     <p class="board-subtitle">Manage and track your team's tasks</p>
   </div>
   <div class="top-right">
+    <div class="filter-group" *ngIf="teamMembers.length > 0">
+      <mat-icon class="filter-icon">filter_list</mat-icon>
+      <select class="filter-select" [(ngModel)]="selectedTeamMemberId" (ngModelChange)="handleFilterChange()">
+        <option [ngValue]="null">All Members</option>
+        <option [ngValue]="'unassigned'">Unassigned</option>
+        <option [ngValue]="member.teamMemberId" *ngFor="let member of teamMembers">{{ member.name }}</option>
+      </select>
+    </div>
     <button mat-stroked-button class="board-btn" (click)="handleSelectBoardClick()">
       <mat-icon>dashboard</mat-icon>
       Switch Board
@@ -22,10 +30,6 @@
         <span>Clone Board</span>
       </button>
     </mat-menu>
-    <button mat-stroked-button class="search-btn">
-      <mat-icon>search</mat-icon>
-      <span class="search-text">Task & Notes</span>
-    </button>
     <button mat-flat-button color="primary" class="add-btn" (click)="handleClick()">
       <mat-icon>add</mat-icon>
       New Ticket
