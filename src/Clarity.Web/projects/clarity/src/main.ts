@@ -3,11 +3,14 @@
 
 import { importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppComponent } from './app/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
 import { BASE_URL } from '@api';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { routes } from './app/app.routes';
+import { authInterceptor } from './app/interceptors/auth.interceptor';
 
 const apiBaseUrl = window.location.hostname === 'localhost'
   ? 'https://localhost:50124/'
@@ -17,8 +20,9 @@ bootstrapApplication(AppComponent, {
   providers: [
     { provide: BASE_URL, useValue: apiBaseUrl },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
+    provideRouter(routes),
+    provideHttpClient(withInterceptors([authInterceptor])),
     importProvidersFrom(
-      HttpClientModule,
       BrowserAnimationsModule,
     )
   ]

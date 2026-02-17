@@ -1,4 +1,132 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
-    <app-kanban-board-controls [board]="vm.board" />
-    <app-kanban-board [tickets]="vm.tickets" [boardStates]="vm.boardStates" />
+  <div class="kanban-layout">
+    <!-- Desktop Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="sidebar-logo">
+          <div class="sidebar-logo-icon"><span>C</span></div>
+          <span class="sidebar-logo-name">Clarity</span>
+        </div>
+        <nav class="sidebar-nav">
+          <a class="nav-item nav-item--active">
+            <lucide-icon [img]="icons.LayoutGrid" [size]="18"></lucide-icon>
+            <span>Boards</span>
+          </a>
+          <a class="nav-item">
+            <lucide-icon [img]="icons.Ticket" [size]="18"></lucide-icon>
+            <span>My Tickets</span>
+          </a>
+          <a class="nav-item">
+            <lucide-icon [img]="icons.Users" [size]="18"></lucide-icon>
+            <span>Team</span>
+          </a>
+          <a class="nav-item">
+            <lucide-icon [img]="icons.Settings" [size]="18"></lucide-icon>
+            <span>Settings</span>
+          </a>
+        </nav>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="sidebar-user" (click)="toggleUserDropdown()">
+          <div class="sidebar-avatar"><span>{{ userInitials }}</span></div>
+          <div class="sidebar-user-info">
+            <span class="sidebar-user-name">{{ userDisplayName }}</span>
+            <span class="sidebar-user-email">{{ userEmail }}</span>
+          </div>
+        </div>
+        <div class="sidebar-dropdown-anchor" *ngIf="showUserDropdown">
+          <div class="dropdown-backdrop" (click)="closeDropdown()"></div>
+          <app-user-dropdown
+            [initials]="userInitials"
+            [displayName]="userDisplayName"
+            [email]="userEmail"
+            (signOut)="onSignOut()"
+          />
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+      <!-- Mobile Header -->
+      <header class="mobile-header">
+        <div class="header-left">
+          <div class="header-logo"><span>C</span></div>
+          <span class="header-title">Clarity</span>
+        </div>
+        <div class="header-right">
+          <div class="header-avatar" (click)="toggleUserDropdown()">
+            <span>{{ userInitials }}</span>
+          </div>
+          <div class="mobile-dropdown-anchor" *ngIf="showUserDropdown">
+            <div class="dropdown-backdrop" (click)="closeDropdown()"></div>
+            <app-user-dropdown
+              [initials]="userInitials"
+              [displayName]="userDisplayName"
+              [email]="userEmail"
+              (signOut)="onSignOut()"
+            />
+          </div>
+        </div>
+      </header>
+
+      <!-- Board Bar -->
+      <div class="board-bar">
+        <!-- Desktop Top Bar -->
+        <div class="desktop-topbar">
+          <div class="topbar-left">
+            <h1 class="topbar-title">{{ vm.board.name }}</h1>
+            <p class="topbar-subtitle">Manage and track your team's tasks</p>
+          </div>
+          <div class="topbar-right">
+            <button class="search-btn">
+              <lucide-icon [img]="icons.Search" [size]="16"></lucide-icon>
+              <span>Search tickets...</span>
+            </button>
+            <button class="add-btn" (click)="onCreateTicket()">
+              <lucide-icon [img]="icons.Plus" [size]="16"></lucide-icon>
+              <span>New Ticket</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Board Name -->
+        <div class="mobile-board-bar">
+          <span class="board-name">{{ vm.board.name }}</span>
+          <lucide-icon [img]="icons.Ellipsis" [size]="20" class="board-menu"></lucide-icon>
+        </div>
+      </div>
+
+      <!-- Mobile Column Tabs -->
+      <div class="column-tabs">
+        <button
+          *ngFor="let boardState of vm.boardStates; let i = index"
+          class="column-tab"
+          [class.column-tab--active]="activeTabIndex === i"
+          [style.--tab-color]="getColumnColor(i)"
+          (click)="setActiveTab(i)"
+        >
+          {{ boardState.name }}
+        </button>
+      </div>
+
+      <!-- Mobile Card Area -->
+      <div class="mobile-card-area">
+        <app-ticket
+          *ngFor="let ticket of getMobileTickets(vm.tickets, vm.boardStates)"
+          [ticket]="ticket"
+        ></app-ticket>
+      </div>
+
+      <!-- Desktop Board Columns -->
+      <div class="desktop-board">
+        <app-kanban-board [tickets]="vm.tickets" [boardStates]="vm.boardStates" />
+      </div>
+
+      <!-- Mobile FAB -->
+      <button class="fab" (click)="onCreateTicket()">
+        <lucide-icon [img]="icons.Plus" [size]="24"></lucide-icon>
+      </button>
+    </div>
+  </div>
 </ng-container>

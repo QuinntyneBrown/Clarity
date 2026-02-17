@@ -1,18 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { KanbanComponent } from '@components';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
-    template: '<app-kanban />',
+    template: '<router-outlet />',
     imports: [
-        CommonModule,
-        RouterModule,
-        KanbanComponent
+        RouterOutlet
     ]
 })
 export class AppComponent { }

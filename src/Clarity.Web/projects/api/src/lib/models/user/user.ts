@@ -3,4 +3,17 @@
 
 export type User = {
   userId?: string;
+  username?: string;
+  firstname?: string;
+  lastname?: string;
+};
+
+export type AuthenticateRequest = {
+  username: string;
+  password: string;
+};
+
+export type AuthenticateResponse = {
+  accessToken: string;
+  userId: string;
 };

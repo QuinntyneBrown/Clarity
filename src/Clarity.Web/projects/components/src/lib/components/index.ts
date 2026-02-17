@@ -12,3 +12,4 @@ export * from './ticket';
 export * from './ticket-editor';
 export * from './update-ticket';
 export * from './upsert-ticket';
+export * from './user-dropdown';

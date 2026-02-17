@@ -1,8 +1,95 @@
 :host {
-    display: block;
-    padding: 5px;
-    margin: 5px;
-    background-color: rgba(255,255,255,1);
-    cursor: pointer;
-    text-align: center;
+  display: block;
+}
+
+.ticket-card {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: box-shadow 0.15s;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+}
+
+.ticket-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ticket-title {
+  color: #1A1A2E;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ticket-desc {
+  color: #6B7280;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.ticket-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ticket-assignee {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ticket-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  background: #7D00FA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+  }
+}
+
+// Desktop variant (inside columns)
+@media (min-width: 768px) {
+  .ticket-card {
+    background: #FAFAFA;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .ticket-title {
+    font-size: 13px;
+  }
+
+  .ticket-desc {
+    font-size: 12px;
+  }
+
+  .ticket-avatar {
+    width: 22px;
+    height: 22px;
+
+    span {
+      font-size: 8px;
+    }
+  }
 }

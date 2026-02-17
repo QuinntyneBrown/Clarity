@@ -5,7 +5,7 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BASE_URL } from '../constants';
 import { map, Observable } from 'rxjs';
-import { User } from '../models/user';
+import { User, AuthenticateRequest, AuthenticateResponse } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +41,16 @@ export class UserService {
 
   public update(options: { user: User }): Observable<{ userId: string }> {
     return this._client.post<{ userId: string }>(`${this._baseUrl}api/1.0/user`, { user: options.user });
+  }
+
+  public authenticate(options: AuthenticateRequest): Observable<AuthenticateResponse> {
+    return this._client.post<AuthenticateResponse>(`${this._baseUrl}api/1.0/user/token`, options);
+  }
+
+  public getCurrent(): Observable<User> {
+    return this._client.get<{ user: User }>(`${this._baseUrl}api/1.0/user`)
+      .pipe(
+        map(x => x.user)
+      );
   }
 }

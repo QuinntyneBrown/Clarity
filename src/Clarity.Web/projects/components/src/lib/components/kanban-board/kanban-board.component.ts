@@ -43,6 +43,11 @@ export class KanbanBoardComponent extends Destroyable {
     return tickets.filter(t => Number(t.state) === state.type);
   }
 
+  getColumnDotColor(index: number): string {
+    const colors = ['#6B7280', '#7D00FA', '#22C55E'];
+    return colors[index] || '#6B7280';
+  }
+
   drop(event: CdkDragDrop<Ticket[]>, state: BoardState) {
 
     if (event.previousContainer !== event.container) {

@@ -1,0 +1,90 @@
+<div class="login-container">
+  <!-- Desktop Left Panel -->
+  <div class="login-brand-panel">
+    <div class="brand-content">
+      <div class="brand-logo">
+        <span class="brand-logo-letter">C</span>
+      </div>
+      <h1 class="brand-name">Clarity</h1>
+      <p class="brand-tagline">Organize. Prioritize. Deliver.</p>
+      <p class="brand-description">
+        A modern kanban board to help your team<br>
+        track tasks and ship faster.
+      </p>
+    </div>
+  </div>
+
+  <!-- Login Form Panel -->
+  <div class="login-form-panel">
+    <div class="login-form-wrapper">
+      <!-- Mobile Logo -->
+      <div class="mobile-logo">
+        <div class="logo-icon">
+          <span>C</span>
+        </div>
+        <h1 class="logo-name">Clarity</h1>
+        <p class="logo-subtitle">Kanban Board</p>
+      </div>
+
+      <div class="form-header">
+        <h2>Welcome back</h2>
+        <p>Sign in to your account</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-inputs">
+          <div class="form-field">
+            <label for="username">Email</label>
+            <div class="input-wrapper" [class.input-error]="form.controls.username.touched && form.controls.username.invalid">
+              <lucide-icon [img]="icons.Mail" [size]="18" class="input-icon"></lucide-icon>
+              <input
+                id="username"
+                type="text"
+                formControlName="username"
+                placeholder="you@example.com"
+                autocomplete="username"
+              />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="password">Password</label>
+            <div class="input-wrapper" [class.input-error]="form.controls.password.touched && form.controls.password.invalid">
+              <lucide-icon [img]="icons.Lock" [size]="18" class="input-icon"></lucide-icon>
+              <input
+                id="password"
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+              />
+              <lucide-icon
+                [img]="showPassword ? icons.Eye : icons.EyeOff"
+                [size]="18"
+                class="input-toggle"
+                (click)="togglePasswordVisibility()"
+              ></lucide-icon>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="errorMessage" class="error-banner">
+          {{ errorMessage }}
+        </div>
+
+        <button
+          type="submit"
+          class="sign-in-btn"
+          [disabled]="form.invalid || isLoading"
+        >
+          <span>{{ isLoading ? 'Signing in...' : 'Sign In' }}</span>
+          <lucide-icon *ngIf="!isLoading" [img]="icons.ArrowRight" [size]="18"></lucide-icon>
+        </button>
+
+        <div class="forgot-link">
+          <a href="javascript:void(0)">Forgot password?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

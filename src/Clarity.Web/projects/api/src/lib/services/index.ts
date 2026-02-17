@@ -1,3 +1,4 @@
+export * from './auth.service';
 export * from './board.service';
 export * from './board-state.service';
 export * from './comment.service';

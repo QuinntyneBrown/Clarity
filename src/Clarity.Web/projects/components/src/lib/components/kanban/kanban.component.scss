@@ -1,3 +1,484 @@
 :host {
+  display: block;
+  height: 100%;
+}
 
+// ==========================================
+// Layout
+// ==========================================
+.kanban-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #F9FAFB;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+}
+
+// ==========================================
+// Sidebar (Desktop only)
+// ==========================================
+.sidebar {
+  display: none;
+  width: 260px;
+  background: #fff;
+  border-right: 1px solid #E5E7EB;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 20px;
+  flex-shrink: 0;
+}
+
+.sidebar-top {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-logo-icon {
+  width: 36px;
+  height: 36px;
+  background: #7D00FA;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+.sidebar-logo-name {
+  color: #1A1A2E;
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  color: #6B7280;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+
+  lucide-icon {
+    color: #6B7280;
+  }
+
+  &--active {
+    background: #F3F0FF;
+    color: #7D00FA;
+    font-weight: 600;
+
+    lucide-icon {
+      color: #7D00FA;
+    }
+  }
+
+  &:hover:not(&--active) {
+    background: #F9FAFB;
+  }
+}
+
+.sidebar-bottom {
+  border-top: 1px solid #E5E7EB;
+  padding-top: 16px;
+  position: relative;
+}
+
+.sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.sidebar-avatar {
+  width: 36px;
+  height: 36px;
+  background: #7D00FA;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  span {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+  }
+}
+
+.sidebar-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sidebar-user-name {
+  color: #1A1A2E;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-user-email {
+  color: #6B7280;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-dropdown-anchor {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 8px;
+  z-index: 100;
+}
+
+// ==========================================
+// Mobile Header
+// ==========================================
+.mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  background: #7D00FA;
+  padding: 0 16px;
+  flex-shrink: 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-logo {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
+
+.header-title {
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.header-right {
+  position: relative;
+}
+
+.header-avatar {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  span {
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+  }
+}
+
+.mobile-dropdown-anchor {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  z-index: 100;
+}
+
+// ==========================================
+// Dropdown Backdrop
+// ==========================================
+.dropdown-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+// ==========================================
+// Board Bar
+// ==========================================
+.board-bar {
+  flex-shrink: 0;
+}
+
+.desktop-topbar {
+  display: none;
+}
+
+.mobile-board-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  background: #F8F5FF;
+  padding: 0 16px;
+}
+
+.board-name {
+  color: #1A1A2E;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.board-menu {
+  color: #6B7280;
+  cursor: pointer;
+}
+
+// ==========================================
+// Column Tabs (Mobile only)
+// ==========================================
+.column-tabs {
+  display: flex;
+  height: 44px;
+  background: #fff;
+  border-bottom: 1px solid #E5E7EB;
+  flex-shrink: 0;
+}
+
+.column-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6B7280;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  padding: 0;
+
+  &--active {
+    color: var(--tab-color, #7D00FA);
+    font-weight: 600;
+    border-bottom-color: var(--tab-color, #7D00FA);
+  }
+}
+
+// ==========================================
+// Mobile Card Area
+// ==========================================
+.mobile-card-area {
+  flex: 1;
+  background: #F9FAFB;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+// ==========================================
+// Desktop Board (hidden on mobile)
+// ==========================================
+.desktop-board {
+  display: none;
+  flex: 1;
+  padding: 0;
+}
+
+// ==========================================
+// FAB (Mobile only)
+// ==========================================
+.fab {
+  position: fixed;
+  bottom: 20px;
+  right: 16px;
+  width: 56px;
+  height: 56px;
+  background: #7D00FA;
+  border: none;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(125, 0, 250, 0.33);
+  z-index: 50;
+  color: #fff;
+
+  &:hover {
+    background: #6B00D6;
+  }
+}
+
+// ==========================================
+// Desktop Breakpoint
+// ==========================================
+@media (min-width: 768px) {
+  .sidebar {
+    display: flex;
+  }
+
+  .mobile-header {
+    display: none;
+  }
+
+  .mobile-board-bar {
+    display: none;
+  }
+
+  .column-tabs {
+    display: none;
+  }
+
+  .mobile-card-area {
+    display: none;
+  }
+
+  .desktop-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0;
+  }
+
+  .topbar-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .topbar-title {
+    color: #1A1A2E;
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .topbar-subtitle {
+    color: #6B7280;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    margin: 0;
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .search-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: #fff;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #9CA3AF;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+
+    lucide-icon {
+      color: #6B7280;
+    }
+
+    &:hover {
+      border-color: #D1D5DB;
+    }
+  }
+
+  .add-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #7D00FA;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+
+    &:hover {
+      background: #6B00D6;
+    }
+  }
+
+  .desktop-board {
+    display: block;
+  }
+
+  .fab {
+    display: none;
+  }
+
+  .main-content {
+    padding: 24px 32px;
+    gap: 24px;
+  }
 }

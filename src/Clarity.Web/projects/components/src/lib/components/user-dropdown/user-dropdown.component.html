@@ -1,0 +1,27 @@
+<div class="dropdown">
+  <div class="dropdown-profile">
+    <div class="dropdown-avatar">
+      <span>{{ initials }}</span>
+    </div>
+    <div class="dropdown-info">
+      <span class="dropdown-name">{{ displayName }}</span>
+      <span class="dropdown-email">{{ email }}</span>
+    </div>
+  </div>
+
+  <div class="dropdown-menu">
+    <button class="menu-item">
+      <lucide-icon [img]="icons.User" [size]="18"></lucide-icon>
+      <span>My Profile</span>
+    </button>
+    <button class="menu-item">
+      <lucide-icon [img]="icons.Settings" [size]="18"></lucide-icon>
+      <span>Settings</span>
+    </button>
+    <div class="menu-divider"></div>
+    <button class="menu-item menu-item--danger" (click)="onSignOut()">
+      <lucide-icon [img]="icons.LogOut" [size]="18"></lucide-icon>
+      <span>Sign Out</span>
+    </button>
+  </div>
+</div>
