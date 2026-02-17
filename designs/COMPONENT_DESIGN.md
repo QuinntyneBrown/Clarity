@@ -15,9 +15,43 @@ The design file contains **6 screens** across mobile (390x844) and desktop (1440
 
 ---
 
+## 0. UI Framework Mandate: Angular Material
+
+All components **must** be built using **Angular Material** (currently v19 in the project). This is a hard requirement that applies across every component, both new and updated.
+
+### General Rules
+
+- **Buttons:** Use `<button mat-raised-button>`, `<button mat-flat-button>`, `<button mat-icon-button>`, or `<button mat-fab>` / `<button mat-mini-fab>` as appropriate. Never use plain `<button>` elements.
+- **Cards:** Use `<mat-card>`, `<mat-card-header>`, `<mat-card-content>`, and `<mat-card-actions>` for all card-like surfaces (ticket cards, column wrappers, dropdown panels).
+- **Form Fields:** Use `<mat-form-field>` with `<input matInput>`, `<mat-select>`, and `<textarea matInput>` for all form inputs. Use `appearance="outline"` to match the design's bordered input style.
+- **Icons:** Use `<mat-icon>` for all icons. Map the Lucide icon names from the design to their Material Icons equivalents (e.g., Lucide `mail` -> Material `email`, Lucide `lock` -> Material `lock`, Lucide `eye-off` -> Material `visibility_off`, Lucide `arrow-right` -> Material `arrow_forward`, Lucide `plus` -> Material `add`, Lucide `search` -> Material `search`, Lucide `layout-grid` -> Material `grid_view`, Lucide `ticket` -> Material `confirmation_number`, Lucide `users` -> Material `group`, Lucide `settings` -> Material `settings`, Lucide `user` -> Material `person`, Lucide `log-out` -> Material `logout`, Lucide `ellipsis` -> Material `more_horiz`).
+- **Tabs:** Use `<mat-tab-group>` and `<mat-tab>` for the mobile column tab switcher.
+- **Menus:** Use `<mat-menu>` and `matMenuTriggerFor` for the user dropdown menu rather than building a custom overlay from scratch.
+- **Dialogs:** Continue using `MatDialog` (or CDK Dialog) for create/update ticket modals.
+- **Toolbars:** Use `<mat-toolbar>` for the mobile header and desktop top bar.
+- **Sidenav:** Use `<mat-sidenav-container>`, `<mat-sidenav>`, and `<mat-sidenav-content>` for the responsive sidebar/content layout.
+- **Lists:** Use `<mat-nav-list>` and `<mat-list-item>` for sidebar navigation items.
+- **Dividers:** Use `<mat-divider>` for separator lines in menus and sidebars.
+- **Badges:** Use `<mat-chip>` (from `MatChipsModule`) for priority badges, styled with custom colors.
+- **FAB:** Use `<button mat-fab>` for the floating action button.
+- **Tooltips / Ripples:** Apply `matTooltip` and `matRipple` where interactive elements benefit from them.
+
+### Material Theme Customization
+
+All design token colors, radii, and typography will be applied through Angular Material's theming system (`@angular/material` Sass APIs) and CSS custom properties. Components should rely on Material theme tokens rather than hard-coding colors wherever possible, so that theme changes propagate globally.
+
+### Why Angular Material
+
+- The project already depends on `@angular/material@19` and `@angular/cdk@19`
+- Existing components (CreateTicket, UpsertTicket) already use `mat-form-field`, `mat-card`, `mat-button`, and `MatDialog`
+- Using Material throughout ensures consistent interaction patterns (ripples, focus states, a11y), keyboard navigation, and ARIA attributes out of the box
+- CDK drag-drop for kanban columns is already integrated and will continue to be used
+
+---
+
 ## 1. Design Tokens & Theme
 
-The design uses a consistent token system that differs from the current Angular Material violet theme.
+The design uses a consistent token system. These values will be mapped into the Angular Material custom theme so that Material components pick them up automatically.
 
 ### Color Palette
 
@@ -117,15 +151,21 @@ Desktop layout:
 - `@Output() login: EventEmitter<{ email: string; password: string }>`
 - `@Output() forgotPassword: EventEmitter<void>`
 
-**Dependencies:** ReactiveFormsModule, CommonModule
+**Dependencies:** ReactiveFormsModule, CommonModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule
+
+**Angular Material Usage:**
+- Email field: `<mat-form-field appearance="outline">` with `<mat-icon matPrefix>email</mat-icon>` and `<input matInput>`
+- Password field: `<mat-form-field appearance="outline">` with `<mat-icon matPrefix>lock</mat-icon>`, `<input matInput type="password">`, and `<button mat-icon-button matSuffix>` with `<mat-icon>visibility_off</mat-icon>` for the toggle
+- Sign In button: `<button mat-flat-button color="primary">` with `<mat-icon>arrow_forward</mat-icon>`
+- "Forgot password?" link: `<button mat-button color="primary">`
 
 **Responsive Behavior:**
 - Mobile (<768px): Single column, centered, padding 48px/32px, gap 32px between logo area and form
 - Desktop (>=768px): Two equal panels side-by-side, left panel purple with branding
 
 **Notes:**
-- The design uses Lucide icons (`mail`, `lock`, `eye-off`, `arrow-right`). Decide whether to use Lucide icon font or Angular Material icons mapped to equivalent glyphs.
-- Password field has a visibility toggle (eye-off icon).
+- All icons use `<mat-icon>` with Material Icons font (mapped from Lucide names in the design).
+- Password field has a visibility toggle (`visibility` / `visibility_off` icons).
 - Email input shows placeholder text, not a real value.
 
 ---
@@ -140,9 +180,10 @@ Desktop layout:
 
 **Template Structure:**
 ```
-Header (56px tall, primary bg, horizontal layout)
+<mat-toolbar color="primary">
   Left: Logo (32x32, rounded, semi-transparent bg, "C") + "Clarity" text
-  Right: User avatar (32x32 circle, semi-transparent bg, initials)
+  Right: <button mat-icon-button> with UserAvatarComponent (32x32 circle, initials)
+</mat-toolbar>
 ```
 
 **Inputs:**
@@ -150,6 +191,10 @@ Header (56px tall, primary bg, horizontal layout)
 
 **Outputs:**
 - `@Output() avatarClick: EventEmitter<void>` (triggers user menu dropdown)
+
+**Angular Material Usage:**
+- Use `<mat-toolbar color="primary">` for the 56px header bar
+- Avatar trigger uses `<button mat-icon-button>` for accessible click target
 
 **Notes:**
 - Only visible on mobile. Desktop uses the sidebar instead.
@@ -167,19 +212,18 @@ Header (56px tall, primary bg, horizontal layout)
 
 **Template Structure:**
 ```
-Sidebar (260px wide, full height, white bg, right border)
+<mat-sidenav> (260px wide, full height, mode="side", opened)
   Top section:
     Logo (36x36 icon + "Clarity" text)
-    Navigation items:
-      - Boards (layout-grid icon) [active state: purple bg, purple text]
-      - My Tickets (ticket icon)
-      - Team (users icon)
-      - Settings (settings icon)
-  Bottom section (top border):
-    User avatar (36x36 circle, primary bg, initials)
-    User info:
-      - Name: "Quinntyne Brown" (13px, 600)
-      - Email: "quinntynebrown@gmail.com" (11px, 400)
+    <mat-nav-list>
+      <mat-list-item> Boards (<mat-icon>grid_view</mat-icon>) [active state]
+      <mat-list-item> My Tickets (<mat-icon>confirmation_number</mat-icon>)
+      <mat-list-item> Team (<mat-icon>group</mat-icon>)
+      <mat-list-item> Settings (<mat-icon>settings</mat-icon>)
+    </mat-nav-list>
+  Bottom section:
+    <mat-divider>
+    <button mat-button> with UserAvatarComponent + user info
 ```
 
 **Inputs:**
@@ -189,6 +233,13 @@ Sidebar (260px wide, full height, white bg, right border)
 **Outputs:**
 - `@Output() navigate: EventEmitter<string>` (emits route name: 'boards', 'tickets', 'team', 'settings')
 - `@Output() userClick: EventEmitter<void>` (triggers user menu)
+
+**Angular Material Usage:**
+- Use `<mat-sidenav>` within a `<mat-sidenav-container>` for the sidebar shell (container lives in KanbanComponent)
+- Use `<mat-nav-list>` with `<mat-list-item>` for navigation items. Apply `activated` class on the active item.
+- Use `<mat-icon>` for all nav icons
+- Use `<mat-divider>` between nav section and user profile section
+- User profile click target uses `<button mat-button>` for accessibility
 
 **Nav Item Styling:**
 - Default: no background, `#6B7280` text and icon color
@@ -207,9 +258,9 @@ Sidebar (260px wide, full height, white bg, right border)
 
 **Template Structure:**
 ```
-Bar (44px tall, #F8F5FF bg, horizontal, space-between)
+<mat-toolbar> (44px tall, #F8F5FF bg)
   Board name (15px, 600 weight)
-  Ellipsis icon (20x20, #6B7280)
+  <button mat-icon-button><mat-icon>more_horiz</mat-icon></button>
 ```
 
 **Inputs:**
@@ -217,6 +268,10 @@ Bar (44px tall, #F8F5FF bg, horizontal, space-between)
 
 **Outputs:**
 - `@Output() menuClick: EventEmitter<void>`
+
+**Angular Material Usage:**
+- Use `<mat-toolbar>` for the bar container
+- Use `<button mat-icon-button>` with `<mat-icon>more_horiz</mat-icon>` for the options menu trigger
 
 ---
 
@@ -230,11 +285,11 @@ Bar (44px tall, #F8F5FF bg, horizontal, space-between)
 
 **Template Structure:**
 ```
-Tab bar (44px tall, white bg, bottom border #E5E7EB)
-  Tab per board state:
-    - "Backlog" (bottom border #6B7280, text #6B7280, 500 weight)
-    - "In Progress" (bottom border #7D00FA, text #7D00FA, 600 weight) [active]
-    - "Done" (bottom border #22C55E, text #22C55E, 500 weight)
+<mat-tab-group (selectedTabChange)="onTabChange($event)">
+  <mat-tab *ngFor="let state of boardStates" [label]="state.name">
+    <!-- tab content rendered by parent via activeState binding -->
+  </mat-tab>
+</mat-tab-group>
 ```
 
 **Inputs:**
@@ -244,10 +299,14 @@ Tab bar (44px tall, white bg, bottom border #E5E7EB)
 **Outputs:**
 - `@Output() stateChange: EventEmitter<BoardState>`
 
+**Angular Material Usage:**
+- Use `<mat-tab-group>` and `<mat-tab>` from `MatTabsModule`
+- Apply custom theme overrides for tab ink-bar colors per column (Backlog=#6B7280, In Progress=#7D00FA, Done=#22C55E) using `::ng-deep` or component-level theme mixins
+- The `stretchTabs` option should be enabled so tabs fill the container equally
+
 **Notes:**
-- Tabs fill the container equally (`width: fill_container` on each tab).
 - Active tab uses fontWeight 600; inactive use 500.
-- Column colors: Backlog=#6B7280, In Progress=#7D00FA, Done=#22C55E. These should map from the board state's color property if available, or use defaults.
+- Column colors should map from the board state's color property if available, or use defaults.
 
 ---
 
@@ -261,8 +320,9 @@ Tab bar (44px tall, white bg, bottom border #E5E7EB)
 
 **Template Structure:**
 ```
-Button (56x56, circular, primary bg, shadow)
-  Plus icon (24x24, white)
+<button mat-fab color="primary" (click)="fabClick.emit()">
+  <mat-icon>add</mat-icon>
+</button>
 ```
 
 **Inputs:** None
@@ -270,10 +330,14 @@ Button (56x56, circular, primary bg, shadow)
 **Outputs:**
 - `@Output() fabClick: EventEmitter<void>`
 
+**Angular Material Usage:**
+- Use `<button mat-fab color="primary">` from `MatButtonModule` — this provides the circular FAB shape, ripple, and elevation out of the box
+- Use `<mat-icon>add</mat-icon>` for the plus icon
+
 **Styling:**
 - Position: Fixed, bottom-right of the viewport
-- Shadow: `0 4px 12px #7D00FA55`
-- Corner radius: 28px (fully circular)
+- Custom shadow override: `0 4px 12px #7D00FA55` (override Material's default elevation)
+- Material FAB is already circular (56x56 default size matches the design)
 
 ---
 
@@ -287,29 +351,37 @@ Button (56x56, circular, primary bg, shadow)
 
 **Template Structure:**
 ```
-Scrim overlay (#00000033, full-screen, click to dismiss)
-Dropdown card (260px wide, white, 12px radius, shadow)
-  Profile section (bottom border):
-    Avatar (40x40 circle, primary bg, initials)
-    Name + Email
-  Menu items (8px vertical padding):
-    My Profile (user icon, 18x18)
-    Settings (settings icon, 18x18)
-    Divider (1px #E5E7EB)
-    Sign Out (log-out icon, red text #DC2626)
+<mat-menu #userMenu="matMenu">
+  Profile section (custom header via mat-menu item with disabled ripple):
+    UserAvatarComponent (size lg) + Name + Email
+  <mat-divider>
+  <button mat-menu-item><mat-icon>person</mat-icon> My Profile</button>
+  <button mat-menu-item><mat-icon>settings</mat-icon> Settings</button>
+  <mat-divider>
+  <button mat-menu-item class="danger"><mat-icon>logout</mat-icon> Sign Out</button>
+</mat-menu>
 ```
+
+The trigger element (avatar button in header or sidebar) uses `[matMenuTriggerFor]="userMenu"`.
 
 **Inputs:**
 - `@Input() user: { name: string; email: string }`
 
 **Outputs:**
 - `@Output() menuAction: EventEmitter<'profile' | 'settings' | 'signout'>`
-- `@Output() close: EventEmitter<void>`
+
+**Angular Material Usage:**
+- Use `<mat-menu>` from `MatMenuModule` — provides built-in overlay, scrim/backdrop, positioning, keyboard navigation, and dismiss-on-click behavior
+- Use `<button mat-menu-item>` for each action item
+- Use `<mat-icon>` inside each menu item
+- Use `<mat-divider>` for separators
+- The profile header section can be a non-interactive `<div>` inside the menu with custom styling
+- Material menu handles positioning automatically (anchored to trigger element) — no manual scrim or positioning needed
 
 **Positioning:**
-- Mobile: Anchored below the header avatar, right-aligned
-- Desktop: Anchored above the sidebar user section, or near avatar
-- Shadow: `0 8px 24px #0000001A`
+- Mobile: Anchored below the header avatar via `[matMenuTriggerFor]`
+- Desktop: Anchored to sidebar user section via `[matMenuTriggerFor]`
+- Material menu provides its own elevation shadow
 
 ---
 
@@ -323,12 +395,18 @@ Dropdown card (260px wide, white, 12px radius, shadow)
 
 **Template Structure:**
 ```
-Badge (inline, 4px radius, padding 2px/8px)
-  Text (10-11px, 500 weight)
+<mat-chip [class]="'priority-' + priority" [disableRipple]="true" [selectable]="false">
+  {{ label }}
+</mat-chip>
 ```
 
 **Inputs:**
 - `@Input() priority: 'urgent' | 'high' | 'medium' | 'low' | 'complete'`
+
+**Angular Material Usage:**
+- Use `<mat-chip>` from `MatChipsModule` as the badge element — provides consistent pill shape, sizing, and theming hooks
+- Disable ripple and selection since these are display-only labels
+- Apply priority-specific CSS classes to override background and text color
 
 **Color Mapping:**
 | Priority | Background | Text Color |
@@ -379,9 +457,10 @@ Circle (configurable size, primary bg, centered text)
 
 **Template Structure:**
 ```
-Button/Input (white bg, 8px radius, 1px #E5E7EB border, padding 8px/14px)
-  Search icon (16x16, #6B7280)
-  Placeholder text: "Search tickets..." (#9CA3AF, 13px)
+<mat-form-field appearance="outline" class="search-field">
+  <mat-icon matPrefix>search</mat-icon>
+  <input matInput [placeholder]="placeholder" (input)="onSearch($event)">
+</mat-form-field>
 ```
 
 **Inputs:**
@@ -389,6 +468,11 @@ Button/Input (white bg, 8px radius, 1px #E5E7EB border, padding 8px/14px)
 
 **Outputs:**
 - `@Output() search: EventEmitter<string>`
+
+**Angular Material Usage:**
+- Use `<mat-form-field appearance="outline">` with `<input matInput>` for the search input
+- Use `<mat-icon matPrefix>search</mat-icon>` for the search icon
+- Style overrides: reduce the form field density to match the compact design (8px/14px padding), remove the subscript hint area
 
 ---
 
@@ -402,17 +486,22 @@ Button/Input (white bg, 8px radius, 1px #E5E7EB border, padding 8px/14px)
 
 **Template Structure:**
 ```
-Header row (full width, space-between)
+<mat-card-header class="column-header">
   Left group (8px gap):
     Color dot (10x10 circle, column color)
     Column name (14px, 600 weight, #1A1A2E)
-    Count badge (22x22 circle, tinted bg, colored text)
+    <mat-chip class="count-badge" [disableRipple]="true">{{ count }}</mat-chip>
+</mat-card-header>
 ```
 
 **Inputs:**
 - `@Input() name: string`
 - `@Input() count: number`
 - `@Input() color: string` (hex color for dot and count badge)
+
+**Angular Material Usage:**
+- Use `<mat-card-header>` to sit inside the parent column's `<mat-card>`
+- Use `<mat-chip>` for the count badge (styled as a small circle with tinted background)
 
 **Color Mapping for Count Badge Background:**
 | Column | Dot/Text Color | Badge BG |
@@ -431,27 +520,36 @@ Header row (full width, space-between)
 
 **Required changes to match design:**
 
-The ticket card needs a full redesign:
+The ticket card needs a full redesign using `<mat-card>`:
 
 ```
-Card (full width, white bg, 8px radius, 1px #E5E7EB border, vertical layout, 12px gap, 16px padding)
-  Header row (space-between):
-    Title (14px, 600, #1A1A2E)
-    PriorityBadge (component)
-  Description (13px, 400, #6B7280, full width)
-  Footer row (space-between):
-    Assignee group (6px gap):
-      UserAvatar (size sm)
-      Name text (12px, 400, #6B7280)
+<mat-card (click)="handleEditClick()" class="ticket-card">
+  <mat-card-header>
+    <mat-card-title>{{ ticket.name }}</mat-card-title>
+    <app-priority-badge [priority]="ticket.priority" />
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ ticket.description }}</p>
+  </mat-card-content>
+  <mat-card-footer>
+    <app-user-avatar [name]="ticket.assigneeName" size="sm" />
+    <span>{{ ticket.assigneeName }}</span>
+  </mat-card-footer>
+</mat-card>
 ```
 
 **Updated Inputs:**
 - `@Input() ticket: Ticket` (existing)
 
-**Dependencies to add:** PriorityBadgeComponent, UserAvatarComponent
+**Dependencies to add:** MatCardModule, PriorityBadgeComponent, UserAvatarComponent
+
+**Angular Material Usage:**
+- Use `<mat-card>` as the card container with custom styling to match design (8px radius, 1px border, 16px padding, 12px gap)
+- Use `<mat-card-header>`, `<mat-card-content>`, `<mat-card-footer>` for semantic structure
+- Apply `matRipple` for click feedback on the card
 
 **Notes:**
-- Desktop variant uses a slightly different card style: `#FAFAFA` inner bg, 14px padding, 10px gap, 13px title, 12px description
+- Desktop variant uses a slightly different card style: `#FAFAFA` inner bg, 14px padding, 10px gap, 13px title, 12px description — applied via a CSS class or host binding
 - The click-to-edit behavior should be preserved.
 - The `Age` field display should be replaced by description and assignee.
 - Priority should be derived from the ticket data model. If `Ticket` model lacks a priority field, one must be added.
@@ -473,19 +571,23 @@ This component's responsibilities should be split between new components dependi
 
 **Desktop (Top Bar):**
 ```
-Top Bar (full width, space-between)
+<mat-toolbar class="board-toolbar">
   Left:
     Board name (24px, 700, #1A1A2E)
     Subtitle: "Manage and track your team's tasks" (14px, 400, #6B7280)
   Right:
-    SearchBarComponent
-    "New Ticket" button (primary bg, 8px radius, plus icon + text)
+    <app-search-bar />
+    <button mat-flat-button color="primary">
+      <mat-icon>add</mat-icon> New Ticket
+    </button>
+</mat-toolbar>
 ```
 
 **Changes:**
-- Replace the bare `<mat-icon>add</mat-icon>` with a styled "New Ticket" button
+- Replace the bare `<mat-icon>add</mat-icon>` with `<button mat-flat-button color="primary">` containing icon + "New Ticket" text
+- Use `<mat-toolbar>` as the container for consistent Material elevation and alignment
 - Add board subtitle/description text
-- Integrate SearchBarComponent
+- Integrate SearchBarComponent (which uses `<mat-form-field>` internally)
 - Remove board name click handler (board selection moves to sidebar)
 
 ---
@@ -500,20 +602,23 @@ Top Bar (full width, space-between)
 ```
 Columns container (horizontal, fill, 20px gap)
   Per column:
-    Column wrapper (fill width, fill height, white bg, 12px radius, 1px border, 16px padding, 12px gap)
-      ColumnHeaderComponent (name, count, color)
-      Ticket cards (scrollable, vertical stack, 12px gap)
+    <mat-card class="kanban-column" cdkDropList>
+      <app-column-header [name]="..." [count]="..." [color]="..." />
+      <mat-card-content>
+        Ticket cards (scrollable, vertical stack, 12px gap, each with cdkDrag)
+      </mat-card-content>
+    </mat-card>
 ```
 
 **Mobile layout:**
-- Show only the active column's tickets (driven by ColumnTabsComponent selection)
+- Show only the active column's tickets (driven by `<mat-tab-group>` in ColumnTabsComponent)
 - Cards render in a vertical scrollable list with 12px gap
 
 **Changes:**
-- Wrap each column in a styled container (white bg, rounded corners, border)
+- Wrap each column in a `<mat-card>` styled as the column container (white bg, 12px radius, 1px border, 16px padding, 12px gap)
 - Replace the plain `<span>{{ boardState.name }}</span>` with `ColumnHeaderComponent`
 - Add responsive layout: multi-column on desktop, single-column-with-tabs on mobile
-- Keep the existing CDK drag-drop functionality
+- Keep the existing CDK drag-drop functionality (`cdkDropList`, `cdkDrag`, `CdkDropListGroup`)
 
 ---
 
@@ -527,29 +632,37 @@ This component becomes the main layout orchestrator with responsive behavior:
 
 **Mobile layout:**
 ```
-AppHeaderComponent
-BoardBarComponent
-ColumnTabsComponent
+<app-header [userName]="..." (avatarClick)="openUserMenu()" [matMenuTriggerFor]="userMenu" />
+<app-board-bar [boardName]="..." />
+<app-column-tabs [boardStates]="..." (stateChange)="..." />   <!-- uses mat-tab-group -->
 Card area (scrollable, #F9FAFB bg, 16px padding)
-  KanbanBoardComponent (single column mode)
-FABComponent
-UserDropdownComponent (conditional, overlay)
+  <app-kanban-board> (single column mode)
+<app-fab (fabClick)="openCreateTicket()" />                    <!-- uses mat-fab -->
+<app-user-dropdown [user]="..." />                             <!-- uses mat-menu -->
 ```
 
 **Desktop layout:**
 ```
-Horizontal layout (full viewport):
-  SidebarComponent (260px fixed)
-  Main content (#F9FAFB bg, 24px/32px padding):
-    KanbanBoardControlsComponent (top bar)
-    KanbanBoardComponent (multi-column mode)
-  UserDropdownComponent (conditional, overlay)
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <app-sidebar [activeRoute]="..." [user]="..." />           <!-- uses mat-nav-list -->
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-kanban-board-controls [board]="..." />                 <!-- uses mat-toolbar, mat-flat-button -->
+    <app-kanban-board [tickets]="..." [boardStates]="..." />    <!-- columns use mat-card -->
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<app-user-dropdown [user]="..." />                              <!-- uses mat-menu -->
 ```
 
+**Angular Material Usage:**
+- Use `<mat-sidenav-container>`, `<mat-sidenav>`, and `<mat-sidenav-content>` for the responsive desktop sidebar layout
+- Use Angular CDK `BreakpointObserver` to toggle between mobile and desktop layouts, and to set `<mat-sidenav>` mode (`side` on desktop, `over` on mobile if needed)
+
 **Changes:**
-- Add responsive layout logic (CSS media queries or BreakpointObserver)
-- Integrate new sub-components (header, sidebar, tabs, FAB)
-- Add state for user dropdown visibility
+- Add responsive layout logic using `BreakpointObserver` from `@angular/cdk/layout`
+- Integrate new sub-components (header, sidebar, tabs, FAB) — all built with Material components
+- Add state for user dropdown visibility (managed via `matMenuTriggerFor`)
 - Route-based or state-based view switching between login and kanban
 
 ---
@@ -568,13 +681,15 @@ Horizontal layout (full viewport):
 
 ### 3.6 CreateTicketComponent / UpsertTicketComponent (Update)
 
-**Current state:** Material form fields with basic layout in a dialog.
+**Current state:** Already uses Material form fields (`mat-form-field`, `mat-card`, `mat-button`) in a CDK dialog. This is the closest to the target of any existing component.
 
 **Required changes:**
-- Update dialog styling to match the design's card/panel aesthetic
+- Continue using `MatDialog` for the dialog container with custom panel class for design-aligned styling
+- Continue using `<mat-form-field appearance="outline">` for all inputs — update border radius and density to match design tokens
+- Add a priority field using `<mat-select>` with priority options (Urgent, High, Medium, Low)
+- Replace plain `<button mat-button>` actions with `<button mat-flat-button color="primary">` for Save and `<button mat-stroked-button>` for Cancel/Delete
+- Ensure `<mat-card>` wrapper matches the design's card aesthetic (use theme overrides for radii and padding)
 - Use Inter font styling consistent with the design tokens
-- Consider adding priority field to the ticket form (since the design shows priority badges on cards)
-- Ensure the state dropdown maps to the board states shown in the design (Backlog, In Progress, Done)
 
 ---
 
@@ -618,26 +733,118 @@ interface User {
 
 ---
 
-## 5. Global Style Updates
+## 5. Global Style Updates (Angular Material Theme)
 
 ### 5.1 Font Family
 
-The design uses **Inter** throughout. The current app uses **Roboto** via Angular Material. Either:
-- Switch the global font to Inter (update `styles.scss` and Material typography config)
-- Or keep Roboto and accept the visual difference
+The design uses **Inter** throughout. The current app uses **Roboto** via Angular Material. Switch to Inter and configure Material's typography system accordingly.
 
-Recommendation: Switch to Inter to match the design. Add to `index.html`:
+Add to `index.html`:
 ```html
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 ```
 
-### 5.2 CSS Custom Properties
+Update `styles.scss` to configure Material typography with Inter:
+```scss
+@use '@angular/material' as mat;
 
-Add a root-level custom properties block in `styles.scss` using the design tokens from Section 1.
+$clarity-typography: mat.m3-define-typography(
+  plain-family: 'Inter',
+  brand-family: 'Inter',
+);
+```
 
-### 5.3 Material Theme Override
+### 5.2 Angular Material Custom Theme
 
-Update the Material theme to use `#7D00FA` as the primary color instead of the current violet palette, and override default Material component styles (form fields, buttons, cards) to align with the design's border-radius, spacing, and typography.
+Define the full Material theme in `styles.scss` using the design's color palette:
+
+```scss
+$clarity-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$violet-palette,    // closest to #7D00FA
+  ),
+  typography: (
+    plain-family: 'Inter',
+    brand-family: 'Inter',
+  ),
+  density: (
+    scale: 0,
+  ),
+));
+
+html {
+  @include mat.all-component-themes($clarity-theme);
+}
+```
+
+Override the primary color swatch to exactly match `#7D00FA` if the built-in violet palette doesn't align. Use CSS custom properties as a bridge:
+
+```scss
+:root {
+  --clr-primary: #7D00FA;
+  --clr-primary-light: #F3F0FF;
+  /* ... all tokens from Section 1 ... */
+}
+```
+
+### 5.3 Material Component Style Overrides
+
+Apply global overrides to align Material component defaults with the design:
+
+```scss
+// Cards: reduce default elevation, set border radius
+.mat-mdc-card {
+  --mdc-elevated-card-container-shape: 8px;
+  --mdc-elevated-card-container-elevation: none;
+  border: 1px solid var(--clr-border);
+}
+
+// Buttons: 8px radius
+.mat-mdc-button, .mat-mdc-raised-button, .mat-mdc-flat-button {
+  --mdc-filled-button-container-shape: 8px;
+  --mdc-text-button-container-shape: 8px;
+}
+
+// Form fields: 8px radius, outline appearance
+.mat-mdc-form-field {
+  --mdc-outlined-text-field-container-shape: 8px;
+}
+
+// FAB: custom shadow
+.mat-mdc-fab.mat-primary {
+  --mdc-fab-container-elevation: 0 4px 12px #7D00FA55;
+}
+
+// Toolbar: custom height for mobile header
+.mat-toolbar.app-header {
+  height: 56px;
+}
+
+// Chips: small sizing for priority badges
+.mat-mdc-chip.priority-badge {
+  --mdc-chip-container-height: auto;
+  min-height: unset;
+  padding: 2px 8px;
+  font-size: 11px;
+}
+
+// Sidenav: 260px width
+.mat-sidenav {
+  width: 260px;
+}
+
+// Tab group: stretch tabs
+.mat-mdc-tab-group.column-tabs {
+  .mat-mdc-tab {
+    flex: 1;
+  }
+}
+```
+
+### 5.4 CSS Custom Properties
+
+In addition to the Material theme, expose the full design token set as CSS custom properties in `styles.scss` (see Section 1 for the complete list). Components should reference these properties for any styling not covered by Material theme tokens.
 
 ---
 
