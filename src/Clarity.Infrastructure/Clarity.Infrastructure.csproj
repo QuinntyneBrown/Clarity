@@ -19,6 +19,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.11.4" />
     <ProjectReference Include="..\Clarity.Core\Clarity.Core.csproj" />
   </ItemGroup>
 
