@@ -1,0 +1,92 @@
+<div class="profile-page">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <button mat-icon-button routerLink="/kanban" class="back-btn">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <div>
+        <h1 class="page-title">My Profile</h1>
+        <p class="page-subtitle">Manage your personal information</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-content">
+    <!-- Avatar Card -->
+    <div class="profile-card avatar-card">
+      <div class="avatar-section">
+        <div class="avatar-large">
+          <span>{{ initials }}</span>
+        </div>
+        <div class="avatar-info">
+          <h2 class="avatar-name">{{ fullName }}</h2>
+          <p class="avatar-email">{{ form.get('email')?.value }}</p>
+          @if (form.get('jobTitle')?.value) {
+            <span class="avatar-role">{{ form.get('jobTitle')?.value }}</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal Info Card -->
+    <div class="profile-card">
+      <div class="card-header">
+        <div>
+          <h3 class="card-title">Personal Information</h3>
+          <p class="card-description">Update your personal details</p>
+        </div>
+        @if (!editing()) {
+          <button mat-stroked-button class="edit-btn" (click)="toggleEdit()">
+            <mat-icon>edit</mat-icon>
+            Edit
+          </button>
+        }
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <form [formGroup]="form" (ngSubmit)="onSave()" class="profile-form">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" [readonly]="!editing()">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" [readonly]="!editing()">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Email Address</mat-label>
+            <input matInput formControlName="email" type="email" [readonly]="!editing()">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phone" type="tel" [readonly]="!editing()">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Job Title</mat-label>
+            <input matInput formControlName="jobTitle" [readonly]="!editing()">
+          </mat-form-field>
+        </div>
+
+        @if (editing()) {
+          <div class="form-actions">
+            <button mat-stroked-button type="button" (click)="onCancel()">Cancel</button>
+            <button mat-flat-button color="primary" type="submit" class="save-btn">
+              Save Changes
+            </button>
+          </div>
+        }
+      </form>
+    </div>
+  </div>
+</div>

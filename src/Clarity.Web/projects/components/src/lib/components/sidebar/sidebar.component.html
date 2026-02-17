@@ -11,7 +11,7 @@
     <!-- Navigation -->
     <div class="nav-items">
       @for (item of navItems; track item.label) {
-        <a class="nav-item" [class.active]="item.active" [routerLink]="item.route">
+        <a class="nav-item" routerLinkActive="active" [routerLink]="item.route">
           <mat-icon>{{ item.icon }}</mat-icon>
           <span>{{ item.label }}</span>
         </a>
@@ -42,11 +42,11 @@
         </div>
       </div>
       <mat-divider></mat-divider>
-      <button mat-menu-item>
+      <button mat-menu-item routerLink="/profile">
         <mat-icon>person_outline</mat-icon>
         <span>My Profile</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item routerLink="/settings">
         <mat-icon>settings</mat-icon>
         <span>Settings</span>
       </button>
