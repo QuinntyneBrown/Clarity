@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { createKanbanBoardControlsViewModel } from './create-kanban-board-controls-view-model';
 import { PushPipe } from '@ngrx/component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { Board } from '@api';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { CreateTicketComponent } from '../create-ticket';
@@ -17,6 +18,7 @@ import { CreateTicketComponent } from '../create-ticket';
         CommonModule,
         PushPipe,
         MatIconModule,
+        MatButtonModule,
         DialogModule
     ],
     templateUrl: './kanban-board-controls.component.html',
@@ -35,5 +37,5 @@ export class KanbanBoardControlsComponent {
 
   }
 
-  @Input() public board!:Board;
+  @Input() public board!: Board;
 }

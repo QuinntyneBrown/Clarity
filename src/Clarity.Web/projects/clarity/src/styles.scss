@@ -1,5 +1,4 @@
 // Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 
 html {
@@ -10,7 +9,54 @@ html {
   ));
 }
 
-/* You can add global styles to this file, and also import other style files */
+// Design tokens from clarity.pen
+:root {
+  --color-primary: #7D00FA;
+  --color-primary-light: #F3F0FF;
+  --color-primary-bg: #F8F5FF;
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #6B7280;
+  --color-text-white: #FFFFFF;
+  --color-border: #E5E7EB;
+  --color-bg-page: #F9FAFB;
+  --color-bg-white: #FFFFFF;
+  --color-bg-card: #FAFAFA;
+  --color-badge-high: #FEF3C7;
+  --color-badge-high-text: #92400E;
+  --color-badge-medium: #DBEAFE;
+  --color-badge-medium-text: #1E40AF;
+  --color-badge-urgent: #FEE2E2;
+  --color-badge-urgent-text: #991B1B;
+  --color-badge-done: #D1FAE5;
+  --color-badge-done-text: #065F46;
+  --color-success: #22C55E;
+  --font-family: 'Inter', 'Roboto', 'Helvetica Neue', sans-serif;
+  --sidebar-width: 260px;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// Angular Material overrides
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-unelevated-button.mat-primary {
+  --mdc-filled-button-container-color: var(--color-primary);
+}
+
+// Utility classes
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.bg-page { background-color: var(--color-bg-page); }

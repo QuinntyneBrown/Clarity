@@ -14,7 +14,7 @@ test.describe('Update Ticket Dialog', () => {
   });
 
   test('should open update ticket dialog when clicking a ticket', async () => {
-    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
     await kanban.clickTicket(ticketName);
@@ -23,7 +23,7 @@ test.describe('Update Ticket Dialog', () => {
   });
 
   test('should display the correct dialog title', async () => {
-    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
     await kanban.clickTicket(ticketName);
@@ -32,7 +32,7 @@ test.describe('Update Ticket Dialog', () => {
   });
 
   test('should display all form fields', async () => {
-    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
     await kanban.clickTicket(ticketName);
@@ -44,7 +44,7 @@ test.describe('Update Ticket Dialog', () => {
   });
 
   test('should display save, delete, and cancel buttons', async () => {
-    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
     await kanban.clickTicket(ticketName);
@@ -55,7 +55,7 @@ test.describe('Update Ticket Dialog', () => {
   });
 
   test('should pre-populate form with ticket data', async () => {
-    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
     await kanban.clickTicket(ticketName);
@@ -64,7 +64,7 @@ test.describe('Update Ticket Dialog', () => {
   });
 
   test('should close dialog when clicking cancel', async () => {
-    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
     await kanban.clickTicket(ticketName);
@@ -75,7 +75,7 @@ test.describe('Update Ticket Dialog', () => {
   });
 
   test('should allow editing form fields', async () => {
-    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
     await kanban.clickTicket(ticketName);
@@ -91,7 +91,7 @@ test.describe('Update Ticket Dialog', () => {
   });
 
   test('should close dialog when clicking save', async () => {
-    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
     await kanban.clickTicket(ticketName);
@@ -102,7 +102,7 @@ test.describe('Update Ticket Dialog', () => {
   });
 
   test('should close dialog when clicking delete', async () => {
-    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
     await kanban.clickTicket(ticketName);
@@ -113,7 +113,7 @@ test.describe('Update Ticket Dialog', () => {
   });
 
   test('should remove ticket from board after deleting without refresh', async () => {
-    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
     const countBefore = await kanban.page.locator('app-ticket').count();
@@ -130,7 +130,7 @@ test.describe('Update Ticket Dialog', () => {
   });
 
   test('should persist edited acceptance criteria when re-opening dialog', async ({ page }) => {
-    const firstTicket = kanban.page.locator('app-ticket h2').first();
+    const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
 

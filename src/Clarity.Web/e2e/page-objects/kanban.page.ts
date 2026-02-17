@@ -1,4 +1,5 @@
 import { Locator, Page } from '@playwright/test';
+import { LoginPage } from './login.page';
 
 export class KanbanPage {
   readonly page: Page;
@@ -10,13 +11,16 @@ export class KanbanPage {
   constructor(page: Page) {
     this.page = page;
     this.controlsBar = page.locator('app-kanban-board-controls');
-    this.addTicketButton = this.controlsBar.locator('mat-icon');
-    this.boardName = this.controlsBar.locator('span');
-    this.columns = page.locator('.kanban-board__column');
+    this.addTicketButton = this.controlsBar.locator('.add-btn');
+    this.boardName = this.controlsBar.locator('.board-title');
+    this.columns = page.locator('.kanban-column');
   }
 
   async goto() {
-    await this.page.goto('/');
+    const loginPage = new LoginPage(this.page);
+    await loginPage.goto();
+    await loginPage.login('quinntynebrown@gmail.com', 'password123');
+    await this.page.waitForURL('**/kanban', { timeout: 10000 });
     await this.removeOverlay();
   }
 
@@ -44,7 +48,7 @@ export class KanbanPage {
     const headers: string[] = [];
     const count = await this.columns.count();
     for (let i = 0; i < count; i++) {
-      const text = await this.columns.nth(i).locator('> span').innerText();
+      const text = await this.columns.nth(i).locator('.column-title').innerText();
       headers.push(text.trim());
     }
     return headers;
@@ -71,7 +75,7 @@ export class KanbanPage {
   }
 
   getColumnByHeader(headerText: string): Locator {
-    return this.page.locator('.kanban-board__column').filter({ has: this.page.locator('> span', { hasText: headerText }) });
+    return this.page.locator('.kanban-column').filter({ has: this.page.locator('.column-title', { hasText: headerText }) });
   }
 
   getTicketsInColumnByHeader(headerText: string): Locator {
@@ -83,6 +87,6 @@ export class KanbanPage {
   }
 
   async clickTicket(name: string) {
-    await this.getTicketByName(name).locator('h2').click();
+    await this.getTicketByName(name).locator('.ticket-title').click();
   }
 }

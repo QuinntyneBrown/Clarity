@@ -16,7 +16,7 @@ test.describe('Kanban Board', () => {
 
   test('should display the add ticket button', async () => {
     await expect(kanban.addTicketButton).toBeVisible();
-    await expect(kanban.addTicketButton).toHaveText('add');
+    await expect(kanban.addTicketButton).toContainText('New Ticket');
   });
 
   test('should render three columns for board states', async () => {

@@ -1,0 +1,40 @@
+<header class="app-header">
+  <div class="header-left">
+    <div class="header-logo">
+      <span>C</span>
+    </div>
+    <span class="header-title">Clarity</span>
+  </div>
+
+  <div class="header-right">
+    <div class="header-avatar" [matMenuTriggerFor]="mobileUserMenu">
+      <span>QB</span>
+    </div>
+
+    <mat-menu #mobileUserMenu="matMenu" class="mobile-user-menu-panel">
+      <div class="menu-profile-header" mat-menu-item disabled>
+        <div class="menu-avatar">
+          <span>QB</span>
+        </div>
+        <div class="menu-user-info">
+          <span class="menu-user-name">Quinntyne Brown</span>
+          <span class="menu-user-email">quinntynebrown&#64;gmail.com</span>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>
+        <mat-icon>person_outline</mat-icon>
+        <span>My Profile</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item class="sign-out-item" (click)="onSignOut()">
+        <mat-icon color="warn">logout</mat-icon>
+        <span class="sign-out-text">Sign Out</span>
+      </button>
+    </mat-menu>
+  </div>
+</header>

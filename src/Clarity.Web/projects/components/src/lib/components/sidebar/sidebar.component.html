@@ -1,0 +1,60 @@
+<nav class="sidebar">
+  <div class="sidebar-top">
+    <!-- Logo -->
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+        <span>C</span>
+      </div>
+      <span class="logo-name">Clarity</span>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-items">
+      @for (item of navItems; track item.label) {
+        <a class="nav-item" [class.active]="item.active" [routerLink]="item.route">
+          <mat-icon>{{ item.icon }}</mat-icon>
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </div>
+  </div>
+
+  <!-- User Profile -->
+  <div class="sidebar-bottom">
+    <div class="user-profile" [matMenuTriggerFor]="userMenu">
+      <div class="user-avatar">
+        <span>QB</span>
+      </div>
+      <div class="user-info">
+        <span class="user-name">Quinntyne Brown</span>
+        <span class="user-email">quinntynebrown&#64;gmail.com</span>
+      </div>
+    </div>
+
+    <mat-menu #userMenu="matMenu" class="user-menu-panel">
+      <div class="menu-profile-header" mat-menu-item disabled>
+        <div class="menu-avatar">
+          <span>QB</span>
+        </div>
+        <div class="menu-user-info">
+          <span class="menu-user-name">Quinntyne Brown</span>
+          <span class="menu-user-email">quinntynebrown&#64;gmail.com</span>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <button mat-menu-item>
+        <mat-icon>person_outline</mat-icon>
+        <span>My Profile</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item class="sign-out-item" (click)="onSignOut()">
+        <mat-icon color="warn">logout</mat-icon>
+        <span class="sign-out-text">Sign Out</span>
+      </button>
+    </mat-menu>
+  </div>
+</nav>

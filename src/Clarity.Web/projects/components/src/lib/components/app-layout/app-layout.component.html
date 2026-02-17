@@ -1,0 +1,17 @@
+<div class="layout-container" *ngIf="isMobile$ | async as isMobile; else desktopLayout">
+  <!-- Mobile Layout -->
+  <app-header (signOut)="onSignOut()"></app-header>
+  <div class="mobile-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<ng-template #desktopLayout>
+  <div class="layout-container">
+    <!-- Desktop Layout -->
+    <app-sidebar (signOut)="onSignOut()"></app-sidebar>
+    <div class="desktop-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</ng-template>

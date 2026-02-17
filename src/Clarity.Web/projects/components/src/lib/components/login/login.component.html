@@ -1,0 +1,61 @@
+<div class="login-container">
+  <!-- Left Branding Panel (Desktop only) -->
+  <div class="brand-panel">
+    <div class="brand-content">
+      <div class="brand-logo">
+        <span class="brand-logo-letter">C</span>
+      </div>
+      <h1 class="brand-name">Clarity</h1>
+      <p class="brand-tagline">Organize. Prioritize. Deliver.</p>
+      <p class="brand-description">
+        A modern kanban board to help your team
+        track tasks and ship faster.
+      </p>
+    </div>
+  </div>
+
+  <!-- Right Form Panel -->
+  <div class="form-panel">
+    <div class="form-wrapper">
+      <!-- Mobile Logo (shown only on mobile) -->
+      <div class="mobile-logo">
+        <div class="mobile-logo-icon">
+          <span>C</span>
+        </div>
+        <h1 class="mobile-logo-name">Clarity</h1>
+        <p class="mobile-logo-sub">Kanban Board</p>
+      </div>
+
+      <div class="form-header">
+        <h2>Welcome back</h2>
+        <p>Sign in to your account to continue</p>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form" novalidate>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <mat-icon matPrefix>mail_outline</mat-icon>
+          <input matInput formControlName="email" type="email" placeholder="quinntynebrown@gmail.com">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <mat-icon matPrefix>lock_outline</mat-icon>
+          <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" placeholder="Enter your password">
+          <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="submit" class="sign-in-btn">
+          Sign In
+          <mat-icon iconPositionEnd>arrow_forward</mat-icon>
+        </button>
+
+        <div class="forgot-link">
+          <a href="javascript:void(0)">Forgot password?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

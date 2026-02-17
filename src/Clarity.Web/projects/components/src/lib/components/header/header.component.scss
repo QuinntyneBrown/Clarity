@@ -1,0 +1,126 @@
+:host {
+  display: block;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 16px;
+  background: var(--color-primary);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.13);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-family: var(--font-family);
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+  }
+}
+
+.header-title {
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  span {
+    font-family: var(--font-family);
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+  }
+}
+
+// Menu overrides
+.sign-out-item {
+  .sign-out-text {
+    color: #DC2626;
+  }
+}
+
+::ng-deep .mobile-user-menu-panel {
+  .menu-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 16px 12px;
+    pointer-events: none;
+    opacity: 1 !important;
+
+    .menu-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      background: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      span {
+        font-family: var(--font-family);
+        font-size: 14px;
+        font-weight: 600;
+        color: #fff;
+      }
+    }
+
+    .menu-user-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .menu-user-name {
+      font-family: var(--font-family);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .menu-user-email {
+      font-family: var(--font-family);
+      font-size: 12px;
+      color: var(--color-text-secondary);
+    }
+  }
+}

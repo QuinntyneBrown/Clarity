@@ -1,20 +1,106 @@
 :host {
-    min-height: calc(100vh - 50px);
-    display: flex;
-    flex-direction: row;
-    flex-flow: row;
-    width: 100%;
-    justify-content: space-evenly;
+  display: block;
+  flex: 1;
+  min-height: 0;
+}
 
-    .kanban-board__column {
-        background-color: rgba(0,0,0,0.04);
-        padding: 0 5px;
-        margin: 0 5px;
-        text-align: center;
-        width: 100%;
-        padding-bottom: 30px;
-        span {
-            line-height: 30px;
-        }
-    }
+.kanban-columns {
+  display: flex;
+  gap: 20px;
+  height: 100%;
+  width: 100%;
+}
+
+.kanban-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+  min-width: 0;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.column-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.column-title {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.column-count {
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-page);
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+
+.column-menu-btn {
+  width: 28px;
+  height: 28px;
+
+  .mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: var(--color-text-secondary);
+  }
+}
+
+.column-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-height: 60px;
+}
+
+// CDK Drag-drop styles
+.cdk-drag-preview {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  opacity: 0.9;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.3;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+  .kanban-columns {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .kanban-column {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
 }

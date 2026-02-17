@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.layout-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+// Desktop
+.desktop-content {
+  flex: 1;
+  height: 100%;
+  overflow: auto;
+  background: var(--color-bg-page);
+}
+
+// Mobile
+:host-context(.mobile) .layout-container,
+.layout-container:has(app-header) {
+  flex-direction: column;
+}
+
+.mobile-content {
+  flex: 1;
+  overflow: auto;
+  background: var(--color-bg-page);
+}

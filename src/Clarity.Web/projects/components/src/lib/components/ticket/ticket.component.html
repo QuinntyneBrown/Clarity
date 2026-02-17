@@ -1,4 +1,17 @@
-<h2 (click)='handleEditClick()'>
-    {{ ticket.name }}
-</h2>
-<span>Age: {{ ticket.age }}</span>
+<mat-card class="ticket-card" appearance="outlined" (click)="handleEditClick()">
+  <mat-card-content>
+    <div class="ticket-header">
+      <span class="ticket-title">{{ ticket.name }}</span>
+      <span class="ticket-badge" [ngClass]="badgeClass">{{ badgeLabel }}</span>
+    </div>
+    <p class="ticket-description" *ngIf="ticket.description">{{ ticket.description }}</p>
+    <div class="ticket-footer">
+      <div class="ticket-assignee">
+        <div class="assignee-avatar">
+          <span>QB</span>
+        </div>
+        <span class="assignee-name">Quinntyne</span>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

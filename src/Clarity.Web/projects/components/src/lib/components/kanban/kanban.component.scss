@@ -1,3 +1,15 @@
 :host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
 
+.kanban-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+  padding: 24px 32px;
+  background: var(--color-bg-page);
+  overflow: auto;
 }

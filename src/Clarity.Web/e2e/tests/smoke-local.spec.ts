@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { LoginPage } from '../page-objects/login.page';
 
 test.describe('Local Smoke Test', () => {
   const API_BASE = 'https://localhost:50124';
@@ -30,15 +31,21 @@ test.describe('Local Smoke Test', () => {
   });
 
   test('Frontend loads and renders kanban board', async ({ page }) => {
-    await page.goto('/');
-    await expect(page.locator('app-kanban-board-controls span')).toBeVisible({ timeout: 15000 });
-    await expect(page.locator('app-kanban-board-controls span')).toHaveText(/Default/);
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login('quinntynebrown@gmail.com', 'password123');
+    await page.waitForURL('**/kanban', { timeout: 10000 });
+    await expect(page.locator('app-kanban-board-controls .board-title')).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('app-kanban-board-controls .board-title')).toHaveText(/Default/);
   });
 
   test('Frontend renders board columns', async ({ page }) => {
-    await page.goto('/');
-    await page.locator('.kanban-board__column').first().waitFor({ state: 'visible', timeout: 15000 });
-    const columns = page.locator('.kanban-board__column');
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login('quinntynebrown@gmail.com', 'password123');
+    await page.waitForURL('**/kanban', { timeout: 10000 });
+    await page.locator('.kanban-column').first().waitFor({ state: 'visible', timeout: 15000 });
+    const columns = page.locator('.kanban-column');
     expect(await columns.count()).toBe(3);
   });
 
@@ -47,8 +54,11 @@ test.describe('Local Smoke Test', () => {
     page.on('console', msg => {
       if (msg.type() === 'error') errors.push(msg.text());
     });
-    await page.goto('/');
-    await page.locator('app-kanban-board-controls span').waitFor({ state: 'visible', timeout: 15000 });
+    const loginPage = new LoginPage(page);
+    await loginPage.goto();
+    await loginPage.login('quinntynebrown@gmail.com', 'password123');
+    await page.waitForURL('**/kanban', { timeout: 10000 });
+    await page.locator('app-kanban-board-controls .board-title').waitFor({ state: 'visible', timeout: 15000 });
     const criticalErrors = errors.filter(e => !e.includes('favicon'));
     expect(criticalErrors).toEqual([]);
   });

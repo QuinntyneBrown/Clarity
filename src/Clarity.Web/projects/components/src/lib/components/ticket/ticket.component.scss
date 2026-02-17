@@ -1,8 +1,111 @@
 :host {
-    display: block;
-    padding: 5px;
-    margin: 5px;
-    background-color: rgba(255,255,255,1);
-    cursor: pointer;
-    text-align: center;
+  display: block;
+}
+
+.ticket-card {
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-card);
+  transition: box-shadow 0.15s, transform 0.1s;
+  box-shadow: none;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+
+  .mat-mdc-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px !important;
+  }
+}
+
+.ticket-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ticket-title {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  flex: 1;
+}
+
+.ticket-badge {
+  font-family: var(--font-family);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+
+  &.badge-high {
+    background: var(--color-badge-high);
+    color: var(--color-badge-high-text);
+  }
+
+  &.badge-medium {
+    background: var(--color-badge-medium);
+    color: var(--color-badge-medium-text);
+  }
+
+  &.badge-urgent {
+    background: var(--color-badge-urgent);
+    color: var(--color-badge-urgent-text);
+  }
+
+  &.badge-done {
+    background: var(--color-badge-done);
+    color: var(--color-badge-done-text);
+  }
+}
+
+.ticket-description {
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.ticket-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ticket-assignee {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.assignee-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-family: var(--font-family);
+    font-size: 10px;
+    font-weight: 600;
+    color: #fff;
+  }
+}
+
+.assignee-name {
+  font-family: var(--font-family);
+  font-size: 12px;
+  color: var(--color-text-secondary);
 }
