@@ -13,7 +13,11 @@
     "e2e": "npx playwright test",
     "e2e:headed": "npx playwright test --headed",
     "smoke": "npx playwright test e2e/tests/smoke-local.spec.ts",
-    "smoke:azure": "npx playwright test e2e/tests/smoke-azure.spec.ts"
+    "smoke:azure": "npx playwright test e2e/tests/smoke-azure.spec.ts",
+    "start:admin": "ng serve clarity-admin --port 4202",
+    "build:admin": "ng build clarity-admin",
+    "e2e:admin": "npx playwright test --config=playwright-admin.config.ts",
+    "e2e:admin:headed": "npx playwright test --config=playwright-admin.config.ts --headed"
   },
   "private": true,
   "dependencies": {
