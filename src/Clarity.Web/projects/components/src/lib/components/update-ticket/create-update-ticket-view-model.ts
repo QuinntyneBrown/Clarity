@@ -5,7 +5,7 @@ import { DIALOG_DATA, DialogRef } from "@angular/cdk/dialog";
 import { inject } from "@angular/core";
 import { FormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { combineLatest, EMPTY, map, merge, of, startWith, Subject, tap } from "rxjs";
-import { BoardStateService, Ticket } from "@api";
+import { BoardStateService, TeamMemberService, Ticket } from "@api";
 import { TicketStore } from "../../stores";
 
 export function createUpdateTicketViewModel() {
@@ -13,6 +13,8 @@ export function createUpdateTicketViewModel() {
   const ticketStore = inject(TicketStore);
 
   const boardStateService = inject(BoardStateService);
+
+  const teamMemberService = inject(TeamMemberService);
 
   const dialogRef = inject(DialogRef);
 
@@ -22,7 +24,8 @@ export function createUpdateTicketViewModel() {
     name: new FormControl(ticket.name, [Validators.required]),
     state: new FormControl(Number(ticket.state), [Validators.required]),
     description: new FormControl(ticket.description, [Validators.required]),
-    acceptanceCriteria: new FormControl(ticket.acceptanceCriteria, [Validators.required])
+    acceptanceCriteria: new FormControl(ticket.acceptanceCriteria, [Validators.required]),
+    teamMemberId: new FormControl(ticket.teamMemberId || null)
   });
 
   const saveSubject = new Subject();
@@ -50,16 +53,18 @@ export function createUpdateTicketViewModel() {
   return combineLatest([
     of(form),
     actions$,
-    boardStateService.get()
+    boardStateService.get(),
+    teamMemberService.get()
   ]).pipe(
-    map(([form, _, states]) => {
+    map(([form, _, states, teamMembers]) => {
       return {
         form,
         ticket,
         save: () => saveSubject.next(null),
         cancel: () => cancelSubject.next(null),
         delete: () => deleteSubject.next(null),
-        states
+        states,
+        teamMembers
       }
     })
   )

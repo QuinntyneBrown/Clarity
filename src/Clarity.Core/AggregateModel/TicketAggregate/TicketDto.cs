@@ -25,6 +25,8 @@ public class TicketDto
     public string AcceptanceCriteria { get; set; }
     public TicketType TicketType { get; set; }
     public Guid? BoardId { get; set; }
+    public Guid? TeamMemberId { get; set; }
+    public string TeamMemberName { get; set; }
     public List<CommentDto> Comments { get; set; } = new();
 }
 

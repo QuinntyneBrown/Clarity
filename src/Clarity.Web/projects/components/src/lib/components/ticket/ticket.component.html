@@ -6,11 +6,17 @@
     </div>
     <p class="ticket-description" *ngIf="ticket.description">{{ ticket.description }}</p>
     <div class="ticket-footer">
-      <div class="ticket-assignee">
+      <div class="ticket-assignee" *ngIf="ticket.teamMemberName">
         <div class="assignee-avatar">
-          <span>QB</span>
+          <span>{{ assigneeInitials }}</span>
         </div>
-        <span class="assignee-name">Quinntyne</span>
+        <span class="assignee-name">{{ assigneeName }}</span>
+      </div>
+      <div class="ticket-assignee unassigned" *ngIf="!ticket.teamMemberName">
+        <div class="assignee-avatar unassigned-avatar">
+          <span>?</span>
+        </div>
+        <span class="assignee-name">Unassigned</span>
       </div>
     </div>
   </mat-card-content>

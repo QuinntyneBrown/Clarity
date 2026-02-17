@@ -46,6 +46,20 @@ export class TicketComponent {
     }
   }
 
+  get assigneeName(): string {
+    return this.ticket.teamMemberName || 'Unassigned';
+  }
+
+  get assigneeInitials(): string {
+    const name = this.ticket.teamMemberName;
+    if (!name) return '?';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+  }
+
   public handleEditClick() {
     this._dialog.open(UpdateTicketComponent, {
       data: this.ticket

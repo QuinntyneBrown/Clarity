@@ -21,6 +21,8 @@ public static class TicketExtensions
             AcceptanceCriteria = ticket.AcceptanceCriteria,
             Description = ticket.Description,
             BoardId = ticket.CurrentTicketState.BoardState.BoardId,
+            TeamMemberId = ticket.TeamMemberId,
+            TeamMemberName = ticket.TeamMember?.Name,
             Comments = ticket.Comments.OrderByDescending(x => x.Created).Select(x => x.ToDto()).ToList()
         };
 }

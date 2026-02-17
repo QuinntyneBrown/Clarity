@@ -3,7 +3,7 @@
 
 import { inject } from "@angular/core";
 import { BehaviorSubject, combineLatest, map, switchMap, tap } from "rxjs";
-import { BoardService, BoardStateService, TicketService } from "@api";
+import { BoardService, BoardStateService, TeamMemberService, TicketService } from "@api";
 import { TicketStore } from "../../stores";
 
 export function createKanbanViewModel() {
@@ -11,6 +11,7 @@ export function createKanbanViewModel() {
   const boardService = inject(BoardService);
   const ticketService = inject(TicketService);
   const boardStateService = inject(BoardStateService);
+  const teamMemberService = inject(TeamMemberService);
   const ticketStore = inject(TicketStore);
 
   const boardIdSubject = new BehaviorSubject<string | null>(null);
@@ -29,14 +30,16 @@ export function createKanbanViewModel() {
 
           return combineLatest([
             tickets$,
-            boardStateService.get()
+            boardStateService.get(),
+            teamMemberService.get()
           ]).pipe(
-            switchMap(([_, boardStates]) =>
+            switchMap(([_, boardStates, teamMembers]) =>
               ticketStore.select(x => x.tickets).pipe(
                 map(tickets => ({
                   board,
                   tickets,
                   boardStates,
+                  teamMembers,
                   selectBoard: (id: string) => boardIdSubject.next(id),
                   reload: () => boardIdSubject.next(board.boardId!)
                 }))

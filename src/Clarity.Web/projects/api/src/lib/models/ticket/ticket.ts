@@ -12,5 +12,7 @@ export type Ticket = {
   acceptanceCriteria: string;
   boardStateId?: string;
   boardId: string;
+  teamMemberId?: string;
+  teamMemberName?: string;
   comments: Comment[];
 };

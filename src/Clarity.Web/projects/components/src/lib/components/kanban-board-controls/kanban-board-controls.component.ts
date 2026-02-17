@@ -8,12 +8,13 @@ import { PushPipe } from '@ngrx/component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { Board } from '@api';
+import { Board, TeamMember } from '@api';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { CreateTicketComponent } from '../create-ticket';
 import { SelectBoardComponent } from '../select-board';
 import { CreateBoardComponent } from '../create-board';
 import { CloneBoardComponent } from '../clone-board';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-kanban-board-controls',
@@ -24,7 +25,8 @@ import { CloneBoardComponent } from '../clone-board';
         MatIconModule,
         MatButtonModule,
         MatMenuModule,
-        DialogModule
+        DialogModule,
+        FormsModule
     ],
     templateUrl: './kanban-board-controls.component.html',
     styleUrls: ['./kanban-board-controls.component.scss']
@@ -35,10 +37,14 @@ export class KanbanBoardControlsComponent {
   private readonly _dialog = inject(Dialog);
 
   @Input() public board!: Board;
+  @Input() public teamMembers: TeamMember[] = [];
 
   @Output() public boardSelected = new EventEmitter<string>();
   @Output() public boardCreated = new EventEmitter<void>();
   @Output() public boardCloned = new EventEmitter<void>();
+  @Output() public teamMemberFilterChange = new EventEmitter<string | null>();
+
+  public selectedTeamMemberId: string | null = null;
 
   public handleClick() {
     this._dialog.open(CreateTicketComponent);
@@ -71,5 +77,9 @@ export class KanbanBoardControlsComponent {
         this.boardCloned.emit();
       }
     });
+  }
+
+  public handleFilterChange() {
+    this.teamMemberFilterChange.emit(this.selectedTeamMemberId);
   }
 }
