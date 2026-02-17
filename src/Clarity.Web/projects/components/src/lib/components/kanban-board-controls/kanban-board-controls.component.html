@@ -4,6 +4,24 @@
     <p class="board-subtitle">Manage and track your team's tasks</p>
   </div>
   <div class="top-right">
+    <button mat-stroked-button class="board-btn" (click)="handleSelectBoardClick()">
+      <mat-icon>dashboard</mat-icon>
+      Switch Board
+    </button>
+    <button mat-stroked-button class="board-btn" [matMenuTriggerFor]="boardMenu">
+      <mat-icon>more_vert</mat-icon>
+      Board
+    </button>
+    <mat-menu #boardMenu="matMenu">
+      <button mat-menu-item (click)="handleCreateBoardClick()">
+        <mat-icon>add</mat-icon>
+        <span>New Board</span>
+      </button>
+      <button mat-menu-item (click)="handleCloneBoardClick()">
+        <mat-icon>content_copy</mat-icon>
+        <span>Clone Board</span>
+      </button>
+    </mat-menu>
     <button mat-stroked-button class="search-btn">
       <mat-icon>search</mat-icon>
       <span class="search-text">Task & Notes</span>

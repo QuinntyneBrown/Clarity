@@ -49,4 +49,11 @@ export class BoardService {
   public update(options: { board: Board }): Observable<{ boardId: string }> {
     return this._client.post<{ boardId: string }>(`${this._baseUrl}api/1.0/board`, { board: options.board });
   }
+
+  public clone(options: { boardId: string, name: string }): Observable<{ board: Board }> {
+    return this._client.post<{ board: Board }>(`${this._baseUrl}api/1.0/board/clone`, {
+      boardId: options.boardId,
+      name: options.name
+    });
+  }
 }

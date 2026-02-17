@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { inject } from "@angular/core";
-import { combineLatest, map, switchMap, tap } from "rxjs";
+import { BehaviorSubject, combineLatest, map, switchMap, tap } from "rxjs";
 import { BoardService, BoardStateService, TicketService } from "@api";
 import { TicketStore } from "../../stores";
 
@@ -13,23 +13,40 @@ export function createKanbanViewModel() {
   const boardStateService = inject(BoardStateService);
   const ticketStore = inject(TicketStore);
 
-  const name = "Default";
+  const boardIdSubject = new BehaviorSubject<string | null>(null);
 
-  return combineLatest([
-    boardService.getByName({ name }),
-    ticketService.getTicketsByBoardName({ boardName: name }).pipe(
-      tap(tickets => ticketStore.patchState({ tickets }))
-    ),
-    boardStateService.get()
-  ]).pipe(
-    switchMap(([board, _, boardStates]) =>
-      ticketStore.select(x => x.tickets).pipe(
-        map(tickets => ({
-          board,
-          tickets,
-          boardStates
-        }))
-      )
-    )
+  const loadBoard$ = boardIdSubject.pipe(
+    switchMap(boardId => {
+      const board$ = boardId
+        ? boardService.getById({ boardId })
+        : boardService.getByName({ name: "Default" });
+
+      return board$.pipe(
+        switchMap(board => {
+          const tickets$ = ticketService.getTicketsByBoardId({ boardId: board.boardId! }).pipe(
+            tap(tickets => ticketStore.patchState({ tickets }))
+          );
+
+          return combineLatest([
+            tickets$,
+            boardStateService.get()
+          ]).pipe(
+            switchMap(([_, boardStates]) =>
+              ticketStore.select(x => x.tickets).pipe(
+                map(tickets => ({
+                  board,
+                  tickets,
+                  boardStates,
+                  selectBoard: (id: string) => boardIdSubject.next(id),
+                  reload: () => boardIdSubject.next(board.boardId!)
+                }))
+              )
+            )
+          );
+        })
+      );
+    })
   );
-};
+
+  return loadBoard$;
+}
