@@ -45,6 +45,8 @@ public static class ServiceCollectionExtensions
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
+                options.MapInboundClaims = false;
+                options.UseSecurityTokenValidators = true;
                 options.SecurityTokenValidators.Clear();
                 options.SecurityTokenValidators.Add(jwtSecurityTokenHandler);
                 options.TokenValidationParameters = new TokenValidationParameters

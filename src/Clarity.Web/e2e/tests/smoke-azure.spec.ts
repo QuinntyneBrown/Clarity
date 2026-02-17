@@ -43,4 +43,38 @@ test.describe('Azure Smoke Test', () => {
     const columns = page.locator('.kanban-board__column');
     expect(await columns.count()).toBe(3);
   });
+
+  test('API can create a ticket', async ({ request }) => {
+    // Authenticate
+    const authResponse = await request.post(`${AZURE_API_URL}/api/1.0/user/token`, {
+      data: { username: 'quinntynebrown@gmail.com', password: 'P@ssw0rd' }
+    });
+    expect(authResponse.ok()).toBeTruthy();
+    const { accessToken } = await authResponse.json();
+    expect(accessToken).toBeTruthy();
+
+    // Create ticket
+    const ticketName = `smoke-test-${Date.now()}`;
+    const createResponse = await request.post(`${AZURE_API_URL}/api/1.0/ticket`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      data: {
+        name: ticketName,
+        description: 'Automated smoke test ticket',
+        acceptanceCriteria: 'Should be created successfully',
+        state: 0
+      }
+    });
+    expect(createResponse.ok()).toBeTruthy();
+    const { ticket } = await createResponse.json();
+    expect(ticket).toBeDefined();
+    expect(ticket.name).toBe(ticketName);
+    expect(ticket.ticketId).toBeTruthy();
+
+    // Clean up - delete the ticket
+    const deleteResponse = await request.delete(
+      `${AZURE_API_URL}/api/1.0/ticket/${ticket.ticketId}`,
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+    expect(deleteResponse.ok()).toBeTruthy();
+  });
 });

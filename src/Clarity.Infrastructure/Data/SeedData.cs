@@ -28,6 +28,14 @@ public static class SeedData
             context.SaveChanges();
         }
 
+        var emailTeamMember = context.TeamMembers.FirstOrDefault(x => x.Name == "quinntynebrown@gmail.com");
+
+        if (emailTeamMember == null)
+        {
+            context.TeamMembers.Add(new TeamMember("quinntynebrown@gmail.com"));
+            context.SaveChanges();
+        }
+
         if (context.Users.SingleOrDefault(x => x.Username == "quinntynebrown@gmail.com") == null)
         {
             var passwordHasher = new PasswordHasher();

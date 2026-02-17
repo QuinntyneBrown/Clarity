@@ -60,12 +60,16 @@ public class CreateTicketRequestHandler: IRequestHandler<CreateTicketRequest,Cre
 
         var currentTeamMemberId = (await _context.TeamMembers.SingleAsync(x => x.Name == username)).TeamMemberId;
 
+        var boardState = await _context.BoardStates.FirstAsync(x => x.Type == request.State, cancellationToken);
+
         var ticket = new Ticket(
             currentTeamMemberId,
             request.Name,
             default,
             (Html)request.AcceptanceCriteria,
             (Html)request.Description);
+
+        ticket.TicketStates.Add(new(boardState));
 
         _context.Tickets.Add(ticket);
 
