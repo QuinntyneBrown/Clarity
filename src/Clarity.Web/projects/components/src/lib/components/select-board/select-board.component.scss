@@ -1,1 +1,24 @@
+:host {
+  display: block;
+  background-color: #fff;
+  padding: 20px;
+  outline: none;
+  min-width: 360px;
 
+  h1 {
+    padding: 0;
+    margin: 0;
+    line-height: 2em;
+  }
+
+  mat-selection-list {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+}

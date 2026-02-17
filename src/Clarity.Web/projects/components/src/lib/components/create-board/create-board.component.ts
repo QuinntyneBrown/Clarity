@@ -3,27 +3,29 @@
 
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { createSelectBoardViewModel } from './create-select-board-view-model';
+import { createCreateBoardViewModel } from './create-create-board-view-model';
 import { PushPipe } from '@ngrx/component';
 import { DialogModule } from '@angular/cdk/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
-    selector: 'app-select-board',
+    selector: 'app-create-board',
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [
         CommonModule,
         PushPipe,
         DialogModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
         MatButtonModule,
-        MatIconModule,
-        MatListModule
+        MatInputModule
     ],
-    templateUrl: './select-board.component.html',
-    styleUrls: ['./select-board.component.scss']
+    templateUrl: './create-board.component.html',
+    styleUrls: ['./create-board.component.scss']
 })
-export class SelectBoardComponent {
-  public vm$ = createSelectBoardViewModel();
+export class CreateBoardComponent {
+  public vm$ = createCreateBoardViewModel();
 }

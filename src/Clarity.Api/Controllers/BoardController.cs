@@ -78,6 +78,19 @@ public class BoardController
     {
         return await _mediator.Send(request, cancellationToken);
     }
+
+    [SwaggerOperation(
+        Summary = "Clone Board",
+        Description = @"Clone Board without tickets"
+    )]
+    [HttpPost("clone", Name = "cloneBoard")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(CloneBoardResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<CloneBoardResponse>> CloneBoard([FromBody] CloneBoardRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
+    }
 }
 
 
