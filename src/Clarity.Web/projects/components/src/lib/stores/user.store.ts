@@ -3,15 +3,14 @@
 
 import { inject, Injectable } from "@angular/core";
 import { ComponentStore } from "@ngrx/component-store";
-import { tapResponse } from "@ngrx/operators";
-import { exhaustMap, map, noop, tap, withLatestFrom } from "rxjs";
+import { catchError, EMPTY, exhaustMap, Observable, tap } from "rxjs";
 import { User, UserService } from "@api";
 
 export interface UserState {
     users: User[]
 }
 
-const initialUserState = {
+const initialUserState: UserState = {
     users: []
 };
 
@@ -25,44 +24,40 @@ export class UserStore extends ComponentStore<UserState> {
         super(initialUserState);
     }
 
-    readonly save = (user:User, nextFn: {(response:any): void} | null = null, errorFn: {(response:any): void} | null = null) => {
+    readonly save = (user: User, nextFn?: (response: any) => void, errorFn?: (error: any) => void) => {
 
-        const apiRequest$ = user.userId ? this._userService.update({ user }) : this._userService.create({ user });
-
-        const updateFn = user?.userId ? ([response, users]: [any, User[]]) => this.patchState({
-
-            users: users.map(t => response.user.userId == t.userId ? response.user : t)
-        })
-        :(([response, users]: [any, User[]]) => this.patchState({ users: [...users, response.user ]}));
+        const apiRequest$: Observable<any> = user.userId ? this._userService.update({ user }) : this._userService.create({ user });
 
         return this.effect<void>(
-            exhaustMap(()=> apiRequest$.pipe(
-                withLatestFrom(this.select(x => x.users)),
-                tap(updateFn),
-                tapResponse(
-                    nextFn || noop,
-                    errorFn || noop
-                )
+            exhaustMap(() => apiRequest$.pipe(
+                tap((response: any) => {
+                    const users = this.get().users;
+                    if (user?.userId) {
+                        this.patchState({ users: users.map(t => response.user?.userId == t.userId ? response.user : t) });
+                    } else {
+                        this.patchState({ users: [...users, response.user] });
+                    }
+                    if (nextFn) nextFn(response);
+                }),
+                catchError((error) => { if (errorFn) errorFn(error); return EMPTY; })
             )
         ))();
     }
 
     readonly delete = this.effect<User>(
-        exhaustMap((user) => this._userService.delete({ user: user }).pipe(
-            withLatestFrom(this.select(x => x.users )),
-            tapResponse(
-                ([_, users]: [any, User[]]) => this.patchState({ users: users.filter(t => t.userId != user.userId )}),
-                noop
-            )
+        exhaustMap((user) => this._userService.delete({ user }).pipe(
+            tap(() => {
+                const users = this.get().users;
+                this.patchState({ users: users.filter(t => t.userId != user.userId) });
+            }),
+            catchError(() => EMPTY)
         ))
     );
 
     readonly load = this.effect<void>(
-        exhaustMap(_ => this._userService.get().pipe(
-            tapResponse(
-                (users: User[]) => this.patchState({ users }),
-                noop
-            )
+        exhaustMap(() => this._userService.get().pipe(
+            tap((users: User[]) => this.patchState({ users })),
+            catchError(() => EMPTY)
         ))
     );
 }

@@ -14,6 +14,12 @@ public static class UserExtensions
         {
             UserId = user.UserId,
             Username = user.Username,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            Phone = user.Phone,
+            JobTitle = user.JobTitle,
+            AvatarUrl = user.AvatarUrl,
             Roles = user.Roles?.Select(x => new RoleDto { RoleId = x.RoleId, Name = x.Name }).ToList() ?? new List<RoleDto>()
         };
     }

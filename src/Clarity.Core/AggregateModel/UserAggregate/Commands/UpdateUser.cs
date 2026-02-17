@@ -9,11 +9,23 @@ using Microsoft.Extensions.Logging;
 
 namespace Clarity.Core.AggregateModel.UserAggregate.Commands;
 
-public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest> { }
+public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
+{
+    public UpdateUserRequestValidator()
+    {
+        RuleFor(x => x.UserId).NotEmpty();
+    }
+}
 
 public class UpdateUserRequest : IRequest<UpdateUserResponse>
 {
     public Guid UserId { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Email { get; set; }
+    public string Phone { get; set; }
+    public string JobTitle { get; set; }
+    public string AvatarUrl { get; set; }
 }
 
 public class UpdateUserResponse : ResponseBase
@@ -35,6 +47,13 @@ public class UpdateUserRequestHandler : IRequestHandler<UpdateUserRequest, Updat
     public async Task<UpdateUserResponse> Handle(UpdateUserRequest request, CancellationToken cancellationToken)
     {
         var user = await _context.Users.SingleAsync(x => x.UserId == request.UserId);
+
+        user.FirstName = request.FirstName;
+        user.LastName = request.LastName;
+        user.Email = request.Email;
+        user.Phone = request.Phone;
+        user.JobTitle = request.JobTitle;
+        user.AvatarUrl = request.AvatarUrl;
 
         await _context.SaveChangesAsync(cancellationToken);
 
