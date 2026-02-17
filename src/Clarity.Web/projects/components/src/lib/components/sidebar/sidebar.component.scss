@@ -155,6 +155,15 @@
   text-overflow: ellipsis;
 }
 
+// Version
+.app-version {
+  font-family: var(--font-family);
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-top: 12px;
+}
+
 // Menu overrides
 .sign-out-item {
   .sign-out-text {

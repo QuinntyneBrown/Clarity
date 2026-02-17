@@ -9,7 +9,7 @@
 <ng-template #desktopLayout>
   <div class="layout-container">
     <!-- Desktop Layout -->
-    <app-sidebar (signOut)="onSignOut()"></app-sidebar>
+    <app-sidebar [version]="version" (signOut)="onSignOut()"></app-sidebar>
     <div class="desktop-content">
       <router-outlet></router-outlet>
     </div>

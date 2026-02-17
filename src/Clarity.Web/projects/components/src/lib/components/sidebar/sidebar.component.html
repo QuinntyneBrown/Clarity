@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <!-- User Profile -->
+  <!-- User Profile & Version -->
   <div class="sidebar-bottom">
     <div class="user-profile" [matMenuTriggerFor]="userMenu">
       <div class="user-avatar">
@@ -56,5 +56,9 @@
         <span class="sign-out-text">Sign Out</span>
       </button>
     </mat-menu>
+
+    @if (version) {
+      <div class="app-version">v{{ version }}</div>
+    }
   </div>
 </nav>
