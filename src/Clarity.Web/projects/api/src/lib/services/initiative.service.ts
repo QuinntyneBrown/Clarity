@@ -36,11 +36,11 @@ export class InitiativeService {
   }
 
   public create(options: { initiative: Initiative }): Observable<{ initiative: Initiative }> {
-    return this._client.post<{ initiative: Initiative }>(`${this._baseUrl}api/1.0/initiative`, { initiative: options.initiative });
+    return this._client.post<{ initiative: Initiative }>(`${this._baseUrl}api/1.0/initiative`, options.initiative);
   }
 
   public update(options: { initiative: Initiative }): Observable<{ initiative: Initiative }> {
-    return this._client.put<{ initiative: Initiative }>(`${this._baseUrl}api/1.0/initiative`, { initiative: options.initiative });
+    return this._client.put<{ initiative: Initiative }>(`${this._baseUrl}api/1.0/initiative`, options.initiative);
   }
 
   public getReport(options: { initiativeId: string }): Observable<InitiativeReport> {
