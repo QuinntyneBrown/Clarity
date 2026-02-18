@@ -220,7 +220,7 @@ test.describe('Update Initiative Dialog', () => {
     await expect(dialog.nameInput).toHaveValue(initiativeName);
   });
 
-  test('should display update, delete, and cancel buttons', async () => {
+  test('should display update and cancel buttons', async () => {
     const rowCount = await initiativesPage.initiativeRows.count();
     if (rowCount === 0) return;
 
@@ -229,7 +229,6 @@ test.describe('Update Initiative Dialog', () => {
     await editBtn.click();
     await dialog.waitForOpen();
     await expect(dialog.saveButton).toBeVisible();
-    await expect(dialog.deleteButton).toBeVisible();
     await expect(dialog.cancelButton).toBeVisible();
   });
 
@@ -275,19 +274,6 @@ test.describe('Update Initiative Dialog', () => {
     await expect(dialog.dialog).not.toBeVisible();
   });
 
-  test('should close dialog when clicking delete', async () => {
-    const rowCount = await initiativesPage.initiativeRows.count();
-    if (rowCount === 0) return;
-
-    const firstRow = initiativesPage.initiativeRows.first();
-    const editBtn = initiativesPage.getEditButton(firstRow);
-    await editBtn.click();
-    await dialog.waitForOpen();
-    await dialog.clickDelete();
-    await dialog.waitForClosed();
-    await expect(dialog.dialog).not.toBeVisible();
-  });
-
   test('should close dialog when clicking close button', async () => {
     const rowCount = await initiativesPage.initiativeRows.count();
     if (rowCount === 0) return;
@@ -306,18 +292,15 @@ test.describe('Update Initiative Dialog', () => {
     if (countBefore === 0) return;
 
     const firstRow = initiativesPage.initiativeRows.first();
-    const editBtn = initiativesPage.getEditButton(firstRow);
-    await editBtn.click();
-    await dialog.waitForOpen();
+    const deleteBtn = initiativesPage.getDeleteButton(firstRow);
 
-    const deleteResponsePromise = page.waitForResponse(resp =>
-      resp.url().includes('/api/1.0/initiative') && resp.request().method() === 'DELETE' && resp.status() === 200
+    const responsePromise = page.waitForResponse(resp =>
+      resp.url().includes('/api/1.0/initiative') && resp.request().method() === 'DELETE'
     );
-    await dialog.clickDelete();
-    await deleteResponsePromise;
-    await dialog.waitForClosed();
+    await deleteBtn.click();
+    const resp = await responsePromise;
+    await page.waitForTimeout(1000);
 
-    await initiativesPage.page.waitForTimeout(1000);
     const countAfter = await initiativesPage.initiativeRows.count() + await initiativesPage.initiativeCards.count();
     expect(countAfter).toBeLessThan(countBefore);
   });

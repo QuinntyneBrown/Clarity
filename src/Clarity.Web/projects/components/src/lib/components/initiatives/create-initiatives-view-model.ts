@@ -1,7 +1,7 @@
 import { inject } from "@angular/core";
 import { combineLatest, map, Subject, startWith } from "rxjs";
 import { InitiativeStore } from "../../stores";
-import { Initiative } from "@api";
+import { Initiative, InitiativeService } from "@api";
 import { Dialog } from "@angular/cdk/dialog";
 import { CreateInitiativeComponent } from "../create-initiative";
 import { UpdateInitiativeComponent } from "../update-initiative";
@@ -9,6 +9,7 @@ import { Router } from "@angular/router";
 
 export function createInitiativesViewModel() {
   const initiativeStore = inject(InitiativeStore);
+  const initiativeService = inject(InitiativeService);
   const dialog = inject(Dialog);
   const router = inject(Router);
 
@@ -44,7 +45,7 @@ export function createInitiativesViewModel() {
           dialog.open(UpdateInitiativeComponent, { data: initiative }).closed.subscribe();
         },
         deleteInitiative: (initiative: Initiative) => {
-          dialog.open(UpdateInitiativeComponent, { data: initiative }).closed.subscribe();
+          initiativeService.delete({ initiative }).subscribe(() => initiativeStore.load());
         },
         viewReport: (initiative: Initiative) => {
           router.navigate(['/initiatives', initiative.initiativeId, 'report']);

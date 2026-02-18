@@ -52,28 +52,10 @@
 
 .dialog-footer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
   padding: 12px 24px 20px;
   border-top: 1px solid var(--color-border);
-
-  .delete-btn {
-    color: #DC2626;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-
-    mat-icon {
-      font-size: 18px;
-      width: 18px;
-      height: 18px;
-    }
-  }
-
-  .footer-right {
-    display: flex;
-    gap: 12px;
-  }
 
   .cancel-btn {
     color: var(--color-text-secondary);

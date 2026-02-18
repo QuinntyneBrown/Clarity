@@ -17,7 +17,6 @@ export function createUpdateInitiativeViewModel() {
 
   const saveSubject = new Subject();
   const cancelSubject = new Subject();
-  const deleteSubject = new Subject();
 
   const save$ = saveSubject.pipe(
     tap(_ => initiativeStore.save({
@@ -26,11 +25,7 @@ export function createUpdateInitiativeViewModel() {
     }))
   );
 
-  const delete$ = deleteSubject.pipe(
-    tap(_ => initiativeStore.delete(initiative))
-  );
-
-  const actions$ = merge(save$, delete$, cancelSubject).pipe(
+  const actions$ = merge(save$, cancelSubject).pipe(
     tap(_ => dialogRef.close(null)),
     startWith(EMPTY)
   );
@@ -44,8 +39,7 @@ export function createUpdateInitiativeViewModel() {
         form,
         initiative,
         save: () => saveSubject.next(null),
-        cancel: () => cancelSubject.next(null),
-        delete: () => deleteSubject.next(null)
+        cancel: () => cancelSubject.next(null)
       };
     })
   );
