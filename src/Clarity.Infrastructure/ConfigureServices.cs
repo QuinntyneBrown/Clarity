@@ -21,4 +21,5 @@ public static class ConfigureServices
             .LogTo(Console.WriteLine);
         });
     }
+
 }

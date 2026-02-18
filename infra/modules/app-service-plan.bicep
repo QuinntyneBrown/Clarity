@@ -4,10 +4,9 @@ param location string
 resource appServicePlan 'Microsoft.Web/serverfarms@2023-01-01' = {
   name: name
   location: location
-  kind: 'linux'
   sku: {
-    name: 'B1'
-    tier: 'Basic'
+    name: 'S1'
+    tier: 'Standard'
   }
   properties: {
     reserved: true

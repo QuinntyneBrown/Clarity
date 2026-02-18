@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
+    <UserSecretsId>fb15c844-dbe0-40ea-a7b6-0a0b2c9266d3</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Clarity.Infrastructure\Clarity.Infrastructure.csproj" />
+    <ProjectReference Include="..\Clarity.ServiceDefaults\Clarity.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>

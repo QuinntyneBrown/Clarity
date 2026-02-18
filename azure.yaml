@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: clarity
+infra:
+  provider: bicep
+  path: infra
+services:
+  api:
+    project: ./src/Clarity.Api
+    host: appservice
+    language: csharp
+    resourceName: ${AZURE_APP_SERVICE_NAME}
+hooks:
+  predeploy:
+    shell: sh
+    run: |
+      echo "Building Angular frontend..."
+      cd src/Clarity.Web && npm ci && npx ng build --configuration production
+      echo "Copying frontend to API wwwroot..."
+      mkdir -p ../Clarity.Api/wwwroot
+      cp -r dist/clarity/browser/* ../Clarity.Api/wwwroot/

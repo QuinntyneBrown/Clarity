@@ -19,6 +19,7 @@ param sqlAdminPassword string
 param jwtKey string
 
 var namingPrefix = 'clarity-${environment}'
+var appServiceName = '${namingPrefix}-app'
 
 module appServicePlan 'modules/app-service-plan.bicep' = {
   name: 'appServicePlanDeploy'
@@ -63,3 +64,4 @@ module keyVault 'modules/key-vault.bicep' = {
 }
 
 output appServiceUrl string = 'https://${appService.outputs.name}.azurewebsites.net'
+output AZURE_APP_SERVICE_NAME string = appService.outputs.name
