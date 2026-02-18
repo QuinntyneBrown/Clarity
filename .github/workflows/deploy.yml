@@ -64,5 +64,14 @@ jobs:
             --federated-credential-provider "github" \
             --tenant-id "$AZURE_TENANT_ID"
 
+      - name: Initialize azd environment
+        run: |
+          azd env new "$AZURE_ENV_NAME" --no-prompt
+          azd env set AZURE_RESOURCE_GROUP Clarity
+          azd env set AZURE_CONTAINER_APP_NAME clarity-dev-api
+          azd env set AZURE_CONTAINER_REGISTRY_ENDPOINT claritydevacr.azurecr.io
+          azd env set AZURE_CONTAINER_REGISTRY_NAME claritydevacr
+          azd env set AZURE_CONTAINER_APPS_ENVIRONMENT_NAME clarity-dev-env
+
       - name: Deploy Application
         run: azd deploy --no-prompt
