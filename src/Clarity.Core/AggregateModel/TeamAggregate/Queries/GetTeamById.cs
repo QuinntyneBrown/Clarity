@@ -18,13 +18,17 @@ public class GetTeamByIdResponse
 
 public class GetTeamByIdRequestHandler : IRequestHandler<GetTeamByIdRequest, GetTeamByIdResponse>
 {
-    public IClarityDbContext _context { get; set; }
+    private readonly IClarityDbContext _context;
     public GetTeamByIdRequestHandler(IClarityDbContext context) => _context = context;
     public async Task<GetTeamByIdResponse> Handle(GetTeamByIdRequest request, CancellationToken cancellationToken)
-        => new()
-        {
-            Team = (await _context.Teams
+    {
+        var team = await _context.Teams
             .Include(x => x.TeamMembers)
-            .FirstOrDefaultAsync(x => x.TeamId == request.TeamId)).ToDto()
+            .FirstOrDefaultAsync(x => x.TeamId == request.TeamId);
+
+        return new()
+        {
+            Team = team?.ToDto()
         };
+    }
 }

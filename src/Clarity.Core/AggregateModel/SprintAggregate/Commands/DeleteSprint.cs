@@ -35,13 +35,20 @@ public class DeleteSprintRequestHandler : IRequestHandler<DeleteSprintRequest, D
     {
         var sprint = await _context.Sprints.FindAsync(request.SprintId);
 
+        if (sprint == null)
+        {
+            return new() { Errors = { $"Sprint with id {request.SprintId} not found." } };
+        }
+
+        var dto = sprint.ToDto();
+
         _context.Sprints.Remove(sprint);
 
         await _context.SaveChangesAsync(cancellationToken);
 
         return new()
         {
-            Sprint = sprint.ToDto()
+            Sprint = dto
         };
     }
 }

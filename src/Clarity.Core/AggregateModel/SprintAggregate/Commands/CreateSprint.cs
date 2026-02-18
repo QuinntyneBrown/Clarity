@@ -16,6 +16,9 @@ public class CreateSprintValidator : AbstractValidator<CreateSprintRequest>
         RuleFor(x => x.TeamId)
             .NotNull()
             .NotEmpty();
+        RuleFor(x => x.End)
+            .GreaterThan(x => x.Start)
+            .WithMessage("End date must be after Start date.");
     }
 }
 

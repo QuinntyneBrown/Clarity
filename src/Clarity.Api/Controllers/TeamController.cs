@@ -18,7 +18,7 @@ namespace Clarity.Api.Controllers;
 [Route("api/{version:apiVersion}/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
-public class TeamController
+public class TeamController : ControllerBase
 {
     private readonly IMediator _mediator;
 
@@ -62,10 +62,12 @@ public class TeamController
     [HttpPost(Name = "createTeam")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateTeamResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(CreateTeamResponse), (int)HttpStatusCode.Created)]
     public async Task<ActionResult<CreateTeamResponse>> CreateTeam([FromBody] CreateTeamRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        var response = await _mediator.Send(request, cancellationToken);
+
+        return CreatedAtAction(nameof(GetTeamById), new { teamId = response.Team.TeamId }, response);
     }
 
     [SwaggerOperation(

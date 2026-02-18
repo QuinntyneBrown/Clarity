@@ -18,12 +18,16 @@ public class GetSprintByIdResponse
 
 public class GetSprintByIdRequestHandler : IRequestHandler<GetSprintByIdRequest, GetSprintByIdResponse>
 {
-    public IClarityDbContext _context { get; set; }
+    private readonly IClarityDbContext _context;
     public GetSprintByIdRequestHandler(IClarityDbContext context) => _context = context;
     public async Task<GetSprintByIdResponse> Handle(GetSprintByIdRequest request, CancellationToken cancellationToken)
-        => new()
+    {
+        var sprint = await _context.Sprints
+            .FirstOrDefaultAsync(x => x.SprintId == request.SprintId);
+
+        return new()
         {
-            Sprint = (await _context.Sprints
-            .FirstOrDefaultAsync(x => x.SprintId == request.SprintId)).ToDto()
+            Sprint = sprint?.ToDto()
         };
+    }
 }

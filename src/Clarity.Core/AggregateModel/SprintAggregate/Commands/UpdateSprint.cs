@@ -16,6 +16,9 @@ public class UpdateSprintRequestValidator : AbstractValidator<UpdateSprintReques
         RuleFor(x => x.SprintId).NotNull().NotEmpty();
         RuleFor(x => x.Name).NotNull().NotEmpty();
         RuleFor(x => x.TeamId).NotNull().NotEmpty();
+        RuleFor(x => x.End)
+            .GreaterThan(x => x.Start)
+            .WithMessage("End date must be after Start date.");
     }
 }
 
@@ -46,7 +49,12 @@ public class UpdateSprintRequestHandler : IRequestHandler<UpdateSprintRequest, U
 
     public async Task<UpdateSprintResponse> Handle(UpdateSprintRequest request, CancellationToken cancellationToken)
     {
-        var sprint = await _context.Sprints.SingleAsync(x => x.SprintId == request.SprintId);
+        var sprint = await _context.Sprints.SingleOrDefaultAsync(x => x.SprintId == request.SprintId);
+
+        if (sprint == null)
+        {
+            return new() { Sprint = null!, Errors = { $"Sprint with id {request.SprintId} not found." } };
+        }
 
         sprint.Update(request.Name, request.Start, request.End, request.TeamId);
 

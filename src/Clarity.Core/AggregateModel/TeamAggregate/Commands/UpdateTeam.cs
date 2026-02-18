@@ -42,7 +42,12 @@ public class UpdateTeamRequestHandler : IRequestHandler<UpdateTeamRequest, Updat
 
     public async Task<UpdateTeamResponse> Handle(UpdateTeamRequest request, CancellationToken cancellationToken)
     {
-        var team = await _context.Teams.SingleAsync(x => x.TeamId == request.TeamId);
+        var team = await _context.Teams.SingleOrDefaultAsync(x => x.TeamId == request.TeamId);
+
+        if (team == null)
+        {
+            return new() { Team = null!, Errors = { $"Team with id {request.TeamId} not found." } };
+        }
 
         team.Update(request.Name);
 

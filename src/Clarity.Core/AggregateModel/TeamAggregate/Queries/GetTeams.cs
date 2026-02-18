@@ -15,7 +15,7 @@ public class GetTeamsResponse
 
 public class GetTeamsRequestHandler : IRequestHandler<GetTeamsRequest, GetTeamsResponse>
 {
-    public IClarityDbContext _context { get; set; }
+    private readonly IClarityDbContext _context;
     public GetTeamsRequestHandler(IClarityDbContext context) => _context = context;
     public async Task<GetTeamsResponse> Handle(GetTeamsRequest request, CancellationToken cancellationToken)
         => new()

@@ -12,7 +12,7 @@ public static class TeamExtensions
         {
             TeamId = team.TeamId,
             Name = team.Name,
-            TeamMembers = team.TeamMembers
+            TeamMembers = (team.TeamMembers ?? new())
                 .Select(x => x.ToDto())
                 .ToList()
         };

@@ -15,7 +15,7 @@ public class GetSprintsResponse
 
 public class GetSprintsRequestHandler : IRequestHandler<GetSprintsRequest, GetSprintsResponse>
 {
-    public IClarityDbContext _context { get; set; }
+    private readonly IClarityDbContext _context;
     public GetSprintsRequestHandler(IClarityDbContext context) => _context = context;
     public async Task<GetSprintsResponse> Handle(GetSprintsRequest request, CancellationToken cancellationToken)
         => new()

@@ -18,7 +18,7 @@ namespace Clarity.Api.Controllers;
 [Route("api/{version:apiVersion}/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
-public class SprintController
+public class SprintController : ControllerBase
 {
     private readonly IMediator _mediator;
 
@@ -62,10 +62,12 @@ public class SprintController
     [HttpPost(Name = "createSprint")]
     [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
     [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-    [ProducesResponseType(typeof(CreateSprintResponse), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(CreateSprintResponse), (int)HttpStatusCode.Created)]
     public async Task<ActionResult<CreateSprintResponse>> CreateSprint([FromBody] CreateSprintRequest request, CancellationToken cancellationToken)
     {
-        return await _mediator.Send(request, cancellationToken);
+        var response = await _mediator.Send(request, cancellationToken);
+
+        return CreatedAtAction(nameof(GetSprintById), new { sprintId = response.Sprint.SprintId }, response);
     }
 
     [SwaggerOperation(

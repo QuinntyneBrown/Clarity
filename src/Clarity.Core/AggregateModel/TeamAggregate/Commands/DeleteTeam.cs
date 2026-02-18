@@ -35,13 +35,20 @@ public class DeleteTeamRequestHandler : IRequestHandler<DeleteTeamRequest, Delet
     {
         var team = await _context.Teams.FindAsync(request.TeamId);
 
+        if (team == null)
+        {
+            return new() { Errors = { $"Team with id {request.TeamId} not found." } };
+        }
+
+        var dto = team.ToDto();
+
         _context.Teams.Remove(team);
 
         await _context.SaveChangesAsync(cancellationToken);
 
         return new()
         {
-            Team = team.ToDto()
+            Team = dto
         };
     }
 }
