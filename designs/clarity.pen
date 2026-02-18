@@ -13390,35 +13390,60 @@
                         },
                         {
                           "type": "frame",
-                          "id": "z8orb",
+                          "id": "ynEPc",
                           "name": "row3",
                           "width": "fill_container",
-                          "height": 44,
+                          "height": 52,
+                          "stroke": {
+                            "thickness": {
+                              "bottom": 1
+                            },
+                            "fill": "#E5E7EB"
+                          },
+                          "padding": [
+                            0,
+                            16
+                          ],
                           "children": [
                             {
-                              "type": "text",
-                              "id": "2InJx",
-                              "name": "r3title",
-                              "fill": "#1A1A2E",
-                              "content": "User auth error logging",
-                              "fontFamily": "Inter",
-                              "fontSize": 13
+                              "type": "frame",
+                              "id": "JzGxn",
+                              "name": "r3titleCol",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 2,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "Sb1J8",
+                                  "name": "r3titleT",
+                                  "fill": "#1A1A2E",
+                                  "content": "User auth error logging",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 13,
+                                  "fontWeight": "600"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "jFSeg",
+                                  "name": "r3titleS",
+                                  "fill": "#9CA3AF",
+                                  "content": "Add structured logging for auth error events",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 11
+                                }
+                              ]
                             },
                             {
                               "type": "frame",
-                              "id": "sZpbK",
-                              "name": "r3priority",
-                              "width": 100,
-                              "height": "fill_container",
-                              "padding": [
-                                0,
-                                12
-                              ],
+                              "id": "XLQrj",
+                              "name": "r3priCol",
+                              "width": 90,
                               "children": [
                                 {
                                   "type": "frame",
-                                  "id": "tp0xq",
-                                  "name": "r3pbadge",
+                                  "id": "JGoT5",
+                                  "name": "r3priBadge",
                                   "fill": "#DBEAFE",
                                   "cornerRadius": 4,
                                   "padding": [
@@ -13428,8 +13453,8 @@
                                   "children": [
                                     {
                                       "type": "text",
-                                      "id": "0mSmr",
-                                      "name": "r3ptext",
+                                      "id": "2YxvP",
+                                      "name": "r3priText",
                                       "fill": "#2563EB",
                                       "content": "Medium",
                                       "fontFamily": "Inter",
@@ -13442,19 +13467,14 @@
                             },
                             {
                               "type": "frame",
-                              "id": "9EqWE",
-                              "name": "r3status",
+                              "id": "kHHTe",
+                              "name": "r3statCol",
                               "width": 100,
-                              "height": "fill_container",
-                              "padding": [
-                                0,
-                                12
-                              ],
                               "children": [
                                 {
                                   "type": "frame",
-                                  "id": "tFE3W",
-                                  "name": "r3sbadge",
+                                  "id": "HrxK4",
+                                  "name": "r3statBadge",
                                   "fill": "#DCFCE7",
                                   "cornerRadius": 4,
                                   "padding": [
@@ -13464,8 +13484,8 @@
                                   "children": [
                                     {
                                       "type": "text",
-                                      "id": "GTmYq",
-                                      "name": "r3stext",
+                                      "id": "el8H0",
+                                      "name": "r3statText",
                                       "fill": "#22C55E",
                                       "content": "Done",
                                       "fontFamily": "Inter",
@@ -13477,13 +13497,44 @@
                               ]
                             },
                             {
-                              "type": "text",
-                              "id": "3P7QR",
-                              "name": "r3assignee",
-                              "fill": "#6B7280",
-                              "content": "Alex",
-                              "fontFamily": "Inter",
-                              "fontSize": 13
+                              "type": "frame",
+                              "id": "55jo6",
+                              "name": "r3assignCol",
+                              "width": 120,
+                              "gap": 6,
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "PqqhE",
+                                  "name": "r3avatar",
+                                  "width": 24,
+                                  "height": 24,
+                                  "fill": "#3B82F6",
+                                  "cornerRadius": 12,
+                                  "layout": "vertical",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "id": "IqAH5",
+                                      "name": "r3avatarT",
+                                      "fill": "#FFFFFF",
+                                      "content": "A",
+                                      "fontFamily": "Inter",
+                                      "fontSize": 10,
+                                      "fontWeight": "600"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "pP0Kx",
+                                  "name": "r3assignT",
+                                  "fill": "#1A1A2E",
+                                  "content": "Alex",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 12
+                                }
+                              ]
                             }
                           ]
                         }
@@ -13716,6 +13767,1457 @@
                           ]
                         }
                       ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "nl6ND",
+      "x": 0,
+      "y": 11988,
+      "name": "Mobile - Create Team Member Dialog",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": "#00000066",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "2pR3K",
+          "name": "Spacer",
+          "width": "fill_container",
+          "height": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "h7R7Z",
+          "name": "Bottom Sheet",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "cornerRadius": [
+            20,
+            20,
+            0,
+            0
+          ],
+          "layout": "vertical",
+          "padding": [
+            12,
+            0,
+            24,
+            0
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "k6ORB",
+              "name": "Handle Row",
+              "width": "fill_container",
+              "height": 24,
+              "layout": "vertical",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "MMKlp",
+                  "name": "Handle Bar",
+                  "width": 36,
+                  "height": 4,
+                  "fill": "#D1D5DB",
+                  "cornerRadius": 2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "xwc7b",
+              "name": "Sheet Header",
+              "width": "fill_container",
+              "padding": [
+                8,
+                20,
+                16,
+                20
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "TNyQd",
+                  "name": "sheetTitle",
+                  "fill": "#1A1A2E",
+                  "content": "Add Team Member",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "icon_font",
+                  "id": "NcUa8",
+                  "name": "sheetClose",
+                  "width": 22,
+                  "height": 22,
+                  "iconFontName": "x",
+                  "iconFontFamily": "lucide",
+                  "fill": "#6B7280"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "260xn",
+              "name": "Form Area",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": [
+                0,
+                20
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ZyF3k",
+                  "name": "Name Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "nhtMs",
+                      "name": "nameLabel",
+                      "fill": "#1A1A2E",
+                      "content": "Full Name",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "kGAcJ",
+                      "name": "Name Input",
+                      "width": "fill_container",
+                      "height": 44,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "HEAzR",
+                          "name": "namePh",
+                          "fill": "#9CA3AF",
+                          "content": "Enter full name",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Q4bZM",
+                  "name": "Email Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "hrBbM",
+                      "name": "emailLabel",
+                      "fill": "#1A1A2E",
+                      "content": "Email",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "JdGri",
+                      "name": "Email Input",
+                      "width": "fill_container",
+                      "height": 44,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "6eAhA",
+                          "name": "emailPh",
+                          "fill": "#9CA3AF",
+                          "content": "Enter email address",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "x22BW",
+                  "name": "Role Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "mX3eG",
+                      "name": "roleLabel",
+                      "fill": "#1A1A2E",
+                      "content": "Role",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "onAQ6",
+                      "name": "Role Select",
+                      "width": "fill_container",
+                      "height": 44,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Abm0a",
+                          "name": "roleValue",
+                          "fill": "#9CA3AF",
+                          "content": "Select role",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "icon_font",
+                          "id": "HS3Yl",
+                          "name": "roleChev",
+                          "width": 16,
+                          "height": 16,
+                          "iconFontName": "chevron-down",
+                          "iconFontFamily": "lucide",
+                          "fill": "#6B7280"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "6tTMk",
+                  "name": "Button Row",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "padding": [
+                    8,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "zNDIs",
+                      "name": "Cancel Button",
+                      "width": "fill_container",
+                      "height": 48,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "gWdJl",
+                          "name": "cancelText",
+                          "fill": "#6B7280",
+                          "content": "Cancel",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "jmimP",
+                      "name": "Create Button",
+                      "width": "fill_container",
+                      "height": 48,
+                      "fill": "#7D00FA",
+                      "cornerRadius": 8,
+                      "gap": 8,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "iPYGM",
+                          "name": "createIcon",
+                          "width": 18,
+                          "height": 18,
+                          "iconFontName": "user-plus",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        },
+                        {
+                          "type": "text",
+                          "id": "I5dSR",
+                          "name": "createText",
+                          "fill": "#FFFFFF",
+                          "content": "Add Member",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "sgCXm",
+      "x": 440,
+      "y": 11988,
+      "name": "Mobile - Update Team Member Dialog",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": "#00000066",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "41EXT",
+          "name": "Spacer",
+          "width": "fill_container",
+          "height": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "jY0wU",
+          "name": "Bottom Sheet",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "cornerRadius": [
+            20,
+            20,
+            0,
+            0
+          ],
+          "layout": "vertical",
+          "padding": [
+            12,
+            0,
+            24,
+            0
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "MAqst",
+              "name": "Handle Row",
+              "width": "fill_container",
+              "height": 24,
+              "layout": "vertical",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "CwPd0",
+                  "name": "Handle Bar",
+                  "width": 36,
+                  "height": 4,
+                  "fill": "#D1D5DB",
+                  "cornerRadius": 2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Mwi6l",
+              "name": "Sheet Header",
+              "width": "fill_container",
+              "padding": [
+                8,
+                20,
+                16,
+                20
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "cPuAM",
+                  "name": "sheetTitle",
+                  "fill": "#1A1A2E",
+                  "content": "Edit Team Member",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "icon_font",
+                  "id": "UwEqh",
+                  "name": "sheetClose",
+                  "width": 22,
+                  "height": 22,
+                  "iconFontName": "x",
+                  "iconFontFamily": "lucide",
+                  "fill": "#6B7280"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "b6kA9",
+              "name": "Form Area",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": [
+                0,
+                20
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "yecMZ",
+                  "name": "Name Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "2v4ZG",
+                      "name": "nameLabel",
+                      "fill": "#1A1A2E",
+                      "content": "Full Name",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ws86C",
+                      "name": "Name Input",
+                      "width": "fill_container",
+                      "height": 44,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "n1HDi",
+                          "name": "nameValue",
+                          "fill": "#1A1A2E",
+                          "content": "Sarah Johnson",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "J8Gbu",
+                  "name": "Email Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "bd6tg",
+                      "name": "emailLabel",
+                      "fill": "#1A1A2E",
+                      "content": "Email",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ZnqFj",
+                      "name": "Email Input",
+                      "width": "fill_container",
+                      "height": 44,
+                      "fill": "#FFFFFF",
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "eQRa0",
+                          "name": "emailValue",
+                          "fill": "#1A1A2E",
+                          "content": "sarah.johnson@company.com",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "bTvB2",
+                  "name": "Role Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "oHuCo",
+                      "name": "roleLabel",
+                      "fill": "#1A1A2E",
+                      "content": "Role",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "m69xq",
+                      "name": "Role Select",
+                      "width": "fill_container",
+                      "height": 44,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "nQSP1",
+                          "name": "roleValue",
+                          "fill": "#1A1A2E",
+                          "content": "Developer",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "icon_font",
+                          "id": "FneYb",
+                          "name": "roleChev",
+                          "width": 16,
+                          "height": 16,
+                          "iconFontName": "chevron-down",
+                          "iconFontFamily": "lucide",
+                          "fill": "#6B7280"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ykUSm",
+                  "name": "Button Row",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "padding": [
+                    8,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "G49LX",
+                      "name": "Delete Button",
+                      "width": 48,
+                      "height": 48,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#FCA5A5"
+                      },
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "CZVGG",
+                          "name": "delIcon",
+                          "width": 18,
+                          "height": 18,
+                          "iconFontName": "trash-2",
+                          "iconFontFamily": "lucide",
+                          "fill": "#EF4444"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Fcjoc",
+                      "name": "Update Button",
+                      "width": "fill_container",
+                      "height": 48,
+                      "fill": "#7D00FA",
+                      "cornerRadius": 8,
+                      "gap": 8,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "egeX0",
+                          "name": "updIcon",
+                          "width": 18,
+                          "height": 18,
+                          "iconFontName": "check",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        },
+                        {
+                          "type": "text",
+                          "id": "bJkIF",
+                          "name": "updText",
+                          "fill": "#FFFFFF",
+                          "content": "Update Member",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "fZ3FD",
+      "x": 0,
+      "y": 12932,
+      "name": "Desktop - Create Team Member Dialog",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "#00000066",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "iujX0",
+          "x": 460,
+          "y": 120,
+          "name": "Modal Card",
+          "width": 520,
+          "fill": "#FFFFFF",
+          "cornerRadius": 12,
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#00000022",
+            "offset": {
+              "x": 0,
+              "y": 8
+            },
+            "blur": 24
+          },
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "IfobX",
+              "name": "Modal Header",
+              "width": "fill_container",
+              "stroke": {
+                "thickness": {
+                  "bottom": 1
+                },
+                "fill": "#E5E7EB"
+              },
+              "padding": [
+                20,
+                24,
+                16,
+                24
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "9tqla",
+                  "name": "Header Left",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "mDafn",
+                      "name": "hdrTitle",
+                      "fill": "#1A1A2E",
+                      "content": "Add Team Member",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "k7gyN",
+                      "name": "hdrSub",
+                      "fill": "#6B7280",
+                      "content": "Invite a new member to your team",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "M8sxH",
+                  "name": "Close Btn",
+                  "width": 32,
+                  "height": 32,
+                  "cornerRadius": 6,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E5E7EB"
+                  },
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "SrU1M",
+                      "name": "closeIcon",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "x",
+                      "iconFontFamily": "lucide",
+                      "fill": "#6B7280"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "uy8DM",
+              "name": "Form Body",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "padding": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "EEvnq",
+                  "name": "Name Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "PRW6i",
+                      "name": "nameLbl",
+                      "fill": "#1A1A2E",
+                      "content": "Full Name",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qs0iV",
+                      "name": "Name Input",
+                      "width": "fill_container",
+                      "height": 40,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "jG4nU",
+                          "name": "namePh",
+                          "fill": "#9CA3AF",
+                          "content": "Enter full name",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Taern",
+                  "name": "Email Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "O4fAd",
+                      "name": "emailLbl",
+                      "fill": "#1A1A2E",
+                      "content": "Email",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "9ZTmP",
+                      "name": "Email Input",
+                      "width": "fill_container",
+                      "height": 40,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "SGpl0",
+                          "name": "emailPh",
+                          "fill": "#9CA3AF",
+                          "content": "Enter email address",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "NXseB",
+                  "name": "Role Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "7u0Tp",
+                      "name": "roleLbl",
+                      "fill": "#1A1A2E",
+                      "content": "Role",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "P8OTu",
+                      "name": "Role Select",
+                      "width": "fill_container",
+                      "height": 40,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "bzjZL",
+                          "name": "rolePh",
+                          "fill": "#9CA3AF",
+                          "content": "Select role",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "icon_font",
+                          "id": "rOqbP",
+                          "name": "roleChev",
+                          "width": 16,
+                          "height": 16,
+                          "iconFontName": "chevron-down",
+                          "iconFontFamily": "lucide",
+                          "fill": "#6B7280"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "uSN5F",
+              "name": "Modal Footer",
+              "width": "fill_container",
+              "stroke": {
+                "thickness": {
+                  "top": 1
+                },
+                "fill": "#E5E7EB"
+              },
+              "gap": 12,
+              "padding": [
+                16,
+                24,
+                20,
+                24
+              ],
+              "justifyContent": "end",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "UzAWe",
+                  "name": "Cancel Button",
+                  "height": 40,
+                  "cornerRadius": 8,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E5E7EB"
+                  },
+                  "padding": [
+                    0,
+                    20
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ZInHj",
+                      "name": "cancelTxt",
+                      "fill": "#374151",
+                      "content": "Cancel",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Piu6D",
+                  "name": "Add Button",
+                  "height": 40,
+                  "fill": "#7D00FA",
+                  "cornerRadius": 8,
+                  "gap": 8,
+                  "padding": [
+                    0,
+                    20
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "JuJEc",
+                      "name": "createIcon",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "user-plus",
+                      "iconFontFamily": "lucide",
+                      "fill": "#FFFFFF"
+                    },
+                    {
+                      "type": "text",
+                      "id": "wqn9D",
+                      "name": "createTxt",
+                      "fill": "#FFFFFF",
+                      "content": "Add Member",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "CZfPX",
+      "x": 0,
+      "y": 13932,
+      "name": "Desktop - Update Team Member Dialog",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "#00000066",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "hl5GA",
+          "x": 460,
+          "y": 100,
+          "name": "Modal Card",
+          "width": 520,
+          "fill": "#FFFFFF",
+          "cornerRadius": 12,
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#00000022",
+            "offset": {
+              "x": 0,
+              "y": 8
+            },
+            "blur": 24
+          },
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "DUbMa",
+              "name": "Modal Header",
+              "width": "fill_container",
+              "stroke": {
+                "thickness": {
+                  "bottom": 1
+                },
+                "fill": "#E5E7EB"
+              },
+              "padding": [
+                20,
+                24,
+                16,
+                24
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "qKHpH",
+                  "name": "Header Left",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Oks4X",
+                      "name": "uhdrTitle",
+                      "fill": "#1A1A2E",
+                      "content": "Edit Team Member",
+                      "fontFamily": "Inter",
+                      "fontSize": 18,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "8SMu1",
+                      "name": "uhdrSub",
+                      "fill": "#6B7280",
+                      "content": "Update member details",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "i175R",
+                  "name": "Close Btn",
+                  "width": 32,
+                  "height": 32,
+                  "cornerRadius": 6,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E5E7EB"
+                  },
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "ZcZnR",
+                      "name": "ucloseIcon",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "x",
+                      "iconFontFamily": "lucide",
+                      "fill": "#6B7280"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "MEwNe",
+              "name": "Form Body",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "padding": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "iC3eE",
+                  "name": "Name Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "fpUdv",
+                      "name": "unameLbl",
+                      "fill": "#1A1A2E",
+                      "content": "Full Name",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "TK0PC",
+                      "name": "Name Input",
+                      "width": "fill_container",
+                      "height": 40,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ahL3o",
+                          "name": "unameTxt",
+                          "fill": "#1A1A2E",
+                          "content": "Sarah Johnson",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "xXZZ4",
+                  "name": "Email Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "fq3Jk",
+                      "name": "uemailLbl",
+                      "fill": "#1A1A2E",
+                      "content": "Email",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "np8aH",
+                      "name": "Email Input",
+                      "width": "fill_container",
+                      "height": 40,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "XU8ta",
+                          "name": "uemailTxt",
+                          "fill": "#1A1A2E",
+                          "content": "sarah.johnson@company.com",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "DhNdt",
+                  "name": "Role Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "cPzqu",
+                      "name": "uroleLbl",
+                      "fill": "#1A1A2E",
+                      "content": "Role",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "zNGeu",
+                      "name": "Role Select",
+                      "width": "fill_container",
+                      "height": 40,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "NIczQ",
+                          "name": "uroleTxt",
+                          "fill": "#1A1A2E",
+                          "content": "Developer",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "icon_font",
+                          "id": "AHAnT",
+                          "name": "uroleChev",
+                          "width": 16,
+                          "height": 16,
+                          "iconFontName": "chevron-down",
+                          "iconFontFamily": "lucide",
+                          "fill": "#6B7280"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "mo8ck",
+              "name": "Modal Footer",
+              "width": "fill_container",
+              "stroke": {
+                "thickness": {
+                  "top": 1
+                },
+                "fill": "#E5E7EB"
+              },
+              "gap": 12,
+              "padding": [
+                16,
+                24,
+                20,
+                24
+              ],
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "bdczR",
+                  "name": "Delete Button",
+                  "height": 40,
+                  "cornerRadius": 8,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#FCA5A5"
+                  },
+                  "gap": 6,
+                  "padding": [
+                    0,
+                    16
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "AVHDv",
+                      "name": "udelIcon",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "trash-2",
+                      "iconFontFamily": "lucide",
+                      "fill": "#EF4444"
+                    },
+                    {
+                      "type": "text",
+                      "id": "HaqU0",
+                      "name": "udelTxt",
+                      "fill": "#EF4444",
+                      "content": "Delete",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "6QmZS",
+                  "name": "Update Button",
+                  "height": 40,
+                  "fill": "#7D00FA",
+                  "cornerRadius": 8,
+                  "gap": 8,
+                  "padding": [
+                    0,
+                    20
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "3EzzR",
+                      "name": "uupdIcon",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "check",
+                      "iconFontFamily": "lucide",
+                      "fill": "#FFFFFF"
+                    },
+                    {
+                      "type": "text",
+                      "id": "u2Doc",
+                      "name": "uupdTxt",
+                      "fill": "#FFFFFF",
+                      "content": "Update Member",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
                     }
                   ]
                 }
