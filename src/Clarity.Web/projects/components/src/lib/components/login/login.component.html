@@ -47,9 +47,14 @@
           </button>
         </mat-form-field>
 
-        <button mat-flat-button color="primary" type="submit" class="sign-in-btn">
-          Sign In
-          <mat-icon iconPositionEnd>arrow_forward</mat-icon>
+        <div *ngIf="loginError" class="login-error">
+          {{ loginError }}
+        </div>
+
+        <button mat-flat-button color="primary" type="submit" class="sign-in-btn" [disabled]="isLoading || form.invalid">
+          <span *ngIf="!isLoading">Sign In</span>
+          <span *ngIf="isLoading">Signing in...</span>
+          <mat-icon *ngIf="!isLoading" iconPositionEnd>arrow_forward</mat-icon>
         </button>
 
         <div class="forgot-link">

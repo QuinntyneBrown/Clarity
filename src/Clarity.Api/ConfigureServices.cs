@@ -61,7 +61,7 @@ public static class ConfigureServices
 
         services.AddCors(options => options.AddPolicy("CorsPolicy",
             builder => builder
-            .WithOrigins("http://localhost:4200")
+            .WithOrigins("http://localhost:4200", "http://localhost:4201")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .SetIsOriginAllowed(isOriginAllowed: _ => true)

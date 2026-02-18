@@ -6,6 +6,12 @@ test.describe('Login Flow', () => {
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
+    // Clear auth tokens before each test
+    await page.goto('/login');
+    await page.evaluate(() => {
+      localStorage.removeItem('clarity_access_token');
+      localStorage.removeItem('clarity_user_id');
+    });
     await loginPage.goto();
   });
 
@@ -37,24 +43,43 @@ test.describe('Login Flow', () => {
     await expect(loginPage.passwordInput).toHaveAttribute('type', 'password');
   });
 
-  test('should not navigate when form is empty', async ({ page }) => {
-    await loginPage.clickSignIn();
+  test('should disable submit button when form is empty', async ({ page }) => {
+    // Button should be disabled when form is invalid (empty fields)
+    await expect(loginPage.signInButton).toBeDisabled();
     // Should stay on login page
     await expect(page).toHaveURL(/\/login/);
   });
 
-  test('should not navigate with invalid email', async ({ page }) => {
+  test('should disable submit button with invalid email format', async ({ page }) => {
     await loginPage.fillEmail('notanemail');
     await loginPage.fillPassword('password123');
-    await loginPage.clickSignIn();
-    // Should stay on login page (email validation fails)
+    // Button should be disabled when email format is invalid
+    await expect(loginPage.signInButton).toBeDisabled();
+    // Should stay on login page
     await expect(page).toHaveURL(/\/login/);
   });
 
-  test('should navigate to kanban board on valid login', async ({ page }) => {
+  test('should show error message with wrong credentials', async ({ page }) => {
+    await loginPage.fillEmail('wrong@example.com');
+    await loginPage.fillPassword('wrongpassword');
+    await loginPage.clickSignIn();
+
+    // Should show error message
+    await expect(loginPage.loginError).toBeVisible({ timeout: 10000 });
+    await expect(loginPage.loginError).toHaveText('Invalid email or password');
+    // Should stay on login page
+    await expect(page).toHaveURL(/\/login/);
+  });
+
+  test('should authenticate with valid credentials and navigate to kanban', async ({ page }) => {
     await loginPage.login('quinntynebrown@gmail.com', 'password123');
-    await page.waitForURL('**/kanban', { timeout: 10000 });
+    await page.waitForURL('**/kanban', { timeout: 15000 });
     await expect(page).toHaveURL(/\/kanban/);
+
+    // Verify JWT token was stored
+    const token = await page.evaluate(() => localStorage.getItem('clarity_access_token'));
+    expect(token).toBeTruthy();
+    expect(token!.split('.').length).toBe(3); // JWT has 3 parts
   });
 
   test('should display sign-in button with arrow icon', async () => {
@@ -69,13 +94,49 @@ test.describe('Login Flow', () => {
     await expect(loginPage.passwordInput).toHaveValue('password123');
 
     await loginPage.clickSignIn();
-    await page.waitForURL('**/kanban', { timeout: 10000 });
+    await page.waitForURL('**/kanban', { timeout: 15000 });
     await expect(page).toHaveURL(/\/kanban/);
 
     // Verify kanban board content loaded
     await expect(page.locator('.board-title')).toBeVisible({ timeout: 15000 });
     await expect(page.locator('.board-title')).toHaveText(/Default/);
     await expect(page.locator('.kanban-column').first()).toBeVisible({ timeout: 15000 });
+  });
+
+  test('should redirect to login when accessing protected route without auth', async ({ page }) => {
+    // Try to access kanban directly without auth
+    await page.goto('/kanban');
+    await expect(page).toHaveURL(/\/login/);
+  });
+
+  test('should receive 401 for unauthenticated API requests', async ({ request }) => {
+    const response = await request.get('https://localhost:50124/api/1.0/board', {
+      ignoreHTTPSErrors: true,
+    });
+    expect(response.status()).toBe(401);
+  });
+
+  test('should receive 200 for authenticated API requests', async ({ request }) => {
+    // Get a token first
+    const authResponse = await request.post('https://localhost:50124/api/1.0/user/token', {
+      ignoreHTTPSErrors: true,
+      data: {
+        username: 'quinntynebrown@gmail.com',
+        password: 'password123'
+      }
+    });
+    expect(authResponse.ok()).toBeTruthy();
+    const { accessToken } = await authResponse.json();
+    expect(accessToken).toBeTruthy();
+
+    // Make authenticated request
+    const response = await request.get('https://localhost:50124/api/1.0/board', {
+      ignoreHTTPSErrors: true,
+      headers: { 'Authorization': `Bearer ${accessToken}` }
+    });
+    expect(response.status()).toBe(200);
+    const body = await response.json();
+    expect(body.boards).toBeDefined();
   });
 });
 
@@ -121,7 +182,7 @@ test.describe('Login - Mobile Layout', () => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
     await loginPage.login('quinntynebrown@gmail.com', 'password123');
-    await page.waitForURL('**/kanban', { timeout: 10000 });
+    await page.waitForURL('**/kanban', { timeout: 15000 });
     await expect(page).toHaveURL(/\/kanban/);
   });
 });

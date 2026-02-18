@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 using Clarity.Core.AggregateModel.BoardStateAggregate;
@@ -9,6 +10,7 @@ using Clarity.Core.AggregateModel;
 
 namespace Clarity.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/{version:apiVersion}/[controller]")]

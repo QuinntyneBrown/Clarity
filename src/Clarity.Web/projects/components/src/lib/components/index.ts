@@ -1,4 +1,5 @@
 export * from './app-layout';
+export * from './auth.interceptor';
 export * from './auth.service';
 export * from './board-list';
 export * from './clone-board';

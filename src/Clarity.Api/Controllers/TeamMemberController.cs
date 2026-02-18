@@ -3,6 +3,7 @@
 
 using Clarity.Core.AggregateModel.TeamMemberAggregate.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
@@ -10,6 +11,7 @@ using System.Net.Mime;
 
 namespace Clarity.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/{version:apiVersion}/[controller]")]

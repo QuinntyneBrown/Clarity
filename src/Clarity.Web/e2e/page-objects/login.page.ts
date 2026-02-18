@@ -11,6 +11,7 @@ export class LoginPage {
   readonly formHeader: Locator;
   readonly forgotPasswordLink: Locator;
   readonly passwordToggle: Locator;
+  readonly loginError: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -23,6 +24,7 @@ export class LoginPage {
     this.formHeader = page.locator('.form-header');
     this.forgotPasswordLink = page.locator('.forgot-link a');
     this.passwordToggle = page.locator('app-login button[mat-icon-button]');
+    this.loginError = page.locator('.login-error');
   }
 
   async goto() {

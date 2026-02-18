@@ -116,6 +116,16 @@
   }
 }
 
+.login-error {
+  color: #d32f2f;
+  font-family: var(--font-family);
+  font-size: 14px;
+  text-align: center;
+  padding: 8px 12px;
+  background: #fdecea;
+  border-radius: 6px;
+}
+
 .sign-in-btn {
   height: 48px;
   border-radius: 8px;

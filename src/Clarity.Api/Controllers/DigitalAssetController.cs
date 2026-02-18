@@ -6,12 +6,14 @@ using Clarity.Core.AggregateModel.DigitalAssetAggregate.Queries;
 using System.Net;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Clarity.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/{version:apiVersion}/[controller]")]

@@ -5,6 +5,7 @@ using Clarity.Core.AggregateModel.UserAggregate;
 using Clarity.Core.AggregateModel.UserAggregate.Commands;
 using Clarity.Core.AggregateModel.UserAggregate.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
@@ -12,6 +13,7 @@ using System.Net.Mime;
 
 namespace Clarity.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/{version:apiVersion}/[controller]")]
@@ -28,6 +30,7 @@ public class UserController
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    [AllowAnonymous]
     [SwaggerOperation(
         Summary = "Authenticate",
         Description = @"Authenticate"
