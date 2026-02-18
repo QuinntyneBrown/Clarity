@@ -23,6 +23,8 @@ public static class TicketExtensions
             BoardId = ticket.CurrentTicketState.BoardState.BoardId,
             TeamMemberId = ticket.TeamMemberId,
             TeamMemberName = ticket.TeamMember?.Name,
+            InitiativeId = ticket.InitiativeId,
+            InitiativeName = ticket.Initiative?.Name,
             Comments = ticket.Comments.OrderByDescending(x => x.Created).Select(x => x.ToDto()).ToList()
         };
 }

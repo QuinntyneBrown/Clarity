@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Clarity.Core.AggregateModel.CommentAggregate;
+using Clarity.Core.AggregateModel.InitiativeAggregate;
 using Clarity.Core.AggregateModel.TeamMemberAggregate;
 using Clarity.Core.DomainEvents;
 using Clarity.Core.ValueObjects;
@@ -26,6 +27,11 @@ public class Ticket
     public int Effort { get; private set; }
     public int Priority { get; private set; }
     public TicketType TicketType { get; set; }
+
+    [ForeignKey("Initiative")]
+    public Guid? InitiativeId { get; private set; }
+    public Initiative Initiative { get; private set; }
+
     public TeamMember TeamMember { get; private set; }
     public List<TicketState> TicketStates { get; private set; } = new();
     public TicketState CurrentTicketState { get => TicketStates.OrderByDescending(x => x.Created).First(); }
@@ -53,6 +59,11 @@ public class Ticket
         AcceptanceCriteria = acceptanceCriteria;
         Description = description;
     }
+    public void SetInitiative(Guid? initiativeId)
+    {
+        InitiativeId = initiativeId;
+    }
+
     public void UpdateEffort(int effort)
     {
         Effort = effort;

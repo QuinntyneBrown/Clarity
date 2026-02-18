@@ -5,8 +5,11 @@ using Clarity.Core.AggregateModel.BoardAggregate;
 using Clarity.Core.AggregateModel.BoardStateAggregate;
 using Clarity.Core.AggregateModel.CommentAggregate;
 using Clarity.Core.AggregateModel.DigitalAssetAggregate;
+using Clarity.Core.AggregateModel.InitiativeAggregate;
 using Clarity.Core.AggregateModel.PrivilegeAggregate;
 using Clarity.Core.AggregateModel.RoleAggregate;
+using Clarity.Core.AggregateModel.SprintAggregate;
+using Clarity.Core.AggregateModel.TeamAggregate;
 using Clarity.Core.AggregateModel.TeamMemberAggregate;
 using Clarity.Core.AggregateModel.TicketAggregate;
 using Clarity.Core.AggregateModel.UserAggregate;
@@ -21,8 +24,11 @@ public interface IClarityDbContext
     DbSet<Comment> Comments { get; }
     DbSet<DigitalAsset> DigitalAssets { get; }
     DbSet<BoardState> BoardStates { get; }
+    DbSet<Initiative> Initiatives { get; }
     DbSet<Privilege> Privileges { get; }
     DbSet<Role> Roles { get; }
+    DbSet<Sprint> Sprints { get; }
+    DbSet<Team> Teams { get; }
     DbSet<TeamMember> TeamMembers { get; }
     DbSet<Ticket> Tickets { get; }
     DbSet<User> Users { get; }
