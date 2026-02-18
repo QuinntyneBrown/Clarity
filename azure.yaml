@@ -17,7 +17,7 @@ hooks:
     shell: sh
     run: |
       echo "Building Angular frontend..."
-      cd src/Clarity.Web && npm ci && npx ng build clarity --configuration production
+      cd src/Clarity.Web && npm ci && npx ng build @api && npx ng build @components && npx ng build clarity --configuration production
       echo "Copying frontend to API wwwroot..."
       mkdir -p ../Clarity.Api/wwwroot
       cp -r dist/clarity/* ../Clarity.Api/wwwroot/
