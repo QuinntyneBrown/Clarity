@@ -1,13 +1,14 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -21,12 +22,13 @@ import { AuthService } from '../auth.service';
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        MatIconModule
+        MatIconModule,
+        MatCheckboxModule
     ],
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   hidePassword = true;
   form: FormGroup;
   loginError = '';
@@ -40,8 +42,19 @@ export class LoginComponent {
   ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required]],
+      rememberMe: [false]
     });
+  }
+
+  ngOnInit() {
+    const rememberedUsername = this.authService.rememberedUsername;
+    if (rememberedUsername) {
+      this.form.patchValue({
+        email: rememberedUsername,
+        rememberMe: true
+      });
+    }
   }
 
   onSubmit() {
@@ -50,8 +63,8 @@ export class LoginComponent {
       this.loginError = '';
       this.cdr.markForCheck();
 
-      const { email, password } = this.form.value;
-      this.authService.authenticate(email, password).subscribe({
+      const { email, password, rememberMe } = this.form.value;
+      this.authService.authenticate(email, password, rememberMe).subscribe({
         next: () => {
           this.isLoading = false;
           this.router.navigate(['/kanban']);

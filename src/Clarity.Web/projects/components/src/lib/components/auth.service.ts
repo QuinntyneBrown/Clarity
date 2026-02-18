@@ -15,6 +15,8 @@ export interface AuthenticateResponse {
 export class AuthService {
   private readonly tokenKey = 'clarity_access_token';
   private readonly userIdKey = 'clarity_user_id';
+  private readonly rememberMeKey = 'clarity_remember_me';
+  private readonly rememberedUsernameKey = 'clarity_remembered_username';
 
   constructor(
     private readonly http: HttpClient,
@@ -26,21 +28,38 @@ export class AuthService {
   }
 
   get accessToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    return localStorage.getItem(this.tokenKey) ?? sessionStorage.getItem(this.tokenKey);
   }
 
   get userId(): string | null {
-    return localStorage.getItem(this.userIdKey);
+    return localStorage.getItem(this.userIdKey) ?? sessionStorage.getItem(this.userIdKey);
   }
 
-  authenticate(username: string, password: string): Observable<AuthenticateResponse> {
+  get rememberedUsername(): string | null {
+    return localStorage.getItem(this.rememberedUsernameKey);
+  }
+
+  get isRememberMe(): boolean {
+    return localStorage.getItem(this.rememberMeKey) === 'true';
+  }
+
+  authenticate(username: string, password: string, rememberMe = false): Observable<AuthenticateResponse> {
     return this.http.post<AuthenticateResponse>(
       `${this.baseUrl}api/1.0/user/token`,
       { username, password }
     ).pipe(
       tap(response => {
-        localStorage.setItem(this.tokenKey, response.accessToken);
-        localStorage.setItem(this.userIdKey, response.userId);
+        if (rememberMe) {
+          localStorage.setItem(this.tokenKey, response.accessToken);
+          localStorage.setItem(this.userIdKey, response.userId);
+          localStorage.setItem(this.rememberMeKey, 'true');
+          localStorage.setItem(this.rememberedUsernameKey, username);
+        } else {
+          sessionStorage.setItem(this.tokenKey, response.accessToken);
+          sessionStorage.setItem(this.userIdKey, response.userId);
+          localStorage.removeItem(this.rememberMeKey);
+          localStorage.removeItem(this.rememberedUsernameKey);
+        }
       }),
       catchError(error => {
         return throwError(() => error);
@@ -51,5 +70,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userIdKey);
+    sessionStorage.removeItem(this.tokenKey);
+    sessionStorage.removeItem(this.userIdKey);
   }
 }

@@ -12,6 +12,7 @@ export class LoginPage {
   readonly forgotPasswordLink: Locator;
   readonly passwordToggle: Locator;
   readonly loginError: Locator;
+  readonly rememberMeCheckbox: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -22,9 +23,10 @@ export class LoginPage {
     this.mobileLogo = page.locator('.mobile-logo');
     this.formPanel = page.locator('.form-panel');
     this.formHeader = page.locator('.form-header');
-    this.forgotPasswordLink = page.locator('.forgot-link a');
+    this.forgotPasswordLink = page.locator('.remember-row .forgot-link');
     this.passwordToggle = page.locator('app-login button[mat-icon-button]');
     this.loginError = page.locator('.login-error');
+    this.rememberMeCheckbox = page.locator('[data-test="remember-checkbox"]');
   }
 
   async goto() {

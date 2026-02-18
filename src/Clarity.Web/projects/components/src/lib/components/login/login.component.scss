@@ -141,11 +141,12 @@
   }
 }
 
-.forgot-link {
-  text-align: center;
-  margin-top: 16px;
+.remember-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  a {
+  .forgot-link {
     font-family: var(--font-family);
     font-size: 14px;
     font-weight: 500;

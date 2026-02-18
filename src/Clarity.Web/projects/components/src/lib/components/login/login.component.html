@@ -47,6 +47,13 @@
           </button>
         </mat-form-field>
 
+        <div class="remember-row">
+          <mat-checkbox formControlName="rememberMe" data-test="remember-checkbox">
+            Remember me
+          </mat-checkbox>
+          <a class="forgot-link" href="javascript:void(0)">Forgot password?</a>
+        </div>
+
         <div *ngIf="loginError" class="login-error">
           {{ loginError }}
         </div>
@@ -56,10 +63,6 @@
           <span *ngIf="isLoading">Signing in...</span>
           <mat-icon *ngIf="!isLoading" iconPositionEnd>arrow_forward</mat-icon>
         </button>
-
-        <div class="forgot-link">
-          <a href="javascript:void(0)">Forgot password?</a>
-        </div>
       </form>
     </div>
   </div>

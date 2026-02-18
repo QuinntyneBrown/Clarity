@@ -11,6 +11,10 @@ test.describe('Login Flow', () => {
     await page.evaluate(() => {
       localStorage.removeItem('clarity_access_token');
       localStorage.removeItem('clarity_user_id');
+      localStorage.removeItem('clarity_remember_me');
+      localStorage.removeItem('clarity_remembered_username');
+      sessionStorage.removeItem('clarity_access_token');
+      sessionStorage.removeItem('clarity_user_id');
     });
     await loginPage.goto();
   });
@@ -25,6 +29,11 @@ test.describe('Login Flow', () => {
   test('should display welcome header', async () => {
     await expect(loginPage.formHeader.locator('h2')).toHaveText('Welcome back');
     await expect(loginPage.formHeader.locator('p')).toHaveText('Sign in to your account to continue');
+  });
+
+  test('should display remember me checkbox', async () => {
+    await expect(loginPage.rememberMeCheckbox).toBeVisible();
+    await expect(loginPage.rememberMeCheckbox).toContainText('Remember me');
   });
 
   test('should display forgot password link', async () => {
@@ -76,8 +85,10 @@ test.describe('Login Flow', () => {
     await page.waitForURL('**/kanban', { timeout: 15000 });
     await expect(page).toHaveURL(/\/kanban/);
 
-    // Verify JWT token was stored
-    const token = await page.evaluate(() => localStorage.getItem('clarity_access_token'));
+    // Verify JWT token was stored (in sessionStorage when remember me is unchecked)
+    const token = await page.evaluate(() =>
+      sessionStorage.getItem('clarity_access_token') ?? localStorage.getItem('clarity_access_token')
+    );
     expect(token).toBeTruthy();
     expect(token!.split('.').length).toBe(3); // JWT has 3 parts
   });
@@ -101,6 +112,30 @@ test.describe('Login Flow', () => {
     await expect(page.locator('.board-title')).toBeVisible({ timeout: 15000 });
     await expect(page.locator('.board-title')).toHaveText(/Default/);
     await expect(page.locator('.kanban-column').first()).toBeVisible({ timeout: 15000 });
+  });
+
+  test('should store token in localStorage when remember me is checked', async ({ page }) => {
+    await loginPage.rememberMeCheckbox.click();
+    await loginPage.login('quinntynebrown@gmail.com', 'P@ssw0rd');
+    await page.waitForURL('**/kanban', { timeout: 15000 });
+
+    const localToken = await page.evaluate(() => localStorage.getItem('clarity_access_token'));
+    const sessionToken = await page.evaluate(() => sessionStorage.getItem('clarity_access_token'));
+    expect(localToken).toBeTruthy();
+    expect(sessionToken).toBeNull();
+
+    const rememberedUsername = await page.evaluate(() => localStorage.getItem('clarity_remembered_username'));
+    expect(rememberedUsername).toBe('quinntynebrown@gmail.com');
+  });
+
+  test('should store token in sessionStorage when remember me is not checked', async ({ page }) => {
+    await loginPage.login('quinntynebrown@gmail.com', 'P@ssw0rd');
+    await page.waitForURL('**/kanban', { timeout: 15000 });
+
+    const localToken = await page.evaluate(() => localStorage.getItem('clarity_access_token'));
+    const sessionToken = await page.evaluate(() => sessionStorage.getItem('clarity_access_token'));
+    expect(localToken).toBeNull();
+    expect(sessionToken).toBeTruthy();
   });
 
   test('should redirect to login when accessing protected route without auth', async ({ page }) => {
