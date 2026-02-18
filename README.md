@@ -1,6 +1,6 @@
 # Clarity
 
-A Kanban board application built with ASP.NET Core and Angular, orchestrated with .NET Aspire.
+A Kanban board application built with ASP.NET Core and Angular, deployed to Azure Container Apps.
 
 ## Tech Stack
 
@@ -10,9 +10,11 @@ A Kanban board application built with ASP.NET Core and Angular, orchestrated wit
 
 **Orchestration:** .NET Aspire 9.0
 
-**Infrastructure:** Azure (App Service, SQL Database, Key Vault), Bicep
+**Infrastructure:** Azure Container Apps, Azure SQL Database, Azure Container Registry, Key Vault, Bicep
 
-**Observability:** OpenTelemetry, Health Checks
+**CI/CD:** GitHub Actions, Azure Developer CLI (`azd`)
+
+**Observability:** OpenTelemetry, Health Checks, Log Analytics
 
 **Testing:** Playwright (E2E), xUnit, Moq (.NET)
 
@@ -22,25 +24,32 @@ A Kanban board application built with ASP.NET Core and Angular, orchestrated wit
 src/
   Clarity.AppHost/          .NET Aspire orchestration (SQL Server, API, Web)
   Clarity.ServiceDefaults/  Shared service configuration (OpenTelemetry, health checks, resilience)
-  Clarity.Api/              ASP.NET Core Web API
+  Clarity.Api/              ASP.NET Core Web API (hosts Angular frontend in wwwroot)
   Clarity.Core/             Domain models and interfaces
   Clarity.Infrastructure/   Data access and EF Core
-  Clarity.Web/              Angular frontend
+  Clarity.Web/              Angular frontend workspace
+    projects/
+      api/                  @api library (API models and services)
+      components/           @components library (shared UI components)
+      clarity/              Main application
+      clarity-admin/        Admin application
+designs/
+  clarity.pen               UI designs for the main application
 test/
   Clarity.UnitTests/        .NET unit tests
   Clarity.IntegrationTests/ .NET integration tests
   Clarity.Testing/          Shared test utilities and builders
 infra/
-  modules/                  Bicep modules (App Service, SQL Server, Key Vault)
-  parameters/               Environment-specific parameters
+  modules/                  Bicep modules (Container Apps, SQL Server, Key Vault, Container Registry)
 ```
 
 ## Prerequisites
 
 - [.NET 9 SDK](https://dotnet.microsoft.com/download) (includes .NET 8 targeting)
-- [Node.js 18.19+](https://nodejs.org/en/download)
+- [Node.js 20+](https://nodejs.org/en/download)
 - SQL Server LocalDB or SQL Server Express
 - [.NET Aspire workload](https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/setup-tooling) (optional, for orchestrated runs)
+- [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd) (optional, for deployment)
 
 ## Running Locally
 
@@ -69,6 +78,8 @@ The API will be available at `https://localhost:5001`.
 ```sh
 cd src/Clarity.Web
 npm install
+npx ng build @api
+npx ng build @components
 npm start
 ```
 
@@ -82,6 +93,33 @@ dotnet run -- migratedb   # Apply EF Core migrations
 dotnet run -- seeddb      # Seed sample data
 dotnet run -- dropdb      # Drop the database
 dotnet run -- ci          # Drop, migrate, seed, then stop
+```
+
+## Building
+
+The Angular workspace has library dependencies that must be built in order:
+
+```sh
+cd src/Clarity.Web
+npm ci
+npx ng build @api
+npx ng build @components
+npx ng build clarity --configuration production
+```
+
+## Deployment
+
+The application deploys to Azure Container Apps via GitHub Actions on every push to `main`. The pipeline:
+
+1. Builds and tests the .NET solution
+2. Authenticates with Azure using federated credentials (OIDC)
+3. Runs `azd deploy` which builds the Angular frontend, copies it to the API's `wwwroot`, and deploys the container
+
+### Manual Deployment
+
+```sh
+azd auth login
+azd deploy
 ```
 
 ## Tests
