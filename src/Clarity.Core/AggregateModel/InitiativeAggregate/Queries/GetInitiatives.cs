@@ -31,9 +31,16 @@ public class GetInitiativesRequestHandler : IRequestHandler<GetInitiativesReques
         return new()
         {
             Initiatives = await _context.Initiatives
-                .Include(x => x.Tickets)
-                .Select(x => x.ToDto())
-                .ToListAsync()
+                .AsNoTracking()
+                .Select(x => new InitiativeDto
+                {
+                    InitiativeId = x.InitiativeId,
+                    Name = x.Name,
+                    Description = x.Description,
+                    Created = x.Created,
+                    TicketCount = x.Tickets.Count
+                })
+                .ToListAsync(cancellationToken)
         };
     }
 }

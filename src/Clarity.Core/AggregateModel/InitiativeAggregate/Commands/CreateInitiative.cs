@@ -3,7 +3,6 @@
 
 using FluentValidation;
 using MediatR;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,13 +31,9 @@ public class CreateInitiativeResponse
 public class CreateInitiativeRequestHandler : IRequestHandler<CreateInitiativeRequest, CreateInitiativeResponse>
 {
     private readonly IClarityDbContext _context;
-    private readonly ILogger<CreateInitiativeRequestHandler> _logger;
 
-    public CreateInitiativeRequestHandler(
-        ILogger<CreateInitiativeRequestHandler> logger,
-        IClarityDbContext context)
+    public CreateInitiativeRequestHandler(IClarityDbContext context)
     {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 

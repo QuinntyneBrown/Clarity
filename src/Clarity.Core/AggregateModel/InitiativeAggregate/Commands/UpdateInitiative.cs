@@ -4,7 +4,6 @@
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,13 +34,9 @@ public class UpdateInitiativeResponse
 public class UpdateInitiativeRequestHandler : IRequestHandler<UpdateInitiativeRequest, UpdateInitiativeResponse>
 {
     private readonly IClarityDbContext _context;
-    private readonly ILogger<UpdateInitiativeRequestHandler> _logger;
 
-    public UpdateInitiativeRequestHandler(
-        ILogger<UpdateInitiativeRequestHandler> logger,
-        IClarityDbContext context)
+    public UpdateInitiativeRequestHandler(IClarityDbContext context)
     {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
@@ -49,7 +44,12 @@ public class UpdateInitiativeRequestHandler : IRequestHandler<UpdateInitiativeRe
     {
         var initiative = await _context.Initiatives
             .Include(x => x.Tickets)
-            .SingleAsync(x => x.InitiativeId == request.InitiativeId);
+            .SingleOrDefaultAsync(x => x.InitiativeId == request.InitiativeId, cancellationToken);
+
+        if (initiative == null)
+        {
+            throw new InvalidOperationException($"Initiative with id {request.InitiativeId} not found.");
+        }
 
         initiative.Update(request.Name, request.Description);
 

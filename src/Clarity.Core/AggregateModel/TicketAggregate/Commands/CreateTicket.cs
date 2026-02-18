@@ -31,6 +31,7 @@ public class CreateTicketRequest: IRequest<CreateTicketResponse>
     public string Description { get; set; }
     public string AcceptanceCriteria { get; set; }
     public StateType State { get; set; }
+    public Guid? InitiativeId { get; set; }
 }
 
 
@@ -68,6 +69,8 @@ public class CreateTicketRequestHandler: IRequestHandler<CreateTicketRequest,Cre
             default,
             (Html)request.AcceptanceCriteria,
             (Html)request.Description);
+
+        ticket.SetInitiative(request.InitiativeId);
 
         ticket.TicketStates.Add(new(boardState));
 

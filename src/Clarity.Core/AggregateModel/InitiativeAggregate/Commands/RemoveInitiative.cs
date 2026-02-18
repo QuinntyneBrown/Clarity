@@ -24,6 +24,11 @@ public class RemoveInitiativeRequestHandler : IRequestHandler<RemoveInitiativeRe
     {
         var initiative = await _context.Initiatives.FindAsync(request.InitiativeId);
 
+        if (initiative == null)
+        {
+            return new();
+        }
+
         _context.Initiatives.Remove(initiative);
 
         await _context.SaveChangesAsync(cancellationToken);

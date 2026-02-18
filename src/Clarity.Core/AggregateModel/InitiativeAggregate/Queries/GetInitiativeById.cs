@@ -30,12 +30,14 @@ public class GetInitiativeByIdRequestHandler : IRequestHandler<GetInitiativeById
 
     public async Task<GetInitiativeByIdResponse> Handle(GetInitiativeByIdRequest request, CancellationToken cancellationToken)
     {
+        var initiative = await _context.Initiatives
+            .AsNoTracking()
+            .Include(x => x.Tickets)
+            .SingleOrDefaultAsync(x => x.InitiativeId == request.InitiativeId, cancellationToken);
+
         return new()
         {
-            Initiative = (await _context.Initiatives
-                .Include(x => x.Tickets)
-                .SingleAsync(x => x.InitiativeId == request.InitiativeId))
-                .ToDto()
+            Initiative = initiative?.ToDto()
         };
     }
 }

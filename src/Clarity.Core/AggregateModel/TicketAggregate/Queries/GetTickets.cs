@@ -33,6 +33,7 @@ public class GetTicketsRequestHandler : IRequestHandler<GetTicketsRequest, GetTi
         {
             Tickets = await _context.Tickets
             .Include(x => x.TeamMember)
+            .Include(x => x.Initiative)
             .Include(x => x.TicketStates)
             .ThenInclude(x => x.BoardState)
             .Select(x => x.ToDto())

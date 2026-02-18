@@ -18,7 +18,7 @@ namespace Clarity.Api.Controllers;
 [Route("api/{version:apiVersion}/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 [Consumes(MediaTypeNames.Application.Json)]
-public class InitiativeController
+public class InitiativeController : ControllerBase
 {
     private readonly IMediator _mediator;
 
