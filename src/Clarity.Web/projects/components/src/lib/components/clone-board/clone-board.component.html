@@ -1,17 +1,25 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
-  <h1>Clone Board</h1>
-  <p class="clone-info">Cloning from: <strong>{{ vm.sourceBoardName }}</strong></p>
+  <div class="dialog-header">
+    <div class="dialog-icon clone-icon">
+      <mat-icon>content_copy</mat-icon>
+    </div>
+    <h2>Clone Board</h2>
+  </div>
+  <div class="clone-source">
+    <span class="source-label">Cloning from:</span>
+    <span class="source-name">{{ vm.sourceBoardName }}</span>
+  </div>
   <p class="clone-note">The new board will have the same columns but no tickets.</p>
 
   <form novalidate autocomplete="off" spellcheck="false" [formGroup]="vm.form">
     <mat-form-field>
       <mat-label>New Board Name</mat-label>
-      <input matInput formControlName="name">
+      <input matInput formControlName="name" placeholder="e.g. Sprint 43 (copy)">
     </mat-form-field>
 
     <div class="actions">
-      <button mat-button (click)="vm.save()">Clone</button>
-      <button mat-button (click)="vm.cancel()">Cancel</button>
+      <button mat-button class="cancel-btn" (click)="vm.cancel()">Cancel</button>
+      <button mat-flat-button color="primary" class="save-btn" (click)="vm.save()" [disabled]="vm.form.invalid">Clone Board</button>
     </div>
   </form>
 </ng-container>

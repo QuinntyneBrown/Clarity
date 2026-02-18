@@ -1,24 +1,240 @@
 :host {
   display: block;
   background-color: #fff;
-  padding: 20px;
+  border-radius: 12px;
   outline: none;
-  min-width: 360px;
+  width: 340px;
+  max-width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
 
-  h1 {
-    padding: 0;
-    margin: 0;
-    line-height: 2em;
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+}
+
+.sheet-title {
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.sheet-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  transition: background 0.15s;
+
+  &:hover {
+    background: #F3F4F6;
   }
 
-  mat-selection-list {
-    max-height: 400px;
-    overflow-y: auto;
+  .mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.board-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px;
+  gap: 2px;
+}
+
+.board-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #F9FAFB;
   }
 
-  .actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 16px;
+  &.active {
+    background: var(--color-primary-light, #F3F0FF);
+
+    .board-icon {
+      color: var(--color-primary);
+    }
+
+    .board-name {
+      color: var(--color-text-primary);
+      font-weight: 600;
+    }
+  }
+}
+
+.board-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: #9CA3AF;
+  flex-shrink: 0;
+}
+
+.board-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.board-name {
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary, #374151);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.board-meta {
+  font-family: var(--font-family);
+  font-size: 12px;
+  color: var(--color-text-secondary, #9CA3AF);
+}
+
+.board-check {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.sheet-divider {
+  height: 1px;
+  background: var(--color-border, #E5E7EB);
+  margin: 8px 0;
+}
+
+.sheet-actions {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 8px 12px;
+  gap: 2px;
+}
+
+.sheet-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #F9FAFB;
+  }
+}
+
+.action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  flex-shrink: 0;
+
+  .mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &.create-icon {
+    background: var(--color-primary-light, #F3F0FF);
+
+    .mat-icon {
+      color: var(--color-primary);
+    }
+  }
+
+  &.clone-icon {
+    background: #FEF3C7;
+
+    .mat-icon {
+      color: #D97706;
+    }
+  }
+}
+
+.action-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.action-label {
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.action-desc {
+  font-family: var(--font-family);
+  font-size: 12px;
+  color: var(--color-text-secondary, #6B7280);
+}
+
+// Mobile bottom sheet style
+@media (max-width: 768px) {
+  :host {
+    width: 100vw;
+    max-width: 100vw;
+    border-radius: 20px 20px 0 0;
+    max-height: 85vh;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+
+  .sheet-header {
+    padding: 20px 20px 12px;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 4px;
+      background: #D1D5DB;
+      border-radius: 2px;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 }

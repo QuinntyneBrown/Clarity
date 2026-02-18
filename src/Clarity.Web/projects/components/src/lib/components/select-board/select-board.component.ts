@@ -8,7 +8,6 @@ import { PushPipe } from '@ngrx/component';
 import { DialogModule } from '@angular/cdk/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 
 @Component({
     selector: 'app-select-board',
@@ -18,8 +17,7 @@ import { MatListModule } from '@angular/material/list';
         PushPipe,
         DialogModule,
         MatButtonModule,
-        MatIconModule,
-        MatListModule
+        MatIconModule
     ],
     templateUrl: './select-board.component.html',
     styleUrls: ['./select-board.component.scss']

@@ -7,9 +7,16 @@
 .kanban-main-content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   height: 100%;
   padding: 24px 32px;
   background: var(--color-bg-page);
   overflow: auto;
+}
+
+@media (max-width: 768px) {
+  .kanban-main-content {
+    padding: 16px;
+    gap: 12px;
+  }
 }

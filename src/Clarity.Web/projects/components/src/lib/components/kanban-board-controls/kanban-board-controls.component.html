@@ -1,38 +1,49 @@
-<div class="top-bar">
-  <div class="top-left">
-    <h1 class="board-title">{{ board?.name || 'Default Board' }}</h1>
-    <p class="board-subtitle">Manage and track your team's tasks</p>
-  </div>
-  <div class="top-right">
-    <div class="filter-group" *ngIf="teamMembers.length > 0">
-      <mat-icon class="filter-icon">filter_list</mat-icon>
-      <select class="filter-select" [(ngModel)]="selectedTeamMemberId" (ngModelChange)="handleFilterChange()">
-        <option [ngValue]="null">All Members</option>
-        <option [ngValue]="'unassigned'">Unassigned</option>
-        <option [ngValue]="member.teamMemberId" *ngFor="let member of teamMembers">{{ member.name }}</option>
-      </select>
-    </div>
-    <button mat-stroked-button class="board-btn" (click)="handleSelectBoardClick()">
-      <mat-icon>dashboard</mat-icon>
-      Switch Board
-    </button>
-    <button mat-stroked-button class="board-btn" [matMenuTriggerFor]="boardMenu">
-      <mat-icon>more_vert</mat-icon>
-      Board
-    </button>
-    <mat-menu #boardMenu="matMenu">
-      <button mat-menu-item (click)="handleCreateBoardClick()">
-        <mat-icon>add</mat-icon>
-        <span>New Board</span>
-      </button>
-      <button mat-menu-item (click)="handleCloneBoardClick()">
-        <mat-icon>content_copy</mat-icon>
-        <span>Clone Board</span>
-      </button>
-    </mat-menu>
-    <button mat-flat-button color="primary" class="add-btn" (click)="handleClick()">
+<!-- Board Selector Bar -->
+<div class="board-selector-bar">
+  <button class="board-selector-trigger" (click)="handleSelectBoardClick()">
+    <span class="board-name">{{ board?.name || 'Default Board' }}</span>
+    <mat-icon class="board-chevron">expand_more</mat-icon>
+  </button>
+  <div class="board-bar-actions">
+    <button mat-stroked-button class="board-action-btn" (click)="handleCreateBoardClick()">
       <mat-icon>add</mat-icon>
-      New Ticket
+      <span class="btn-label">New Board</span>
+    </button>
+    <button mat-stroked-button class="board-action-btn" (click)="handleCloneBoardClick()">
+      <mat-icon>content_copy</mat-icon>
+      <span class="btn-label">Clone</span>
+    </button>
+    <button mat-flat-button color="primary" class="add-ticket-btn" (click)="handleClick()">
+      <mat-icon>add</mat-icon>
+      <span class="btn-label">New Ticket</span>
+    </button>
+  </div>
+</div>
+
+<!-- Team Member Filter Bar -->
+<div class="filter-bar" *ngIf="teamMembers.length > 0">
+  <mat-icon class="filter-bar-icon">tune</mat-icon>
+  <span class="filter-label">Filter:</span>
+  <div class="filter-chips">
+    <button class="filter-chip"
+            [class.active]="selectedTeamMemberId === null"
+            (click)="selectFilter(null)">
+      All Members
+    </button>
+    <button class="filter-chip"
+            [class.active]="selectedTeamMemberId === 'unassigned'"
+            (click)="selectFilter('unassigned')">
+      <span class="chip-avatar unassigned-avatar">?</span>
+      Unassigned
+    </button>
+    <button class="filter-chip"
+            *ngFor="let member of teamMembers"
+            [class.active]="selectedTeamMemberId === member.teamMemberId"
+            (click)="selectFilter(member.teamMemberId!)">
+      <span class="chip-avatar" [style.background-color]="getAvatarColor(member)">
+        {{ getInitials(member.name) }}
+      </span>
+      <span class="chip-name">{{ member.name }}</span>
     </button>
   </div>
 </div>

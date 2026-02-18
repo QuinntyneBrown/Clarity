@@ -7,14 +7,12 @@ import { createKanbanBoardControlsViewModel } from './create-kanban-board-contro
 import { PushPipe } from '@ngrx/component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
 import { Board, TeamMember } from '@api';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { CreateTicketComponent } from '../create-ticket';
 import { SelectBoardComponent } from '../select-board';
 import { CreateBoardComponent } from '../create-board';
 import { CloneBoardComponent } from '../clone-board';
-import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-kanban-board-controls',
@@ -24,9 +22,7 @@ import { FormsModule } from '@angular/forms';
         PushPipe,
         MatIconModule,
         MatButtonModule,
-        MatMenuModule,
-        DialogModule,
-        FormsModule
+        DialogModule
     ],
     templateUrl: './kanban-board-controls.component.html',
     styleUrls: ['./kanban-board-controls.component.scss']
@@ -35,6 +31,11 @@ export class KanbanBoardControlsComponent {
   public vm$ = createKanbanBoardControlsViewModel();
 
   private readonly _dialog = inject(Dialog);
+
+  private readonly _avatarColors = [
+    '#7D00FA', '#22C55E', '#F59E0B', '#EF4444', '#3B82F6',
+    '#EC4899', '#14B8A6', '#F97316', '#8B5CF6', '#06B6D4'
+  ];
 
   @Input() public board!: Board;
   @Input() public teamMembers: TeamMember[] = [];
@@ -51,10 +52,17 @@ export class KanbanBoardControlsComponent {
   }
 
   public handleSelectBoardClick() {
-    const dialogRef = this._dialog.open(SelectBoardComponent);
-    dialogRef.closed.subscribe((boardId) => {
-      if (boardId) {
-        this.boardSelected.emit(boardId as string);
+    const dialogRef = this._dialog.open(SelectBoardComponent, {
+      data: { currentBoardId: this.board?.boardId }
+    });
+    dialogRef.closed.subscribe((result) => {
+      if (!result) return;
+      if (typeof result === 'string') {
+        this.boardSelected.emit(result);
+      } else if ((result as any).action === 'create') {
+        this.handleCreateBoardClick();
+      } else if ((result as any).action === 'clone') {
+        this.handleCloneBoardClick();
       }
     });
   }
@@ -79,7 +87,22 @@ export class KanbanBoardControlsComponent {
     });
   }
 
-  public handleFilterChange() {
-    this.teamMemberFilterChange.emit(this.selectedTeamMemberId);
+  public selectFilter(memberId: string | null) {
+    this.selectedTeamMemberId = memberId;
+    this.teamMemberFilterChange.emit(memberId);
+  }
+
+  public getInitials(name?: string): string {
+    if (!name) return '?';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+    return name.substring(0, 2).toUpperCase();
+  }
+
+  public getAvatarColor(member: TeamMember): string {
+    const index = this.teamMembers.indexOf(member);
+    return this._avatarColors[index % this._avatarColors.length];
   }
 }

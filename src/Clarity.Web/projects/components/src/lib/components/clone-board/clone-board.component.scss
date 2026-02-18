@@ -1,28 +1,127 @@
 :host {
   display: block;
   background-color: #fff;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 24px;
   outline: none;
-
-  h1 {
-    padding: 0;
-    margin: 0;
-    line-height: 2em;
-  }
-
-  .clone-info {
-    margin: 8px 0 4px;
-    font-size: 14px;
-    color: var(--color-text-secondary, #666);
-  }
-
-  .clone-note {
-    margin: 0 0 16px;
-    font-size: 13px;
-    color: var(--color-text-secondary, #999);
-  }
+  width: 400px;
+  max-width: 90vw;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 
   mat-form-field {
     display: block;
+    margin-top: 8px;
+  }
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+
+  h2 {
+    font-family: var(--font-family);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+}
+
+.dialog-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  flex-shrink: 0;
+
+  .mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &.clone-icon {
+    background: #FEF3C7;
+
+    .mat-icon {
+      color: #D97706;
+    }
+  }
+}
+
+.clone-source {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: var(--color-bg-page, #F9FAFB);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.source-label {
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--color-text-secondary, #6B7280);
+}
+
+.source-name {
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.clone-note {
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--color-text-secondary, #9CA3AF);
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.cancel-btn {
+  font-family: var(--font-family);
+  border-radius: 8px;
+}
+
+.save-btn {
+  font-family: var(--font-family);
+  border-radius: 8px;
+  font-weight: 600;
+  background: var(--color-primary) !important;
+  color: #fff !important;
+}
+
+@media (max-width: 768px) {
+  :host {
+    width: 100vw;
+    max-width: 100vw;
+    border-radius: 20px 20px 0 0;
+    padding: 24px 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+
+    button {
+      width: 100%;
+      height: 44px;
+    }
   }
 }

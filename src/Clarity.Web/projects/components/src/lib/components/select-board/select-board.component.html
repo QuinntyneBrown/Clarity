@@ -1,14 +1,45 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
-  <h1>Select Board</h1>
-  <mat-selection-list [multiple]="false">
-    <mat-list-option *ngFor="let board of vm.boards"
-                     (click)="vm.select(board.boardId!)">
-      <mat-icon matListItemIcon>dashboard</mat-icon>
-      <span matListItemTitle>{{ board.name }}</span>
-      <span matListItemLine>{{ board.states?.length || 0 }} columns</span>
-    </mat-list-option>
-  </mat-selection-list>
-  <div class="actions">
-    <button mat-button (click)="vm.cancel()">Cancel</button>
+  <div class="sheet-header">
+    <h2 class="sheet-title">Select Board</h2>
+    <button class="sheet-close" (click)="vm.cancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="board-list">
+    <button class="board-item"
+            *ngFor="let board of vm.boards"
+            [class.active]="vm.currentBoardId === board.boardId"
+            (click)="vm.select(board.boardId!)">
+      <mat-icon class="board-icon">dashboard</mat-icon>
+      <div class="board-info">
+        <span class="board-name">{{ board.name }}</span>
+        <span class="board-meta">{{ board.states?.length || 0 }} columns</span>
+      </div>
+      <mat-icon class="board-check" *ngIf="vm.currentBoardId === board.boardId">check</mat-icon>
+    </button>
+  </div>
+
+  <div class="sheet-divider"></div>
+
+  <div class="sheet-actions">
+    <button class="sheet-action" (click)="vm.createBoard()">
+      <span class="action-icon create-icon">
+        <mat-icon>add</mat-icon>
+      </span>
+      <div class="action-info">
+        <span class="action-label">New Board</span>
+        <span class="action-desc">Create a blank board</span>
+      </div>
+    </button>
+    <button class="sheet-action" (click)="vm.cloneBoard()">
+      <span class="action-icon clone-icon">
+        <mat-icon>content_copy</mat-icon>
+      </span>
+      <div class="action-info">
+        <span class="action-label">Clone Current Board</span>
+        <span class="action-desc">Copy columns without tickets</span>
+      </div>
+    </button>
   </div>
 </ng-container>
