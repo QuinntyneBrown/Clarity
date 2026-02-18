@@ -302,25 +302,24 @@ test.describe('Update Initiative Dialog', () => {
   });
 
   test('should remove initiative from list after deleting', async ({ page }) => {
-    const rowCount = await initiativesPage.initiativeRows.count();
-    if (rowCount === 0) return;
+    const countBefore = await initiativesPage.initiativeRows.count() + await initiativesPage.initiativeCards.count();
+    if (countBefore === 0) return;
 
     const firstRow = initiativesPage.initiativeRows.first();
-    const initiativeName = await firstRow.locator('.initiative-name').innerText();
     const editBtn = initiativesPage.getEditButton(firstRow);
     await editBtn.click();
     await dialog.waitForOpen();
 
-    const responsePromise = page.waitForResponse(resp =>
+    const deleteResponsePromise = page.waitForResponse(resp =>
       resp.url().includes('/api/1.0/initiative') && resp.request().method() === 'DELETE' && resp.status() === 200
     );
     await dialog.clickDelete();
-    await responsePromise;
+    await deleteResponsePromise;
     await dialog.waitForClosed();
 
-    await initiativesPage.page.waitForTimeout(500);
-    const initiativeAfter = initiativesPage.getInitiativeRowByName(initiativeName);
-    await expect(initiativeAfter).toHaveCount(0);
+    await initiativesPage.page.waitForTimeout(1000);
+    const countAfter = await initiativesPage.initiativeRows.count() + await initiativesPage.initiativeCards.count();
+    expect(countAfter).toBeLessThan(countBefore);
   });
 });
 

@@ -41,10 +41,10 @@ export function createInitiativesViewModel() {
           dialog.open(CreateInitiativeComponent).closed.subscribe(() => initiativeStore.load());
         },
         editInitiative: (initiative: Initiative) => {
-          dialog.open(UpdateInitiativeComponent, { data: initiative }).closed.subscribe(() => initiativeStore.load());
+          dialog.open(UpdateInitiativeComponent, { data: initiative }).closed.subscribe();
         },
         deleteInitiative: (initiative: Initiative) => {
-          dialog.open(UpdateInitiativeComponent, { data: initiative }).closed.subscribe(() => initiativeStore.load());
+          dialog.open(UpdateInitiativeComponent, { data: initiative }).closed.subscribe();
         },
         viewReport: (initiative: Initiative) => {
           router.navigate(['/initiatives', initiative.initiativeId, 'report']);
