@@ -1,6 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Clarity.Core.AggregateModel.TeamMemberAggregate.Commands;
 using Clarity.Core.AggregateModel.TeamMemberAggregate.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -65,6 +66,32 @@ public class TeamMemberController
     public async Task<ActionResult<GetTeamMembersResponse>> GetTeamMembers(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetTeamMembersRequest(), cancellationToken);
+    }
+
+    [SwaggerOperation(
+        Summary = "Upsert Team Member",
+        Description = @"Create or update a team member"
+    )]
+    [HttpPost(Name = "upsertTeamMember")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(UpsertTeamMemberResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<UpsertTeamMemberResponse>> UpsertTeamMember([FromBody] UpsertTeamMemberRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
+    }
+
+    [SwaggerOperation(
+        Summary = "Delete Team Member",
+        Description = @"Delete a team member"
+    )]
+    [HttpDelete("{teamMemberId:guid}", Name = "deleteTeamMember")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(RemoveTeamMemberResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<RemoveTeamMemberResponse>> DeleteTeamMember([FromRoute] Guid teamMemberId, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(new RemoveTeamMemberRequest { TeamMemberId = teamMemberId }, cancellationToken);
     }
 }
 

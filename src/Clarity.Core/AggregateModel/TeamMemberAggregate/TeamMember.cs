@@ -12,15 +12,25 @@ public class TeamMember
 {
     public Guid TeamMemberId { get; private set; }
     public string Name { get; private set; }
+    public string Email { get; private set; }
+    public string Role { get; private set; }
     public string AvatarUrl { get; private set; }
     public List<Ticket> Tickets { get; private set; } = new();
     public List<Comment> Comments { get; private set; } = new();
-    public TeamMember(string name)
+    public TeamMember(string name, string email = null, string role = null)
     {
         Name = name;
+        Email = email;
+        Role = role;
     }
     public TeamMember()
     {
+    }
+    public void Update(string name, string email = null, string role = null)
+    {
+        Name = name;
+        Email = email;
+        Role = role;
     }
 }
 

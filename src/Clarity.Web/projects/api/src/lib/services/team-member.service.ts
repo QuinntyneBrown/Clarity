@@ -35,11 +35,11 @@ export class TeamMemberService {
     return this._client.delete<void>(`${this._baseUrl}api/1.0/teamMember/${options.teamMember.teamMemberId}`);
   }
 
-  public create(options: { teamMember: TeamMember }): Observable<{ teamMemberId: string  }> {
-    return this._client.post<{ teamMemberId: string }>(`${this._baseUrl}api/1.0/teamMember`, { teamMember: options.teamMember });
+  public create(options: { teamMember: TeamMember }): Observable<{ teamMember: TeamMember }> {
+    return this._client.post<{ teamMember: TeamMember }>(`${this._baseUrl}api/1.0/teamMember`, { teamMember: options.teamMember });
   }
 
-  public update(options: { teamMember: TeamMember }): Observable<{ teamMemberId: string }> {
-    return this._client.post<{ teamMemberId: string }>(`${this._baseUrl}api/1.0/teamMember`, { teamMember: options.teamMember });
+  public update(options: { teamMember: TeamMember }): Observable<{ teamMember: TeamMember }> {
+    return this._client.post<{ teamMember: TeamMember }>(`${this._baseUrl}api/1.0/teamMember`, { teamMember: options.teamMember });
   }
 }

@@ -3,5 +3,7 @@
 
 export type TeamMember = {
   teamMemberId?: string;
-  name?:string;
+  name?: string;
+  email?: string;
+  role?: string;
 };

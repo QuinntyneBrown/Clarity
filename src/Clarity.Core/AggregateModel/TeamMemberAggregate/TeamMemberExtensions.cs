@@ -11,7 +11,9 @@ public static class TeamMemberExtensions
         => new()
         {
             TeamMemberId = teamMember.TeamMemberId,
-            Name = teamMember.Name
+            Name = teamMember.Name,
+            Email = teamMember.Email,
+            Role = teamMember.Role
         };
 }
 

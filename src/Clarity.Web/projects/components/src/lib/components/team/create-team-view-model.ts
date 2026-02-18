@@ -2,9 +2,13 @@ import { inject } from "@angular/core";
 import { combineLatest, map, Subject, startWith } from "rxjs";
 import { TeamMemberStore } from "../../stores";
 import { TeamMember } from "@api";
+import { Dialog } from "@angular/cdk/dialog";
+import { CreateTeamMemberComponent } from "../create-team-member";
+import { UpdateTeamMemberComponent } from "../update-team-member";
 
 export function createTeamViewModel() {
   const teamMemberStore = inject(TeamMemberStore);
+  const dialog = inject(Dialog);
 
   teamMemberStore.load();
 
@@ -21,7 +25,8 @@ export function createTeamViewModel() {
       if (searchTerm) {
         const term = searchTerm.toLowerCase();
         filtered = filtered.filter(m =>
-          (m.name || '').toLowerCase().includes(term)
+          (m.name || '').toLowerCase().includes(term) ||
+          (m.email || '').toLowerCase().includes(term)
         );
       }
 
@@ -31,21 +36,13 @@ export function createTeamViewModel() {
         searchTerm,
         search: (term: string) => searchSubject.next(term),
         addMember: () => {
-          const name = prompt('Enter team member name:');
-          if (name) {
-            teamMemberStore.save({ name } as TeamMember);
-          }
+          dialog.open(CreateTeamMemberComponent).closed.subscribe(() => teamMemberStore.load());
         },
         editMember: (member: TeamMember) => {
-          const name = prompt('Edit team member name:', member.name);
-          if (name !== null) {
-            teamMemberStore.save({ ...member, name });
-          }
+          dialog.open(UpdateTeamMemberComponent, { data: member }).closed.subscribe(() => teamMemberStore.load());
         },
         deleteMember: (member: TeamMember) => {
-          if (confirm(`Remove ${member.name} from the team?`)) {
-            teamMemberStore.delete(member);
-          }
+          dialog.open(UpdateTeamMemberComponent, { data: member }).closed.subscribe(() => teamMemberStore.load());
         },
         getInitials: (name?: string) => {
           if (!name) return '?';

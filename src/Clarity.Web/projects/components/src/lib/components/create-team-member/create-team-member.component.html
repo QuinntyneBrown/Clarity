@@ -1,0 +1,36 @@
+<ng-container *ngIf="vm$ | ngrxPush as vm">
+  <div class="dialog-header">
+    <h1>Add Team Member</h1>
+    <button class="close-btn" type="button" (click)="vm.cancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form novalidate autocomplete="off" spellcheck="false" [formGroup]="vm.form" class="dialog-body">
+    <mat-form-field appearance="outline">
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter full name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Enter email address" type="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Role</mat-label>
+      <select matNativeControl formControlName="role">
+        <option value="">Select role</option>
+        <option *ngFor="let r of vm.roles" [value]="r.value">{{ r.label }}</option>
+      </select>
+    </mat-form-field>
+  </form>
+
+  <div class="dialog-footer">
+    <button mat-button class="cancel-btn" (click)="vm.cancel()">Cancel</button>
+    <button mat-flat-button color="primary" class="create-btn" (click)="vm.save()">
+      <mat-icon>person_add</mat-icon>
+      Add Member
+    </button>
+  </div>
+</ng-container>
