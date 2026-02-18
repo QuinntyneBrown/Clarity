@@ -117,6 +117,19 @@ public class UserController
     }
 
     [SwaggerOperation(
+        Summary = "Change Password",
+        Description = @"Change Password"
+    )]
+    [HttpPut("change-password", Name = "changePassword")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(ChangePasswordResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<ChangePasswordResponse>> ChangePassword([FromBody] ChangePasswordRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
+    }
+
+    [SwaggerOperation(
         Summary = "Delete User",
         Description = @"Delete User"
     )]

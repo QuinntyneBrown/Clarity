@@ -29,10 +29,10 @@ export class SidebarComponent {
   @Output() signOut = new EventEmitter<void>();
 
   navItems = [
-    { icon: 'dashboard', label: 'Boards', route: '/kanban', active: true },
-    { icon: 'confirmation_number', label: 'My Tickets', route: '/kanban', active: false },
-    { icon: 'people', label: 'Team', route: '/kanban', active: false },
-    { icon: 'settings', label: 'Settings', route: '/kanban', active: false }
+    { icon: 'dashboard', label: 'Boards', route: '/kanban' },
+    { icon: 'confirmation_number', label: 'My Tickets', route: '/kanban' },
+    { icon: 'people', label: 'Team', route: '/kanban' },
+    { icon: 'settings', label: 'Settings', route: '/settings' }
   ];
 
   onSignOut() {

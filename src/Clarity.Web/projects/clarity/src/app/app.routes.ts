@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { Routes } from '@angular/router';
-import { LoginComponent, AppLayoutComponent, KanbanComponent } from '@components';
+import { LoginComponent, AppLayoutComponent, KanbanComponent, ProfileComponent, SettingsComponent } from '@components';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -18,6 +18,14 @@ export const routes: Routes = [
       {
         path: 'kanban',
         component: KanbanComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent
       },
       {
         path: '',

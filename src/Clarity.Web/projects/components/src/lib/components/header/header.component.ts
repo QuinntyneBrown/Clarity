@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -17,7 +18,8 @@ import { MatDividerModule } from '@angular/material/divider';
         MatIconModule,
         MatButtonModule,
         MatMenuModule,
-        MatDividerModule
+        MatDividerModule,
+        RouterModule
     ],
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']

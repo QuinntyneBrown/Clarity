@@ -1,0 +1,339 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+  padding: 24px 32px;
+  background: var(--color-bg-page);
+  overflow: auto;
+}
+
+// Page Header
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.back-btn {
+  color: var(--color-text-secondary);
+}
+
+.page-title {
+  font-family: var(--font-family);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.page-subtitle {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  margin: 4px 0 0;
+}
+
+// Settings Content - two-column layout
+.settings-content {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+}
+
+// Settings Navigation
+.settings-nav {
+  width: 280px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--color-bg-white);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  padding: 8px;
+  height: fit-content;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.15s;
+
+  &:hover {
+    background: var(--color-bg-page);
+  }
+
+  &.active {
+    background: var(--color-primary-light);
+
+    mat-icon {
+      color: var(--color-primary);
+    }
+
+    .nav-item-title {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+  }
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+  }
+}
+
+.nav-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.nav-item-title {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.nav-item-desc {
+  font-family: var(--font-family);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Settings Panel
+.settings-panel {
+  flex: 1;
+  min-width: 0;
+}
+
+.panel-section {
+  background: var(--color-bg-white);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  padding: 24px;
+}
+
+.panel-title {
+  font-family: var(--font-family);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.panel-description {
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin: 4px 0 16px;
+}
+
+mat-divider {
+  margin: 0;
+}
+
+// Settings Group
+.settings-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.setting-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.setting-label {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.setting-desc {
+  font-family: var(--font-family);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+// Theme Selector
+.theme-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.theme-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-white);
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: var(--color-primary);
+  }
+
+  &.active {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+
+    mat-icon,
+    span {
+      color: var(--color-primary);
+    }
+  }
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: var(--color-text-secondary);
+  }
+
+  span {
+    font-family: var(--font-family);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+  }
+}
+
+// Action Buttons
+.action-btn {
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 500;
+  border-color: var(--color-border);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+  }
+}
+
+// Setting Select
+.setting-select {
+  width: 200px;
+  flex-shrink: 0;
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+  .settings-page {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .settings-content {
+    flex-direction: column;
+  }
+
+  .settings-nav {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 4px;
+    gap: 2px;
+
+    .nav-item {
+      flex-direction: column;
+      align-items: center;
+      min-width: 80px;
+      padding: 10px 8px;
+      gap: 4px;
+    }
+
+    .nav-item-text {
+      align-items: center;
+    }
+
+    .nav-item-desc {
+      display: none;
+    }
+
+    .nav-item-title {
+      font-size: 11px;
+      white-space: nowrap;
+    }
+  }
+
+  .setting-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .theme-selector {
+    width: 100%;
+
+    .theme-option {
+      flex: 1;
+    }
+  }
+
+  .setting-select {
+    width: 100%;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+}

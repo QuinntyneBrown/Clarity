@@ -1,0 +1,277 @@
+<div class="settings-page">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <button mat-icon-button routerLink="/kanban" class="back-btn">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <div>
+        <h1 class="page-title">Settings</h1>
+        <p class="page-subtitle">Manage your preferences and account settings</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="settings-content">
+    <!-- Settings Navigation -->
+    <div class="settings-nav">
+      @for (section of sections; track section.key) {
+        <button
+          class="nav-item"
+          [class.active]="activeSection() === section.key"
+          (click)="setSection(section.key)">
+          <mat-icon>{{ section.icon }}</mat-icon>
+          <div class="nav-item-text">
+            <span class="nav-item-title">{{ section.title }}</span>
+            <span class="nav-item-desc">{{ section.description }}</span>
+          </div>
+        </button>
+      }
+    </div>
+
+    <!-- Settings Panel -->
+    <div class="settings-panel">
+      <!-- Notifications -->
+      @if (activeSection() === 'notifications') {
+        <div class="panel-section">
+          <h3 class="panel-title">Notification Preferences</h3>
+          <p class="panel-description">Choose how and when you want to be notified</p>
+
+          <mat-divider></mat-divider>
+
+          <div class="settings-group">
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Email Notifications</span>
+                <span class="setting-desc">Receive notifications via email</span>
+              </div>
+              <mat-slide-toggle
+                [checked]="emailNotifications()"
+                (change)="emailNotifications.set($event.checked)"
+                color="primary">
+              </mat-slide-toggle>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Push Notifications</span>
+                <span class="setting-desc">Get real-time browser notifications</span>
+              </div>
+              <mat-slide-toggle
+                [checked]="pushNotifications()"
+                (change)="pushNotifications.set($event.checked)"
+                color="primary">
+              </mat-slide-toggle>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Ticket Updates</span>
+                <span class="setting-desc">Notify when tickets are assigned or updated</span>
+              </div>
+              <mat-slide-toggle
+                [checked]="ticketUpdates()"
+                (change)="ticketUpdates.set($event.checked)"
+                color="primary">
+              </mat-slide-toggle>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Mention Alerts</span>
+                <span class="setting-desc">Notify when you are mentioned in comments</span>
+              </div>
+              <mat-slide-toggle
+                [checked]="mentionAlerts()"
+                (change)="mentionAlerts.set($event.checked)"
+                color="primary">
+              </mat-slide-toggle>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Weekly Digest</span>
+                <span class="setting-desc">Receive a weekly summary of activity</span>
+              </div>
+              <mat-slide-toggle
+                [checked]="weeklyDigest()"
+                (change)="weeklyDigest.set($event.checked)"
+                color="primary">
+              </mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Appearance -->
+      @if (activeSection() === 'appearance') {
+        <div class="panel-section">
+          <h3 class="panel-title">Appearance</h3>
+          <p class="panel-description">Customize how Clarity looks for you</p>
+
+          <mat-divider></mat-divider>
+
+          <div class="settings-group">
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Theme</span>
+                <span class="setting-desc">Choose your preferred color theme</span>
+              </div>
+              <div class="theme-selector">
+                <button
+                  class="theme-option"
+                  [class.active]="theme() === 'light'"
+                  (click)="theme.set('light')">
+                  <mat-icon>light_mode</mat-icon>
+                  <span>Light</span>
+                </button>
+                <button
+                  class="theme-option"
+                  [class.active]="theme() === 'dark'"
+                  (click)="theme.set('dark')">
+                  <mat-icon>dark_mode</mat-icon>
+                  <span>Dark</span>
+                </button>
+                <button
+                  class="theme-option"
+                  [class.active]="theme() === 'system'"
+                  (click)="theme.set('system')">
+                  <mat-icon>computer</mat-icon>
+                  <span>System</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Compact Mode</span>
+                <span class="setting-desc">Use smaller spacing and font sizes</span>
+              </div>
+              <mat-slide-toggle
+                [checked]="compactMode()"
+                (change)="compactMode.set($event.checked)"
+                color="primary">
+              </mat-slide-toggle>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Show Avatars</span>
+                <span class="setting-desc">Display user avatars throughout the app</span>
+              </div>
+              <mat-slide-toggle
+                [checked]="showAvatars()"
+                (change)="showAvatars.set($event.checked)"
+                color="primary">
+              </mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Security -->
+      @if (activeSection() === 'security') {
+        <div class="panel-section">
+          <h3 class="panel-title">Security</h3>
+          <p class="panel-description">Manage your password and security settings</p>
+
+          <mat-divider></mat-divider>
+
+          <div class="settings-group">
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Change Password</span>
+                <span class="setting-desc">Update your account password</span>
+              </div>
+              <button mat-stroked-button class="action-btn">
+                <mat-icon>lock</mat-icon>
+                Change
+              </button>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Two-Factor Authentication</span>
+                <span class="setting-desc">Add an extra layer of security</span>
+              </div>
+              <button mat-stroked-button class="action-btn">
+                <mat-icon>verified_user</mat-icon>
+                Enable
+              </button>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Active Sessions</span>
+                <span class="setting-desc">Manage your active login sessions</span>
+              </div>
+              <button mat-stroked-button class="action-btn">
+                <mat-icon>devices</mat-icon>
+                View
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Language & Region -->
+      @if (activeSection() === 'language') {
+        <div class="panel-section">
+          <h3 class="panel-title">Language & Region</h3>
+          <p class="panel-description">Set your language and regional preferences</p>
+
+          <mat-divider></mat-divider>
+
+          <div class="settings-group">
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Language</span>
+                <span class="setting-desc">Select your preferred language</span>
+              </div>
+              <mat-form-field appearance="outline" class="setting-select">
+                <mat-select [value]="language()" (selectionChange)="language.set($event.value)">
+                  <mat-option value="en">English</mat-option>
+                  <mat-option value="es">Spanish</mat-option>
+                  <mat-option value="fr">French</mat-option>
+                  <mat-option value="de">German</mat-option>
+                  <mat-option value="pt">Portuguese</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Timezone</span>
+                <span class="setting-desc">Set your local timezone</span>
+              </div>
+              <mat-form-field appearance="outline" class="setting-select">
+                <mat-select [value]="timezone()" (selectionChange)="timezone.set($event.value)">
+                  <mat-option value="America/New_York">Eastern Time (ET)</mat-option>
+                  <mat-option value="America/Chicago">Central Time (CT)</mat-option>
+                  <mat-option value="America/Denver">Mountain Time (MT)</mat-option>
+                  <mat-option value="America/Los_Angeles">Pacific Time (PT)</mat-option>
+                  <mat-option value="Europe/London">Greenwich Mean Time (GMT)</mat-option>
+                  <mat-option value="Europe/Paris">Central European Time (CET)</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="setting-item">
+              <div class="setting-info">
+                <span class="setting-label">Date Format</span>
+                <span class="setting-desc">Choose how dates are displayed</span>
+              </div>
+              <mat-form-field appearance="outline" class="setting-select">
+                <mat-select [value]="dateFormat()" (selectionChange)="dateFormat.set($event.value)">
+                  <mat-option value="MM/DD/YYYY">MM/DD/YYYY</mat-option>
+                  <mat-option value="DD/MM/YYYY">DD/MM/YYYY</mat-option>
+                  <mat-option value="YYYY-MM-DD">YYYY-MM-DD</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -36,10 +36,27 @@ public static class SeedData
             context.SaveChanges();
         }
 
-        if (context.Users.SingleOrDefault(x => x.Username == "quinntynebrown@gmail.com") == null)
+        var existingUser = context.Users.SingleOrDefault(x => x.Username == "quinntynebrown@gmail.com");
+
+        if (existingUser == null)
         {
             var passwordHasher = new PasswordHasher();
-            context.Users.Add(new User("quinntynebrown@gmail.com", "P@ssw0rd", passwordHasher));
+            var user = new User("quinntynebrown@gmail.com", "P@ssw0rd", passwordHasher)
+            {
+                FirstName = "Quinntyne",
+                LastName = "Brown",
+                Email = "quinntynebrown@gmail.com",
+                JobTitle = "Software Engineer"
+            };
+            context.Users.Add(user);
+            context.SaveChanges();
+        }
+        else if (string.IsNullOrEmpty(existingUser.FirstName))
+        {
+            existingUser.FirstName = "Quinntyne";
+            existingUser.LastName = "Brown";
+            existingUser.Email = "quinntynebrown@gmail.com";
+            existingUser.JobTitle = "Software Engineer";
             context.SaveChanges();
         }
     }

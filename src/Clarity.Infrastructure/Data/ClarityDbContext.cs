@@ -11,6 +11,7 @@ using Clarity.Core.AggregateModel.RoleAggregate;
 using Clarity.Core.AggregateModel.TeamMemberAggregate;
 using Clarity.Core.AggregateModel.TicketAggregate;
 using Clarity.Core.AggregateModel.UserAggregate;
+using Clarity.Core.AggregateModel.UserSettingsAggregate;
 using Clarity.Core.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,7 @@ public class ClarityDbContext : DbContext, IClarityDbContext
     public DbSet<TeamMember> TeamMembers { get; private set; }
     public DbSet<Ticket> Tickets { get; private set; }
     public DbSet<User> Users { get; private set; }
+    public DbSet<UserSettings> UserSettings { get; private set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -69,6 +71,11 @@ public class ClarityDbContext : DbContext, IClarityDbContext
             .HasMany(r => r.Privileges)
             .WithOne()
             .HasForeignKey(p => p.RoleId);
+
+        modelBuilder.Entity<UserSettings>()
+            .HasOne(us => us.User)
+            .WithMany()
+            .HasForeignKey(us => us.UserId);
 
         base.OnModelCreating(modelBuilder);
     }

@@ -10,6 +10,7 @@ using Clarity.Core.AggregateModel.RoleAggregate;
 using Clarity.Core.AggregateModel.TeamMemberAggregate;
 using Clarity.Core.AggregateModel.TicketAggregate;
 using Clarity.Core.AggregateModel.UserAggregate;
+using Clarity.Core.AggregateModel.UserSettingsAggregate;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clarity.Core;
@@ -25,5 +26,6 @@ public interface IClarityDbContext
     DbSet<TeamMember> TeamMembers { get; }
     DbSet<Ticket> Tickets { get; }
     DbSet<User> Users { get; }
+    DbSet<UserSettings> UserSettings { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
