@@ -32,6 +32,7 @@ public class UpdateTicketRequest: IRequest<UpdateTicketResponse>
     public string AcceptanceCriteria { get; set; }
     public string Url { get; set; }
     public StateType State { get; set; }
+    public Guid? InitiativeId { get; set; }
 }
 
 public class UpdateTicketResponse
@@ -74,6 +75,8 @@ public class UpdateTicketRequestHandler: IRequestHandler<UpdateTicketRequest,Upd
             request.Url, 
             (Html)request.AcceptanceCriteria, 
             (Html)request.Description);
+
+        ticket.SetInitiative(request.InitiativeId);
 
         ticket.TicketStates.Clear();
 
