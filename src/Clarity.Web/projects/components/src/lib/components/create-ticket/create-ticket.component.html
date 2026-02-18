@@ -49,6 +49,14 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
+      <mat-label>Initiative</mat-label>
+      <select matNativeControl formControlName="initiativeId">
+        <option [ngValue]="null">No Initiative</option>
+        <option [ngValue]="initiative.initiativeId" *ngFor="let initiative of vm.initiatives">{{ initiative.name }}</option>
+      </select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
       <mat-label>Acceptance Criteria</mat-label>
       <textarea matInput
                 cdkTextareaAutosize

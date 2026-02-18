@@ -14,5 +14,7 @@ export type Ticket = {
   boardId: string;
   teamMemberId?: string;
   teamMemberName?: string;
+  initiativeId?: string;
+  initiativeName?: string;
   comments: Comment[];
 };

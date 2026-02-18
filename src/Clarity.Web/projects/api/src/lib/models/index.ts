@@ -2,6 +2,7 @@ export * from './board';
 export * from './board-state';
 export * from './comment';
 export * from './digital-asset';
+export * from './initiative';
 export * from './privilege';
 export * from './role';
 export * from './state';

@@ -2,7 +2,7 @@ import { DIALOG_DATA, DialogRef } from "@angular/cdk/dialog";
 import { inject } from "@angular/core";
 import { FormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { combineLatest, EMPTY, map, merge, of, startWith, Subject, tap } from "rxjs";
-import { BoardStateService, TeamMemberService, Ticket } from "@api";
+import { BoardStateService, InitiativeService, TeamMemberService, Ticket } from "@api";
 import { TicketStore } from "../../stores";
 import { PRIORITY_OPTIONS } from "../create-ticket";
 
@@ -10,6 +10,7 @@ export function createUpdateTicketViewModel() {
   const ticketStore = inject(TicketStore);
   const boardStateService = inject(BoardStateService);
   const teamMemberService = inject(TeamMemberService);
+  const initiativeService = inject(InitiativeService);
   const dialogRef = inject(DialogRef);
   const ticket = inject<Ticket>(DIALOG_DATA);
 
@@ -19,7 +20,8 @@ export function createUpdateTicketViewModel() {
     description: new FormControl(ticket.description, [Validators.required]),
     acceptanceCriteria: new FormControl(ticket.acceptanceCriteria, [Validators.required]),
     priority: new FormControl((ticket as any).priority || null),
-    teamMemberId: new FormControl(ticket.teamMemberId || null)
+    teamMemberId: new FormControl(ticket.teamMemberId || null),
+    initiativeId: new FormControl(ticket.initiativeId || null)
   });
 
   const saveSubject = new Subject();
@@ -46,9 +48,10 @@ export function createUpdateTicketViewModel() {
     of(form),
     actions$,
     boardStateService.get(),
-    teamMemberService.get()
+    teamMemberService.get(),
+    initiativeService.get()
   ]).pipe(
-    map(([form, _, states, teamMembers]) => {
+    map(([form, _, states, teamMembers, initiatives]) => {
       return {
         form,
         ticket,
@@ -57,6 +60,7 @@ export function createUpdateTicketViewModel() {
         delete: () => deleteSubject.next(null),
         states,
         teamMembers,
+        initiatives,
         priorities: PRIORITY_OPTIONS
       }
     })

@@ -1,0 +1,166 @@
+:host {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+  background: var(--color-bg-page);
+}
+
+.report-page {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 32px;
+
+  h1 {
+    margin: 16px 0 8px;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    font-family: var(--font-family);
+  }
+}
+
+.back-btn {
+  color: var(--color-text-secondary);
+  font-family: var(--font-family);
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    margin-right: 4px;
+  }
+}
+
+.report-description {
+  color: var(--color-text-secondary);
+  font-family: var(--font-family);
+  font-size: 14px;
+  margin: 0;
+}
+
+// Metrics Grid
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.metric-card {
+  background: var(--color-bg-white);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  padding: 20px;
+  text-align: center;
+
+  &.highlight {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+
+    .metric-value,
+    .metric-label {
+      color: white;
+    }
+  }
+}
+
+.metric-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+}
+
+.metric-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+// Status Breakdown
+.status-section {
+  background: var(--color-bg-white);
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  padding: 24px;
+
+  h2 {
+    margin: 0 0 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    font-family: var(--font-family);
+  }
+}
+
+.status-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-label {
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--color-text-primary);
+  min-width: 100px;
+}
+
+.status-bar-track {
+  flex: 1;
+  height: 8px;
+  background: var(--color-bg-page);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.status-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+
+  &.backlog {
+    background: #94A3B8;
+  }
+
+  &.in-progress {
+    background: #3B82F6;
+  }
+
+  &.done {
+    background: #22C55E;
+  }
+}
+
+.status-count {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  min-width: 30px;
+  text-align: right;
+}
+
+@media (min-width: 768px) {
+  .report-page {
+    padding: 32px;
+  }
+
+  .metrics-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

@@ -1,0 +1,61 @@
+<ng-container *ngIf="vm$ | ngrxPush as vm">
+  <div class="report-page">
+    <!-- Header -->
+    <div class="page-header">
+      <button mat-button class="back-btn" (click)="vm.goBack()">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Initiatives
+      </button>
+      <h1>{{ vm.report.name }}</h1>
+      <p class="report-description" *ngIf="vm.report.description">{{ vm.report.description }}</p>
+    </div>
+
+    <!-- Metrics Grid -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value">{{ vm.report.totalTickets || 0 }}</div>
+        <div class="metric-label">Total Tickets</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">{{ vm.report.totalStoryPoints || 0 }}</div>
+        <div class="metric-label">Story Points</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">{{ vm.report.totalEffort || 0 }}</div>
+        <div class="metric-label">Total Effort</div>
+      </div>
+      <div class="metric-card highlight">
+        <div class="metric-value">{{ vm.report.percentComplete || 0 }}%</div>
+        <div class="metric-label">Complete</div>
+      </div>
+    </div>
+
+    <!-- Status Breakdown -->
+    <div class="status-section">
+      <h2>Status Breakdown</h2>
+      <div class="status-bars">
+        <div class="status-row">
+          <span class="status-label">Backlog</span>
+          <div class="status-bar-track">
+            <div class="status-bar backlog" [style.width.%]="vm.report.totalTickets ? (vm.report.backlogTickets || 0) / vm.report.totalTickets * 100 : 0"></div>
+          </div>
+          <span class="status-count">{{ vm.report.backlogTickets || 0 }}</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">In Progress</span>
+          <div class="status-bar-track">
+            <div class="status-bar in-progress" [style.width.%]="vm.report.totalTickets ? (vm.report.inProgressTickets || 0) / vm.report.totalTickets * 100 : 0"></div>
+          </div>
+          <span class="status-count">{{ vm.report.inProgressTickets || 0 }}</span>
+        </div>
+        <div class="status-row">
+          <span class="status-label">Done</span>
+          <div class="status-bar-track">
+            <div class="status-bar done" [style.width.%]="vm.report.totalTickets ? (vm.report.doneTickets || 0) / vm.report.totalTickets * 100 : 0"></div>
+          </div>
+          <span class="status-count">{{ vm.report.doneTickets || 0 }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

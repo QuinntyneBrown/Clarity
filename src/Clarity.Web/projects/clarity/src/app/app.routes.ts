@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 import { Routes } from '@angular/router';
-import { LoginComponent, AppLayoutComponent, KanbanComponent, ProfileComponent, SettingsComponent, MyTicketsComponent, TeamComponent, SearchResultsComponent } from '@components';
+import { LoginComponent, AppLayoutComponent, KanbanComponent, ProfileComponent, SettingsComponent, MyTicketsComponent, TeamComponent, SearchResultsComponent, InitiativesComponent, InitiativeReportComponent } from '@components';
 import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
@@ -26,6 +26,14 @@ export const routes: Routes = [
       {
         path: 'team',
         component: TeamComponent
+      },
+      {
+        path: 'initiatives',
+        component: InitiativesComponent
+      },
+      {
+        path: 'initiatives/:initiativeId/report',
+        component: InitiativeReportComponent
       },
       {
         path: 'search',

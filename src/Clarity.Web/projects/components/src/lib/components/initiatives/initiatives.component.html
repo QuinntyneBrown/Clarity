@@ -1,0 +1,99 @@
+<ng-container *ngIf="vm$ | ngrxPush as vm">
+  <div class="initiatives-page">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-top">
+        <h1>Initiatives</h1>
+        <button mat-flat-button color="primary" class="add-btn" (click)="vm.addInitiative()">
+          <mat-icon>add</mat-icon>
+          <span class="btn-label">Add Initiative</span>
+        </button>
+      </div>
+      <app-search-input
+        placeholder="Search initiatives..."
+        [value]="vm.searchTerm"
+        (valueChange)="vm.search($event)"
+      ></app-search-input>
+    </div>
+
+    <!-- Desktop Table View -->
+    <div class="table-container desktop-only">
+      <table class="initiatives-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Tickets</th>
+            <th class="actions-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (initiative of vm.initiatives; track initiative.initiativeId) {
+            <tr class="initiative-row">
+              <td>
+                <div class="initiative-name">{{ initiative.name }}</div>
+              </td>
+              <td>
+                <div class="initiative-description">{{ initiative.description }}</div>
+              </td>
+              <td>
+                <span class="ticket-count-badge">{{ initiative.ticketCount || 0 }}</span>
+              </td>
+              <td class="actions-col">
+                <button class="action-btn" (click)="vm.viewReport(initiative)" title="View Report">
+                  <mat-icon>assessment</mat-icon>
+                </button>
+                <button class="action-btn" (click)="vm.editInitiative(initiative)" title="Edit">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button class="action-btn delete" (click)="vm.deleteInitiative(initiative)" title="Delete">
+                  <mat-icon>delete_outline</mat-icon>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (vm.initiatives.length === 0) {
+        <div class="empty-state">
+          <mat-icon>track_changes</mat-icon>
+          <p>No initiatives found</p>
+        </div>
+      }
+    </div>
+
+    <!-- Mobile Card View -->
+    <div class="cards-container mobile-only">
+      @for (initiative of vm.initiatives; track initiative.initiativeId) {
+        <div class="initiative-card">
+          <div class="card-top">
+            <div class="card-info">
+              <span class="initiative-name">{{ initiative.name }}</span>
+              <span class="initiative-description">{{ initiative.description }}</span>
+            </div>
+          </div>
+          <div class="card-bottom">
+            <span class="ticket-count-badge">{{ initiative.ticketCount || 0 }} tickets</span>
+            <div class="card-actions">
+              <button class="action-btn" (click)="vm.viewReport(initiative)" title="View Report">
+                <mat-icon>assessment</mat-icon>
+              </button>
+              <button class="action-btn" (click)="vm.editInitiative(initiative)" title="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button class="action-btn delete" (click)="vm.deleteInitiative(initiative)" title="Delete">
+                <mat-icon>delete_outline</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+      @if (vm.initiatives.length === 0) {
+        <div class="empty-state">
+          <mat-icon>track_changes</mat-icon>
+          <p>No initiatives found</p>
+        </div>
+      }
+    </div>
+  </div>
+</ng-container>

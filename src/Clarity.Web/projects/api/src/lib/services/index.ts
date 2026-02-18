@@ -2,6 +2,7 @@ export * from './board.service';
 export * from './board-state.service';
 export * from './comment.service';
 export * from './digital-asset.service';
+export * from './initiative.service';
 export * from './look-up.service';
 export * from './privilege.service';
 export * from './role.service';

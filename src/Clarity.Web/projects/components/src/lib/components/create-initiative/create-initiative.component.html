@@ -1,0 +1,33 @@
+<ng-container *ngIf="vm$ | ngrxPush as vm">
+  <div class="dialog-header">
+    <h1>Create Initiative</h1>
+    <button class="close-btn" type="button" (click)="vm.cancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form novalidate autocomplete="off" spellcheck="false" [formGroup]="vm.form" class="dialog-body">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter initiative name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="3"
+                cdkAutosizeMaxRows="5"
+                formControlName="description"
+                placeholder="Describe the initiative"></textarea>
+    </mat-form-field>
+  </form>
+
+  <div class="dialog-footer">
+    <button mat-button class="cancel-btn" (click)="vm.cancel()">Cancel</button>
+    <button mat-flat-button color="primary" class="create-btn" (click)="vm.save()">
+      <mat-icon>add</mat-icon>
+      Create Initiative
+    </button>
+  </div>
+</ng-container>

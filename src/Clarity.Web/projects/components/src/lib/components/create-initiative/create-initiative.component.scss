@@ -1,0 +1,93 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-white);
+  outline: none;
+  max-height: 90vh;
+  font-family: var(--font-family);
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 12px;
+
+  h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 8px;
+    color: var(--color-text-secondary);
+    transition: background-color 0.15s;
+
+    &:hover {
+      background: var(--color-bg-page);
+    }
+  }
+}
+
+.dialog-body {
+  padding: 8px 24px 16px;
+  overflow-y: auto;
+  flex: 1;
+
+  mat-form-field {
+    display: block;
+    width: 100%;
+  }
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 12px 24px 20px;
+  border-top: 1px solid var(--color-border);
+
+  .cancel-btn {
+    color: var(--color-text-secondary);
+  }
+
+  .create-btn {
+    background-color: var(--color-primary);
+    color: white;
+    border-radius: 8px;
+    padding: 0 24px;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      margin-right: 4px;
+    }
+  }
+}
+
+@media (max-width: 599px) {
+  :host {
+    border-radius: 16px 16px 0 0;
+    max-height: 85vh;
+  }
+}
+
+@media (min-width: 600px) {
+  :host {
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    min-width: 480px;
+    max-width: 560px;
+  }
+}
