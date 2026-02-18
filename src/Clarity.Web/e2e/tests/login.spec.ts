@@ -1,6 +1,13 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage } from '../page-objects/login.page';
 
+const STORAGE_KEYS = {
+  accessToken: 'clarity_access_token',
+  userId: 'clarity_user_id',
+  rememberMe: 'clarity_remember_me',
+  rememberedUsername: 'clarity_remembered_username',
+} as const;
+
 test.describe('Login Flow', () => {
   let loginPage: LoginPage;
 
@@ -8,14 +15,14 @@ test.describe('Login Flow', () => {
     loginPage = new LoginPage(page);
     // Clear auth tokens before each test
     await page.goto('/login');
-    await page.evaluate(() => {
-      localStorage.removeItem('clarity_access_token');
-      localStorage.removeItem('clarity_user_id');
-      localStorage.removeItem('clarity_remember_me');
-      localStorage.removeItem('clarity_remembered_username');
-      sessionStorage.removeItem('clarity_access_token');
-      sessionStorage.removeItem('clarity_user_id');
-    });
+    await page.evaluate((keys) => {
+      localStorage.removeItem(keys.accessToken);
+      localStorage.removeItem(keys.userId);
+      localStorage.removeItem(keys.rememberMe);
+      localStorage.removeItem(keys.rememberedUsername);
+      sessionStorage.removeItem(keys.accessToken);
+      sessionStorage.removeItem(keys.userId);
+    }, STORAGE_KEYS);
     await loginPage.goto();
   });
 
@@ -86,8 +93,9 @@ test.describe('Login Flow', () => {
     await expect(page).toHaveURL(/\/kanban/);
 
     // Verify JWT token was stored (in sessionStorage when remember me is unchecked)
-    const token = await page.evaluate(() =>
-      sessionStorage.getItem('clarity_access_token') ?? localStorage.getItem('clarity_access_token')
+    const token = await page.evaluate((keys) =>
+      sessionStorage.getItem(keys.accessToken) ?? localStorage.getItem(keys.accessToken),
+      STORAGE_KEYS
     );
     expect(token).toBeTruthy();
     expect(token!.split('.').length).toBe(3); // JWT has 3 parts
@@ -119,23 +127,46 @@ test.describe('Login Flow', () => {
     await loginPage.login('quinntynebrown@gmail.com', 'P@ssw0rd');
     await page.waitForURL('**/kanban', { timeout: 15000 });
 
-    const localToken = await page.evaluate(() => localStorage.getItem('clarity_access_token'));
-    const sessionToken = await page.evaluate(() => sessionStorage.getItem('clarity_access_token'));
-    expect(localToken).toBeTruthy();
-    expect(sessionToken).toBeNull();
-
-    const rememberedUsername = await page.evaluate(() => localStorage.getItem('clarity_remembered_username'));
-    expect(rememberedUsername).toBe('quinntynebrown@gmail.com');
+    const storage = await page.evaluate((keys) => ({
+      localToken: localStorage.getItem(keys.accessToken),
+      sessionToken: sessionStorage.getItem(keys.accessToken),
+      rememberedUsername: localStorage.getItem(keys.rememberedUsername),
+    }), STORAGE_KEYS);
+    expect(storage.localToken).toBeTruthy();
+    expect(storage.sessionToken).toBeNull();
+    expect(storage.rememberedUsername).toBe('quinntynebrown@gmail.com');
   });
 
   test('should store token in sessionStorage when remember me is not checked', async ({ page }) => {
     await loginPage.login('quinntynebrown@gmail.com', 'P@ssw0rd');
     await page.waitForURL('**/kanban', { timeout: 15000 });
 
-    const localToken = await page.evaluate(() => localStorage.getItem('clarity_access_token'));
-    const sessionToken = await page.evaluate(() => sessionStorage.getItem('clarity_access_token'));
-    expect(localToken).toBeNull();
-    expect(sessionToken).toBeTruthy();
+    const storage = await page.evaluate((keys) => ({
+      localToken: localStorage.getItem(keys.accessToken),
+      sessionToken: sessionStorage.getItem(keys.accessToken),
+    }), STORAGE_KEYS);
+    expect(storage.localToken).toBeNull();
+    expect(storage.sessionToken).toBeTruthy();
+  });
+
+  test('should pre-populate email and check remember me on return visit', async ({ page }) => {
+    // First login with remember me
+    await loginPage.rememberMeCheckbox.click();
+    await loginPage.login('quinntynebrown@gmail.com', 'P@ssw0rd');
+    await page.waitForURL('**/kanban', { timeout: 15000 });
+
+    // Clear only session tokens to simulate returning to login
+    await page.evaluate((keys) => {
+      localStorage.removeItem(keys.accessToken);
+      localStorage.removeItem(keys.userId);
+      sessionStorage.removeItem(keys.accessToken);
+      sessionStorage.removeItem(keys.userId);
+    }, STORAGE_KEYS);
+    await page.goto('/login');
+
+    await expect(loginPage.emailInput).toHaveValue('quinntynebrown@gmail.com');
+    const isChecked = await loginPage.rememberMeCheckbox.locator('input[type="checkbox"]').isChecked();
+    expect(isChecked).toBe(true);
   });
 
   test('should redirect to login when accessing protected route without auth', async ({ page }) => {

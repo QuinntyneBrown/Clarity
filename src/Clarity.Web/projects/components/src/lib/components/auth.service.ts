@@ -50,15 +50,19 @@ export class AuthService {
     ).pipe(
       tap(response => {
         if (rememberMe) {
+          sessionStorage.removeItem(this.tokenKey);
+          sessionStorage.removeItem(this.userIdKey);
           localStorage.setItem(this.tokenKey, response.accessToken);
           localStorage.setItem(this.userIdKey, response.userId);
           localStorage.setItem(this.rememberMeKey, 'true');
           localStorage.setItem(this.rememberedUsernameKey, username);
         } else {
-          sessionStorage.setItem(this.tokenKey, response.accessToken);
-          sessionStorage.setItem(this.userIdKey, response.userId);
+          localStorage.removeItem(this.tokenKey);
+          localStorage.removeItem(this.userIdKey);
           localStorage.removeItem(this.rememberMeKey);
           localStorage.removeItem(this.rememberedUsernameKey);
+          sessionStorage.setItem(this.tokenKey, response.accessToken);
+          sessionStorage.setItem(this.userIdKey, response.userId);
         }
       }),
       catchError(error => {
@@ -70,6 +74,8 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.userIdKey);
+    localStorage.removeItem(this.rememberMeKey);
+    localStorage.removeItem(this.rememberedUsernameKey);
     sessionStorage.removeItem(this.tokenKey);
     sessionStorage.removeItem(this.userIdKey);
   }

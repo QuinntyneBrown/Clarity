@@ -48,10 +48,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    const rememberedUsername = this.authService.rememberedUsername;
-    if (rememberedUsername) {
+    if (this.authService.isRememberMe) {
       this.form.patchValue({
-        email: rememberedUsername,
+        email: this.authService.rememberedUsername,
         rememberMe: true
       });
     }
