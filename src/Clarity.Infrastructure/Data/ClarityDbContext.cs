@@ -6,6 +6,7 @@ using Clarity.Core.AggregateModel.BoardAggregate;
 using Clarity.Core.AggregateModel.BoardStateAggregate;
 using Clarity.Core.AggregateModel.CommentAggregate;
 using Clarity.Core.AggregateModel.DigitalAssetAggregate;
+using Clarity.Core.AggregateModel.InitiativeAggregate;
 using Clarity.Core.AggregateModel.PrivilegeAggregate;
 using Clarity.Core.AggregateModel.RoleAggregate;
 using Clarity.Core.AggregateModel.SprintAggregate;
@@ -28,6 +29,7 @@ public class ClarityDbContext : DbContext, IClarityDbContext
     public DbSet<Comment> Comments { get; private set; }
     public DbSet<DigitalAsset> DigitalAssets { get; private set; }
     public DbSet<BoardState> BoardStates { get; private set; }
+    public DbSet<Initiative> Initiatives { get; private set; }
     public DbSet<Privilege> Privileges { get; private set; }
     public DbSet<Role> Roles { get; private set; }
     public DbSet<Sprint> Sprints { get; private set; }
@@ -75,6 +77,12 @@ public class ClarityDbContext : DbContext, IClarityDbContext
             .HasMany(r => r.Privileges)
             .WithOne()
             .HasForeignKey(p => p.RoleId);
+
+        modelBuilder.Entity<Ticket>()
+            .HasOne(t => t.Initiative)
+            .WithMany(i => i.Tickets)
+            .HasForeignKey(t => t.InitiativeId)
+            .IsRequired(false);
 
         modelBuilder.Entity<UserSettings>()
             .HasOne(us => us.User)

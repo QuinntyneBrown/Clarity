@@ -27,6 +27,8 @@ public class TicketDto
     public Guid? BoardId { get; set; }
     public Guid? TeamMemberId { get; set; }
     public string TeamMemberName { get; set; }
+    public Guid? InitiativeId { get; set; }
+    public string InitiativeName { get; set; }
     public List<CommentDto> Comments { get; set; } = new();
 }
 
