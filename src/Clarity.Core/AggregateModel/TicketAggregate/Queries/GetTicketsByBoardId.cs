@@ -31,6 +31,7 @@ public class GetTicketsByBoardIdRequestHandler : IRequestHandler<GetTicketsByBoa
         => new()
         {
             Tickets = await _context.Tickets
+            .Include(x => x.TeamMember)
             .Include(x => x.Comments)
             .Include(x => x.TicketStates)
             .ThenInclude(x => x.BoardState)

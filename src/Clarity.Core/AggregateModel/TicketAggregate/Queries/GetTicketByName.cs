@@ -26,6 +26,7 @@ public class GetTicketByNameRequestHandler : IRequestHandler<GetTicketByNameRequ
         => new()
         {
             Ticket = (await _context.Tickets
+            .Include(x => x.TeamMember)
             .Include(x => x.Comments)
             .ThenInclude(x => x.TeamMember)
             .Include(x => x.TicketStates)

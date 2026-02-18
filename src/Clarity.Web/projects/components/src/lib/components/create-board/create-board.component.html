@@ -1,0 +1,15 @@
+<ng-container *ngIf="vm$ | ngrxPush as vm">
+  <h1>Create Board</h1>
+
+  <form novalidate autocomplete="off" spellcheck="false" [formGroup]="vm.form">
+    <mat-form-field>
+      <mat-label>Board Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-button (click)="vm.save()">Save</button>
+      <button mat-button (click)="vm.cancel()">Cancel</button>
+    </div>
+  </form>
+</ng-container>

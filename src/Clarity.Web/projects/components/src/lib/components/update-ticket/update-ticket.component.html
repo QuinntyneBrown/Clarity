@@ -33,6 +33,14 @@
                     formControlName="acceptanceCriteria"></textarea>
         </mat-form-field>
 
+        <mat-form-field>
+          <mat-label>Assign To</mat-label>
+          <select matNativeControl formControlName="teamMemberId">
+            <option [ngValue]="null">Unassigned</option>
+            <option [ngValue]="member.teamMemberId" *ngFor='let member of vm.teamMembers'>{{ member.name }}</option>
+          </select>
+        </mat-form-field>
+
         <div class='actions'>
           <button mat-button (click)='vm.save()'>Save</button>
           <button mat-button (click)='vm.delete()'>Delete</button>

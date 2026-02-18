@@ -157,6 +157,90 @@
           "builder": "@angular-builders/jest:run"
         }
       }
+    },
+    "clarity-admin": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": true,
+          "style": "scss"
+        },
+        "@schematics/angular:directive": {
+          "standalone": true
+        }
+      },
+      "root": "projects/clarity-admin",
+      "sourceRoot": "projects/clarity-admin/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/clarity-admin",
+            "index": "projects/clarity-admin/src/index.html",
+            "main": "projects/clarity-admin/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/clarity-admin/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/clarity-admin/src/favicon.ico"
+            ],
+            "styles": [
+              "projects/clarity-admin/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "clarity-admin:build:production"
+            },
+            "development": {
+              "buildTarget": "clarity-admin:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "clarity-admin:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-builders/jest:run"
+        }
+      }
     }
   }
 }

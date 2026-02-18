@@ -1,0 +1,17 @@
+<ng-container *ngIf="vm$ | ngrxPush as vm">
+  <h1>Clone Board</h1>
+  <p class="clone-info">Cloning from: <strong>{{ vm.sourceBoardName }}</strong></p>
+  <p class="clone-note">The new board will have the same columns but no tickets.</p>
+
+  <form novalidate autocomplete="off" spellcheck="false" [formGroup]="vm.form">
+    <mat-form-field>
+      <mat-label>New Board Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-button (click)="vm.save()">Clone</button>
+      <button mat-button (click)="vm.cancel()">Cancel</button>
+    </div>
+  </form>
+</ng-container>

@@ -1,0 +1,179 @@
+@use '@angular/material' as mat;
+
+html {
+  color-scheme: dark;
+
+  @include mat.theme((
+    color: mat.$violet-palette,
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+// Design tokens from clarity-admin pen file (dark mode)
+:root {
+  --primary: #7C4DFF;
+  --primary-light: #B388FF;
+  --accent: #FF4081;
+  --success: #69F0AE;
+  --warn: #FF5252;
+  --info: #40C4FF;
+
+  --background: #121212;
+  --surface: #1E1E1E;
+  --elevated: #2C2C2C;
+  --sidebar-bg: #1A1A2E;
+  --sidebar-active: rgba(124, 77, 255, 0.13);
+  --border: #333333;
+  --divider: #424242;
+  --input-bg: #2C2C2C;
+
+  --text-primary: #E0E0E0;
+  --text-secondary: #9E9E9E;
+  --text-disabled: #616161;
+  --text-on-primary: #FFFFFF;
+
+  --font-primary: 'Roboto', sans-serif;
+  --font-mono: 'Roboto Mono', monospace;
+
+  --radius-pill: 24px;
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --radius-sm: 4px;
+
+  --sidebar-width: 260px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-primary);
+  background-color: var(--background);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// Angular Material dark mode overrides
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: var(--surface) !important;
+}
+
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-unelevated-button.mat-primary {
+  --mdc-filled-button-container-color: var(--primary);
+  --mdc-filled-button-label-text-color: var(--text-on-primary);
+}
+
+.mat-mdc-outlined-button {
+  --mdc-outlined-button-outline-color: var(--border);
+  --mdc-outlined-button-label-text-color: var(--text-primary);
+}
+
+.mat-mdc-icon-button {
+  --mdc-icon-button-icon-color: var(--text-secondary);
+}
+
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: var(--elevated);
+  --mdc-snackbar-supporting-text-color: var(--text-primary);
+}
+
+// Table styling
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    padding: 12px 20px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background-color: var(--elevated);
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 14px 20px;
+    font-size: 13px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border);
+  }
+
+  tr:hover td {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
+}
+
+// Badge component
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+
+  &.badge-active {
+    background-color: #1B5E20;
+    color: var(--success);
+  }
+
+  &.badge-inactive {
+    background-color: #4A1414;
+    color: var(--warn);
+  }
+
+  &.badge-primary {
+    background-color: rgba(124, 77, 255, 0.2);
+    color: var(--primary-light);
+  }
+
+  &.badge-accent {
+    background-color: rgba(255, 64, 129, 0.2);
+    color: var(--accent);
+  }
+
+  &.badge-info {
+    background-color: rgba(64, 196, 255, 0.2);
+    color: var(--info);
+  }
+
+  &.badge-success {
+    background-color: rgba(105, 240, 174, 0.2);
+    color: var(--success);
+  }
+
+  &.badge-warn {
+    background-color: rgba(255, 82, 82, 0.2);
+    color: var(--warn);
+  }
+}
+
+// Scrollbar styling
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}

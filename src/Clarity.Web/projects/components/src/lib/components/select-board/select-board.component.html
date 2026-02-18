@@ -1,3 +1,14 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
-    <h1>{{ vm.message }}</h1>
+  <h1>Select Board</h1>
+  <mat-selection-list [multiple]="false">
+    <mat-list-option *ngFor="let board of vm.boards"
+                     (click)="vm.select(board.boardId!)">
+      <mat-icon matListItemIcon>dashboard</mat-icon>
+      <span matListItemTitle>{{ board.name }}</span>
+      <span matListItemLine>{{ board.states?.length || 0 }} columns</span>
+    </mat-list-option>
+  </mat-selection-list>
+  <div class="actions">
+    <button mat-button (click)="vm.cancel()">Cancel</button>
+  </div>
 </ng-container>

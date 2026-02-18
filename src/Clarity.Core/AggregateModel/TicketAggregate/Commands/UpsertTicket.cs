@@ -33,11 +33,20 @@ public class UpsertTicketRequestHandler : IRequestHandler<UpsertTicketRequest, U
             ? await _context.BoardStates.FindAsync(request.Ticket.BoardStateId)
             : await _context.BoardStates.FirstAsync(x => x.Type == request.Ticket.State);
 
-        var username = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
+        Guid teamMemberId;
 
-        var currentTeamMemberId = !string.IsNullOrEmpty(username)
-            ? (await _context.TeamMembers.SingleAsync(x => x.Name == username)).TeamMemberId
-            : (await _context.TeamMembers.FirstAsync()).TeamMemberId;
+        if (request.Ticket.TeamMemberId.HasValue && request.Ticket.TeamMemberId.Value != Guid.Empty)
+        {
+            teamMemberId = request.Ticket.TeamMemberId.Value;
+        }
+        else
+        {
+            var username = _httpContextAccessor.HttpContext?.User?.Identity?.Name;
+
+            teamMemberId = !string.IsNullOrEmpty(username)
+                ? (await _context.TeamMembers.SingleAsync(x => x.Name == username)).TeamMemberId
+                : (await _context.TeamMembers.FirstAsync()).TeamMemberId;
+        }
 
         var ticket = await _context.Tickets
             .Include(x => x.TicketStates)
@@ -46,12 +55,12 @@ public class UpsertTicketRequestHandler : IRequestHandler<UpsertTicketRequest, U
 
         if (ticket == null)
         {
-            ticket = new(currentTeamMemberId, request.Ticket.Name, request.Ticket.Url, (Html)request.Ticket.AcceptanceCriteria, (Html)request.Ticket.Description);
+            ticket = new(teamMemberId, request.Ticket.Name, request.Ticket.Url, (Html)request.Ticket.AcceptanceCriteria, (Html)request.Ticket.Description);
             _context.Tickets.Add(ticket);
         }
         else
         {
-            ticket.Update(currentTeamMemberId, request.Ticket.Name, request.Ticket.Url, (Html)request.Ticket.AcceptanceCriteria, (Html)request.Ticket.Description);
+            ticket.Update(teamMemberId, request.Ticket.Name, request.Ticket.Url, (Html)request.Ticket.AcceptanceCriteria, (Html)request.Ticket.Description);
         }
 
         ticket.TicketStates.Clear();

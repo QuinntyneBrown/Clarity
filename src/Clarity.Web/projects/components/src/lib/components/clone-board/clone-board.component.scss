@@ -1,0 +1,28 @@
+:host {
+  display: block;
+  background-color: #fff;
+  padding: 20px;
+  outline: none;
+
+  h1 {
+    padding: 0;
+    margin: 0;
+    line-height: 2em;
+  }
+
+  .clone-info {
+    margin: 8px 0 4px;
+    font-size: 14px;
+    color: var(--color-text-secondary, #666);
+  }
+
+  .clone-note {
+    margin: 0 0 16px;
+    font-size: 13px;
+    color: var(--color-text-secondary, #999);
+  }
+
+  mat-form-field {
+    display: block;
+  }
+}
