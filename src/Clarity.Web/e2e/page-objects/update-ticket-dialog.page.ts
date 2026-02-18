@@ -6,11 +6,14 @@ export class UpdateTicketDialog {
   readonly title: Locator;
   readonly nameInput: Locator;
   readonly stateSelect: Locator;
+  readonly prioritySelect: Locator;
   readonly descriptionTextarea: Locator;
   readonly acceptanceCriteriaTextarea: Locator;
+  readonly assigneeSelect: Locator;
   readonly saveButton: Locator;
   readonly deleteButton: Locator;
   readonly cancelButton: Locator;
+  readonly closeButton: Locator;
   readonly form: Locator;
 
   constructor(page: Page) {
@@ -20,11 +23,14 @@ export class UpdateTicketDialog {
     this.form = this.dialog.locator('form');
     this.nameInput = this.dialog.locator('input[formcontrolname="name"]');
     this.stateSelect = this.dialog.locator('select[formcontrolname="state"]');
+    this.prioritySelect = this.dialog.locator('select[formcontrolname="priority"]');
     this.descriptionTextarea = this.dialog.locator('textarea[formcontrolname="description"]');
     this.acceptanceCriteriaTextarea = this.dialog.locator('textarea[formcontrolname="acceptanceCriteria"]');
-    this.saveButton = this.dialog.locator('button', { hasText: 'Save' });
+    this.assigneeSelect = this.dialog.locator('select[formcontrolname="teamMemberId"]');
+    this.saveButton = this.dialog.locator('button', { hasText: 'Update' });
     this.deleteButton = this.dialog.locator('button', { hasText: 'Delete' });
     this.cancelButton = this.dialog.locator('button', { hasText: 'Cancel' });
+    this.closeButton = this.dialog.locator('.close-btn');
   }
 
   async waitForOpen() {
@@ -51,6 +57,10 @@ export class UpdateTicketDialog {
     await this.stateSelect.selectOption({ label: stateName });
   }
 
+  async selectPriority(priority: string) {
+    await this.prioritySelect.selectOption({ label: priority });
+  }
+
   async clickSave() {
     await this.saveButton.click();
   }
@@ -61,5 +71,9 @@ export class UpdateTicketDialog {
 
   async clickCancel() {
     await this.cancelButton.click();
+  }
+
+  async clickClose() {
+    await this.closeButton.click();
   }
 }

@@ -1,50 +1,72 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
+  <div class="dialog-header">
     <h1>Update Ticket</h1>
+    <button class="close-btn" type="button" (click)="vm.cancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
 
-    <form novalidate autocomplete="off" spellcheck="false" [formGroup]='vm.form'>
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="name">
-        </mat-form-field>
+  <form novalidate autocomplete="off" spellcheck="false" [formGroup]="vm.form" class="dialog-body">
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="name" placeholder="Enter ticket title">
+    </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>State</mat-label>
-          <select matNativeControl formControlName="state">
-            <option></option>
-            <option [ngValue]="state.type" *ngFor='let state of vm.states'>{{ state.name }}</option>
-          </select>
-        </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="3"
+                cdkAutosizeMaxRows="5"
+                formControlName="description"
+                placeholder="Describe the ticket"></textarea>
+    </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Description</mat-label>
-          <textarea matInput
-                    cdkTextareaAutosize
-                    cdkAutosizeMinRows="5"
-                    cdkAutosizeMaxRows="5"
-                    formControlName="description"></textarea>
-        </mat-form-field>
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Priority</mat-label>
+        <select matNativeControl formControlName="priority">
+          <option value="">Select priority</option>
+          <option *ngFor="let p of vm.priorities" [value]="p.value">{{ p.label }}</option>
+        </select>
+      </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Acceptance Criteria</mat-label>
-          <textarea matInput
-                    cdkTextareaAutosize
-                    cdkAutosizeMinRows="5"
-                    cdkAutosizeMaxRows="5"
-                    formControlName="acceptanceCriteria"></textarea>
-        </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <select matNativeControl formControlName="state">
+          <option value="">Select status</option>
+          <option [ngValue]="state.type" *ngFor="let state of vm.states">{{ state.name }}</option>
+        </select>
+      </mat-form-field>
+    </div>
 
-        <mat-form-field>
-          <mat-label>Assign To</mat-label>
-          <select matNativeControl formControlName="teamMemberId">
-            <option [ngValue]="null">Unassigned</option>
-            <option [ngValue]="member.teamMemberId" *ngFor='let member of vm.teamMembers'>{{ member.name }}</option>
-          </select>
-        </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Assignee</mat-label>
+      <select matNativeControl formControlName="teamMemberId">
+        <option [ngValue]="null">Unassigned</option>
+        <option [ngValue]="member.teamMemberId" *ngFor="let member of vm.teamMembers">{{ member.name }}</option>
+      </select>
+    </mat-form-field>
 
-        <div class='actions'>
-          <button mat-button (click)='vm.save()'>Save</button>
-          <button mat-button (click)='vm.delete()'>Delete</button>
-          <button mat-button (click)='vm.cancel()'>Cancel</button>
-        </div>
-      </form>
+    <mat-form-field appearance="outline">
+      <mat-label>Acceptance Criteria</mat-label>
+      <textarea matInput
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="3"
+                cdkAutosizeMaxRows="5"
+                formControlName="acceptanceCriteria"
+                placeholder="Define acceptance criteria"></textarea>
+    </mat-form-field>
+  </form>
+
+  <div class="dialog-footer">
+    <button mat-button class="delete-btn" (click)="vm.delete()">
+      <mat-icon>delete_outline</mat-icon>
+      Delete
+    </button>
+    <div class="footer-right">
+      <button mat-button class="cancel-btn" (click)="vm.cancel()">Cancel</button>
+      <button mat-flat-button color="primary" class="update-btn" (click)="vm.save()">Update</button>
+    </div>
+  </div>
 </ng-container>

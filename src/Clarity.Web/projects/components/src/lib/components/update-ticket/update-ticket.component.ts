@@ -1,6 +1,3 @@
-// Copyright (c) Quinntyne Brown. All Rights Reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
-
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { createUpdateTicketViewModel } from './create-update-ticket-view-model';
@@ -10,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
     selector: 'app-update-ticket',
@@ -21,7 +20,9 @@ import { MatInputModule } from '@angular/material/input';
         ReactiveFormsModule,
         MatFormFieldModule,
         MatButtonModule,
-        MatInputModule
+        MatInputModule,
+        MatSelectModule,
+        MatIconModule
     ],
     templateUrl: './update-ticket.component.html',
     styleUrls: ['./update-ticket.component.scss']

@@ -1,0 +1,139 @@
+<ng-container *ngIf="vm$ | ngrxPush as vm">
+  <div class="search-page">
+    <!-- Mobile Header -->
+    <div class="mobile-header mobile-only">
+      <button class="back-btn" (click)="vm.goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <app-search-input
+        class="mobile-search"
+        placeholder="Search..."
+        [value]="vm.searchTerm"
+        (valueChange)="vm.search($event)"
+        (search)="vm.search($event)"
+      ></app-search-input>
+    </div>
+
+    <div class="search-content">
+      <!-- Desktop Search Header -->
+      <div class="page-header desktop-only">
+        <h1>Search</h1>
+        <app-search-input
+          placeholder="Search tickets, members..."
+          [value]="vm.searchTerm"
+          (valueChange)="vm.search($event)"
+          (search)="vm.search($event)"
+        ></app-search-input>
+      </div>
+
+      <!-- Filter Chips -->
+      <div class="filter-chips">
+        @for (f of filters; track f.value) {
+          <button
+            class="chip"
+            [class.active]="vm.activeFilter === f.value"
+            (click)="vm.setFilter(f.value)"
+          >
+            {{ f.label }}
+            @if (f.value === 'all') {
+              <span class="chip-count">{{ vm.totalCount }}</span>
+            }
+            @if (f.value === 'tickets') {
+              <span class="chip-count">{{ vm.ticketCount }}</span>
+            }
+            @if (f.value === 'members') {
+              <span class="chip-count">{{ vm.memberCount }}</span>
+            }
+          </button>
+        }
+      </div>
+
+      <div class="results-layout">
+        <!-- Tickets Results -->
+        @if (vm.tickets.length > 0) {
+          <div class="results-section">
+            <h2 class="section-title">
+              <mat-icon>confirmation_number</mat-icon>
+              Tickets
+              <span class="count">({{ vm.tickets.length }})</span>
+            </h2>
+
+            <!-- Desktop Table -->
+            <div class="table-container desktop-only">
+              <table class="results-table">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Assignee</th>
+                    <th>Age</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (ticket of vm.tickets; track ticket.ticketId) {
+                    <tr class="result-row" (click)="vm.openTicket(ticket)">
+                      <td class="title-cell">{{ ticket.name }}</td>
+                      <td>
+                        <span class="badge" [ngClass]="vm.getStateBadgeClass(ticket.state)">
+                          {{ vm.getStateLabel(ticket.state) }}
+                        </span>
+                      </td>
+                      <td>{{ ticket.teamMemberName || 'Unassigned' }}</td>
+                      <td class="age-cell">{{ ticket.age }}d</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Mobile Cards -->
+            <div class="mobile-only">
+              @for (ticket of vm.tickets; track ticket.ticketId) {
+                <div class="result-card" (click)="vm.openTicket(ticket)">
+                  <div class="card-title">{{ ticket.name }}</div>
+                  <div class="card-meta">
+                    <span class="badge" [ngClass]="vm.getStateBadgeClass(ticket.state)">
+                      {{ vm.getStateLabel(ticket.state) }}
+                    </span>
+                    <span class="meta-text">{{ ticket.teamMemberName || 'Unassigned' }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Members Results -->
+        @if (vm.teamMembers.length > 0) {
+          <div class="results-section">
+            <h2 class="section-title">
+              <mat-icon>people</mat-icon>
+              Members
+              <span class="count">({{ vm.teamMembers.length }})</span>
+            </h2>
+            <div class="members-grid">
+              @for (member of vm.teamMembers; track member.teamMemberId) {
+                <div class="member-card">
+                  <div class="member-avatar">{{ vm.getInitials(member.name) }}</div>
+                  <span class="member-name">{{ member.name }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Empty State -->
+        @if (vm.tickets.length === 0 && vm.teamMembers.length === 0) {
+          <div class="empty-state">
+            <mat-icon>search</mat-icon>
+            @if (vm.searchTerm) {
+              <p>No results found for "{{ vm.searchTerm }}"</p>
+            } @else {
+              <p>Enter a search term to find tickets and members</p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</ng-container>

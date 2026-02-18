@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-sidebar',
@@ -30,8 +30,8 @@ export class SidebarComponent {
 
   navItems = [
     { icon: 'dashboard', label: 'Boards', route: '/kanban' },
-    { icon: 'confirmation_number', label: 'My Tickets', route: '/kanban' },
-    { icon: 'people', label: 'Team', route: '/kanban' },
+    { icon: 'confirmation_number', label: 'My Tickets', route: '/my-tickets' },
+    { icon: 'people', label: 'Team', route: '/team' },
     { icon: 'settings', label: 'Settings', route: '/settings' }
   ];
 

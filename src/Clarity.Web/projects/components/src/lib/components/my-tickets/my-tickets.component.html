@@ -1,0 +1,107 @@
+<ng-container *ngIf="vm$ | ngrxPush as vm">
+  <div class="my-tickets-page">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-top">
+        <h1>My Tickets</h1>
+        <button mat-flat-button color="primary" class="new-ticket-btn desktop-only" (click)="vm.openCreateDialog()">
+          <mat-icon>add</mat-icon>
+          New Ticket
+        </button>
+      </div>
+      <div class="header-controls">
+        <app-search-input
+          placeholder="Search tickets..."
+          [value]="vm.searchTerm"
+          (valueChange)="vm.search($event)"
+        ></app-search-input>
+        <div class="filter-chips">
+          @for (f of filters; track f.value) {
+            <button
+              class="chip"
+              [class.active]="vm.activeFilter === f.value"
+              (click)="vm.setFilter(f.value)"
+            >{{ f.label }}</button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop Table View -->
+    <div class="table-container desktop-only">
+      <table class="tickets-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Assignee</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (ticket of vm.tickets; track ticket.ticketId) {
+            <tr class="ticket-row" (click)="vm.openEditDialog(ticket)">
+              <td class="title-cell">{{ ticket.name }}</td>
+              <td>
+                <span class="badge" [ngClass]="vm.getPriorityBadgeClass($any(ticket).priority || 'medium')">
+                  {{ $any(ticket).priority || 'Medium' }}
+                </span>
+              </td>
+              <td>
+                <span class="badge" [ngClass]="vm.getStateBadgeClass(ticket.state)">
+                  {{ vm.getStateLabel(ticket.state) }}
+                </span>
+              </td>
+              <td>
+                <div class="assignee-cell">
+                  <div class="assignee-avatar">{{ vm.getAssigneeInitials(ticket) }}</div>
+                  <span>{{ vm.getAssigneeName(ticket) }}</span>
+                </div>
+              </td>
+              <td class="age-cell">{{ ticket.age }}d</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (vm.tickets.length === 0) {
+        <div class="empty-state">
+          <mat-icon>confirmation_number</mat-icon>
+          <p>No tickets found</p>
+        </div>
+      }
+    </div>
+
+    <!-- Mobile Card View -->
+    <div class="cards-container mobile-only">
+      @for (ticket of vm.tickets; track ticket.ticketId) {
+        <div class="ticket-card" (click)="vm.openEditDialog(ticket)">
+          <div class="card-header">
+            <span class="card-title">{{ ticket.name }}</span>
+            <span class="badge" [ngClass]="vm.getStateBadgeClass(ticket.state)">
+              {{ vm.getStateLabel(ticket.state) }}
+            </span>
+          </div>
+          <div class="card-meta">
+            <div class="assignee-cell">
+              <div class="assignee-avatar small">{{ vm.getAssigneeInitials(ticket) }}</div>
+              <span>{{ vm.getAssigneeName(ticket) }}</span>
+            </div>
+            <span class="age-text">{{ ticket.age }}d ago</span>
+          </div>
+        </div>
+      }
+      @if (vm.tickets.length === 0) {
+        <div class="empty-state">
+          <mat-icon>confirmation_number</mat-icon>
+          <p>No tickets found</p>
+        </div>
+      }
+    </div>
+
+    <!-- Mobile FAB -->
+    <button class="fab mobile-only" (click)="vm.openCreateDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</ng-container>

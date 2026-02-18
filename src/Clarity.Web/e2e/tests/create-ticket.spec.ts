@@ -25,16 +25,18 @@ test.describe('Create Ticket Dialog', () => {
     await expect(dialog.title).toHaveText('Create Ticket');
   });
 
-  test('should display all form fields', async () => {
+  test('should display all form fields including priority', async () => {
     await kanban.clickAddTicket();
     await dialog.waitForOpen();
     await expect(dialog.nameInput).toBeVisible();
     await expect(dialog.stateSelect).toBeVisible();
+    await expect(dialog.prioritySelect).toBeVisible();
     await expect(dialog.descriptionTextarea).toBeVisible();
     await expect(dialog.acceptanceCriteriaTextarea).toBeVisible();
+    await expect(dialog.assigneeSelect).toBeVisible();
   });
 
-  test('should display save and cancel buttons', async () => {
+  test('should display create and cancel buttons', async () => {
     await kanban.clickAddTicket();
     await dialog.waitForOpen();
     await expect(dialog.saveButton).toBeVisible();
@@ -45,6 +47,14 @@ test.describe('Create Ticket Dialog', () => {
     await kanban.clickAddTicket();
     await dialog.waitForOpen();
     await dialog.clickCancel();
+    await dialog.waitForClosed();
+    await expect(dialog.dialog).not.toBeVisible();
+  });
+
+  test('should close dialog when clicking close button', async () => {
+    await kanban.clickAddTicket();
+    await dialog.waitForOpen();
+    await dialog.clickClose();
     await dialog.waitForClosed();
     await expect(dialog.dialog).not.toBeVisible();
   });
@@ -62,7 +72,14 @@ test.describe('Create Ticket Dialog', () => {
     await expect(dialog.acceptanceCriteriaTextarea).toHaveValue('Test criteria');
   });
 
-  test('should close dialog when clicking save', async () => {
+  test('should allow selecting a priority', async () => {
+    await kanban.clickAddTicket();
+    await dialog.waitForOpen();
+    await dialog.selectPriority('High');
+    await expect(dialog.prioritySelect).toHaveValue('high');
+  });
+
+  test('should close dialog when clicking create', async () => {
     await kanban.clickAddTicket();
     await dialog.waitForOpen();
 

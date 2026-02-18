@@ -26,7 +26,7 @@ export default defineConfig({
         browserName: 'chromium',
         viewport: { width: 375, height: 812 },
       },
-      testMatch: ['**/login.spec.ts', '**/responsive-layout.spec.ts', '**/profile.spec.ts', '**/settings.spec.ts'],
+      testMatch: ['**/login.spec.ts', '**/responsive-layout.spec.ts', '**/profile.spec.ts', '**/settings.spec.ts', '**/my-tickets.spec.ts', '**/team.spec.ts', '**/search-results.spec.ts'],
     },
   ],
   webServer: [

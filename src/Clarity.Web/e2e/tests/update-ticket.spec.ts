@@ -31,7 +31,7 @@ test.describe('Update Ticket Dialog', () => {
     await expect(dialog.title).toHaveText('Update Ticket');
   });
 
-  test('should display all form fields', async () => {
+  test('should display all form fields including priority', async () => {
     const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
@@ -39,11 +39,13 @@ test.describe('Update Ticket Dialog', () => {
     await dialog.waitForOpen();
     await expect(dialog.nameInput).toBeVisible();
     await expect(dialog.stateSelect).toBeVisible();
+    await expect(dialog.prioritySelect).toBeVisible();
     await expect(dialog.descriptionTextarea).toBeVisible();
     await expect(dialog.acceptanceCriteriaTextarea).toBeVisible();
+    await expect(dialog.assigneeSelect).toBeVisible();
   });
 
-  test('should display save, delete, and cancel buttons', async () => {
+  test('should display update, delete, and cancel buttons', async () => {
     const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();
@@ -90,7 +92,7 @@ test.describe('Update Ticket Dialog', () => {
     await expect(dialog.acceptanceCriteriaTextarea).toHaveValue('Updated criteria');
   });
 
-  test('should close dialog when clicking save', async () => {
+  test('should close dialog when clicking update', async () => {
     const firstTicket = kanban.page.locator('app-ticket .ticket-title').first();
     await firstTicket.waitFor({ state: 'visible', timeout: 15000 });
     const ticketName = await firstTicket.innerText();

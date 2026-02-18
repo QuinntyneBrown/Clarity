@@ -1,0 +1,90 @@
+<ng-container *ngIf="vm$ | ngrxPush as vm">
+  <div class="team-page">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-top">
+        <h1>Team</h1>
+        <button mat-flat-button color="primary" class="invite-btn" (click)="vm.addMember()">
+          <mat-icon>person_add</mat-icon>
+          <span class="btn-label">Add Member</span>
+        </button>
+      </div>
+      <app-search-input
+        placeholder="Search members..."
+        [value]="vm.searchTerm"
+        (valueChange)="vm.search($event)"
+      ></app-search-input>
+    </div>
+
+    <!-- Desktop Table View -->
+    <div class="table-container desktop-only">
+      <table class="team-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th class="actions-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (member of vm.teamMembers; track member.teamMemberId) {
+            <tr class="member-row">
+              <td>
+                <div class="member-info">
+                  <div class="member-avatar">{{ vm.getInitials(member.name) }}</div>
+                  <span class="member-name">{{ member.name }}</span>
+                </div>
+              </td>
+              <td>
+                <span class="role-badge">Member</span>
+              </td>
+              <td class="actions-col">
+                <button class="action-btn" (click)="vm.editMember(member)" title="Edit">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button class="action-btn delete" (click)="vm.deleteMember(member)" title="Delete">
+                  <mat-icon>delete_outline</mat-icon>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (vm.teamMembers.length === 0) {
+        <div class="empty-state">
+          <mat-icon>people</mat-icon>
+          <p>No team members found</p>
+        </div>
+      }
+    </div>
+
+    <!-- Mobile Card View -->
+    <div class="cards-container mobile-only">
+      @for (member of vm.teamMembers; track member.teamMemberId) {
+        <div class="member-card">
+          <div class="card-left">
+            <div class="member-avatar">{{ vm.getInitials(member.name) }}</div>
+            <div class="card-info">
+              <span class="member-name">{{ member.name }}</span>
+              <span class="role-badge">Member</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <button class="action-btn" (click)="vm.editMember(member)" title="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button class="action-btn delete" (click)="vm.deleteMember(member)" title="Delete">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </div>
+        </div>
+      }
+      @if (vm.teamMembers.length === 0) {
+        <div class="empty-state">
+          <mat-icon>people</mat-icon>
+          <p>No team members found</p>
+        </div>
+      }
+    </div>
+  </div>
+</ng-container>

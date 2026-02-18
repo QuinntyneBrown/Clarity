@@ -1,23 +1,16 @@
-// Copyright (c) Quinntyne Brown. All Rights Reserved.
-// Licensed under the MIT License. See License.txt in the project root for license information.
-
 import { DIALOG_DATA, DialogRef } from "@angular/cdk/dialog";
 import { inject } from "@angular/core";
 import { FormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { combineLatest, EMPTY, map, merge, of, startWith, Subject, tap } from "rxjs";
 import { BoardStateService, TeamMemberService, Ticket } from "@api";
 import { TicketStore } from "../../stores";
+import { PRIORITY_OPTIONS } from "../create-ticket";
 
 export function createUpdateTicketViewModel() {
-
   const ticketStore = inject(TicketStore);
-
   const boardStateService = inject(BoardStateService);
-
   const teamMemberService = inject(TeamMemberService);
-
   const dialogRef = inject(DialogRef);
-
   const ticket = inject<Ticket>(DIALOG_DATA);
 
   const form = new UntypedFormGroup({
@@ -25,13 +18,12 @@ export function createUpdateTicketViewModel() {
     state: new FormControl(Number(ticket.state), [Validators.required]),
     description: new FormControl(ticket.description, [Validators.required]),
     acceptanceCriteria: new FormControl(ticket.acceptanceCriteria, [Validators.required]),
+    priority: new FormControl((ticket as any).priority || null),
     teamMemberId: new FormControl(ticket.teamMemberId || null)
   });
 
   const saveSubject = new Subject();
-
   const cancelSubject = new Subject();
-
   const deleteSubject = new Subject();
 
   const save$ = saveSubject.pipe(
@@ -64,7 +56,8 @@ export function createUpdateTicketViewModel() {
         cancel: () => cancelSubject.next(null),
         delete: () => deleteSubject.next(null),
         states,
-        teamMembers
+        teamMembers,
+        priorities: PRIORITY_OPTIONS
       }
     })
   )

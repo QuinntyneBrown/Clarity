@@ -1,0 +1,16 @@
+<div class="search-input-wrapper" [class.active]="value">
+  <mat-icon class="search-icon">search</mat-icon>
+  <input
+    type="text"
+    class="search-field"
+    [placeholder]="placeholder"
+    [value]="value"
+    (input)="onInput($event)"
+    (keydown)="onKeydown($event)"
+  />
+  @if (value) {
+    <button class="clear-btn" type="button" (click)="clear()">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+</div>
