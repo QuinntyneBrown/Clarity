@@ -51,6 +51,37 @@
   }
 }
 
+// Search
+.search-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-page);
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: inherit;
+  }
+
+  &:hover {
+    border-color: var(--color-primary);
+    background: var(--color-bg-white);
+  }
+}
+
 // Navigation
 .nav-items {
   display: flex;

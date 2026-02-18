@@ -49,9 +49,9 @@ test.describe('Profile Page - Desktop', () => {
   });
 
   test('should show fields as readonly when not editing', async () => {
-    await expect(profile.firstNameInput).toHaveAttribute('readonly', '');
-    await expect(profile.lastNameInput).toHaveAttribute('readonly', '');
-    await expect(profile.emailInput).toHaveAttribute('readonly', '');
+    await expect(profile.firstNameInput).toHaveAttribute('readonly', 'true');
+    await expect(profile.lastNameInput).toHaveAttribute('readonly', 'true');
+    await expect(profile.emailInput).toHaveAttribute('readonly', 'true');
   });
 
   test('should show edit button when not editing', async () => {
