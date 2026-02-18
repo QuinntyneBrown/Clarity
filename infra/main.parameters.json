@@ -3,7 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "environment": {
-      "value": "${AZURE_ENV_NAME}"
+      "value": "${environment}"
+    },
+    "location": {
+      "value": "${AZURE_LOCATION}"
     },
     "sqlAdminLogin": {
       "value": "${sqlAdminLogin}"

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
+    "prestart": "ng build @api && ng build @components",
     "start": "ng serve clarity",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",

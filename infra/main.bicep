@@ -19,22 +19,44 @@ param sqlAdminPassword string
 param jwtKey string
 
 var namingPrefix = 'clarity-${environment}'
-var appServiceName = '${namingPrefix}-app'
+// Container registry names must be alphanumeric only
+var acrName = 'clarity${replace(environment, '-', '')}acr'
+var containerAppName = '${namingPrefix}-api'
 
-module appServicePlan 'modules/app-service-plan.bicep' = {
-  name: 'appServicePlanDeploy'
+module containerRegistry 'modules/container-registry.bicep' = {
+  name: 'containerRegistryDeploy'
   params: {
-    name: '${namingPrefix}-plan'
+    name: acrName
     location: location
   }
 }
 
-module appService 'modules/app-service.bicep' = {
-  name: 'appServiceDeploy'
+module logAnalytics 'modules/log-analytics.bicep' = {
+  name: 'logAnalyticsDeploy'
   params: {
-    name: '${namingPrefix}-app'
+    name: '${namingPrefix}-logs'
     location: location
-    appServicePlanId: appServicePlan.outputs.id
+  }
+}
+
+module containerAppsEnvironment 'modules/container-apps-environment.bicep' = {
+  name: 'containerAppsEnvDeploy'
+  params: {
+    name: '${namingPrefix}-env'
+    location: location
+    logAnalyticsCustomerId: logAnalytics.outputs.customerId
+    logAnalyticsSharedKey: logAnalytics.outputs.sharedKey
+  }
+}
+
+module containerApp 'modules/container-app.bicep' = {
+  name: 'containerAppDeploy'
+  params: {
+    name: containerAppName
+    location: location
+    environmentId: containerAppsEnvironment.outputs.id
+    containerRegistryLoginServer: containerRegistry.outputs.loginServer
+    containerRegistryName: containerRegistry.outputs.name
     keyVaultName: '${namingPrefix}-kv'
   }
 }
@@ -57,11 +79,14 @@ module keyVault 'modules/key-vault.bicep' = {
   params: {
     name: '${namingPrefix}-kv'
     location: location
-    webAppPrincipalId: appService.outputs.principalId
+    webAppPrincipalId: containerApp.outputs.principalId
     connectionString: connectionString
     jwtKey: jwtKey
   }
 }
 
-output appServiceUrl string = 'https://${appService.outputs.name}.azurewebsites.net'
-output AZURE_APP_SERVICE_NAME string = appService.outputs.name
+output appUrl string = 'https://${containerApp.outputs.fqdn}'
+output AZURE_CONTAINER_REGISTRY_ENDPOINT string = containerRegistry.outputs.loginServer
+output AZURE_CONTAINER_REGISTRY_NAME string = containerRegistry.outputs.name
+output AZURE_CONTAINER_APP_NAME string = containerApp.outputs.name
+output AZURE_CONTAINER_APPS_ENVIRONMENT_NAME string = containerAppsEnvironment.outputs.name

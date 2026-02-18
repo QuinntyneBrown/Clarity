@@ -29,7 +29,7 @@ export class SettingsPage {
   async goto() {
     const loginPage = new LoginPage(this.page);
     await loginPage.goto();
-    await loginPage.login('quinntynebrown@gmail.com', 'password123');
+    await loginPage.login('quinntynebrown@gmail.com', 'P@ssw0rd');
     await this.page.waitForURL('**/kanban', { timeout: 10000 });
     await this.removeOverlay();
     await this.page.goto('/settings');

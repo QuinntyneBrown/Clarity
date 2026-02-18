@@ -52,7 +52,7 @@ test.describe('Login Flow', () => {
 
   test('should disable submit button with invalid email format', async ({ page }) => {
     await loginPage.fillEmail('notanemail');
-    await loginPage.fillPassword('password123');
+    await loginPage.fillPassword('P@ssw0rd');
     // Button should be disabled when email format is invalid
     await expect(loginPage.signInButton).toBeDisabled();
     // Should stay on login page
@@ -72,7 +72,7 @@ test.describe('Login Flow', () => {
   });
 
   test('should authenticate with valid credentials and navigate to kanban', async ({ page }) => {
-    await loginPage.login('quinntynebrown@gmail.com', 'password123');
+    await loginPage.login('quinntynebrown@gmail.com', 'P@ssw0rd');
     await page.waitForURL('**/kanban', { timeout: 15000 });
     await expect(page).toHaveURL(/\/kanban/);
 
@@ -90,8 +90,8 @@ test.describe('Login Flow', () => {
     await loginPage.fillEmail('quinntynebrown@gmail.com');
     await expect(loginPage.emailInput).toHaveValue('quinntynebrown@gmail.com');
 
-    await loginPage.fillPassword('password123');
-    await expect(loginPage.passwordInput).toHaveValue('password123');
+    await loginPage.fillPassword('P@ssw0rd');
+    await expect(loginPage.passwordInput).toHaveValue('P@ssw0rd');
 
     await loginPage.clickSignIn();
     await page.waitForURL('**/kanban', { timeout: 15000 });
@@ -122,7 +122,7 @@ test.describe('Login Flow', () => {
       ignoreHTTPSErrors: true,
       data: {
         username: 'quinntynebrown@gmail.com',
-        password: 'password123'
+        password: 'P@ssw0rd'
       }
     });
     expect(authResponse.ok()).toBeTruthy();
@@ -181,7 +181,7 @@ test.describe('Login - Mobile Layout', () => {
   test('should navigate to kanban after valid login on mobile', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.login('quinntynebrown@gmail.com', 'password123');
+    await loginPage.login('quinntynebrown@gmail.com', 'P@ssw0rd');
     await page.waitForURL('**/kanban', { timeout: 15000 });
     await expect(page).toHaveURL(/\/kanban/);
   });

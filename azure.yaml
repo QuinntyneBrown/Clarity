@@ -7,15 +7,17 @@ infra:
 services:
   api:
     project: ./src/Clarity.Api
-    host: appservice
+    host: containerapp
     language: csharp
-    resourceName: ${AZURE_APP_SERVICE_NAME}
+    resourceName: ${AZURE_CONTAINER_APP_NAME}
+    docker:
+      registry: ${AZURE_CONTAINER_REGISTRY_ENDPOINT}
 hooks:
   predeploy:
     shell: sh
     run: |
       echo "Building Angular frontend..."
-      cd src/Clarity.Web && npm ci && npx ng build --configuration production
+      cd src/Clarity.Web && npm ci && npx ng build clarity --configuration production
       echo "Copying frontend to API wwwroot..."
       mkdir -p ../Clarity.Api/wwwroot
-      cp -r dist/clarity/browser/* ../Clarity.Api/wwwroot/
+      cp -r dist/clarity/* ../Clarity.Api/wwwroot/

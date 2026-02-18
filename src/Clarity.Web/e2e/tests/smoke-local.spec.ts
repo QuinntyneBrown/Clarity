@@ -11,7 +11,7 @@ test.describe('Local Smoke Test', () => {
       ignoreHTTPSErrors: true,
       data: {
         username: 'quinntynebrown@gmail.com',
-        password: 'password123'
+        password: 'P@ssw0rd'
       }
     });
     expect(response.ok()).toBeTruthy();
@@ -57,7 +57,7 @@ test.describe('Local Smoke Test', () => {
   test('Frontend loads and renders kanban board', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.login('quinntynebrown@gmail.com', 'password123');
+    await loginPage.login('quinntynebrown@gmail.com', 'P@ssw0rd');
     await page.waitForURL('**/kanban', { timeout: 15000 });
     await expect(page.locator('app-kanban-board-controls .board-title')).toBeVisible({ timeout: 15000 });
     await expect(page.locator('app-kanban-board-controls .board-title')).toHaveText(/Default/);
@@ -66,7 +66,7 @@ test.describe('Local Smoke Test', () => {
   test('Frontend renders board columns', async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.login('quinntynebrown@gmail.com', 'password123');
+    await loginPage.login('quinntynebrown@gmail.com', 'P@ssw0rd');
     await page.waitForURL('**/kanban', { timeout: 15000 });
     await page.locator('.kanban-column').first().waitFor({ state: 'visible', timeout: 15000 });
     const columns = page.locator('.kanban-column');
@@ -80,7 +80,7 @@ test.describe('Local Smoke Test', () => {
     });
     const loginPage = new LoginPage(page);
     await loginPage.goto();
-    await loginPage.login('quinntynebrown@gmail.com', 'password123');
+    await loginPage.login('quinntynebrown@gmail.com', 'P@ssw0rd');
     await page.waitForURL('**/kanban', { timeout: 15000 });
     await page.locator('app-kanban-board-controls .board-title').waitFor({ state: 'visible', timeout: 15000 });
     const criticalErrors = errors.filter(e => !e.includes('favicon'));
