@@ -93,6 +93,19 @@ public class BoardController
     {
         return await _mediator.Send(request, cancellationToken);
     }
+
+    [SwaggerOperation(
+        Summary = "Delete Board",
+        Description = @"Delete Board and its associated states"
+    )]
+    [HttpDelete("{boardId:guid}", Name = "deleteBoard")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(DeleteBoardResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<DeleteBoardResponse>> DeleteBoard([FromRoute] DeleteBoardRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
+    }
 }
 
 

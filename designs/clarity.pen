@@ -21164,6 +21164,1390 @@
           ]
         }
       ]
+    },
+    {
+      "type": "frame",
+      "id": "QFgKc",
+      "x": 0,
+      "y": 19976,
+      "name": "Mobile - Board Selector Delete",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": "#00000066",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "BgT47",
+          "name": "Spacer",
+          "width": "fill_container",
+          "height": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "4Kkam",
+          "name": "Bottom Sheet",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "cornerRadius": [
+            20,
+            20,
+            0,
+            0
+          ],
+          "layout": "vertical",
+          "padding": [
+            12,
+            0,
+            24,
+            0
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "K8q9V",
+              "name": "Handle Row",
+              "width": "fill_container",
+              "height": 24,
+              "layout": "vertical",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "OIK7a",
+                  "name": "Handle Bar",
+                  "width": 36,
+                  "height": 4,
+                  "fill": "#D1D5DB",
+                  "cornerRadius": 2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "I46S8",
+              "name": "Sheet Header",
+              "width": "fill_container",
+              "padding": [
+                8,
+                20,
+                16,
+                20
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "SelWM",
+                  "name": "sheetTitle",
+                  "fill": "#1A1A2E",
+                  "content": "Select Board",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "icon_font",
+                  "id": "JfLX8",
+                  "name": "sheetClose",
+                  "width": 22,
+                  "height": 22,
+                  "iconFontName": "x",
+                  "iconFontFamily": "lucide",
+                  "fill": "#6B7280"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "639g7",
+              "name": "Board List",
+              "width": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                0,
+                8
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "4uWeq",
+                  "name": "Board Item Active",
+                  "width": "fill_container",
+                  "height": 52,
+                  "fill": "#F3F0FF",
+                  "cornerRadius": 10,
+                  "gap": 12,
+                  "padding": [
+                    0,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "nSlKR",
+                      "name": "b1icon",
+                      "width": 20,
+                      "height": 20,
+                      "iconFontName": "layout-dashboard",
+                      "iconFontFamily": "lucide",
+                      "fill": "#7D00FA"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "lz5mJ",
+                      "name": "Board Info",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 2,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ICSW9",
+                          "name": "b1name",
+                          "fill": "#1A1A2E",
+                          "content": "Default Board",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "7UYrv",
+                          "name": "b1meta",
+                          "fill": "#6B7280",
+                          "content": "3 columns · 6 tickets",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "icon_font",
+                      "id": "VTtlc",
+                      "name": "b1check",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "check",
+                      "iconFontFamily": "lucide",
+                      "fill": "#7D00FA"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "TVvBM",
+                  "name": "Board Item",
+                  "width": "fill_container",
+                  "height": 52,
+                  "cornerRadius": 10,
+                  "gap": 12,
+                  "padding": [
+                    0,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "wX8eU",
+                      "name": "b2icon",
+                      "width": 20,
+                      "height": 20,
+                      "iconFontName": "layout-dashboard",
+                      "iconFontFamily": "lucide",
+                      "fill": "#9CA3AF"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "zNQ1q",
+                      "name": "Board Info",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 2,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "hFAtR",
+                          "name": "b2name",
+                          "fill": "#374151",
+                          "content": "Sprint 42",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "BVf0a",
+                          "name": "b2meta",
+                          "fill": "#9CA3AF",
+                          "content": "4 columns · 12 tickets",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "JoO9L",
+                  "name": "Board Item",
+                  "width": "fill_container",
+                  "height": 52,
+                  "cornerRadius": 10,
+                  "gap": 12,
+                  "padding": [
+                    0,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "hOscI",
+                      "name": "b3icon",
+                      "width": 20,
+                      "height": 20,
+                      "iconFontName": "layout-dashboard",
+                      "iconFontFamily": "lucide",
+                      "fill": "#9CA3AF"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "kAz9m",
+                      "name": "Board Info",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 2,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "y5BdZ",
+                          "name": "b3name",
+                          "fill": "#374151",
+                          "content": "Q1 Planning",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "6BJAr",
+                          "name": "b3meta",
+                          "fill": "#9CA3AF",
+                          "content": "3 columns · 8 tickets",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "119aF",
+              "name": "Divider",
+              "width": "fill_container",
+              "height": 1,
+              "fill": "#E5E7EB"
+            },
+            {
+              "type": "frame",
+              "id": "RAhVB",
+              "name": "Sheet Actions",
+              "width": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                4,
+                8
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "u71hg",
+                  "name": "New Board Action",
+                  "width": "fill_container",
+                  "height": 50,
+                  "cornerRadius": 10,
+                  "gap": 12,
+                  "padding": [
+                    0,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "F6Dgl",
+                      "name": "Icon Circle",
+                      "width": 36,
+                      "height": 36,
+                      "fill": "#F3F0FF",
+                      "cornerRadius": 18,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "bZnGL",
+                          "name": "newIcn",
+                          "width": 18,
+                          "height": 18,
+                          "iconFontName": "plus",
+                          "iconFontFamily": "lucide",
+                          "fill": "#7D00FA"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "h0mxR",
+                      "name": "Action Info",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 2,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "kaHp2",
+                          "name": "newLabel",
+                          "fill": "#1A1A2E",
+                          "content": "New Board",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "LCST7",
+                          "name": "newDesc",
+                          "fill": "#6B7280",
+                          "content": "Create a blank board",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "kwkZq",
+                  "name": "Clone Board Action",
+                  "width": "fill_container",
+                  "height": 50,
+                  "cornerRadius": 10,
+                  "gap": 12,
+                  "padding": [
+                    0,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "H1Xbp",
+                      "name": "Icon Circle",
+                      "width": 36,
+                      "height": 36,
+                      "fill": "#FEF3C7",
+                      "cornerRadius": 18,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "uIu4V",
+                          "name": "cloneIcn",
+                          "width": 18,
+                          "height": 18,
+                          "iconFontName": "copy",
+                          "iconFontFamily": "lucide",
+                          "fill": "#D97706"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qc55T",
+                      "name": "Action Info",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 2,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "MCXto",
+                          "name": "cloneLabel",
+                          "fill": "#1A1A2E",
+                          "content": "Clone Current Board",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "hrPaZ",
+                          "name": "cloneDesc",
+                          "fill": "#6B7280",
+                          "content": "Copy columns without tickets",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ZCWyo",
+                  "name": "Delete Divider",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "#E5E7EB"
+                },
+                {
+                  "type": "frame",
+                  "id": "kcHiF",
+                  "name": "Delete Board Action",
+                  "width": "fill_container",
+                  "height": 50,
+                  "cornerRadius": 10,
+                  "gap": 12,
+                  "padding": [
+                    0,
+                    12
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "nMo1l",
+                      "name": "Icon Circle",
+                      "width": 36,
+                      "height": 36,
+                      "fill": "#FEE2E2",
+                      "cornerRadius": 18,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "5aSQ2",
+                          "name": "mobDelIcon",
+                          "width": 18,
+                          "height": 18,
+                          "iconFontName": "trash-2",
+                          "iconFontFamily": "lucide",
+                          "fill": "#DC2626"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "fYm2l",
+                      "name": "Action Info",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 2,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "jtXlv",
+                          "name": "mobDelLabel",
+                          "fill": "#DC2626",
+                          "content": "Delete Board",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        },
+                        {
+                          "type": "text",
+                          "id": "5RhG8",
+                          "name": "mobDelDesc",
+                          "fill": "#9CA3AF",
+                          "content": "Permanently remove this board",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "bRgzW",
+      "x": 440,
+      "y": 19976,
+      "name": "Mobile - Delete Board Confirmation",
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": "#00000066",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "Dgbnr",
+          "name": "Spacer",
+          "width": "fill_container",
+          "height": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "ZhoqJ",
+          "name": "Bottom Sheet",
+          "width": "fill_container",
+          "fill": "#FFFFFF",
+          "cornerRadius": [
+            20,
+            20,
+            0,
+            0
+          ],
+          "layout": "vertical",
+          "padding": [
+            12,
+            0,
+            24,
+            0
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "2UlQN",
+              "name": "Handle Row",
+              "width": "fill_container",
+              "height": 24,
+              "layout": "vertical",
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "i6sYQ",
+                  "name": "Handle Bar",
+                  "width": 36,
+                  "height": 4,
+                  "fill": "#D1D5DB",
+                  "cornerRadius": 2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "HIesU",
+              "name": "Sheet Header",
+              "width": "fill_container",
+              "padding": [
+                8,
+                24,
+                16,
+                24
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "ee71y",
+                  "name": "headerTitle",
+                  "fill": "#DC2626",
+                  "content": "Delete Board",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "icon_font",
+                  "id": "mSK2R",
+                  "name": "headerClose",
+                  "width": 22,
+                  "height": 22,
+                  "iconFontName": "x",
+                  "iconFontFamily": "lucide",
+                  "fill": "#6B7280"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "mwdVM",
+              "name": "Body",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": [
+                0,
+                24,
+                8,
+                24
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Mc4SJ",
+                  "name": "Warning Icon Area",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "YSm4L",
+                      "name": "Warning Circle",
+                      "width": 56,
+                      "height": 56,
+                      "fill": "#FEE2E2",
+                      "cornerRadius": 28,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "Q7omA",
+                          "name": "warnIcn",
+                          "width": 28,
+                          "height": 28,
+                          "iconFontName": "triangle-alert",
+                          "iconFontFamily": "lucide",
+                          "fill": "#DC2626"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "MipbW",
+                  "name": "Warning Text",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ORNN9",
+                      "name": "warnTitle",
+                      "fill": "#1A1A2E",
+                      "content": "Are you sure?",
+                      "textAlign": "center",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "8UiPp",
+                      "name": "warnDesc",
+                      "fill": "#6B7280",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "This will permanently delete \"Default Board\" and all 6 tickets. This action cannot be undone.",
+                      "lineHeight": 1.5,
+                      "textAlign": "center",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "s1VWq",
+                  "name": "Button Row",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "padding": [
+                    8,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "ZFP0c",
+                      "name": "Cancel Button",
+                      "width": "fill_container",
+                      "height": 48,
+                      "cornerRadius": 10,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "yAnGP",
+                          "name": "cancelTxt",
+                          "fill": "#374151",
+                          "content": "Cancel",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "dOUXq",
+                      "name": "Delete Button",
+                      "width": "fill_container",
+                      "height": 48,
+                      "fill": "#DC2626",
+                      "cornerRadius": 10,
+                      "layout": "vertical",
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "RFCB5",
+                          "name": "deleteTxt",
+                          "fill": "#FFFFFF",
+                          "content": "Delete",
+                          "fontFamily": "Inter",
+                          "fontSize": 15,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "EmKNL",
+      "x": 0,
+      "y": 20920,
+      "name": "Desktop - Board Dropdown Delete",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "#F9FAFB",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "hZu9V",
+          "x": 292,
+          "y": 80,
+          "name": "Dropdown Overlay",
+          "width": 300,
+          "fill": "#FFFFFF",
+          "cornerRadius": 12,
+          "stroke": {
+            "thickness": 1,
+            "fill": "#E5E7EB"
+          },
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#00000020",
+            "offset": {
+              "x": 0,
+              "y": 8
+            },
+            "blur": 24
+          },
+          "layout": "vertical",
+          "padding": [
+            8,
+            0
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "C46JZ",
+              "name": "Dropdown Header",
+              "width": "fill_container",
+              "padding": [
+                10,
+                16,
+                8,
+                16
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "x278k",
+                  "name": "doTitle",
+                  "fill": "#6B7280",
+                  "content": "Switch Board",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.5
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Qvpqf",
+              "name": "Board List",
+              "width": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                0,
+                6
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "zxqTJ",
+                  "name": "Board Active",
+                  "width": "fill_container",
+                  "height": 44,
+                  "fill": "#F3F0FF",
+                  "cornerRadius": 8,
+                  "gap": 10,
+                  "padding": [
+                    0,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "A4Mng",
+                      "name": "doB1i",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "layout-dashboard",
+                      "iconFontFamily": "lucide",
+                      "fill": "#7D00FA"
+                    },
+                    {
+                      "type": "text",
+                      "id": "g6JuG",
+                      "name": "doB1n",
+                      "fill": "#1A1A2E",
+                      "content": "Default Board",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "icon_font",
+                      "id": "3ONgC",
+                      "name": "doB1c",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "check",
+                      "iconFontFamily": "lucide",
+                      "fill": "#7D00FA"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "pbGOU",
+                  "name": "Board Item",
+                  "width": "fill_container",
+                  "height": 44,
+                  "cornerRadius": 8,
+                  "gap": 10,
+                  "padding": [
+                    0,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "RltiN",
+                      "name": "doB2i",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "layout-dashboard",
+                      "iconFontFamily": "lucide",
+                      "fill": "#9CA3AF"
+                    },
+                    {
+                      "type": "text",
+                      "id": "bS4gD",
+                      "name": "doB2n",
+                      "fill": "#374151",
+                      "content": "Sprint 42",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "RA5KH",
+                  "name": "Board Item",
+                  "width": "fill_container",
+                  "height": 44,
+                  "cornerRadius": 8,
+                  "gap": 10,
+                  "padding": [
+                    0,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "XpHMf",
+                      "name": "doB3i",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "layout-dashboard",
+                      "iconFontFamily": "lucide",
+                      "fill": "#9CA3AF"
+                    },
+                    {
+                      "type": "text",
+                      "id": "gKKqt",
+                      "name": "doB3n",
+                      "fill": "#374151",
+                      "content": "Q1 Planning",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "quLFp",
+              "name": "Divider",
+              "width": "fill_container",
+              "height": 1,
+              "fill": "#E5E7EB"
+            },
+            {
+              "type": "frame",
+              "id": "NNRt8",
+              "name": "Actions",
+              "width": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                4,
+                6
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "8QbkD",
+                  "name": "New Board",
+                  "width": "fill_container",
+                  "height": 40,
+                  "cornerRadius": 8,
+                  "gap": 10,
+                  "padding": [
+                    0,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "qV7BK",
+                      "name": "doNewI",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "plus",
+                      "iconFontFamily": "lucide",
+                      "fill": "#7D00FA"
+                    },
+                    {
+                      "type": "text",
+                      "id": "hiucf",
+                      "name": "doNewT",
+                      "fill": "#374151",
+                      "content": "New Board",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "xfFW9",
+                  "name": "Clone Board",
+                  "width": "fill_container",
+                  "height": 40,
+                  "cornerRadius": 8,
+                  "gap": 10,
+                  "padding": [
+                    0,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "TGHGZ",
+                      "name": "doClnI",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "copy",
+                      "iconFontFamily": "lucide",
+                      "fill": "#D97706"
+                    },
+                    {
+                      "type": "text",
+                      "id": "lqucy",
+                      "name": "doClnT",
+                      "fill": "#374151",
+                      "content": "Clone Current Board",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "6V3EJ",
+                  "name": "Delete Divider",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "#E5E7EB"
+                },
+                {
+                  "type": "frame",
+                  "id": "IpXnk",
+                  "name": "Delete Board",
+                  "width": "fill_container",
+                  "height": 40,
+                  "cornerRadius": 8,
+                  "gap": 10,
+                  "padding": [
+                    0,
+                    10
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "42afO",
+                      "name": "deskDelIcon",
+                      "width": 18,
+                      "height": 18,
+                      "iconFontName": "trash-2",
+                      "iconFontFamily": "lucide",
+                      "fill": "#DC2626"
+                    },
+                    {
+                      "type": "text",
+                      "id": "UvEm9",
+                      "name": "deskDelText",
+                      "fill": "#DC2626",
+                      "content": "Delete Board",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "qGBH0",
+      "x": 0,
+      "y": 21920,
+      "name": "Desktop - Delete Board Confirmation",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "#00000066",
+      "layout": "none",
+      "children": [
+        {
+          "type": "frame",
+          "id": "UZRFr",
+          "x": 500,
+          "y": 240,
+          "name": "Modal Card",
+          "width": 440,
+          "fill": "#FFFFFF",
+          "cornerRadius": 12,
+          "effect": {
+            "type": "shadow",
+            "shadowType": "outer",
+            "color": "#00000022",
+            "offset": {
+              "x": 0,
+              "y": 8
+            },
+            "blur": 24
+          },
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "8RKgg",
+              "name": "Modal Header",
+              "width": "fill_container",
+              "padding": [
+                24,
+                24,
+                16,
+                24
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "CGLD0",
+                  "name": "modalTitle",
+                  "fill": "#DC2626",
+                  "content": "Delete Board",
+                  "fontFamily": "Inter",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "SRt7n",
+                  "name": "Close Btn",
+                  "width": 32,
+                  "height": 32,
+                  "cornerRadius": 6,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E5E7EB"
+                  },
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "tL4ah",
+                      "name": "modalCloseIcon",
+                      "width": 16,
+                      "height": 16,
+                      "iconFontName": "x",
+                      "iconFontFamily": "lucide",
+                      "fill": "#6B7280"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "1VEI3",
+              "name": "Modal Body",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "padding": [
+                0,
+                24,
+                24,
+                24
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "w5KZ1",
+                  "name": "Warning Circle",
+                  "width": 56,
+                  "height": 56,
+                  "fill": "#FEE2E2",
+                  "cornerRadius": 28,
+                  "layout": "vertical",
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "9WDW0",
+                      "name": "dWarnIcon",
+                      "width": 28,
+                      "height": 28,
+                      "iconFontName": "triangle-alert",
+                      "iconFontFamily": "lucide",
+                      "fill": "#DC2626"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "s9AiO",
+                  "name": "Warning Text",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "JTrNF",
+                      "name": "dWarnTitle",
+                      "fill": "#1A1A2E",
+                      "content": "Are you sure?",
+                      "textAlign": "center",
+                      "fontFamily": "Inter",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "mHbxp",
+                      "name": "dWarnDesc",
+                      "fill": "#6B7280",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "This will permanently delete \"Default Board\" and all 6 tickets. This action cannot be undone.",
+                      "lineHeight": 1.5,
+                      "textAlign": "center",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ZFw6B",
+                  "name": "Button Row",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "padding": [
+                    4,
+                    0,
+                    0,
+                    0
+                  ],
+                  "justifyContent": "end",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "7Qj04",
+                      "name": "Cancel Button",
+                      "height": 40,
+                      "cornerRadius": 8,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#E5E7EB"
+                      },
+                      "layout": "vertical",
+                      "padding": [
+                        0,
+                        20
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "EAyky",
+                          "name": "dCancelTxt",
+                          "fill": "#6B7280",
+                          "content": "Cancel",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "DkRp8",
+                      "name": "Delete Button",
+                      "height": 40,
+                      "fill": "#DC2626",
+                      "cornerRadius": 8,
+                      "layout": "vertical",
+                      "gap": 8,
+                      "padding": [
+                        0,
+                        20
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "cmNQd",
+                          "name": "Delete Btn Content",
+                          "gap": 8,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "icon_font",
+                              "id": "PnY0g",
+                              "name": "dDelIcon",
+                              "width": 16,
+                              "height": 16,
+                              "iconFontName": "trash-2",
+                              "iconFontFamily": "lucide",
+                              "fill": "#FFFFFF"
+                            },
+                            {
+                              "type": "text",
+                              "id": "bKikc",
+                              "name": "dDelTxt",
+                              "fill": "#FFFFFF",
+                              "content": "Delete Board",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -6,6 +6,7 @@ export * from './clone-board';
 export * from './comment-editor';
 export * from './create-board';
 export * from './create-comment';
+export * from './delete-board';
 export * from './create-initiative';
 export * from './create-team-member';
 export * from './create-ticket';

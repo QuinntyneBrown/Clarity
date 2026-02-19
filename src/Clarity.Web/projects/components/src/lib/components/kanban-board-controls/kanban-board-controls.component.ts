@@ -13,6 +13,7 @@ import { CreateTicketComponent } from '../create-ticket';
 import { SelectBoardComponent } from '../select-board';
 import { CreateBoardComponent } from '../create-board';
 import { CloneBoardComponent } from '../clone-board';
+import { DeleteBoardComponent } from '../delete-board';
 
 @Component({
     selector: 'app-kanban-board-controls',
@@ -43,6 +44,7 @@ export class KanbanBoardControlsComponent {
   @Output() public boardSelected = new EventEmitter<string>();
   @Output() public boardCreated = new EventEmitter<void>();
   @Output() public boardCloned = new EventEmitter<void>();
+  @Output() public boardDeleted = new EventEmitter<void>();
   @Output() public teamMemberFilterChange = new EventEmitter<string | null>();
 
   public selectedTeamMemberId: string | null = null;
@@ -63,6 +65,8 @@ export class KanbanBoardControlsComponent {
         this.handleCreateBoardClick();
       } else if ((result as any).action === 'clone') {
         this.handleCloneBoardClick();
+      } else if ((result as any).action === 'delete') {
+        this.handleDeleteBoardClick();
       }
     });
   }
@@ -83,6 +87,17 @@ export class KanbanBoardControlsComponent {
     dialogRef.closed.subscribe((result) => {
       if (result) {
         this.boardCloned.emit();
+      }
+    });
+  }
+
+  public handleDeleteBoardClick() {
+    const dialogRef = this._dialog.open(DeleteBoardComponent, {
+      data: { board: this.board }
+    });
+    dialogRef.closed.subscribe((result) => {
+      if (result) {
+        this.boardDeleted.emit();
       }
     });
   }

@@ -22,6 +22,7 @@ export function createSelectBoardViewModel() {
   const selectSubject = new Subject<string>();
   const createBoardSubject = new Subject<void>();
   const cloneBoardSubject = new Subject<void>();
+  const deleteBoardSubject = new Subject<void>();
 
   const cancel$ = cancelSubject.pipe(
     tap(() => dialogRef.close(null))
@@ -39,7 +40,11 @@ export function createSelectBoardViewModel() {
     tap(() => dialogRef.close({ action: 'clone' }))
   );
 
-  const actions$ = merge(cancel$, select$, createBoard$, cloneBoard$).pipe(startWith(EMPTY));
+  const deleteBoard$ = deleteBoardSubject.pipe(
+    tap(() => dialogRef.close({ action: 'delete' }))
+  );
+
+  const actions$ = merge(cancel$, select$, createBoard$, cloneBoard$, deleteBoard$).pipe(startWith(EMPTY));
 
   return boardService.get().pipe(
     switchMap(boards => actions$.pipe(
@@ -49,7 +54,8 @@ export function createSelectBoardViewModel() {
         select: (boardId: string) => selectSubject.next(boardId),
         cancel: () => cancelSubject.next(),
         createBoard: () => createBoardSubject.next(),
-        cloneBoard: () => cloneBoardSubject.next()
+        cloneBoard: () => cloneBoardSubject.next(),
+        deleteBoard: () => deleteBoardSubject.next()
       }))
     ))
   );

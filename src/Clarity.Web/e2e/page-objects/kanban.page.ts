@@ -11,8 +11,8 @@ export class KanbanPage {
   constructor(page: Page) {
     this.page = page;
     this.controlsBar = page.locator('app-kanban-board-controls');
-    this.addTicketButton = this.controlsBar.locator('.add-btn');
-    this.boardName = this.controlsBar.locator('.board-title');
+    this.addTicketButton = this.controlsBar.locator('.add-ticket-btn');
+    this.boardName = this.controlsBar.locator('.board-name');
     this.columns = page.locator('.kanban-column');
   }
 

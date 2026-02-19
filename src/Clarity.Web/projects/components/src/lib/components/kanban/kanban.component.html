@@ -6,6 +6,7 @@
       (boardSelected)="vm.selectBoard($event)"
       (boardCreated)="vm.reload()"
       (boardCloned)="vm.reload()"
+      (boardDeleted)="vm.selectBoard(null)"
       (teamMemberFilterChange)="handleTeamMemberFilterChange($event)" />
     <app-kanban-board [tickets]="filterTickets(vm.tickets)" [boardStates]="vm.boardStates" />
   </div>

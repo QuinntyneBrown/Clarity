@@ -41,5 +41,15 @@
         <span class="action-desc">Copy columns without tickets</span>
       </div>
     </button>
+    <div class="sheet-divider"></div>
+    <button class="sheet-action" (click)="vm.deleteBoard()">
+      <span class="action-icon delete-icon">
+        <mat-icon>delete</mat-icon>
+      </span>
+      <div class="action-info">
+        <span class="action-label delete-label">Delete Board</span>
+        <span class="action-desc">Permanently remove this board</span>
+      </div>
+    </button>
   </div>
 </ng-container>

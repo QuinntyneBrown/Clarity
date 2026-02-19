@@ -188,6 +188,14 @@
       color: #D97706;
     }
   }
+
+  &.delete-icon {
+    background: #FEE2E2;
+
+    .mat-icon {
+      color: #DC2626;
+    }
+  }
 }
 
 .action-info {
@@ -201,6 +209,10 @@
   font-size: 15px;
   font-weight: 600;
   color: var(--color-text-primary);
+
+  &.delete-label {
+    color: #DC2626;
+  }
 }
 
 .action-desc {

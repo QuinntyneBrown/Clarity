@@ -1,0 +1,26 @@
+<ng-container *ngIf="vm$ | ngrxPush as vm">
+  <div class="dialog-header">
+    <h2 class="dialog-title">Delete Board</h2>
+    <button class="close-btn" (click)="vm.cancel()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="dialog-body">
+    <div class="warning-icon">
+      <mat-icon>warning</mat-icon>
+    </div>
+    <h3 class="confirm-title">Are you sure?</h3>
+    <p class="confirm-desc">
+      This will permanently delete "{{ vm.boardName }}" and all its tickets. This action cannot be undone.
+    </p>
+  </div>
+
+  <div class="dialog-actions">
+    <button class="cancel-btn" (click)="vm.cancel()">Cancel</button>
+    <button class="delete-btn" (click)="vm.confirmDelete()">
+      <mat-icon>delete</mat-icon>
+      Delete Board
+    </button>
+  </div>
+</ng-container>
