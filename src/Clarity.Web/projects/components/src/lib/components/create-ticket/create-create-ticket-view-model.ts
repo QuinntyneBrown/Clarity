@@ -1,8 +1,8 @@
-import { DialogRef } from "@angular/cdk/dialog";
+import { DialogRef, DIALOG_DATA } from "@angular/cdk/dialog";
 import { inject } from "@angular/core";
 import { FormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { combineLatest, EMPTY, map, merge, of, startWith, Subject, tap } from "rxjs";
-import { BoardStateService, InitiativeService, TeamMemberService } from "@api";
+import { Board, InitiativeService, TeamMemberService } from "@api";
 import { TicketStore } from "../../stores";
 
 export const PRIORITY_OPTIONS = [
@@ -13,10 +13,13 @@ export const PRIORITY_OPTIONS = [
 
 export function createCreateTicketViewModel() {
   const ticketStore = inject(TicketStore);
-  const boardStateService = inject(BoardStateService);
   const teamMemberService = inject(TeamMemberService);
   const initiativeService = inject(InitiativeService);
   const dialogRef = inject(DialogRef);
+  const data = inject<{ board: Board }>(DIALOG_DATA);
+
+  const board = data.board;
+  const states = board.states;
 
   const form = new UntypedFormGroup({
     name: new FormControl(null, [Validators.required]),
@@ -32,7 +35,15 @@ export function createCreateTicketViewModel() {
   const cancelSubject = new Subject();
 
   const save$ = saveSubject.pipe(
-    tap(_ => ticketStore.save(form.value))
+    tap(_ => {
+      const formValue = form.value;
+      const selectedState = states.find(s => s.type == formValue.state);
+      const ticket = {
+        ...formValue,
+        boardStateId: selectedState?.boardStateId
+      };
+      ticketStore.save(ticket);
+    })
   );
 
   const actions$ = merge(save$, cancelSubject).pipe(
@@ -43,7 +54,7 @@ export function createCreateTicketViewModel() {
   return combineLatest([
     of(form),
     actions$,
-    boardStateService.get(),
+    of(states),
     teamMemberService.get(),
     initiativeService.get()
   ]).pipe(

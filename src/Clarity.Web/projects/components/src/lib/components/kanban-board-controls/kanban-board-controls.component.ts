@@ -50,7 +50,9 @@ export class KanbanBoardControlsComponent {
   public selectedTeamMemberId: string | null = null;
 
   public handleClick() {
-    this._dialog.open(CreateTicketComponent);
+    this._dialog.open(CreateTicketComponent, {
+      data: { board: this.board }
+    });
   }
 
   public handleSelectBoardClick() {

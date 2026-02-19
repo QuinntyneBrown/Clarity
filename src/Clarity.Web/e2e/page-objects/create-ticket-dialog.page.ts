@@ -70,4 +70,21 @@ export class CreateTicketDialog {
   async clickClose() {
     await this.closeButton.click();
   }
+
+  async getStateOptionLabels(): Promise<string[]> {
+    const options = this.stateSelect.locator('option');
+    const count = await options.count();
+    const labels: string[] = [];
+    for (let i = 0; i < count; i++) {
+      const text = (await options.nth(i).innerText()).trim();
+      if (text && text !== 'Select status') {
+        labels.push(text);
+      }
+    }
+    return labels;
+  }
+
+  async getStateOptionCount(): Promise<number> {
+    return (await this.getStateOptionLabels()).length;
+  }
 }
