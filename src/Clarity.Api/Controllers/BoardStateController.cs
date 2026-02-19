@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 using Swashbuckle.AspNetCore.Annotations;
+using Clarity.Core.AggregateModel.BoardStateAggregate.Commands;
 using Clarity.Core.AggregateModel.BoardStateAggregate.Queries;
 
 namespace Clarity.Api.Controllers;
@@ -53,5 +54,18 @@ public class BoardStateController
     public async Task<ActionResult<GetBoardStatesResponse>> GetBoardStates(CancellationToken cancellationToken)
     {
         return await _mediator.Send(new GetBoardStatesRequest(), cancellationToken);
+    }
+
+    [SwaggerOperation(
+        Summary = "Delete Board State",
+        Description = @"Delete Board State and unassign all tickets from this state"
+    )]
+    [HttpDelete("{boardStateId:guid}", Name = "deleteBoardState")]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(DeleteBoardStateResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<DeleteBoardStateResponse>> DeleteBoardState([FromRoute] DeleteBoardStateRequest request, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(request, cancellationToken);
     }
 }

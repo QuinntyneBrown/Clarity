@@ -8,6 +8,6 @@
       (boardCloned)="vm.reload()"
       (boardDeleted)="vm.selectBoard(null)"
       (teamMemberFilterChange)="handleTeamMemberFilterChange($event)" />
-    <app-kanban-board [tickets]="filterTickets(vm.tickets)" [boardStates]="vm.boardStates" />
+    <app-kanban-board [tickets]="filterTickets(vm.tickets)" [boardStates]="vm.boardStates" (boardStateDeleted)="vm.reload()" />
   </div>
 </ng-container>

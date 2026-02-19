@@ -5,8 +5,8 @@
         <span class="column-title">{{ boardState.name }}</span>
         <span class="column-count">{{ ticketsByState(tickets, boardState).length }}</span>
       </div>
-      <button mat-icon-button class="column-menu-btn">
-        <mat-icon>more_horiz</mat-icon>
+      <button class="column-delete-btn" (click)="handleDeleteColumn(boardState)">
+        <mat-icon>delete</mat-icon>
       </button>
     </div>
     <div class="column-cards"
