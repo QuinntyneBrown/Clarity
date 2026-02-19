@@ -42,8 +42,11 @@ export class BoardService {
     return this._client.delete<void>(`${this._baseUrl}api/1.0/board/${options.board.boardId}`);
   }
 
-  public create(options: { board: Board }): Observable<{ boardId: string  }> {
-    return this._client.post<{ boardId: string }>(`${this._baseUrl}api/1.0/board`, { board: options.board });
+  public create(options: { name: string, states?: string[] }): Observable<{ board: Board }> {
+    return this._client.post<{ board: Board }>(`${this._baseUrl}api/1.0/board`, {
+      name: options.name,
+      states: options.states
+    });
   }
 
   public update(options: { board: Board }): Observable<{ boardId: string }> {

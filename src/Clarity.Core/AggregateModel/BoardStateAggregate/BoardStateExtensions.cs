@@ -11,7 +11,7 @@ public static class BoardStateExtensions
         => new()
         {
             BoardStateId = boardState.BoardStateId,
-            Name = boardState.Type.ToString(),
+            Name = boardState.Name ?? boardState.Type.ToString(),
             Order = boardState.Order,
             Type = boardState.Type
         };

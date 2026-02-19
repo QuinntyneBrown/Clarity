@@ -79,10 +79,7 @@ try
             context.Database.EnsureDeleted();
         }
 
-        if (args.Contains("migratedb"))
-        {
-            context.Database.Migrate();
-        }
+        context.Database.Migrate();
 
         if (args.Contains("seeddb"))
         {

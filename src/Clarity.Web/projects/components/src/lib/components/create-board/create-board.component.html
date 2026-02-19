@@ -1,21 +1,78 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
   <div class="dialog-header">
     <div class="dialog-icon create-icon">
-      <mat-icon>add</mat-icon>
+      <mat-icon>dashboard</mat-icon>
     </div>
     <h2>New Board</h2>
+    <button class="close-btn" (click)="vm.cancel()">
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
-  <p class="dialog-desc">Create a new blank board to organize your tasks.</p>
 
-  <form novalidate autocomplete="off" spellcheck="false" [formGroup]="vm.form">
-    <mat-form-field>
-      <mat-label>Board Name</mat-label>
-      <input matInput formControlName="name" placeholder="e.g. Sprint 43">
-    </mat-form-field>
+  <div class="step-indicator">
+    <div class="step-bar" [class.active]="true"></div>
+    <div class="step-bar" [class.active]="vm.step === 2"></div>
+  </div>
+
+  <div class="step-label">
+    <span class="step-num">Step {{ vm.step }} of 2</span>
+    <span class="step-desc">{{ vm.step === 1 ? 'Name your board' : 'Configure columns' }}</span>
+  </div>
+
+  <!-- Step 1: Board Name -->
+  <div *ngIf="vm.step === 1" class="step-content">
+    <form novalidate autocomplete="off" spellcheck="false" [formGroup]="vm.form">
+      <label class="field-label">Board Name</label>
+      <input class="field-input" formControlName="name" placeholder="e.g. Sprint 43">
+    </form>
+
+    <div class="info-box">
+      <mat-icon class="info-icon">info</mat-icon>
+      <span>You'll configure columns (states) in the next step.</span>
+    </div>
 
     <div class="actions">
-      <button mat-button class="cancel-btn" (click)="vm.cancel()">Cancel</button>
-      <button mat-flat-button color="primary" class="save-btn" (click)="vm.save()" [disabled]="vm.form.invalid">Create Board</button>
+      <button class="btn btn-cancel" (click)="vm.cancel()">Cancel</button>
+      <button class="btn btn-primary" (click)="vm.nextStep()" [disabled]="vm.form.invalid">
+        Next <mat-icon>arrow_forward</mat-icon>
+      </button>
     </div>
-  </form>
+  </div>
+
+  <!-- Step 2: Board States -->
+  <div *ngIf="vm.step === 2" class="step-content">
+    <label class="field-label">Board Columns</label>
+
+    <div class="states-list">
+      <div class="state-item" *ngFor="let state of vm.states; let i = index">
+        <div class="state-left">
+          <mat-icon class="drag-icon">drag_indicator</mat-icon>
+          <span class="state-dot" [style.background]="getStateColor(i)"></span>
+          <span class="state-name">{{ state }}</span>
+        </div>
+        <button class="delete-state-btn" (click)="vm.removeState(i)" [disabled]="vm.states.length <= 1">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="add-state-row">
+      <input class="field-input add-input" placeholder="New column name..."
+        [value]="vm.newStateName"
+        (input)="vm.updateNewStateName($any($event.target).value)"
+        (keyup.enter)="vm.addState()">
+      <button class="btn btn-add" (click)="vm.addState()" [disabled]="!vm.newStateName.trim()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-cancel" (click)="vm.prevStep()">
+        <mat-icon>arrow_back</mat-icon> Back
+      </button>
+      <button class="btn btn-primary" (click)="vm.save()" [disabled]="vm.states.length === 0">
+        <mat-icon>add</mat-icon> Create Board
+      </button>
+    </div>
+  </div>
 </ng-container>

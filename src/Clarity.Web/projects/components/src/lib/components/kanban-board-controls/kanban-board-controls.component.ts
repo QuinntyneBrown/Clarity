@@ -75,9 +75,9 @@ export class KanbanBoardControlsComponent {
 
   public handleCreateBoardClick() {
     const dialogRef = this._dialog.open(CreateBoardComponent);
-    dialogRef.closed.subscribe((result) => {
-      if (result) {
-        this.boardCreated.emit();
+    dialogRef.closed.subscribe((result: any) => {
+      if (result && result.boardId) {
+        this.boardSelected.emit(result.boardId);
       }
     });
   }

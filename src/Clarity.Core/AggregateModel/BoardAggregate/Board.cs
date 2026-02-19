@@ -23,6 +23,16 @@ public class Board
         };
         return board;
     }
+    public static Board WithStates(string name, List<string> stateNames)
+    {
+        int order = 1;
+        Board board = new(name);
+        foreach (var stateName in stateNames)
+        {
+            board.BoardStates.Add(new BoardState(stateName, order++, board.BoardId));
+        }
+        return board;
+    }
     public Board(string name)
     {
         Name = name;

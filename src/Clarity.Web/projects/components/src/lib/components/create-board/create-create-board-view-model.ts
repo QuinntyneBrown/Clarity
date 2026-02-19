@@ -5,7 +5,7 @@ import { DialogRef } from "@angular/cdk/dialog";
 import { inject } from "@angular/core";
 import { FormControl, UntypedFormGroup, Validators } from "@angular/forms";
 import { BoardService } from "@api";
-import { map, merge, of, startWith, Subject, switchMap, tap, EMPTY } from "rxjs";
+import { BehaviorSubject, combineLatest, map, merge, of, startWith, Subject, switchMap, tap, EMPTY } from "rxjs";
 
 export function createCreateBoardViewModel() {
   const boardService = inject(BoardService);
@@ -15,14 +15,19 @@ export function createCreateBoardViewModel() {
     name: new FormControl(null, [Validators.required])
   });
 
+  const stepSubject = new BehaviorSubject<number>(1);
+  const statesSubject = new BehaviorSubject<string[]>(['Backlog', 'In Progress', 'Done']);
+  const newStateNameSubject = new BehaviorSubject<string>('');
+
   const saveSubject = new Subject<void>();
   const cancelSubject = new Subject<void>();
 
   const save$ = saveSubject.pipe(
     switchMap(() => {
-      const board = { name: form.value.name, states: [] };
-      return boardService.create({ board }).pipe(
-        tap(() => dialogRef.close(true))
+      const name = form.value.name;
+      const states = statesSubject.value;
+      return boardService.create({ name, states }).pipe(
+        tap((response) => dialogRef.close(response.board))
       );
     })
   );
@@ -33,12 +38,31 @@ export function createCreateBoardViewModel() {
 
   const actions$ = merge(save$, cancel$).pipe(startWith(EMPTY));
 
-  return of(form).pipe(
-    switchMap(form => actions$.pipe(
+  return combineLatest([of(form), stepSubject, statesSubject, newStateNameSubject]).pipe(
+    switchMap(([form, step, states, newStateName]) => actions$.pipe(
       map(() => ({
         form,
+        step,
+        states,
+        newStateName,
         save: () => saveSubject.next(),
-        cancel: () => cancelSubject.next()
+        cancel: () => cancelSubject.next(),
+        nextStep: () => stepSubject.next(2),
+        prevStep: () => stepSubject.next(1),
+        addState: () => {
+          const name = newStateNameSubject.value.trim();
+          if (name && !statesSubject.value.includes(name)) {
+            statesSubject.next([...statesSubject.value, name]);
+            newStateNameSubject.next('');
+          }
+        },
+        removeState: (index: number) => {
+          const current = statesSubject.value;
+          statesSubject.next(current.filter((_, i) => i !== index));
+        },
+        updateNewStateName: (value: string) => {
+          newStateNameSubject.next(value);
+        }
       }))
     ))
   );

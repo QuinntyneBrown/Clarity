@@ -1,8 +1,10 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Clarity.Core.AggregateModel.BoardStateAggregate;
 using FluentValidation;
 using MediatR;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,6 +23,7 @@ public class CreateBoardValidator : AbstractValidator<CreateBoardRequest>
 public class CreateBoardRequest : IRequest<CreateBoardResponse>
 {
     public string Name { get; set; }
+    public List<string> States { get; set; }
 }
 
 public class CreateBoardResponse
@@ -39,7 +42,16 @@ public class CreateBoardRequestHandler : IRequestHandler<CreateBoardRequest, Cre
 
     public async Task<CreateBoardResponse> Handle(CreateBoardRequest request, CancellationToken cancellationToken)
     {
-        var board = Board.WithDefaults(request.Name);
+        Board board;
+
+        if (request.States != null && request.States.Count > 0)
+        {
+            board = Board.WithStates(request.Name, request.States);
+        }
+        else
+        {
+            board = Board.WithDefaults(request.Name);
+        }
 
         _context.Boards.Add(board);
 
@@ -48,4 +60,3 @@ public class CreateBoardRequestHandler : IRequestHandler<CreateBoardRequest, Cre
         return new() { Board = board.ToDto() };
     }
 }
-

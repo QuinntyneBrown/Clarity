@@ -7,9 +7,6 @@ import { createCreateBoardViewModel } from './create-create-board-view-model';
 import { PushPipe } from '@ngrx/component';
 import { DialogModule } from '@angular/cdk/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -20,9 +17,6 @@ import { MatIconModule } from '@angular/material/icon';
         PushPipe,
         DialogModule,
         ReactiveFormsModule,
-        MatFormFieldModule,
-        MatButtonModule,
-        MatInputModule,
         MatIconModule
     ],
     templateUrl: './create-board.component.html',
@@ -30,4 +24,13 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class CreateBoardComponent {
   public vm$ = createCreateBoardViewModel();
+
+  private readonly _stateColors = [
+    '#6B7280', '#3B82F6', '#22C55E', '#F59E0B', '#EF4444',
+    '#8B5CF6', '#EC4899', '#14B8A6', '#F97316', '#06B6D4'
+  ];
+
+  public getStateColor(index: number): string {
+    return this._stateColors[index % this._stateColors.length];
+  }
 }

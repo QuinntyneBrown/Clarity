@@ -4,6 +4,7 @@ import { LoginPage } from './login.page';
 export class KanbanPage {
   readonly page: Page;
   readonly addTicketButton: Locator;
+  readonly newBoardButton: Locator;
   readonly boardName: Locator;
   readonly columns: Locator;
   readonly controlsBar: Locator;
@@ -12,6 +13,7 @@ export class KanbanPage {
     this.page = page;
     this.controlsBar = page.locator('app-kanban-board-controls');
     this.addTicketButton = this.controlsBar.locator('.add-ticket-btn');
+    this.newBoardButton = this.controlsBar.locator('.board-action-btn', { hasText: 'New Board' });
     this.boardName = this.controlsBar.locator('.board-name');
     this.columns = page.locator('.kanban-column');
   }
@@ -72,6 +74,10 @@ export class KanbanPage {
 
   async clickAddTicket() {
     await this.addTicketButton.click();
+  }
+
+  async clickNewBoard() {
+    await this.newBoardButton.click();
   }
 
   getColumnByHeader(headerText: string): Locator {

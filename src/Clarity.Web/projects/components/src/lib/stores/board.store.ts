@@ -27,18 +27,20 @@ export class BoardStore extends ComponentStore<BoardState> {
 
     readonly save = (board:Board, nextFn: {(response:any): void} | null = null, errorFn: {(response:any): void} | null = null) => {
 
-        const apiRequest$ = board.boardId ? this._boardService.update({ board }) : this._boardService.create({ board });
-
-        const updateFn = board?.boardId ? ([response, boards]: [any, Board[]]) => this.patchState({
-
-            boards: boards.map(t => response.board.boardId == t.boardId ? response.board : t)
-        })
-        :(([response, boards]: [any, Board[]]) => this.patchState({ boards: [...boards, response.board ]}));
+        const apiRequest$ = board.boardId
+            ? this._boardService.update({ board }).pipe(map((r: any) => r))
+            : this._boardService.create({ name: board.name, states: board.states?.map(s => s.name) }).pipe(map((r: any) => r));
 
         return this.effect<void>(
             exhaustMap(()=> apiRequest$.pipe(
                 withLatestFrom(this.select(x => x.boards)),
-                tap(updateFn),
+                tap(([response, boards]: [any, Board[]]) => {
+                    if (board.boardId) {
+                        this.patchState({ boards: boards.map(t => response.board?.boardId == t.boardId ? response.board : t) });
+                    } else {
+                        this.patchState({ boards: [...boards, response.board] });
+                    }
+                }),
                 tapResponse(
                     nextFn || noop,
                     errorFn || noop
