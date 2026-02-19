@@ -72,24 +72,8 @@
   min-height: 60px;
 }
 
-// CDK Drag-drop styles
-.cdk-drag-preview {
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  opacity: 0.9;
-}
-
-.cdk-drag-placeholder {
-  opacity: 0.3;
-}
-
-.cdk-drag-animating {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.cdk-drop-list-dragging .cdk-drag {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
+// CDK Drag-drop styles are in global styles.scss
+// (preview is rendered at body level, outside component encapsulation)
 
 // Mobile responsive
 @media (max-width: 768px) {

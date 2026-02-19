@@ -60,6 +60,26 @@ html, body {
   --mdc-filled-button-container-color: var(--color-primary);
 }
 
+// CDK Drag-drop styles (must be global — preview is rendered at body level)
+.cdk-drag-preview {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  opacity: 0.9;
+  z-index: 10000;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.3;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
 // Utility classes
 .text-primary { color: var(--color-text-primary); }
 .text-secondary { color: var(--color-text-secondary); }
