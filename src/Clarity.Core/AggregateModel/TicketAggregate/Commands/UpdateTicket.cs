@@ -33,6 +33,11 @@ public class UpdateTicketRequest: IRequest<UpdateTicketResponse>
     public string Url { get; set; }
     public StateType State { get; set; }
     public Guid? InitiativeId { get; set; }
+    public Guid? TeamMemberId { get; set; }
+    public int Priority { get; set; }
+    public int StoryPoints { get; set; }
+    public int Effort { get; set; }
+    public TicketType TicketType { get; set; }
 }
 
 public class UpdateTicketResponse
@@ -59,24 +64,42 @@ public class UpdateTicketRequestHandler: IRequestHandler<UpdateTicketRequest,Upd
     public async Task<UpdateTicketResponse> Handle(UpdateTicketRequest request,CancellationToken cancellationToken)
     {
         var ticket = await _context.Tickets
-            .Include(x => x.CurrentTicketState)
+            .Include(x => x.TicketStates)
             .ThenInclude(x => x.BoardState)
+            .Include(x => x.TeamMember)
+            .Include(x => x.Initiative)
+            .Include(x => x.Comments)
+            .ThenInclude(x => x.TeamMember)
+            .Include(x => x.DigitalAssets)
             .SingleAsync(x => x.TicketId == request.TicketId);
 
         var state = await _context.BoardStates.FindAsync(ticket.CurrentTicketState.BoardState.BoardStateId);
 
-        var username = _httpContextAccessor.HttpContext.User.Identity.Name;
+        Guid teamMemberId;
 
-        var currentTeamMemberId = (await _context.TeamMembers.SingleAsync(x => x.Name == username)).TeamMemberId;
+        if (request.TeamMemberId.HasValue)
+        {
+            teamMemberId = request.TeamMemberId.Value;
+        }
+        else
+        {
+            var username = _httpContextAccessor.HttpContext.User.Identity.Name;
+            teamMemberId = (await _context.TeamMembers.SingleAsync(x => x.Name == username)).TeamMemberId;
+        }
 
         ticket.Update(
-            currentTeamMemberId, 
-            request.Name, 
-            request.Url, 
-            (Html)request.AcceptanceCriteria, 
-            (Html)request.Description);
+            teamMemberId,
+            request.Name,
+            request.Url,
+            (Html)request.AcceptanceCriteria,
+            (Html)request.Description,
+            request.Priority,
+            request.StoryPoints,
+            request.TicketType);
 
         ticket.SetInitiative(request.InitiativeId);
+
+        ticket.UpdateEffort(request.Effort);
 
         ticket.TicketStates.Clear();
 

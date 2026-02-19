@@ -53,13 +53,16 @@ public class Ticket
         TicketType = TicketType.Chore;
     }
 
-    public void Update(Guid teamMemberId, string name, string url, Html acceptanceCriteria, Html description)
+    public void Update(Guid teamMemberId, string name, string url, Html acceptanceCriteria, Html description, int priority, int storyPoints, TicketType ticketType)
     {
         TeamMemberId = teamMemberId;
         Name = name;
         Url = url;
         AcceptanceCriteria = acceptanceCriteria;
         Description = description;
+        Priority = priority;
+        StoryPoints = storyPoints;
+        TicketType = ticketType;
     }
     public void SetInitiative(Guid? initiativeId)
     {

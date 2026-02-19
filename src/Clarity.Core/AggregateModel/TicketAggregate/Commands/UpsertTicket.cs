@@ -60,7 +60,7 @@ public class UpsertTicketRequestHandler : IRequestHandler<UpsertTicketRequest, U
         }
         else
         {
-            ticket.Update(teamMemberId, request.Ticket.Name, request.Ticket.Url, (Html)request.Ticket.AcceptanceCriteria, (Html)request.Ticket.Description);
+            ticket.Update(teamMemberId, request.Ticket.Name, request.Ticket.Url, (Html)request.Ticket.AcceptanceCriteria, (Html)request.Ticket.Description, request.Ticket.Priority, request.Ticket.StoryPoints, request.Ticket.TicketType);
         }
 
         ticket.SetInitiative(request.Ticket.InitiativeId);

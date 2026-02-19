@@ -83,6 +83,29 @@ public class TicketController
     }
 
     [SwaggerOperation(
+        Summary = "Get Ticket by Id",
+        Description = @"Get Ticket by Id"
+    )]
+    [HttpGet("{ticketId:guid}", Name = "getTicketById")]
+    [ProducesResponseType(typeof(string), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+    [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+    [ProducesResponseType(typeof(GetTicketByIdResponse), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<GetTicketByIdResponse>> GetTicketById([FromRoute]Guid ticketId, CancellationToken cancellationToken)
+    {
+        var request = new GetTicketByIdRequest() { TicketId = ticketId };
+
+        var response = await _mediator.Send(request, cancellationToken);
+
+        if (response.Ticket == null)
+        {
+            return new NotFoundObjectResult(request.TicketId);
+        }
+
+        return response;
+    }
+
+    [SwaggerOperation(
         Summary = "Get Ticket by Name",
         Description = @"Get Ticket by Name"
     )]

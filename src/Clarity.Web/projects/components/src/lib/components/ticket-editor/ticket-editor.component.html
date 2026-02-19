@@ -1,3 +1,200 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
-    <h1>{{ vm.message }}</h1>
+  <div class="ticket-page">
+    <!-- Top Bar -->
+    <div class="top-bar" data-testid="ticket-editor-topbar">
+      <div class="top-bar-left">
+        <button class="back-btn" (click)="vm.back()" data-testid="back-btn">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div class="top-bar-title">
+          <span class="breadcrumb">
+            <a (click)="vm.back()">My Tickets</a>
+            <span class="sep">/</span>
+            <span>{{ vm.ticket.name | slice:0:20 }}</span>
+          </span>
+          <h1>Edit Ticket</h1>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        @if (vm.saved) {
+          <span class="save-indicator saved">Saved</span>
+        }
+        @if (vm.saving) {
+          <span class="save-indicator saving">Saving...</span>
+        }
+        <button class="delete-btn" (click)="vm.delete()" data-testid="delete-btn">
+          <mat-icon>delete_outline</mat-icon>
+          <span class="btn-label">Delete</span>
+        </button>
+        <button class="save-btn" (click)="vm.save()" [disabled]="vm.saving" data-testid="save-btn">
+          <mat-icon>check</mat-icon>
+          <span class="btn-label">Save Changes</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content-area">
+      <form novalidate autocomplete="off" spellcheck="false" [formGroup]="vm.form" class="content-columns">
+        <!-- Left Column: Main Form -->
+        <div class="left-column">
+          <div class="card">
+            <mat-form-field appearance="outline">
+              <mat-label>Name</mat-label>
+              <input matInput formControlName="name" placeholder="Ticket name" data-testid="name-input">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Description</mat-label>
+              <textarea matInput
+                        cdkTextareaAutosize
+                        cdkAutosizeMinRows="3"
+                        cdkAutosizeMaxRows="6"
+                        formControlName="description"
+                        placeholder="Describe the ticket"
+                        data-testid="description-input"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Acceptance Criteria</mat-label>
+              <textarea matInput
+                        cdkTextareaAutosize
+                        cdkAutosizeMinRows="3"
+                        cdkAutosizeMaxRows="6"
+                        formControlName="acceptanceCriteria"
+                        placeholder="Define acceptance criteria"
+                        data-testid="acceptance-criteria-input"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>URL / Link</mat-label>
+              <input matInput formControlName="url" placeholder="https://..." data-testid="url-input">
+              <mat-icon matPrefix class="url-icon">link</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <!-- Comments Section -->
+          <div class="card comments-card">
+            <h2 class="section-title">Comments</h2>
+            @for (comment of vm.ticket.comments; track comment) {
+              <div class="comment-item" data-testid="comment-item">
+                <div class="comment-header">
+                  <div class="comment-user">
+                    <span class="avatar-sm">{{ (comment.teamMember?.name || 'U')[0] }}</span>
+                    <span class="comment-name">{{ comment.teamMember?.name || 'Unknown' }}</span>
+                  </div>
+                </div>
+                <p class="comment-body">{{ comment.description }}</p>
+              </div>
+            }
+            @if (!vm.ticket.comments?.length) {
+              <p class="empty-text">No comments yet</p>
+            }
+          </div>
+        </div>
+
+        <!-- Right Column: Details -->
+        <div class="right-column">
+          <div class="card details-card">
+            <h2 class="section-title">Details</h2>
+
+            <div class="detail-row">
+              <span class="detail-label">Type</span>
+              <select class="detail-select" formControlName="ticketType" data-testid="type-select">
+                <option *ngFor="let t of vm.ticketTypes" [ngValue]="t.value">{{ t.label }}</option>
+              </select>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Priority</span>
+              <select class="detail-select" formControlName="priority" data-testid="priority-select">
+                <option *ngFor="let p of vm.priorities" [value]="p.value">{{ p.label }}</option>
+              </select>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Status</span>
+              <select class="detail-select" formControlName="state" data-testid="status-select">
+                <option [ngValue]="state.type" *ngFor="let state of vm.states">{{ state.name }}</option>
+              </select>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Assignee</span>
+              <select class="detail-select" formControlName="teamMemberId" data-testid="assignee-select">
+                <option [ngValue]="null">Unassigned</option>
+                <option [ngValue]="member.teamMemberId" *ngFor="let member of vm.teamMembers">{{ member.name }}</option>
+              </select>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Initiative</span>
+              <select class="detail-select" formControlName="initiativeId" data-testid="initiative-select">
+                <option [ngValue]="null">None</option>
+                <option [ngValue]="initiative.initiativeId" *ngFor="let initiative of vm.initiatives">{{ initiative.name }}</option>
+              </select>
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Story Points</span>
+              <input type="number" class="detail-input" formControlName="storyPoints" data-testid="story-points-input">
+            </div>
+
+            <div class="detail-row">
+              <span class="detail-label">Effort</span>
+              <input type="number" class="detail-input" formControlName="effort" data-testid="effort-input">
+            </div>
+          </div>
+
+          <!-- Attachments Card -->
+          <div class="card attachments-card">
+            <div class="section-header">
+              <h2 class="section-title">Attachments</h2>
+              <label class="upload-btn" data-testid="upload-btn">
+                <mat-icon>upload</mat-icon>
+                <span>Upload</span>
+                <input type="file" hidden (change)="vm.uploadFile($event)">
+              </label>
+            </div>
+
+            <div class="file-list">
+              @for (file of vm.attachments; track file.digitalAssetId) {
+                <div class="file-item" data-testid="file-item">
+                  <div class="file-left">
+                    <mat-icon [style.color]="vm.getFileIconColor(file.contentType)">{{ vm.getFileIcon(file.contentType) }}</mat-icon>
+                    <div class="file-info">
+                      <span class="file-name">{{ file.name }}</span>
+                      <span class="file-type">{{ file.contentType }}</span>
+                    </div>
+                  </div>
+                  <div class="file-actions">
+                    <button class="icon-btn" (click)="vm.downloadFile(file.digitalAssetId!)" title="Download" data-testid="download-file-btn">
+                      <mat-icon>download</mat-icon>
+                    </button>
+                    <button class="icon-btn" (click)="vm.detachFile(file.digitalAssetId!)" title="Remove" data-testid="detach-file-btn">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              }
+              @if (!vm.attachments?.length) {
+                <p class="empty-text">No files attached</p>
+              }
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Mobile Action Bar -->
+    <div class="mobile-action-bar">
+      <button class="delete-btn-mobile" (click)="vm.delete()">
+        <mat-icon>delete_outline</mat-icon>
+      </button>
+      <button class="save-btn-mobile" (click)="vm.save()" [disabled]="vm.saving">
+        <mat-icon>check</mat-icon>
+        <span>Save Changes</span>
+      </button>
+    </div>
+  </div>
 </ng-container>

@@ -6,9 +6,9 @@ import { CommonModule } from '@angular/common';
 import { createTicketViewModel } from './create-ticket-view-model';
 import { PushPipe } from '@ngrx/component';
 import { Ticket } from '@api';
-import { Dialog, DialogModule } from '@angular/cdk/dialog';
-import { UpdateTicketComponent } from '../update-ticket';
+import { DialogModule } from '@angular/cdk/dialog';
 import { MatCardModule } from '@angular/material/card';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-ticket',
@@ -20,7 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 export class TicketComponent {
   public vm$ = createTicketViewModel();
 
-  private readonly _dialog = inject(Dialog);
+  private readonly _router = inject(Router);
 
   @Input() ticket!: Ticket;
 
@@ -61,8 +61,6 @@ export class TicketComponent {
   }
 
   public handleEditClick() {
-    this._dialog.open(UpdateTicketComponent, {
-      data: this.ticket
-    }).closed.subscribe();
+    this._router.navigate(['/tickets', this.ticket.ticketId, 'edit']);
   }
 }

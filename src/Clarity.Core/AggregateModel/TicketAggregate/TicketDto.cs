@@ -24,11 +24,15 @@ public class TicketDto
     public string Description { get; set; }
     public string AcceptanceCriteria { get; set; }
     public TicketType TicketType { get; set; }
+    public int StoryPoints { get; set; }
+    public int Effort { get; set; }
+    public int Priority { get; set; }
     public Guid? BoardId { get; set; }
     public Guid? TeamMemberId { get; set; }
     public string TeamMemberName { get; set; }
     public Guid? InitiativeId { get; set; }
     public string InitiativeName { get; set; }
     public List<CommentDto> Comments { get; set; } = new();
+    public List<DigitalAssetDto> DigitalAssets { get; set; } = new();
 }
 

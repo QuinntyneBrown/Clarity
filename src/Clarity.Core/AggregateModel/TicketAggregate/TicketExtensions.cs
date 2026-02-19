@@ -20,12 +20,17 @@ public static class TicketExtensions
             Age = Convert.ToInt32((DateTime.UtcNow - ticket.CurrentTicketState.Created).TotalDays),
             AcceptanceCriteria = ticket.AcceptanceCriteria,
             Description = ticket.Description,
+            TicketType = ticket.TicketType,
+            StoryPoints = ticket.StoryPoints,
+            Effort = ticket.Effort,
+            Priority = ticket.Priority,
             BoardId = ticket.CurrentTicketState.BoardState.BoardId,
             TeamMemberId = ticket.TeamMemberId,
             TeamMemberName = ticket.TeamMember?.Name,
             InitiativeId = ticket.InitiativeId,
             InitiativeName = ticket.Initiative?.Name,
-            Comments = ticket.Comments.OrderByDescending(x => x.Created).Select(x => x.ToDto()).ToList()
+            Comments = ticket.Comments.OrderByDescending(x => x.Created).Select(x => x.ToDto()).ToList(),
+            DigitalAssets = ticket.DigitalAssets.Select(DigitalAssetDto.FromDigitalAsset).ToList()
         };
 }
 

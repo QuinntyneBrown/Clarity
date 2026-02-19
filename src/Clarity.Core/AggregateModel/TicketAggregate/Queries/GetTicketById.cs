@@ -3,26 +3,27 @@
 
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Clarity.Core.AggregateModel.TicketAggregate.Queries;
 
-public class GetTicketByNameRequest : IRequest<GetTicketByNameResponse>
+public class GetTicketByIdRequest : IRequest<GetTicketByIdResponse>
 {
-    public string Name { get; set; }
+    public Guid TicketId { get; set; }
 }
 
-public class GetTicketByNameResponse
+public class GetTicketByIdResponse
 {
     public TicketDto Ticket { get; set; }
 }
 
-public class GetTicketByNameRequestHandler : IRequestHandler<GetTicketByNameRequest, GetTicketByNameResponse>
+public class GetTicketByIdRequestHandler : IRequestHandler<GetTicketByIdRequest, GetTicketByIdResponse>
 {
     private readonly IClarityDbContext _context;
-    public GetTicketByNameRequestHandler(IClarityDbContext context) => _context = context;
-    public async Task<GetTicketByNameResponse> Handle(GetTicketByNameRequest request, CancellationToken cancellationToken)
+    public GetTicketByIdRequestHandler(IClarityDbContext context) => _context = context;
+    public async Task<GetTicketByIdResponse> Handle(GetTicketByIdRequest request, CancellationToken cancellationToken)
         => new()
         {
             Ticket = (await _context.Tickets
@@ -33,8 +34,6 @@ public class GetTicketByNameRequestHandler : IRequestHandler<GetTicketByNameRequ
             .Include(x => x.TicketStates)
             .ThenInclude(x => x.BoardState)
             .Include(x => x.DigitalAssets)
-            .FirstOrDefaultAsync(x => x.Name == request.Name))?.ToDto()
+            .FirstOrDefaultAsync(x => x.TicketId == request.TicketId))?.ToDto()
         };
 }
-
-
