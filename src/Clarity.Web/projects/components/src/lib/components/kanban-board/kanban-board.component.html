@@ -1,8 +1,5 @@
 <div class="kanban-columns">
-  <div class="kanban-column" *ngFor="let boardState of boardStates"
-       cdkDropList
-       [cdkDropListData]="ticketsByState(tickets, boardState)"
-       (cdkDropListDropped)="drop($event, boardState)">
+  <div class="kanban-column" *ngFor="let boardState of boardStates">
     <div class="column-header">
       <div class="column-title-group">
         <span class="column-title">{{ boardState.name }}</span>
@@ -12,7 +9,10 @@
         <mat-icon>more_horiz</mat-icon>
       </button>
     </div>
-    <div class="column-cards">
+    <div class="column-cards"
+         cdkDropList
+         [cdkDropListData]="ticketsByState(tickets, boardState)"
+         (cdkDropListDropped)="drop($event, boardState)">
       <app-ticket *ngFor="let ticket of ticketsByState(tickets, boardState)"
                   [ticket]="ticket"
                   cdkDrag></app-ticket>
