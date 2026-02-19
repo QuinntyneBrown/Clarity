@@ -56,4 +56,12 @@ export class TicketService {
   public update(options: { ticket: Ticket }): Observable<{ ticketId: string }> {
     return this._client.put<{ ticketId: string }>(`${this._baseUrl}api/1.0/ticket/upsert`, { ticket: options.ticket });
   }
+
+  public attachFile(options: { ticketId: string; digitalAssetId: string }): Observable<void> {
+    return this._client.post<void>(`${this._baseUrl}api/1.0/ticket/${options.ticketId}/attachments/${options.digitalAssetId}`, {});
+  }
+
+  public detachFile(options: { ticketId: string; digitalAssetId: string }): Observable<void> {
+    return this._client.delete<void>(`${this._baseUrl}api/1.0/ticket/${options.ticketId}/attachments/${options.digitalAssetId}`);
+  }
 }

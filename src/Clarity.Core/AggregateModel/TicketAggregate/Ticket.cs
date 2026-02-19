@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using Clarity.Core.AggregateModel.CommentAggregate;
+using Clarity.Core.AggregateModel.DigitalAssetAggregate;
 using Clarity.Core.AggregateModel.InitiativeAggregate;
 using Clarity.Core.AggregateModel.TeamMemberAggregate;
 using Clarity.Core.DomainEvents;
@@ -37,6 +38,7 @@ public class Ticket
     public TicketState CurrentTicketState { get => TicketStates.OrderByDescending(x => x.Created).First(); }
     public List<Comment> Comments { get; private set; } = new();
     public List<TicketEffortChanged> EffortChangedEvents { get; private set; } = new();
+    public List<DigitalAsset> DigitalAssets { get; private set; } = new();
     public Ticket(Guid teamMemberId, string name, string url, Html acceptanceCriteria, Html description)
     {
         TeamMemberId = teamMemberId;

@@ -1,6 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Clarity.Core.AggregateModel.DigitalAssetAggregate;
 using Clarity.Core.AggregateModel.TicketAggregate;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ public class Initiative
     public string Description { get; private set; }
     public DateTime Created { get; private set; } = DateTime.UtcNow;
     public List<Ticket> Tickets { get; private set; } = new();
+    public List<DigitalAsset> DigitalAssets { get; private set; } = new();
 
     public Initiative(string name, string description)
     {

@@ -1,0 +1,41 @@
+<ng-container *ngIf="vm$ | ngrxPush as vm">
+  <div class="editor-page">
+    <!-- Toolbar -->
+    <div class="editor-toolbar" data-testid="editor-toolbar">
+      <div class="toolbar-left">
+        <button class="toolbar-btn" (click)="vm.back()" title="Back to files" data-testid="back-btn">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <span class="file-name" data-testid="editor-filename">{{ vm.asset.name }}</span>
+        @if (vm.saved) {
+          <span class="save-indicator saved">Saved</span>
+        }
+        @if (vm.saving) {
+          <span class="save-indicator saving">Saving...</span>
+        }
+      </div>
+      <div class="toolbar-right">
+        <button class="toolbar-btn" (click)="vm.download()" title="Download" data-testid="editor-download-btn">
+          <mat-icon>download</mat-icon>
+        </button>
+        <button class="toolbar-btn save-btn" (click)="vm.save()" [disabled]="vm.saving" title="Save (Ctrl+S)" data-testid="editor-save-btn">
+          <mat-icon>save</mat-icon>
+          <span class="btn-label">Save</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Code Editor -->
+    <div class="editor-container" data-testid="editor-container">
+      <textarea
+        class="code-editor"
+        [ngModel]="vm.content"
+        (ngModelChange)="vm.updateContent($event)"
+        (keydown)="onKeydown($event, vm.save)"
+        spellcheck="false"
+        autocomplete="off"
+        data-testid="code-textarea"
+      ></textarea>
+    </div>
+  </div>
+</ng-container>

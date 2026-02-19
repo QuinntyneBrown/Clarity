@@ -33,6 +33,7 @@ export class SidebarComponent {
     { icon: 'confirmation_number', label: 'My Tickets', route: '/my-tickets' },
     { icon: 'people', label: 'Team', route: '/team' },
     { icon: 'track_changes', label: 'Initiatives', route: '/initiatives' },
+    { icon: 'folder', label: 'Files', route: '/files' },
     { icon: 'settings', label: 'Settings', route: '/settings' }
   ];
 

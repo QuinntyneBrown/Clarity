@@ -1,0 +1,115 @@
+<ng-container *ngIf="vm$ | ngrxPush as vm">
+  <div class="files-page">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-top">
+        <h1>Files</h1>
+        <button mat-flat-button color="primary" class="upload-btn" (click)="fileInput.click()">
+          <mat-icon>cloud_upload</mat-icon>
+          <span class="btn-label">Upload File</span>
+        </button>
+        <input #fileInput type="file" hidden (change)="onFileSelected($event, vm.upload)" data-testid="file-input">
+      </div>
+      <app-search-input
+        placeholder="Search files..."
+        [value]="vm.searchTerm"
+        (valueChange)="vm.search($event)"
+      ></app-search-input>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-value">{{ vm.totalCount }}</div>
+        <div class="stat-label">Total Files</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{{ vm.editableCount }}</div>
+        <div class="stat-label">Editable Files</div>
+      </div>
+    </div>
+
+    <!-- Desktop Table View -->
+    <div class="table-container desktop-only" data-testid="files-table">
+      <table class="files-table">
+        <thead>
+          <tr>
+            <th>File Name</th>
+            <th>Type</th>
+            <th class="actions-col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (asset of vm.digitalAssets; track asset.digitalAssetId) {
+            <tr class="file-row" data-testid="file-row">
+              <td>
+                <div class="file-name-cell">
+                  <mat-icon class="file-icon">{{ vm.getFileIcon(asset.contentType) }}</mat-icon>
+                  <span class="file-name">{{ asset.name }}</span>
+                </div>
+              </td>
+              <td>
+                <span class="type-badge">{{ vm.getFileTypeBadge(asset.contentType) }}</span>
+              </td>
+              <td class="actions-col">
+                @if (vm.isEditable(asset)) {
+                  <button class="action-btn" (click)="vm.editAsset(asset)" title="Edit" data-testid="edit-btn">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                }
+                <button class="action-btn" (click)="vm.downloadAsset(asset)" title="Download" data-testid="download-btn">
+                  <mat-icon>download</mat-icon>
+                </button>
+                <button class="action-btn delete" (click)="vm.deleteAsset(asset)" title="Delete" data-testid="delete-btn">
+                  <mat-icon>delete_outline</mat-icon>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (vm.digitalAssets.length === 0) {
+        <div class="empty-state" data-testid="empty-state">
+          <mat-icon>folder_open</mat-icon>
+          <p>No files found</p>
+        </div>
+      }
+    </div>
+
+    <!-- Mobile Card View -->
+    <div class="cards-container mobile-only" data-testid="files-cards">
+      @for (asset of vm.digitalAssets; track asset.digitalAssetId) {
+        <div class="file-card" data-testid="file-card">
+          <div class="card-top">
+            <div class="card-info">
+              <mat-icon class="file-icon">{{ vm.getFileIcon(asset.contentType) }}</mat-icon>
+              <div class="card-text">
+                <span class="file-name">{{ asset.name }}</span>
+                <span class="type-badge">{{ vm.getFileTypeBadge(asset.contentType) }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-actions">
+            @if (vm.isEditable(asset)) {
+              <button class="action-btn" (click)="vm.editAsset(asset)" title="Edit">
+                <mat-icon>edit</mat-icon>
+              </button>
+            }
+            <button class="action-btn" (click)="vm.downloadAsset(asset)" title="Download">
+              <mat-icon>download</mat-icon>
+            </button>
+            <button class="action-btn delete" (click)="vm.deleteAsset(asset)" title="Delete">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </div>
+        </div>
+      }
+      @if (vm.digitalAssets.length === 0) {
+        <div class="empty-state">
+          <mat-icon>folder_open</mat-icon>
+          <p>No files found</p>
+        </div>
+      }
+    </div>
+  </div>
+</ng-container>

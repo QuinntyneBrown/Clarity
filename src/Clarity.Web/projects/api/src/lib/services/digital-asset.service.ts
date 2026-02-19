@@ -37,4 +37,28 @@ export class DigitalAssetService {
         map(x => x.digitalAssets)
       );
   }
+
+  public upload(options: { file: File }): Observable<{ digitalAssetId: string }> {
+    const formData = new FormData();
+    formData.append('file', options.file);
+    return this._client.post<{ digitalAssetId: string }>(`${this._baseUrl}api/1.0/digitalAsset/upload`, formData);
+  }
+
+  public delete(options: { digitalAssetId: string }): Observable<void> {
+    return this._client.delete<void>(`${this._baseUrl}api/1.0/digitalAsset/${options.digitalAssetId}`);
+  }
+
+  public update(options: { digitalAssetId: string; file: File }): Observable<void> {
+    const formData = new FormData();
+    formData.append('file', options.file);
+    return this._client.put<void>(`${this._baseUrl}api/1.0/digitalAsset/${options.digitalAssetId}`, formData);
+  }
+
+  public updateContent(options: { digitalAssetId: string; content: string }): Observable<void> {
+    return this._client.put<void>(`${this._baseUrl}api/1.0/digitalAsset/${options.digitalAssetId}/content`, { content: options.content });
+  }
+
+  public getServeUrl(digitalAssetId: string): string {
+    return `${this._baseUrl}api/1.0/digitalAsset/${digitalAssetId}/serve`;
+  }
 }

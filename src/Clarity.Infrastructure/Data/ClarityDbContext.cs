@@ -94,6 +94,14 @@ public class ClarityDbContext : DbContext, IClarityDbContext
             .WithMany()
             .HasForeignKey(s => s.TeamId);
 
+        modelBuilder.Entity<Ticket>()
+            .HasMany(t => t.DigitalAssets)
+            .WithMany();
+
+        modelBuilder.Entity<Initiative>()
+            .HasMany(i => i.DigitalAssets)
+            .WithMany();
+
         base.OnModelCreating(modelBuilder);
     }
 }

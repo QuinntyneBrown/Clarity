@@ -56,4 +56,12 @@ export class InitiativeService {
         map(x => x.reports)
       );
   }
+
+  public attachFile(options: { initiativeId: string; digitalAssetId: string }): Observable<void> {
+    return this._client.post<void>(`${this._baseUrl}api/1.0/initiative/${options.initiativeId}/attachments/${options.digitalAssetId}`, {});
+  }
+
+  public detachFile(options: { initiativeId: string; digitalAssetId: string }): Observable<void> {
+    return this._client.delete<void>(`${this._baseUrl}api/1.0/initiative/${options.initiativeId}/attachments/${options.digitalAssetId}`);
+  }
 }

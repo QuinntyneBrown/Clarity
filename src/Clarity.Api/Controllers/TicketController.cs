@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 using System.Net;
 using System.Net.Mime;
 
@@ -145,6 +146,21 @@ public class TicketController
         return await _mediator.Send(request, cancellationToken);
     }
 
+    [SwaggerOperation(Summary = "Attach file to ticket")]
+    [HttpPost("{ticketId:guid}/attachments/{digitalAssetId:guid}", Name = "attachDigitalAssetToTicket")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<ActionResult<AttachDigitalAssetToTicketResponse>> AttachFile([FromRoute] Guid ticketId, [FromRoute] Guid digitalAssetId, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(new AttachDigitalAssetToTicketRequest { TicketId = ticketId, DigitalAssetId = digitalAssetId }, cancellationToken);
+    }
+
+    [SwaggerOperation(Summary = "Detach file from ticket")]
+    [HttpDelete("{ticketId:guid}/attachments/{digitalAssetId:guid}", Name = "detachDigitalAssetFromTicket")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<ActionResult<DetachDigitalAssetFromTicketResponse>> DetachFile([FromRoute] Guid ticketId, [FromRoute] Guid digitalAssetId, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(new DetachDigitalAssetFromTicketRequest { TicketId = ticketId, DigitalAssetId = digitalAssetId }, cancellationToken);
+    }
 }
 
 

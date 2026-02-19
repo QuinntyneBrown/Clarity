@@ -124,4 +124,20 @@ public class InitiativeController : ControllerBase
     {
         return await _mediator.Send(new GetInitiativeReportsRequest(), cancellationToken);
     }
+
+    [SwaggerOperation(Summary = "Attach file to initiative")]
+    [HttpPost("{initiativeId:guid}/attachments/{digitalAssetId:guid}", Name = "attachDigitalAssetToInitiative")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<ActionResult<AttachDigitalAssetToInitiativeResponse>> AttachFile([FromRoute] Guid initiativeId, [FromRoute] Guid digitalAssetId, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(new AttachDigitalAssetToInitiativeRequest { InitiativeId = initiativeId, DigitalAssetId = digitalAssetId }, cancellationToken);
+    }
+
+    [SwaggerOperation(Summary = "Detach file from initiative")]
+    [HttpDelete("{initiativeId:guid}/attachments/{digitalAssetId:guid}", Name = "detachDigitalAssetFromInitiative")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<ActionResult<DetachDigitalAssetFromInitiativeResponse>> DetachFile([FromRoute] Guid initiativeId, [FromRoute] Guid digitalAssetId, CancellationToken cancellationToken)
+    {
+        return await _mediator.Send(new DetachDigitalAssetFromInitiativeRequest { InitiativeId = initiativeId, DigitalAssetId = digitalAssetId }, cancellationToken);
+    }
 }

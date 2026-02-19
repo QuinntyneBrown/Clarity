@@ -1,6 +1,7 @@
 export * from './board.store';
 export * from './board-state.store';
 export * from './comment.store';
+export * from './digital-asset.store';
 export * from './initiative.store';
 export * from './state.store';
 export * from './team-member.store';
