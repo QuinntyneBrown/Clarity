@@ -48,7 +48,7 @@ export class KanbanBoardComponent extends Destroyable {
   @Output() public boardStateDeleted = new EventEmitter<void>();
 
   public ticketsByState(tickets: Ticket[], state: BoardState) {
-    return tickets.filter(t => Number(t.state) === state.type);
+    return tickets.filter(t => t.boardStateId === state.boardStateId);
   }
 
   drop(event: CdkDragDrop<Ticket[]>, state: BoardState) {
