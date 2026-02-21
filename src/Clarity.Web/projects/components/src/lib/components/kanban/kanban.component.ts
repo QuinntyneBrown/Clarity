@@ -1,7 +1,7 @@
 // Copyright (c) Quinntyne Brown. All Rights Reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { createKanbanViewModel } from './create-kanban-view-model';
 import { PushPipe } from '@ngrx/component';
@@ -26,7 +26,7 @@ import { CreateTicketComponent } from '../create-ticket';
     templateUrl: './kanban.component.html',
     styleUrls: ['./kanban.component.scss']
 })
-export class KanbanComponent implements AfterViewInit, OnDestroy {
+export class KanbanComponent implements OnDestroy {
   public vm$ = createKanbanViewModel();
 
   public teamMemberFilter: string | null = null;
@@ -35,9 +35,20 @@ export class KanbanComponent implements AfterViewInit, OnDestroy {
   private readonly _dialog = inject(Dialog);
   private readonly _cdr = inject(ChangeDetectorRef);
   private _observer: IntersectionObserver | null = null;
+  private _scrollContainerEl: HTMLElement | null = null;
+  private _boardControlsEl: HTMLElement | null = null;
 
-  @ViewChild('boardControls', { read: ElementRef }) boardControlsRef!: ElementRef;
-  @ViewChild('scrollContainer') scrollContainerRef!: ElementRef;
+  @ViewChild('scrollContainer')
+  set scrollContainerRef(ref: ElementRef | undefined) {
+    this._scrollContainerEl = ref?.nativeElement ?? null;
+    this._trySetupObserver();
+  }
+
+  @ViewChild('boardControls', { read: ElementRef })
+  set boardControlsRef(ref: ElementRef | undefined) {
+    this._boardControlsEl = ref?.nativeElement ?? null;
+    this._trySetupObserver();
+  }
 
   private readonly _pillColors = [
     { bg: '#FEF3C7', text: '#92400E', dot: '#92400E' },
@@ -48,10 +59,8 @@ export class KanbanComponent implements AfterViewInit, OnDestroy {
     { bg: '#CFFAFE', text: '#155E75', dot: '#155E75' }
   ];
 
-  ngAfterViewInit() {
-    const scrollContainer = this.scrollContainerRef?.nativeElement;
-    const target = this.boardControlsRef?.nativeElement;
-    if (!scrollContainer || !target) return;
+  private _trySetupObserver() {
+    if (this._observer || !this._scrollContainerEl || !this._boardControlsEl) return;
 
     this._observer = new IntersectionObserver(
       ([entry]) => {
@@ -59,11 +68,11 @@ export class KanbanComponent implements AfterViewInit, OnDestroy {
         this._cdr.detectChanges();
       },
       {
-        root: scrollContainer,
+        root: this._scrollContainerEl,
         threshold: 0
       }
     );
-    this._observer.observe(target);
+    this._observer.observe(this._boardControlsEl);
   }
 
   ngOnDestroy() {
@@ -99,6 +108,6 @@ export class KanbanComponent implements AfterViewInit, OnDestroy {
   }
 
   public scrollToTop() {
-    this.scrollContainerRef?.nativeElement?.scrollTo({ top: 0, behavior: 'smooth' });
+    this._scrollContainerEl?.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
