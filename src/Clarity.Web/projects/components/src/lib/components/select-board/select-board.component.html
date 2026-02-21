@@ -10,7 +10,7 @@
     <button class="board-item"
             *ngFor="let board of vm.boards"
             [class.active]="vm.currentBoardId === board.boardId"
-            (click)="vm.select(board.boardId!)">
+            (click)="vm.select(board.name!)">
       <mat-icon class="board-icon">dashboard</mat-icon>
       <div class="board-info">
         <span class="board-name">{{ board.name }}</span>

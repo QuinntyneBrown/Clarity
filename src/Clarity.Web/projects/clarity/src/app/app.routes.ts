@@ -20,6 +20,10 @@ export const routes: Routes = [
         component: KanbanComponent
       },
       {
+        path: 'kanban/:boardName',
+        component: KanbanComponent
+      },
+      {
         path: 'my-tickets',
         component: MyTicketsComponent
       },
