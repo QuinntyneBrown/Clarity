@@ -1,6 +1,32 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
-  <div class="kanban-main-content">
+  <div class="kanban-main-content" #scrollContainer>
+    <div class="sticky-header" [class.visible]="showStickyHeader">
+      <div class="sticky-left">
+        <button class="sticky-scroll-top" (click)="scrollToTop()">
+          <mat-icon class="sticky-scroll-icon">arrow_upward</mat-icon>
+        </button>
+        <span class="sticky-board-name">{{ vm.board.name }}</span>
+        <span class="sticky-divider"></span>
+      </div>
+      <div class="sticky-pills">
+        <span class="sticky-pill"
+              *ngFor="let state of vm.boardStates; let i = index"
+              [style.background-color]="getPillColor(i).bg"
+              [style.color]="getPillColor(i).text">
+          <span class="pill-dot" [style.background-color]="getPillColor(i).dot"></span>
+          <span class="pill-name">{{ state.name }}</span>
+          <span class="pill-count">{{ getTicketCount(vm.tickets, state) }}</span>
+        </span>
+      </div>
+      <div class="sticky-right">
+        <button class="sticky-new-ticket" (click)="handleNewTicket(vm.board)">
+          <mat-icon>add</mat-icon>
+          New Ticket
+        </button>
+      </div>
+    </div>
     <app-kanban-board-controls
+      #boardControls
       [board]="vm.board"
       [teamMembers]="vm.teamMembers"
       (boardSelected)="vm.selectBoard($event)"
