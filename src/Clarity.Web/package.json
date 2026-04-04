@@ -18,7 +18,9 @@
     "start:admin": "ng serve clarity-admin --port 4202",
     "build:admin": "ng build clarity-admin",
     "e2e:admin": "npx playwright test --config=playwright-admin.config.ts",
-    "e2e:admin:headed": "npx playwright test --config=playwright-admin.config.ts --headed"
+    "e2e:admin:headed": "npx playwright test --config=playwright-admin.config.ts --headed",
+    "e2e:deployed": "npx playwright test --config=playwright-deployed.config.ts",
+    "e2e:deployed:headed": "npx playwright test --config=playwright-deployed.config.ts --headed"
   },
   "private": true,
   "dependencies": {
