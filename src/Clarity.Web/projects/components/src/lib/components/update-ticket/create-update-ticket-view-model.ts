@@ -19,14 +19,14 @@ export function createUpdateTicketViewModel() {
     state: new FormControl(Number(ticket.state), [Validators.required]),
     description: new FormControl(ticket.description, [Validators.required]),
     acceptanceCriteria: new FormControl(ticket.acceptanceCriteria, [Validators.required]),
-    priority: new FormControl((ticket as any).priority || null),
+    priority: new FormControl(ticket.priority || null),
     teamMemberId: new FormControl(ticket.teamMemberId || null),
     initiativeId: new FormControl(ticket.initiativeId || null)
   });
 
-  const saveSubject = new Subject();
-  const cancelSubject = new Subject();
-  const deleteSubject = new Subject();
+  const saveSubject = new Subject<void>();
+  const cancelSubject = new Subject<void>();
+  const deleteSubject = new Subject<void>();
 
   const save$ = saveSubject.pipe(
     tap(_ => ticketStore.save({
@@ -55,9 +55,9 @@ export function createUpdateTicketViewModel() {
       return {
         form,
         ticket,
-        save: () => saveSubject.next(null),
-        cancel: () => cancelSubject.next(null),
-        delete: () => deleteSubject.next(null),
+        save: () => saveSubject.next(),
+        cancel: () => cancelSubject.next(),
+        delete: () => deleteSubject.next(),
         states,
         teamMembers,
         initiatives,

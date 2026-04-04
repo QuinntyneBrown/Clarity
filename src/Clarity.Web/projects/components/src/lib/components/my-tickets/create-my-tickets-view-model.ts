@@ -2,6 +2,7 @@ import { inject } from "@angular/core";
 import { combineLatest, map, of, Subject, startWith } from "rxjs";
 import { TicketStore } from "../../stores";
 import { TeamMemberStore } from "../../stores";
+import { Ticket } from "@api";
 import { Dialog } from "@angular/cdk/dialog";
 import { CreateTicketComponent } from "../create-ticket";
 import { UpdateTicketComponent } from "../update-ticket";
@@ -62,7 +63,7 @@ export function createMyTicketsViewModel() {
         openCreateDialog: () => {
           dialog.open(CreateTicketComponent).closed.subscribe(() => ticketStore.load());
         },
-        openEditDialog: (ticket: any) => {
+        openEditDialog: (ticket: Ticket) => {
           dialog.open(UpdateTicketComponent, { data: ticket }).closed.subscribe(() => ticketStore.load());
         },
         getStateBadgeClass: (state: string) => {
@@ -91,8 +92,8 @@ export function createMyTicketsViewModel() {
             default: return 'priority-medium';
           }
         },
-        getAssigneeName: (ticket: any) => ticket.teamMemberName || 'Unassigned',
-        getAssigneeInitials: (ticket: any) => {
+        getAssigneeName: (ticket: Ticket) => ticket.teamMemberName || 'Unassigned',
+        getAssigneeInitials: (ticket: Ticket) => {
           const name = ticket.teamMemberName;
           if (!name) return '?';
           const parts = name.trim().split(/\s+/);

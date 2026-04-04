@@ -7,7 +7,7 @@ import { createKanbanViewModel } from './create-kanban-view-model';
 import { PushPipe } from '@ngrx/component';
 import { KanbanBoardControlsComponent } from '../kanban-board-controls';
 import { KanbanBoardComponent } from '../kanban-board';
-import { BoardState, Ticket } from '@api';
+import { Board, BoardState, Ticket } from '@api';
 import { MatIconModule } from '@angular/material/icon';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { CreateTicketComponent } from '../create-ticket';
@@ -101,7 +101,7 @@ export class KanbanComponent implements OnDestroy {
     return this._pillColors[index % this._pillColors.length];
   }
 
-  public handleNewTicket(board: any) {
+  public handleNewTicket(board: Board) {
     this._dialog.open(CreateTicketComponent, {
       data: { board }
     });

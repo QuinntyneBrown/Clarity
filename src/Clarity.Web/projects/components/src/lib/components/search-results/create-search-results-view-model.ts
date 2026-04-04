@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { combineLatest, map, Subject, startWith } from "rxjs";
 import { TicketStore } from "../../stores";
 import { TeamMemberStore } from "../../stores";
+import { Ticket } from "@api";
 import { Dialog } from "@angular/cdk/dialog";
 import { UpdateTicketComponent } from "../update-ticket";
 
@@ -63,7 +64,7 @@ export function createSearchResultsViewModel() {
         },
         setFilter: (filter: string) => filterSubject.next(filter),
         goBack: () => router.navigate(['/kanban']),
-        openTicket: (ticket: any) => {
+        openTicket: (ticket: Ticket) => {
           dialog.open(UpdateTicketComponent, { data: ticket }).closed.subscribe();
         },
         getStateBadgeClass: (state: string) => {
