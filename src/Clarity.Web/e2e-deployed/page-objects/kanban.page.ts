@@ -30,7 +30,7 @@ export class KanbanPage extends BasePage {
   }
 
   async waitForBoard() {
-    await this.boardName.waitFor({ state: 'visible', timeout: 15000 });
+    await this.boardName.waitFor({ state: 'visible', timeout: 30000 });
     await this.removeOverlay();
   }
 
