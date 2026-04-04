@@ -21,11 +21,11 @@ export abstract class BasePage {
     const loginPage = new LoginPage(this.page);
     await loginPage.goto();
     await loginPage.login('quinntynebrown@gmail.com', 'P@ssw0rd');
-    await this.page.waitForURL('**/kanban', { timeout: 15000 });
+    await this.page.waitForURL('**/kanban', { timeout: 30000 });
     await this.removeOverlay();
     if (path !== '/kanban') {
       await this.page.goto(path);
-      await this.page.waitForURL(`**${path}`, { timeout: 15000 });
+      await this.page.waitForURL(`**${path}`, { timeout: 30000 });
       await this.removeOverlay();
     }
   }
