@@ -9,9 +9,16 @@
 
 .dialog-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  padding: 20px 24px 12px;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--color-border);
+
+  .header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
 
   h1 {
     margin: 0;
@@ -20,16 +27,22 @@
     color: var(--color-text-primary);
   }
 
+  .dialog-subtitle {
+    margin: 0;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+  }
+
   .close-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 32px;
     height: 32px;
-    border: none;
+    border: 1px solid var(--color-border);
     background: none;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 6px;
     color: var(--color-text-secondary);
     transition: background-color 0.15s;
 

@@ -1,6 +1,9 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
   <div class="dialog-header">
-    <h1>Edit Initiative</h1>
+    <div class="header-text">
+      <h1>Edit Initiative</h1>
+      <p class="dialog-subtitle">Update initiative details</p>
+    </div>
     <button class="close-btn" type="button" (click)="vm.cancel()">
       <mat-icon>close</mat-icon>
     </button>

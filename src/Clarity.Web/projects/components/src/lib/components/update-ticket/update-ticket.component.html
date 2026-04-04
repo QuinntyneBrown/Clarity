@@ -1,6 +1,9 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
   <div class="dialog-header">
-    <h1>Update Ticket</h1>
+    <div class="header-text">
+      <h1>Update Ticket</h1>
+      <p class="dialog-subtitle">Edit ticket details</p>
+    </div>
     <button class="close-btn" type="button" (click)="vm.cancel()">
       <mat-icon>close</mat-icon>
     </button>
@@ -74,7 +77,10 @@
     </button>
     <div class="footer-right">
       <button mat-button class="cancel-btn" (click)="vm.cancel()">Cancel</button>
-      <button mat-flat-button color="primary" class="update-btn" (click)="vm.save()">Update</button>
+      <button mat-flat-button color="primary" class="update-btn" (click)="vm.save()">
+        <mat-icon>check</mat-icon>
+        Update Ticket
+      </button>
     </div>
   </div>
 </ng-container>

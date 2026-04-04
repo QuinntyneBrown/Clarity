@@ -1,6 +1,9 @@
 <ng-container *ngIf="vm$ | ngrxPush as vm">
   <div class="dialog-header">
-    <h1>Create Initiative</h1>
+    <div class="header-text">
+      <h1>Create New Initiative</h1>
+      <p class="dialog-subtitle">Add a strategic initiative to track progress</p>
+    </div>
     <button class="close-btn" type="button" (click)="vm.cancel()">
       <mat-icon>close</mat-icon>
     </button>
