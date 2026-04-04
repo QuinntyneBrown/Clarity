@@ -1,0 +1,51 @@
+@startuml sequence_page_load
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Page Load - My Tickets
+
+actor User
+participant "MyTicketsComponent" as Comp
+participant "MyTicketsStore" as Store
+participant "TicketService" as TS
+participant "TeamMemberService" as TMS
+database "API Server" as API
+
+User -> Comp: Navigate to /my-tickets
+activate Comp
+
+Comp -> Store: <<create>> (component provider)
+activate Store
+Comp -> Store: load()
+
+Store -> Store: setLoading()
+note right: loading=true, error=null
+
+Store -> TS: get()
+activate TS
+Store -> TMS: get()
+activate TMS
+
+TS -> API: GET /api/ticket
+TMS -> API: GET /api/team-member
+
+API --> TS: Ticket[]
+deactivate TS
+API --> TMS: TeamMember[]
+deactivate TMS
+
+Store -> Store: patchState({tickets, teamMembers})
+Store -> Store: setLoaded()
+note right: loading=false
+
+Store --> Comp: filteredTickets$ emits
+Comp --> User: Render ticket list
+
+== User navigates away ==
+
+User -> Comp: Navigate to /kanban
+destroy Store
+note right: Store destroyed,\nall subscriptions complete
+destroy Comp
+
+@enduml

@@ -1,0 +1,54 @@
+@startuml sequence_dialog_crud
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Dialog CRUD - Update Ticket
+
+participant "MyTicketsComponent" as Parent
+participant "MyTicketsStore" as PStore
+participant "Dialog CDK" as Dialog
+participant "UpdateTicketComponent" as DComp
+participant "UpdateTicketStore" as DStore
+participant "TicketService" as TS
+database "API Server" as API
+
+Parent -> PStore: openEditDialog(ticket)
+PStore -> Dialog: open(UpdateTicketComponent, {data: ticket})
+activate Dialog
+
+Dialog -> DComp: <<create>>
+activate DComp
+DComp -> DStore: <<create>> (component provider)
+activate DStore
+DStore -> DStore: init form from DIALOG_DATA
+DStore -> DStore: loadOptions()
+
+DStore -> TS: getStates(), getTeamMembers()
+TS -> API: HTTP requests
+API --> TS: options data
+TS --> DStore: states, teamMembers, initiatives
+
+DStore --> DComp: selectors emit
+DComp --> Dialog: Render form
+
+== User edits and saves ==
+
+DComp -> DStore: save()
+DStore -> DStore: setLoading()
+DStore -> TS: update({ticket: merged})
+activate TS
+TS -> API: PUT /api/ticket
+API --> TS: 200 OK
+deactivate TS
+
+DStore -> Dialog: dialogRef.close(true)
+deactivate DStore
+deactivate DComp
+
+Dialog --> PStore: closed$ emits true
+deactivate Dialog
+
+PStore -> PStore: load()
+note right: Refresh ticket list
+
+@enduml

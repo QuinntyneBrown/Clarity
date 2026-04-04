@@ -1,0 +1,20 @@
+@startuml c4_context
+!theme plain
+!include <C4/C4_Context>
+
+title Clarity - System Context
+
+Person(user, "Team Member", "Manages tickets, boards, and initiatives")
+Person(admin, "Admin", "Manages users, roles, and system settings")
+
+System(clarity, "Clarity", "Project management SPA\nAngular 19 + ASP.NET Core")
+
+System_Ext(azure_sql, "Azure SQL", "Persistent data storage")
+System_Ext(azure_blob, "Azure Blob Storage", "Digital asset storage")
+
+Rel(user, clarity, "Uses", "HTTPS")
+Rel(admin, clarity, "Administers", "HTTPS")
+Rel(clarity, azure_sql, "Reads/Writes", "SQL")
+Rel(clarity, azure_blob, "Uploads/Downloads", "HTTPS")
+
+@enduml

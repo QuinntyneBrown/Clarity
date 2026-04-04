@@ -1,0 +1,19 @@
+@startuml c4_container
+!theme plain
+!include <C4/C4_Container>
+
+title Clarity - Container Diagram
+
+Person(user, "Team Member", "Manages tickets and boards")
+
+System_Boundary(clarity, "Clarity") {
+    Container(spa, "Angular SPA", "Angular 19, TypeScript", "Single-page application with\ncomponent stores per component")
+    Container(api, "ASP.NET Core API", "C#, .NET 9", "RESTful API serving\nJSON responses")
+    ContainerDb(db, "Azure SQL Database", "SQL Server", "Stores tickets, boards,\nteam members, initiatives")
+}
+
+Rel(user, spa, "Uses", "HTTPS")
+Rel(spa, api, "Calls", "JSON/HTTPS")
+Rel(api, db, "Reads/Writes", "EF Core")
+
+@enduml

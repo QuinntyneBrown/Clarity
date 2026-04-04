@@ -1,0 +1,32 @@
+@startuml sequence_search_filter
+!theme plain
+skinparam sequenceMessageAlign center
+
+title Search and Filter - Client Side
+
+actor User
+participant "MyTicketsComponent" as Comp
+participant "MyTicketsStore" as Store
+
+note over Store: State already loaded:\ntickets[], teamMembers[],\nsearchTerm='', activeFilter='all'
+
+== Search ==
+
+User -> Comp: Type "bug fix" in search
+Comp -> Store: setSearchTerm("bug fix")
+Store -> Store: patchState({searchTerm: "bug fix"})
+Store --> Comp: filteredTickets$ recomputes
+note right: Selector combines tickets +\nsearchTerm + activeFilter
+Comp --> User: Render filtered list
+
+== Filter ==
+
+User -> Comp: Click "In Progress" chip
+Comp -> Store: setFilter("in-progress")
+Store -> Store: patchState({activeFilter: "in-progress"})
+Store --> Comp: filteredTickets$ recomputes
+Comp --> User: Render filtered list
+
+note over Store: No HTTP calls made.\nFiltering is pure\nstate transformation.
+
+@enduml

@@ -1,0 +1,16 @@
+@startuml c4_component_after
+!theme plain
+!include <C4/C4_Component>
+
+title Target Architecture - Component Store Per Component
+
+Container_Boundary(spa, "Angular SPA (Target)") {
+    Component(comp, "Component", "Angular", "Injects store, binds selectors\nproviders: [MyTicketsStore]")
+    Component(compStore, "Component Store", "BaseComponentStore", "Component-scoped lifecycle\nState + Selectors + Effects")
+    Component(service, "API Service", "Angular Service", "Stateless HTTP wrapper")
+}
+
+Rel(comp, compStore, "inject() + store.load()")
+Rel(compStore, service, "inject() + HTTP calls")
+
+@enduml

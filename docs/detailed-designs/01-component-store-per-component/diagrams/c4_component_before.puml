@@ -1,0 +1,19 @@
+@startuml c4_component_before
+!theme plain
+!include <C4/C4_Component>
+
+title Current Architecture - Root Stores + View Model Factories
+
+Container_Boundary(spa, "Angular SPA (Current)") {
+    Component(comp, "Component", "Angular", "Calls factory, binds vm$")
+    Component(factory, "createViewModel()", "Function", "Combines stores, services,\nRxJS subjects into Observable")
+    Component(rootStore, "Root Store", "ComponentStore", "providedIn: root\nShared singleton state")
+    Component(service, "API Service", "Angular Service", "HTTP calls to backend")
+}
+
+Rel(comp, factory, "vm$ = createViewModel()")
+Rel(factory, rootStore, "inject() + select()")
+Rel(factory, service, "inject() + HTTP calls")
+Rel(rootStore, service, "inject()")
+
+@enduml

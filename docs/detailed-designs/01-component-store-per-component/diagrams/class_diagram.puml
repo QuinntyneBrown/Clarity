@@ -1,0 +1,78 @@
+@startuml class_diagram
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam classFontSize 11
+
+title Component Store Per Component - Class Diagram
+
+abstract class "ComponentStore<T>" as CS {
+    #state$: Observable<T>
+    +select(selector): Observable
+    +updater(fn): void
+    +effect(fn): void
+    +patchState(partial): void
+    +get(): T
+}
+
+abstract class "BaseComponentStore<T>" as BCS {
+    +loading$: Observable<boolean>
+    +error$: Observable<string | null>
+    +setLoading(): void
+    +setLoaded(): void
+    +setError(msg: string): void
+}
+
+interface "BaseState" as BS {
+    +loading: boolean
+    +error: string | null
+}
+
+class MyTicketsStore {
+    -_ticketService: TicketService
+    -_teamMemberService: TeamMemberService
+    -_dialog: Dialog
+    +filteredTickets$: Observable<Ticket[]>
+    +load(): void
+    +setSearchTerm(term: string): void
+    +setFilter(filter: string): void
+    +openCreateDialog(): void
+    +openEditDialog(ticket: Ticket): void
+}
+
+class KanbanStore {
+    -_boardService: BoardService
+    -_ticketService: TicketService
+    -_teamMemberService: TeamMemberService
+    +ticketsByState$: Observable<Map>
+    +loadBoard(name: string): void
+    +moveTicket(id, stateId): void
+    +reload(): void
+}
+
+class UpdateTicketStore {
+    -_ticketService: TicketService
+    -_dialogRef: DialogRef
+    +form$: Observable<FormGroup>
+    +loadOptions(): void
+    +save(): void
+    +delete(): void
+    +cancel(): void
+}
+
+class "TicketService" as TS {
+    +get(): Observable<Ticket[]>
+    +create(ticket): Observable
+    +update(ticket): Observable
+    +delete(ticket): Observable
+}
+
+CS <|-- BCS
+BCS ..|> BS : "T extends BaseState"
+BCS <|-- MyTicketsStore
+BCS <|-- KanbanStore
+BCS <|-- UpdateTicketStore
+MyTicketsStore --> TS : injects
+KanbanStore --> TS : injects
+UpdateTicketStore --> TS : injects
+
+@enduml
