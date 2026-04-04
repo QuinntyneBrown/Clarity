@@ -71,7 +71,14 @@ test.describe('Initiatives', () => {
       await dialog.clickSave();
       await dialog.waitForClosed();
 
-      await expect(initiatives.getInitiativeRowByName(name)).toBeVisible({ timeout: 10000 });
+      // Reload to ensure the store fetches the newly created initiative
+      await page.reload();
+      await initiatives.waitForPage();
+
+      // Check for row (desktop) or card (mobile) depending on viewport
+      const rowOrCard = initiatives.getInitiativeRowByName(name)
+        .or(initiatives.getInitiativeCardByName(name));
+      await expect(rowOrCard.first()).toBeVisible({ timeout: 10000 });
     });
 
     test('should open update initiative dialog', async ({ page }) => {

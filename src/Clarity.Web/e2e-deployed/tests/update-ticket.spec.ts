@@ -131,11 +131,15 @@ test.describe('Update Ticket', () => {
       const updatedName = 'Updated Mobile ' + Date.now();
       await editor.fillName(updatedName);
 
+      // On mobile viewport the desktop save-btn is hidden; use whichever is visible
+      const isMobileSaveVisible = await editor.mobileSaveButton.isVisible().catch(() => false);
+      const visibleSaveBtn = isMobileSaveVisible ? editor.mobileSaveButton : editor.saveButton;
+
       const responsePromise = page.waitForResponse(
         resp => resp.url().includes('/api/1.0/ticket') && resp.request().method() === 'PUT',
         { timeout: 15000 }
       );
-      await (editor.mobileSaveButton.or(editor.saveButton)).first().click();
+      await visibleSaveBtn.click();
       await responsePromise;
 
       await page.goto('/kanban');

@@ -159,7 +159,13 @@ test.describe('Ticket Editor', () => {
       await createTicketViaDialog(page, ticketName);
 
       const editor = await navigateToEditorViaKanban(page, ticketName);
-      await expect(editor.mobileSaveButton.or(editor.saveButton).first()).toBeVisible();
+
+      // On mobile viewport the desktop save-btn is hidden via CSS and the
+      // mobile-action-bar (with .save-btn-mobile) is shown instead.
+      // Check that at least one save button is visible.
+      const isMobileSaveVisible = await editor.mobileSaveButton.isVisible().catch(() => false);
+      const isDesktopSaveVisible = await editor.saveButton.isVisible().catch(() => false);
+      expect(isMobileSaveVisible || isDesktopSaveVisible).toBe(true);
     });
   });
 });

@@ -35,11 +35,11 @@ export class FileEditorPage {
   }
 
   async setContent(content: string) {
+    // Clear and type content using keyboard to ensure Angular's ngModel detects changes
     await this.codeTextarea.click();
-    // Select all existing content and replace it by typing, which properly
-    // triggers Angular's ngModel change detection via native input events
     await this.codeTextarea.press('Control+a');
-    await this.codeTextarea.pressSequentially(content, { delay: 10 });
+    await this.codeTextarea.press('Backspace');
+    await this.codeTextarea.type(content, { delay: 0 });
   }
 
   async clickSave() {
