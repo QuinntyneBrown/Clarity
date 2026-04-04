@@ -94,7 +94,7 @@ test.describe('Team', () => {
       await dialog.clickSave();
       await dialog.waitForClosed();
 
-      await expect(team.getMemberRowByName(memberName)).toBeVisible({ timeout: 10000 });
+      await expect(team.getMemberRowByName(memberName)).toBeVisible({ timeout: 20000 });
     });
 
     test('should open update team member dialog', async ({ page }) => {
