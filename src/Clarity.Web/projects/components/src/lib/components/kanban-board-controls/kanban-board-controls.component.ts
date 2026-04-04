@@ -14,6 +14,8 @@ import { SelectBoardComponent } from '../select-board';
 import { CreateBoardComponent } from '../create-board';
 import { CloneBoardComponent } from '../clone-board';
 import { DeleteBoardComponent } from '../delete-board';
+import { Destroyable } from '../../base';
+import { takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-kanban-board-controls',
@@ -28,7 +30,7 @@ import { DeleteBoardComponent } from '../delete-board';
     templateUrl: './kanban-board-controls.component.html',
     styleUrls: ['./kanban-board-controls.component.scss']
 })
-export class KanbanBoardControlsComponent {
+export class KanbanBoardControlsComponent extends Destroyable {
   public vm$ = createKanbanBoardControlsViewModel();
 
   private readonly _dialog = inject(Dialog);
@@ -59,25 +61,24 @@ export class KanbanBoardControlsComponent {
     const dialogRef = this._dialog.open(SelectBoardComponent, {
       data: { currentBoardId: this.board?.boardId }
     });
-    dialogRef.closed.subscribe((result) => {
+    dialogRef.closed.pipe(takeUntil(this._destroyed$)).subscribe((result) => {
       if (!result) return;
       if (typeof result === 'string') {
         this.boardSelected.emit(result);
-      } else if ((result as any).action === 'create') {
-        this.handleCreateBoardClick();
-      } else if ((result as any).action === 'clone') {
-        this.handleCloneBoardClick();
-      } else if ((result as any).action === 'delete') {
-        this.handleDeleteBoardClick();
+      } else if (result && typeof result === 'object') {
+        const action = (result as { action: string }).action;
+        if (action === 'create') this.handleCreateBoardClick();
+        else if (action === 'clone') this.handleCloneBoardClick();
+        else if (action === 'delete') this.handleDeleteBoardClick();
       }
     });
   }
 
   public handleCreateBoardClick() {
     const dialogRef = this._dialog.open(CreateBoardComponent);
-    dialogRef.closed.subscribe((result: any) => {
-      if (result && result.name) {
-        this.boardSelected.emit(result.name);
+    dialogRef.closed.pipe(takeUntil(this._destroyed$)).subscribe((result) => {
+      if (result && typeof result === 'object' && 'name' in result) {
+        this.boardSelected.emit((result as { name: string }).name);
       }
     });
   }
@@ -86,7 +87,7 @@ export class KanbanBoardControlsComponent {
     const dialogRef = this._dialog.open(CloneBoardComponent, {
       data: { board: this.board }
     });
-    dialogRef.closed.subscribe((result) => {
+    dialogRef.closed.pipe(takeUntil(this._destroyed$)).subscribe((result) => {
       if (result) {
         this.boardCloned.emit();
       }
@@ -97,7 +98,7 @@ export class KanbanBoardControlsComponent {
     const dialogRef = this._dialog.open(DeleteBoardComponent, {
       data: { board: this.board }
     });
-    dialogRef.closed.subscribe((result) => {
+    dialogRef.closed.pipe(takeUntil(this._destroyed$)).subscribe((result) => {
       if (result) {
         this.boardDeleted.emit();
       }

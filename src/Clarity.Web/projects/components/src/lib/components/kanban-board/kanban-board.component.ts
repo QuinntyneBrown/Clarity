@@ -67,7 +67,7 @@ export class KanbanBoardComponent extends Destroyable {
       const ticket: Ticket = event.container.data[event.currentIndex] as Ticket;
 
       ticket.boardStateId = state.boardStateId;
-      ticket.state = state.type as any;
+      ticket.state = String(state.type);
       ticket.age = 0;
 
       this._ticketService
@@ -82,7 +82,7 @@ export class KanbanBoardComponent extends Destroyable {
     const dialogRef = this._dialog.open(DeleteBoardStateComponent, {
       data: { boardState, ticketCount }
     });
-    dialogRef.closed.subscribe((result) => {
+    dialogRef.closed.pipe(takeUntil(this._destroyed$)).subscribe((result) => {
       if (result) {
         this.boardStateDeleted.emit();
       }
