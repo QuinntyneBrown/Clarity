@@ -45,81 +45,150 @@
   }
 }
 
-// Desktop Table
-.table-container {
+// Cards Grid
+.cards-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.initiative-card {
   background: var(--color-bg-white);
   border-radius: 12px;
   border: 1px solid var(--color-border);
-  overflow: hidden;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.initiatives-table {
-  width: 100%;
-  border-collapse: collapse;
-
-  th {
-    padding: 12px 16px;
-    text-align: left;
-    font-family: var(--font-family);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    background: var(--color-bg-page);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  td {
-    padding: 12px 16px;
-    font-family: var(--font-family);
-    font-size: 14px;
-    color: var(--color-text-primary);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .initiative-row {
-    transition: background-color 0.15s;
-
-    &:hover {
-      background: var(--color-bg-page);
-    }
-
-    &:last-child td {
-      border-bottom: none;
-    }
-  }
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .initiative-name {
-  font-weight: 500;
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 700;
   color: var(--color-text-primary);
 }
 
+.initiative-badge {
+  font-family: var(--font-family);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+
+  &.badge-active {
+    background: #DCFCE7;
+    color: #16A34A;
+  }
+
+  &.badge-in-progress {
+    background: #FEF3C7;
+    color: #D97706;
+  }
+
+  &.badge-completed {
+    background: #DBEAFE;
+    color: #2563EB;
+  }
+
+  &.badge-default {
+    background: #F3F4F6;
+    color: #6B7280;
+  }
+}
+
 .initiative-description {
+  font-family: var(--font-family);
   color: var(--color-text-secondary);
   font-size: 13px;
-  max-width: 300px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.4;
 }
 
-.ticket-count-badge {
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 12px;
+// Progress
+.progress-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.progress-label {
+  font-family: var(--font-family);
   font-size: 12px;
   font-weight: 500;
-  background: #E8F5E9;
-  color: #2E7D32;
-  font-family: var(--font-family);
+  color: var(--color-text-secondary);
 }
 
-.actions-col {
-  text-align: right;
-  width: 150px;
-  white-space: nowrap;
+.progress-value {
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background: #F3F4F6;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+// Card Footer
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-stats {
+  font-family: var(--font-family);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.view-report-link {
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Card Actions
+.card-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon-action {
+  padding: 4px;
 }
 
 .action-btn {
@@ -148,36 +217,6 @@
   }
 }
 
-// Mobile Cards
-.initiative-card {
-  background: var(--color-bg-white);
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
-  padding: 16px;
-  margin-bottom: 12px;
-}
-
-.card-top {
-  margin-bottom: 12px;
-}
-
-.card-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.card-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.card-actions {
-  display: flex;
-  gap: 4px;
-}
-
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -185,6 +224,7 @@
   justify-content: center;
   padding: 48px 24px;
   color: var(--color-text-secondary);
+  grid-column: 1 / -1;
 
   mat-icon {
     font-size: 48px;
@@ -201,25 +241,17 @@
   }
 }
 
-// Responsive
-.desktop-only {
-  display: none;
-}
-
-.mobile-only {
-  display: block;
-}
-
 @media (min-width: 768px) {
-  .desktop-only {
-    display: block;
-  }
-
-  .mobile-only {
-    display: none !important;
-  }
-
   .initiatives-page {
     padding: 24px 32px;
+  }
+
+  .cards-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .card-actions-row {
+    opacity: 0;
   }
 }

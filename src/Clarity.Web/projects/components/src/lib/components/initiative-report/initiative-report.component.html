@@ -13,20 +13,20 @@
     <!-- Metrics Grid -->
     <div class="metrics-grid">
       <div class="metric-card">
-        <div class="metric-value">{{ vm.report.totalTickets || 0 }}</div>
+        <div class="metric-value purple">{{ vm.report.totalTickets || 0 }}</div>
         <div class="metric-label">Total Tickets</div>
       </div>
       <div class="metric-card">
-        <div class="metric-value">{{ vm.report.totalStoryPoints || 0 }}</div>
-        <div class="metric-label">Story Points</div>
+        <div class="metric-value green">{{ vm.report.percentComplete || 0 }}%</div>
+        <div class="metric-label">Completion Rate</div>
       </div>
       <div class="metric-card">
-        <div class="metric-value">{{ vm.report.totalEffort || 0 }}</div>
-        <div class="metric-label">Total Effort</div>
+        <div class="metric-value amber">{{ vm.report.inProgressTickets || 0 }}</div>
+        <div class="metric-label">In Progress</div>
       </div>
-      <div class="metric-card highlight">
-        <div class="metric-value">{{ vm.report.percentComplete || 0 }}%</div>
-        <div class="metric-label">Complete</div>
+      <div class="metric-card">
+        <div class="metric-value red">{{ vm.report.backlogTickets || 0 }}</div>
+        <div class="metric-label">Blocked</div>
       </div>
     </div>
 

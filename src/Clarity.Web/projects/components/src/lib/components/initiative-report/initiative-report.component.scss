@@ -56,23 +56,18 @@
   border: 1px solid var(--color-border);
   padding: 20px;
   text-align: center;
-
-  &.highlight {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-
-    .metric-value,
-    .metric-label {
-      color: white;
-    }
-  }
 }
 
 .metric-value {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   color: var(--color-text-primary);
   font-family: var(--font-family);
+
+  &.purple { color: #7D00FA; }
+  &.green { color: #16A34A; }
+  &.amber { color: #D97706; }
+  &.red { color: #EF4444; }
 }
 
 .metric-label {

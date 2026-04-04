@@ -2,6 +2,7 @@
   <div class="kanban-column" *ngFor="let boardState of boardStates">
     <div class="column-header">
       <div class="column-title-group">
+        <span class="column-dot" [style.background-color]="getColumnDotColor(boardStates.indexOf(boardState))"></span>
         <span class="column-title">{{ boardState.name }}</span>
         <span class="column-count">{{ ticketsByState(tickets, boardState).length }}</span>
       </div>

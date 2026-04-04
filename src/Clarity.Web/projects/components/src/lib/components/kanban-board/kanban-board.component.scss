@@ -35,6 +35,13 @@
   gap: 8px;
 }
 
+.column-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
 .column-title {
   font-family: var(--font-family);
   font-size: 14px;
@@ -43,13 +50,17 @@
 }
 
 .column-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-family);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
   color: var(--color-text-secondary);
   background: var(--color-bg-page);
-  padding: 1px 7px;
-  border-radius: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 11px;
 }
 
 .column-delete-btn {

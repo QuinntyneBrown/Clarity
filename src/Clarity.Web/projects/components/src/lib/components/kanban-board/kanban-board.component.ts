@@ -47,6 +47,12 @@ export class KanbanBoardComponent extends Destroyable {
 
   @Output() public boardStateDeleted = new EventEmitter<void>();
 
+  private readonly _columnDotColors = ['#6B7280', '#D97706', '#16A34A', '#5B21B6', '#DC2626', '#155E75'];
+
+  public getColumnDotColor(index: number): string {
+    return this._columnDotColors[index % this._columnDotColors.length];
+  }
+
   public ticketsByState(tickets: Ticket[], state: BoardState) {
     return tickets.filter(t => t.boardStateId === state.boardStateId);
   }

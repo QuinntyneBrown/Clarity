@@ -16,10 +16,10 @@ export class InitiativesPage extends BasePage {
     this.pageTitle = page.locator('app-initiatives h1');
     this.searchInput = page.locator('app-initiatives app-search-input input');
     this.addInitiativeButton = page.locator('app-initiatives .add-btn');
-    this.initiativeRows = page.locator('app-initiatives .initiative-row');
+    this.initiativeRows = page.locator('app-initiatives .initiative-card');
     this.initiativeCards = page.locator('app-initiatives .initiative-card');
     this.emptyState = page.locator('app-initiatives .empty-state');
-    this.tableContainer = page.locator('app-initiatives .table-container');
+    this.tableContainer = page.locator('app-initiatives .cards-container');
     this.cardsContainer = page.locator('app-initiatives .cards-container');
   }
 
