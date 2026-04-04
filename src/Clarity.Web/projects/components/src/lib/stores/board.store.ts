@@ -25,18 +25,18 @@ export class BoardStore extends ComponentStore<BoardState> {
         super(initialBoardState);
     }
 
-    readonly save = (board:Board, nextFn: {(response:any): void} | null = null, errorFn: {(response:any): void} | null = null) => {
+    readonly save = (board: Board, nextFn: ((response: unknown) => void) | null = null, errorFn: ((error: unknown) => void) | null = null) => {
 
         const apiRequest$ = board.boardId
-            ? this._boardService.update({ board }).pipe(map((r: any) => r))
-            : this._boardService.create({ name: board.name, states: board.states?.map(s => s.name) }).pipe(map((r: any) => r));
+            ? this._boardService.update({ board }).pipe(map(() => ({ board })))
+            : this._boardService.create({ name: board.name, states: board.states?.map(s => s.name) });
 
         return this.effect<void>(
-            exhaustMap(()=> apiRequest$.pipe(
+            exhaustMap(() => apiRequest$.pipe(
                 withLatestFrom(this.select(x => x.boards)),
-                tap(([response, boards]: [any, Board[]]) => {
+                tap(([response, boards]) => {
                     if (board.boardId) {
-                        this.patchState({ boards: boards.map(t => response.board?.boardId == t.boardId ? response.board : t) });
+                        this.patchState({ boards: boards.map(t => response.board?.boardId === t.boardId ? response.board : t) });
                     } else {
                         this.patchState({ boards: [...boards, response.board] });
                     }
@@ -50,10 +50,10 @@ export class BoardStore extends ComponentStore<BoardState> {
     }
 
     readonly delete = this.effect<Board>(
-        exhaustMap((board) => this._boardService.delete({ board: board }).pipe(
-            withLatestFrom(this.select(x => x.boards )),
+        exhaustMap((board) => this._boardService.delete({ board }).pipe(
+            withLatestFrom(this.select(x => x.boards)),
             tapResponse(
-                ([_, boards]: [any, Board[]]) => this.patchState({ boards: boards.filter(t => t.boardId != board.boardId )}),
+                ([_, boards]: [void, Board[]]) => this.patchState({ boards: boards.filter(t => t.boardId !== board.boardId) }),
                 noop
             )
         ))

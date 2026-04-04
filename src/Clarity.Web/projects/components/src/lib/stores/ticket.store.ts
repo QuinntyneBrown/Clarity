@@ -25,19 +25,19 @@ export class TicketStore extends ComponentStore<TicketState> {
         super(initialTicketState);
     }
 
-    readonly save = (ticket:Ticket, nextFn: {(response:any): void} | null = null, errorFn: {(response:any): void} | null = null) => {
+    readonly save = (ticket: Ticket, nextFn: ((response: unknown) => void) | null = null, errorFn: ((error: unknown) => void) | null = null) => {
 
         const apiRequest$ = ticket.ticketId ? this._ticketService.update({ ticket }) : this._ticketService.create({ ticket });
 
-        const updateFn = ticket?.ticketId ? ([_, tickets]: [any, Ticket[]]) => this.patchState({
-            tickets: tickets.map(t => t.ticketId == ticket.ticketId ? ticket : t)
+        const updateFn = ticket?.ticketId ? ([_, tickets]: [{ ticketId: string }, Ticket[]]) => this.patchState({
+            tickets: tickets.map(t => t.ticketId === ticket.ticketId ? ticket : t)
         })
-        : ([response, tickets]: [any, Ticket[]]) => this.patchState({
+        : ([response, tickets]: [{ ticketId: string }, Ticket[]]) => this.patchState({
             tickets: [...tickets, { ...ticket, ticketId: response.ticketId }]
         });
 
         return this.effect<void>(
-            exhaustMap(()=> apiRequest$.pipe(
+            exhaustMap(() => apiRequest$.pipe(
                 withLatestFrom(this.select(x => x.tickets)),
                 tap(updateFn),
                 tapResponse(
@@ -49,10 +49,10 @@ export class TicketStore extends ComponentStore<TicketState> {
     }
 
     readonly delete = this.effect<Ticket>(
-        exhaustMap((ticket) => this._ticketService.delete({ ticket: ticket }).pipe(
-            withLatestFrom(this.select(x => x.tickets )),
+        exhaustMap((ticket) => this._ticketService.delete({ ticket }).pipe(
+            withLatestFrom(this.select(x => x.tickets)),
             tapResponse(
-                ([_, tickets]: [any, Ticket[]]) => this.patchState({ tickets: tickets.filter(t => t.ticketId != ticket.ticketId )}),
+                ([_, tickets]: [void, Ticket[]]) => this.patchState({ tickets: tickets.filter(t => t.ticketId !== ticket.ticketId) }),
                 noop
             )
         ))

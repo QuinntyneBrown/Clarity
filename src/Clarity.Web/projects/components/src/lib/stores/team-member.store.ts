@@ -25,18 +25,17 @@ export class TeamMemberStore extends ComponentStore<TeamMemberState> {
         super(initialTeamMemberState);
     }
 
-    readonly save = (teamMember:TeamMember, nextFn: {(response:any): void} | null = null, errorFn: {(response:any): void} | null = null) => {
+    readonly save = (teamMember: TeamMember, nextFn: ((response: unknown) => void) | null = null, errorFn: ((error: unknown) => void) | null = null) => {
 
         const apiRequest$ = teamMember.teamMemberId ? this._teamMemberService.update({ teamMember }) : this._teamMemberService.create({ teamMember });
 
-        const updateFn = teamMember?.teamMemberId ? ([response, teamMembers]: [any, TeamMember[]]) => this.patchState({
-
-            teamMembers: teamMembers.map(t => response.teamMember.teamMemberId == t.teamMemberId ? response.teamMember : t)
+        const updateFn = teamMember?.teamMemberId ? ([response, teamMembers]: [{ teamMember: TeamMember }, TeamMember[]]) => this.patchState({
+            teamMembers: teamMembers.map(t => response.teamMember.teamMemberId === t.teamMemberId ? response.teamMember : t)
         })
-        :(([response, teamMembers]: [any, TeamMember[]]) => this.patchState({ teamMembers: [...teamMembers, response.teamMember ]}));
+        : (([response, teamMembers]: [{ teamMember: TeamMember }, TeamMember[]]) => this.patchState({ teamMembers: [...teamMembers, response.teamMember] }));
 
         return this.effect<void>(
-            exhaustMap(()=> apiRequest$.pipe(
+            exhaustMap(() => apiRequest$.pipe(
                 withLatestFrom(this.select(x => x.teamMembers)),
                 tap(updateFn),
                 tapResponse(
@@ -48,10 +47,10 @@ export class TeamMemberStore extends ComponentStore<TeamMemberState> {
     }
 
     readonly delete = this.effect<TeamMember>(
-        exhaustMap((teamMember) => this._teamMemberService.delete({ teamMember: teamMember }).pipe(
-            withLatestFrom(this.select(x => x.teamMembers )),
+        exhaustMap((teamMember) => this._teamMemberService.delete({ teamMember }).pipe(
+            withLatestFrom(this.select(x => x.teamMembers)),
             tapResponse(
-                ([_, teamMembers]: [any, TeamMember[]]) => this.patchState({ teamMembers: teamMembers.filter(t => t.teamMemberId != teamMember.teamMemberId )}),
+                ([_, teamMembers]: [void, TeamMember[]]) => this.patchState({ teamMembers: teamMembers.filter(t => t.teamMemberId !== teamMember.teamMemberId) }),
                 noop
             )
         ))

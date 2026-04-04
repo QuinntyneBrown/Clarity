@@ -25,18 +25,17 @@ export class InitiativeStore extends ComponentStore<InitiativeState> {
         super(initialInitiativeState);
     }
 
-    readonly save = (initiative:Initiative, nextFn: {(response:any): void} | null = null, errorFn: {(response:any): void} | null = null) => {
+    readonly save = (initiative: Initiative, nextFn: ((response: unknown) => void) | null = null, errorFn: ((error: unknown) => void) | null = null) => {
 
         const apiRequest$ = initiative.initiativeId ? this._initiativeService.update({ initiative }) : this._initiativeService.create({ initiative });
 
-        const updateFn = initiative?.initiativeId ? ([response, initiatives]: [any, Initiative[]]) => this.patchState({
-
-            initiatives: initiatives.map(t => response.initiative.initiativeId == t.initiativeId ? response.initiative : t)
+        const updateFn = initiative?.initiativeId ? ([response, initiatives]: [{ initiative: Initiative }, Initiative[]]) => this.patchState({
+            initiatives: initiatives.map(t => response.initiative.initiativeId === t.initiativeId ? response.initiative : t)
         })
-        :(([response, initiatives]: [any, Initiative[]]) => this.patchState({ initiatives: [...initiatives, response.initiative ]}));
+        : (([response, initiatives]: [{ initiative: Initiative }, Initiative[]]) => this.patchState({ initiatives: [...initiatives, response.initiative] }));
 
         return this.effect<void>(
-            exhaustMap(()=> apiRequest$.pipe(
+            exhaustMap(() => apiRequest$.pipe(
                 withLatestFrom(this.select(x => x.initiatives)),
                 tap(updateFn),
                 tapResponse(
@@ -48,10 +47,10 @@ export class InitiativeStore extends ComponentStore<InitiativeState> {
     }
 
     readonly delete = this.effect<Initiative>(
-        exhaustMap((initiative) => this._initiativeService.delete({ initiative: initiative }).pipe(
-            withLatestFrom(this.select(x => x.initiatives )),
+        exhaustMap((initiative) => this._initiativeService.delete({ initiative }).pipe(
+            withLatestFrom(this.select(x => x.initiatives)),
             tapResponse(
-                ([_, initiatives]: [any, Initiative[]]) => this.patchState({ initiatives: initiatives.filter(t => t.initiativeId != initiative.initiativeId )}),
+                ([_, initiatives]: [void, Initiative[]]) => this.patchState({ initiatives: initiatives.filter(t => t.initiativeId !== initiative.initiativeId) }),
                 noop
             )
         ))
