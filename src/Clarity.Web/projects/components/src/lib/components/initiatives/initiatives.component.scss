@@ -118,7 +118,8 @@
 
 .actions-col {
   text-align: right;
-  width: 120px;
+  width: 150px;
+  white-space: nowrap;
 }
 
 .action-btn {
@@ -219,6 +220,6 @@
   }
 
   .initiatives-page {
-    padding: 32px;
+    padding: 24px 32px;
   }
 }

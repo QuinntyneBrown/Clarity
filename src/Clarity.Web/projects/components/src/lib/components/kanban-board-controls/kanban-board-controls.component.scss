@@ -17,7 +17,7 @@
 .board-title-area {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .board-subtitle {
@@ -59,7 +59,7 @@
 .board-bar-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .board-action-btn {
@@ -112,9 +112,9 @@
 }
 
 .filter-bar-icon {
-  font-size: 18px;
-  width: 18px;
-  height: 18px;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
   color: var(--color-text-secondary);
 }
 
@@ -129,7 +129,7 @@
 .filter-chips {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -179,9 +179,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 11px;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
   font-family: var(--font-family);
   font-size: 9px;
   font-weight: 600;
