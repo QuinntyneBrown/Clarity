@@ -69,6 +69,15 @@ export class CreateTicketDialog {
     await this.saveButton.click();
   }
 
+  async clickSaveAndWaitForApi() {
+    const responsePromise = this.page.waitForResponse(
+      resp => resp.url().includes('/api/1.0/ticket') && resp.request().method() === 'PUT',
+      { timeout: 15000 }
+    );
+    await this.saveButton.click();
+    await responsePromise;
+  }
+
   async clickCancel() {
     await this.cancelButton.click();
   }
@@ -88,5 +97,20 @@ export class CreateTicketDialog {
       }
     }
     return labels;
+  }
+
+  async selectFirstAvailableState() {
+    // Use Playwright's native selectOption with the option value attribute, which Angular sets for [ngValue].
+    const options = this.stateSelect.locator('option');
+    const count = await options.count();
+    for (let i = 0; i < count; i++) {
+      const val = await options.nth(i).getAttribute('value');
+      const text = (await options.nth(i).innerText()).trim();
+      if (val && val !== '' && text !== 'Select status') {
+        // Use the actual value attribute that Angular assigned for [ngValue]
+        await this.stateSelect.selectOption(val);
+        return;
+      }
+    }
   }
 }

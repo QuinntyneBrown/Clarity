@@ -63,8 +63,14 @@ test.describe('Create Ticket', () => {
       await dialog.waitForOpen();
       await dialog.fillName(ticketName);
       await dialog.fillDescription('Test description for E2E ticket');
+      await dialog.fillAcceptanceCriteria('Test acceptance criteria');
+      await dialog.selectFirstAvailableState();
       await dialog.clickSave();
-      await dialog.waitForClosed();
+      await page.waitForTimeout(3000);
+
+      // Reload to ensure the board fetches the newly created ticket from the server
+      await page.reload();
+      await kanban.waitForBoard();
 
       const ticket = kanban.getTicketByName(ticketName);
       await expect(ticket).toBeVisible({ timeout: 10000 });
@@ -108,8 +114,15 @@ test.describe('Create Ticket', () => {
       const dialog = new CreateTicketDialog(page);
       await dialog.waitForOpen();
       await dialog.fillName(ticketName);
-      await dialog.clickSave();
+      await dialog.fillDescription('Mobile test description');
+      await dialog.fillAcceptanceCriteria('Mobile acceptance criteria');
+      await dialog.selectFirstAvailableState();
+      await dialog.clickSaveAndWaitForApi();
       await dialog.waitForClosed();
+
+      // Reload to ensure the board fetches the newly created ticket from the server
+      await page.reload();
+      await kanban.waitForBoard();
 
       const ticket = kanban.getTicketByName(ticketName);
       await expect(ticket).toBeVisible({ timeout: 10000 });

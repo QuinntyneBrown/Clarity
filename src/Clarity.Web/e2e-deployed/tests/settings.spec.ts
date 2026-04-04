@@ -42,7 +42,7 @@ test.describe('Settings', () => {
       await settings.goto();
       await settings.waitForSettings();
 
-      await expect(settings.panelTitle).toContainText('Notifications');
+      await expect(settings.panelTitle).toContainText('Notification Preferences');
     });
 
     test('should display notification toggles', async ({ page }) => {

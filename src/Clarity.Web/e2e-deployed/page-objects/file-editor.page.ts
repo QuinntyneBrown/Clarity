@@ -21,8 +21,8 @@ export class FileEditorPage {
     this.downloadButton = page.locator('[data-testid="editor-download-btn"]');
     this.codeTextarea = page.locator('[data-testid="code-textarea"]');
     this.editorContainer = page.locator('[data-testid="editor-container"]');
-    this.savedIndicator = page.locator('.save-indicator.saved');
-    this.savingIndicator = page.locator('.save-indicator.saving');
+    this.savedIndicator = page.locator('app-file-editor .save-indicator.saved');
+    this.savingIndicator = page.locator('app-file-editor .save-indicator.saving');
   }
 
   async waitForEditor() {
@@ -35,7 +35,11 @@ export class FileEditorPage {
   }
 
   async setContent(content: string) {
-    await this.codeTextarea.fill(content);
+    await this.codeTextarea.click();
+    // Select all existing content and replace it by typing, which properly
+    // triggers Angular's ngModel change detection via native input events
+    await this.codeTextarea.press('Control+a');
+    await this.codeTextarea.pressSequentially(content, { delay: 10 });
   }
 
   async clickSave() {

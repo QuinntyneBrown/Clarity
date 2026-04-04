@@ -61,9 +61,16 @@ test.describe('File Editor', () => {
           await editor.waitForEditor();
 
           await editor.setContent('Updated content');
-          await editor.clickSave();
 
-          // Should show saved indicator
+          // Wait for the save API response to confirm content was persisted
+          const responsePromise = page.waitForResponse(
+            resp => resp.url().includes('/api/1.0/digitalAsset/') && resp.url().includes('/content') && resp.request().method() === 'PUT',
+            { timeout: 15000 }
+          );
+          await editor.clickSave();
+          await responsePromise;
+
+          // Save indicator should appear after successful save
           await expect(editor.savedIndicator).toBeVisible({ timeout: 10000 });
         }
       }

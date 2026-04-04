@@ -45,7 +45,7 @@ test.describe('Profile', () => {
       await profile.goto();
       await profile.waitForProfile();
 
-      await expect(profile.firstNameInput).toHaveAttribute('readonly', '');
+      await expect(profile.firstNameInput).toHaveJSProperty('readOnly', true);
       await expect(profile.editButton).toBeVisible();
     });
 
@@ -55,7 +55,7 @@ test.describe('Profile', () => {
       await profile.waitForProfile();
 
       await profile.clickEdit();
-      await expect(profile.firstNameInput).not.toHaveAttribute('readonly', '');
+      await expect(profile.firstNameInput).toHaveJSProperty('readOnly', false);
       await expect(profile.saveButton).toBeVisible();
       await expect(profile.cancelButton).toBeVisible();
     });
@@ -69,7 +69,7 @@ test.describe('Profile', () => {
       await profile.fillFirstName('Temp Name');
       await profile.clickCancel();
 
-      await expect(profile.firstNameInput).toHaveAttribute('readonly', '');
+      await expect(profile.firstNameInput).toHaveJSProperty('readOnly', true);
       await expect(profile.editButton).toBeVisible();
     });
 
@@ -142,7 +142,7 @@ test.describe('Profile', () => {
       await profile.waitForProfile();
 
       await profile.clickEdit();
-      await expect(profile.firstNameInput).not.toHaveAttribute('readonly', '');
+      await expect(profile.firstNameInput).toHaveJSProperty('readOnly', false);
       await expect(profile.saveButton).toBeVisible();
     });
 

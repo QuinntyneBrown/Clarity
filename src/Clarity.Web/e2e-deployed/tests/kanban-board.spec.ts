@@ -104,7 +104,7 @@ test.describe('Kanban Board', () => {
 
       const columnCount = await kanban.getColumnCount();
       if (columnCount > 0) {
-        const deleteBtn = kanban.columns.first().locator('.delete-column-btn');
+        const deleteBtn = kanban.columns.first().locator('.column-delete-btn');
         await expect(deleteBtn).toBeVisible();
       }
     });

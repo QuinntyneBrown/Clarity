@@ -26,7 +26,7 @@ export function createCreateTicketViewModel() {
     state: new FormControl(null, [Validators.required]),
     description: new FormControl(null, [Validators.required]),
     acceptanceCriteria: new FormControl(null, [Validators.required]),
-    priority: new FormControl(null),
+    priority: new FormControl(0),
     teamMemberId: new FormControl(null),
     initiativeId: new FormControl(null)
   });

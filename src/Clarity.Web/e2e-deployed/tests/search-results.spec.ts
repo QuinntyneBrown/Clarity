@@ -23,7 +23,7 @@ test.describe('Search Results', () => {
       await search.goto();
       await search.waitForPage();
 
-      await expect(search.searchInput.first()).toBeVisible();
+      await expect(search.desktopSearchInput).toBeVisible();
     });
 
     test('should display filter chips', async ({ page }) => {
@@ -35,10 +35,11 @@ test.describe('Search Results', () => {
       expect(chipCount).toBeGreaterThanOrEqual(1);
     });
 
-    test('should show empty state when no search term', async ({ page }) => {
+    test('should show empty state when search has no matches', async ({ page }) => {
       const search = new SearchResultsPage(page);
-      await search.goto();
+      await search.goto('zzz-no-match-xyz-00000');
       await search.waitForPage();
+      await page.waitForTimeout(2000);
 
       await expect(search.emptyState).toBeVisible();
     });
@@ -114,7 +115,7 @@ test.describe('Search Results', () => {
       await search.goto();
       await search.waitForPage();
 
-      await expect(search.searchInput.first()).toBeVisible();
+      await expect(search.mobileSearchInput).toBeVisible();
     });
 
     test('should display filter chips on mobile', async ({ page }) => {
@@ -126,10 +127,11 @@ test.describe('Search Results', () => {
       expect(chipCount).toBeGreaterThanOrEqual(1);
     });
 
-    test('should show empty state on mobile', async ({ page }) => {
+    test('should show empty state on mobile when search has no matches', async ({ page }) => {
       const search = new SearchResultsPage(page);
-      await search.goto();
+      await search.goto('zzz-no-match-xyz-00000');
       await search.waitForPage();
+      await page.waitForTimeout(2000);
 
       await expect(search.emptyState).toBeVisible();
     });

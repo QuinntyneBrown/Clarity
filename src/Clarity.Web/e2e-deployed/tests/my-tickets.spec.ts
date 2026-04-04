@@ -75,7 +75,7 @@ test.describe('My Tickets', () => {
       await expect(myTickets.pageTitle).toBeVisible();
     });
 
-    test('should navigate to ticket editor on row click', async ({ page }) => {
+    test('should open update dialog on row click', async ({ page }) => {
       const myTickets = new MyTicketsPage(page);
       await myTickets.goto();
       await myTickets.waitForPage();
@@ -83,8 +83,9 @@ test.describe('My Tickets', () => {
       const rowCount = await myTickets.ticketRows.count();
       if (rowCount > 0) {
         await myTickets.ticketRows.first().click();
-        await page.waitForURL('**/tickets/*/edit', { timeout: 10000 });
-        expect(page.url()).toContain('/tickets/');
+        // My-tickets opens an update dialog rather than navigating
+        const updateDialog = page.locator('app-update-ticket');
+        await expect(updateDialog).toBeVisible({ timeout: 10000 });
       }
     });
   });
@@ -133,7 +134,7 @@ test.describe('My Tickets', () => {
       expect(chipCount).toBeGreaterThanOrEqual(1);
     });
 
-    test('should navigate to ticket editor on card click', async ({ page }) => {
+    test('should open update dialog on card click', async ({ page }) => {
       const myTickets = new MyTicketsPage(page);
       await myTickets.goto();
       await myTickets.waitForPage();
@@ -141,8 +142,9 @@ test.describe('My Tickets', () => {
       const cardCount = await myTickets.ticketCards.count();
       if (cardCount > 0) {
         await myTickets.ticketCards.first().click();
-        await page.waitForURL('**/tickets/*/edit', { timeout: 10000 });
-        expect(page.url()).toContain('/tickets/');
+        // My-tickets opens an update dialog rather than navigating
+        const updateDialog = page.locator('app-update-ticket');
+        await expect(updateDialog).toBeVisible({ timeout: 10000 });
       }
     });
   });

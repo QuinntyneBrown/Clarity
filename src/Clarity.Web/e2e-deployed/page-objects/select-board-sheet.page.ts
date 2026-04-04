@@ -14,11 +14,11 @@ export class SelectBoardSheet {
     this.page = page;
     this.sheet = page.locator('app-select-board');
     this.title = this.sheet.locator('.sheet-title');
-    this.closeButton = this.sheet.locator('.close-btn');
+    this.closeButton = this.sheet.locator('.sheet-close');
     this.boardItems = this.sheet.locator('.board-item');
-    this.newBoardAction = this.sheet.locator('.action-item', { hasText: 'New Board' });
-    this.cloneAction = this.sheet.locator('.action-item', { hasText: 'Clone' });
-    this.deleteAction = this.sheet.locator('.action-item', { hasText: 'Delete' });
+    this.newBoardAction = this.sheet.locator('.sheet-action', { hasText: 'New Board' });
+    this.cloneAction = this.sheet.locator('.sheet-action', { hasText: 'Clone' });
+    this.deleteAction = this.sheet.locator('.sheet-action', { hasText: 'Delete' });
   }
 
   async waitForOpen() {
@@ -50,7 +50,7 @@ export class SelectBoardSheet {
   }
 
   getActiveBoardItem(): Locator {
-    return this.boardItems.filter({ has: this.page.locator('.check-icon') });
+    return this.boardItems.filter({ has: this.page.locator('.board-check') });
   }
 
   async getBoardNames(): Promise<string[]> {

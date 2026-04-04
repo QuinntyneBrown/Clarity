@@ -93,6 +93,6 @@ export class KanbanPage extends BasePage {
   }
 
   getDeleteColumnButton(columnIndex: number): Locator {
-    return this.columns.nth(columnIndex).locator('.delete-column-btn');
+    return this.columns.nth(columnIndex).locator('.column-delete-btn');
   }
 }

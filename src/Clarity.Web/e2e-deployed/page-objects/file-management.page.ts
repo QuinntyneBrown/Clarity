@@ -53,14 +53,14 @@ export class FileManagementPage extends BasePage {
   }
 
   getEditButton(row: Locator): Locator {
-    return row.locator('[data-testid="edit-btn"]');
+    return row.locator('[data-testid="edit-btn"], button[title="Edit"]');
   }
 
   getDownloadButton(row: Locator): Locator {
-    return row.locator('[data-testid="download-btn"]');
+    return row.locator('[data-testid="download-btn"], button[title="Download"]');
   }
 
   getDeleteButton(row: Locator): Locator {
-    return row.locator('[data-testid="delete-btn"]');
+    return row.locator('[data-testid="delete-btn"], button[title="Delete"]');
   }
 }

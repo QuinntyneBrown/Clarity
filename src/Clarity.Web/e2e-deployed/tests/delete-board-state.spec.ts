@@ -31,7 +31,7 @@ test.describe('Delete Board State', () => {
       const columnCount = await kanban.getColumnCount();
       expect(columnCount).toBeGreaterThanOrEqual(2);
 
-      const deleteBtn = kanban.columns.last().locator('.delete-column-btn');
+      const deleteBtn = kanban.columns.last().locator('.column-delete-btn');
       await deleteBtn.click();
 
       const dialog = new DeleteBoardStateDialog(page);
@@ -46,7 +46,7 @@ test.describe('Delete Board State', () => {
 
       const columnCount = await kanban.getColumnCount();
       if (columnCount > 1) {
-        const deleteBtn = kanban.columns.last().locator('.delete-column-btn');
+        const deleteBtn = kanban.columns.last().locator('.column-delete-btn');
         await deleteBtn.click();
 
         const dialog = new DeleteBoardStateDialog(page);
@@ -69,7 +69,7 @@ test.describe('Delete Board State', () => {
 
       const columnCount = await kanban.getColumnCount();
       if (columnCount > 1) {
-        const deleteBtn = kanban.columns.last().locator('.delete-column-btn');
+        const deleteBtn = kanban.columns.last().locator('.column-delete-btn');
         await deleteBtn.click();
 
         const dialog = new DeleteBoardStateDialog(page);

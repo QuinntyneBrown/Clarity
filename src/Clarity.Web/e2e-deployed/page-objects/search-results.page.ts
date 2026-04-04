@@ -4,6 +4,8 @@ import { BasePage } from './base.page';
 export class SearchResultsPage extends BasePage {
   readonly pageTitle: Locator;
   readonly searchInput: Locator;
+  readonly desktopSearchInput: Locator;
+  readonly mobileSearchInput: Locator;
   readonly filterChips: Locator;
   readonly ticketResults: Locator;
   readonly memberResults: Locator;
@@ -17,7 +19,9 @@ export class SearchResultsPage extends BasePage {
   constructor(page: Page) {
     super(page);
     this.pageTitle = page.locator('app-search-results h1');
-    this.searchInput = page.locator('app-search-results app-search-input input');
+    this.searchInput = page.locator('app-search-results app-search-input .search-field');
+    this.desktopSearchInput = page.locator('app-search-results .page-header app-search-input .search-field');
+    this.mobileSearchInput = page.locator('app-search-results .mobile-header app-search-input .search-field');
     this.filterChips = page.locator('app-search-results .chip');
     this.ticketResults = page.locator('app-search-results .result-row');
     this.memberResults = page.locator('app-search-results .member-card');
@@ -35,11 +39,17 @@ export class SearchResultsPage extends BasePage {
   }
 
   async waitForPage() {
-    await this.searchInput.first().waitFor({ state: 'visible', timeout: 15000 });
+    await this.page.locator('app-search-results .filter-chips').waitFor({ state: 'visible', timeout: 15000 });
+  }
+
+  getVisibleSearchInput(): Locator {
+    return this.page.locator('app-search-results app-search-input:visible .search-field');
   }
 
   async search(term: string) {
-    await this.searchInput.first().fill(term);
+    const input = this.getVisibleSearchInput();
+    await input.click();
+    await input.fill(term);
   }
 
   async clickFilter(label: string) {

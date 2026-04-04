@@ -39,6 +39,8 @@ test.describe('Clone Board', () => {
       const kanban = new KanbanPage(page);
       await kanban.goto();
       await kanban.waitForBoard();
+
+      const originalName = (await kanban.boardName.innerText()).trim();
       await kanban.clickCloneBoard();
 
       const cloneName = 'Cloned Board ' + Date.now();
@@ -48,8 +50,15 @@ test.describe('Clone Board', () => {
       await dialog.clickClone();
       await dialog.waitForClosed();
 
+      // After cloning, the app reloads the current board (does not auto-switch)
       await kanban.waitForBoard();
-      await expect(kanban.boardName).toContainText(cloneName);
+      await expect(kanban.boardName).toContainText(originalName);
+
+      // Verify the cloned board exists by opening the board selector
+      await kanban.clickBoardName();
+      const selectBoard = page.locator('app-select-board');
+      await selectBoard.waitFor({ state: 'visible', timeout: 5000 });
+      await expect(selectBoard.locator('.board-item', { hasText: cloneName })).toBeVisible({ timeout: 5000 });
     });
 
     test('should cancel clone dialog', async ({ page }) => {
@@ -73,11 +82,13 @@ test.describe('Clone Board', () => {
       await kanban.goto();
       await kanban.waitForBoard();
 
+      const originalName = (await kanban.boardName.innerText()).trim();
+
       await kanban.clickBoardName();
       const selectBoard = page.locator('app-select-board');
       await selectBoard.waitFor({ state: 'visible' });
 
-      const cloneAction = selectBoard.locator('.action-item', { hasText: 'Clone' });
+      const cloneAction = selectBoard.locator('.sheet-action', { hasText: 'Clone' });
       await cloneAction.click();
 
       const dialog = new CloneBoardDialog(page);
@@ -87,8 +98,9 @@ test.describe('Clone Board', () => {
       await dialog.clickClone();
       await dialog.waitForClosed();
 
+      // After cloning, the app reloads the current board (does not auto-switch)
       await kanban.waitForBoard();
-      await expect(kanban.boardName).toContainText(cloneName);
+      await expect(kanban.boardName).toContainText(originalName);
     });
   });
 });

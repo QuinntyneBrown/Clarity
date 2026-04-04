@@ -66,8 +66,8 @@ test.describe('File Management', () => {
       // Wait for file to appear in list
       await page.waitForTimeout(2000);
       const row = files.fileRows.filter({ hasText: fileName });
-      // File should appear (may need to scroll or wait)
-      await expect(row.or(files.fileCards.filter({ hasText: fileName }))).toBeVisible({ timeout: 10000 });
+      // File should appear in desktop table view
+      await expect(row).toBeVisible({ timeout: 10000 });
     });
 
     test('should show download and delete buttons per file', async ({ page }) => {
