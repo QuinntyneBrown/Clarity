@@ -1,9 +1,12 @@
 <!-- Board Selector Bar -->
 <div class="board-selector-bar">
-  <button class="board-selector-trigger" (click)="handleSelectBoardClick()">
-    <span class="board-name">{{ board?.name || 'Default Board' }}</span>
-    <mat-icon class="board-chevron">expand_more</mat-icon>
-  </button>
+  <div class="board-title-area">
+    <button class="board-selector-trigger" (click)="handleSelectBoardClick()">
+      <span class="board-name">{{ board?.name || 'Default Board' }}</span>
+      <mat-icon class="board-chevron">expand_more</mat-icon>
+    </button>
+    <span class="board-subtitle">Manage and track your team's tasks</span>
+  </div>
   <div class="board-bar-actions">
     <button mat-stroked-button class="board-action-btn" (click)="handleCreateBoardClick()">
       <mat-icon>add</mat-icon>

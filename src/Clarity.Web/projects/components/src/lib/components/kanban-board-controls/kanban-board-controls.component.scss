@@ -8,10 +8,23 @@
 // Board Selector Bar
 .board-selector-bar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
   gap: 16px;
+}
+
+.board-title-area {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.board-subtitle {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 400;
+  color: #6B7280;
 }
 
 .board-selector-trigger {

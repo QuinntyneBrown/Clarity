@@ -42,7 +42,7 @@
 
 .ticket-title {
   font-family: var(--font-family);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--color-text-primary);
   flex: 1;
@@ -50,8 +50,8 @@
 
 .ticket-badge {
   font-family: var(--font-family);
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 500;
   padding: 2px 8px;
   border-radius: 4px;
   white-space: nowrap;
@@ -79,7 +79,7 @@
 
 .ticket-description {
   font-family: var(--font-family);
-  font-size: 13px;
+  font-size: 12px;
   color: var(--color-text-secondary);
   margin: 0;
   line-height: 1.4;
@@ -98,9 +98,9 @@
 }
 
 .assignee-avatar {
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
+  width: 22px;
+  height: 22px;
+  border-radius: 11px;
   background: var(--color-primary);
   display: flex;
   align-items: center;
@@ -108,7 +108,7 @@
 
   span {
     font-family: var(--font-family);
-    font-size: 10px;
+    font-size: 8px;
     font-weight: 600;
     color: #fff;
   }

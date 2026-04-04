@@ -62,7 +62,12 @@
   border-radius: 6px;
   background: none;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, opacity 0.15s;
+  opacity: 0;
+
+  .kanban-column:hover & {
+    opacity: 1;
+  }
 
   &:hover {
     background: #FEE2E2;
