@@ -51,6 +51,7 @@
     "@types/jest": "^30.0.0",
     "jasmine-core": "~4.5.0",
     "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
     "ng-packagr": "^19.2.2",
     "ts-jest": "^29.4.9",
     "typescript": "~5.8.3"

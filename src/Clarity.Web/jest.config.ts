@@ -1,7 +1,7 @@
 import type { Config } from 'jest';
 
 const config: Config = {
-  preset: 'ts-jest',
+  preset: 'jest-preset-angular',
   testEnvironment: 'jsdom',
   roots: ['<rootDir>/projects'],
   modulePaths: ['<rootDir>'],
@@ -10,14 +10,15 @@ const config: Config = {
     '@components': '<rootDir>/projects/components/src/public-api',
   },
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', {
-      tsconfig: 'tsconfig.json',
-      stringifyContentPathRegex: '\\.html$',
+    '^.+\\.(ts|js|mjs|html|svg)$': ['jest-preset-angular', {
+      tsconfig: 'tsconfig.spec.json',
+      stringifyContentPathRegex: '\\.(html|svg)$',
     }],
   },
-  transformIgnorePatterns: ['node_modules/(?!.*\\.mjs$)'],
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
+  transformIgnorePatterns: ['node_modules/(?!(.*\\.mjs$|@angular|rxjs|@ngrx))'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'mjs'],
   testMatch: ['**/*.spec.ts'],
+  setupFilesAfterEnv: ['<rootDir>/setup-jest.ts'],
 };
 
 export default config;

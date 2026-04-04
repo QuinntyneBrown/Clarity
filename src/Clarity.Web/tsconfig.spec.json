@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "module": "CommonJS",
+    "types": ["jest"],
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@api": ["projects/api/src/public-api"],
+      "@components": ["projects/components/src/public-api"]
+    }
+  },
+  "include": [
+    "projects/**/*.spec.ts",
+    "projects/**/*.d.ts"
+  ]
+}

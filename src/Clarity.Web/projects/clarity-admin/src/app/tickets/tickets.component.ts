@@ -174,7 +174,8 @@ export class TicketsComponent implements OnInit {
         ticket: {
           ticketId: '', name: v.name!, state: '', age: 0,
           description: v.description || '', acceptanceCriteria: v.acceptanceCriteria || '',
-          boardId: '', comments: [],
+          url: '', ticketType: 0, storyPoints: 0, effort: 0, priority: 0,
+          boardId: '', comments: [], digitalAssets: [],
         }
       }).subscribe(() => {
         dialogRef.close();

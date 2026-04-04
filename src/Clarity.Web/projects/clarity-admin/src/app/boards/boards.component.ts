@@ -156,7 +156,7 @@ export class BoardsComponent implements OnInit {
     dialogRef.componentInstance.form.reset();
     dialogRef.componentInstance.save = () => {
       const v = dialogRef.componentInstance.form.value;
-      this.boardService.create({ board: { name: v.name!, states: [] } }).subscribe(() => {
+      this.boardService.create({ name: v.name!, states: [] }).subscribe(() => {
         dialogRef.close();
         this.snackBar.open('Board created', 'Close', { duration: 3000 });
         this.loadBoards();
