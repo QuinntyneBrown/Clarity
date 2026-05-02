@@ -6,7 +6,7 @@ infra:
   path: infra
 services:
   api:
-    project: ./src/Clarity.Api
+    project: ./backend/src/Clarity.Api
     host: containerapp
     language: csharp
     resourceName: ${AZURE_CONTAINER_APP_NAME}
@@ -17,9 +17,9 @@ hooks:
     shell: sh
     run: |
       echo "Building Angular frontend..."
-      cd src/Clarity.Web && npm ci && npx ng build @api && npx ng build @components && npx ng build clarity --configuration production
+      cd frontend && npm ci && npx ng build @api && npx ng build @components && npx ng build clarity --configuration production
       echo "Copying frontend to API wwwroot..."
-      rm -rf ../Clarity.Api/wwwroot
-      mkdir -p ../Clarity.Api/wwwroot
-      cp -r dist/clarity/* ../Clarity.Api/wwwroot/
+      rm -rf ../backend/src/Clarity.Api/wwwroot
+      mkdir -p ../backend/src/Clarity.Api/wwwroot
+      cp -r dist/clarity/* ../backend/src/Clarity.Api/wwwroot/
       echo "Frontend build complete. Files copied to wwwroot."

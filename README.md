@@ -8,39 +8,37 @@ A Kanban board application built with ASP.NET Core and Angular, deployed to Azur
 
 **Frontend:** Angular 19, Angular Material 19, NgRx Component Store, RxJS, TypeScript 5.8
 
-**Orchestration:** .NET Aspire 9.0
-
 **Infrastructure:** Azure Container Apps, Azure SQL Database, Azure Container Registry, Key Vault, Bicep
 
 **CI/CD:** GitHub Actions, Azure Developer CLI (`azd`)
 
-**Observability:** OpenTelemetry, Health Checks, Log Analytics
+**Observability:** Log Analytics
 
 **Testing:** Playwright (E2E), xUnit, Moq (.NET)
 
 ## Project Structure
 
 ```
-src/
-  Clarity.AppHost/          .NET Aspire orchestration (SQL Server, API, Web)
-  Clarity.ServiceDefaults/  Shared service configuration (OpenTelemetry, health checks, resilience)
-  Clarity.Api/              ASP.NET Core Web API (hosts Angular frontend in wwwroot)
-  Clarity.Core/             Domain models and interfaces
-  Clarity.Infrastructure/   Data access and EF Core
-  Clarity.Web/              Angular frontend workspace
-    projects/
-      api/                  @api library (API models and services)
-      components/           @components library (shared UI components)
-      clarity/              Main application
-      clarity-admin/        Admin application
+backend/
+  Clarity.sln
+  src/
+    Clarity.Api/              ASP.NET Core Web API (hosts Angular frontend in wwwroot)
+    Clarity.Core/             Domain models and interfaces
+    Clarity.Infrastructure/   Data access and EF Core
+  tests/
+    Clarity.UnitTests/        .NET unit tests
+    Clarity.IntegrationTests/ .NET integration tests
+    Clarity.Testing/          Shared test utilities and builders
+frontend/                     Angular workspace
+  projects/
+    api/                      @api library (API models and services)
+    components/               @components library (shared UI components)
+    clarity/                  Main application
+    clarity-admin/            Admin application
 designs/
-  clarity.pen               UI designs for the main application
-test/
-  Clarity.UnitTests/        .NET unit tests
-  Clarity.IntegrationTests/ .NET integration tests
-  Clarity.Testing/          Shared test utilities and builders
+  clarity.pen                 UI designs for the main application
 infra/
-  modules/                  Bicep modules (Container Apps, SQL Server, Key Vault, Container Registry)
+  modules/                    Bicep modules (Container Apps, SQL Server, Key Vault, Container Registry)
 ```
 
 ## Prerequisites
@@ -48,35 +46,23 @@ infra/
 - [.NET 9 SDK](https://dotnet.microsoft.com/download) (includes .NET 8 targeting)
 - [Node.js 20+](https://nodejs.org/en/download)
 - SQL Server LocalDB or SQL Server Express
-- [.NET Aspire workload](https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/setup-tooling) (optional, for orchestrated runs)
 - [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd) (optional, for deployment)
 
 ## Running Locally
 
-### With .NET Aspire (recommended)
+### API
 
 ```sh
-cd src/Clarity.AppHost
-dotnet run
-```
-
-This starts the full stack — SQL Server, API, and Angular frontend — with service discovery, health checks, and the Aspire dashboard.
-
-### Standalone
-
-#### API
-
-```sh
-cd src/Clarity.Api
+cd backend/src/Clarity.Api
 dotnet run
 ```
 
 The API will be available at `https://localhost:5001`.
 
-#### Frontend
+### Frontend
 
 ```sh
-cd src/Clarity.Web
+cd frontend
 npm install
 npx ng build @api
 npx ng build @components
@@ -88,7 +74,7 @@ The app will be available at `http://localhost:4200`.
 ### Database Commands
 
 ```sh
-cd src/Clarity.Api
+cd backend/src/Clarity.Api
 dotnet run -- migratedb   # Apply EF Core migrations
 dotnet run -- seeddb      # Seed sample data
 dotnet run -- dropdb      # Drop the database
@@ -100,7 +86,7 @@ dotnet run -- ci          # Drop, migrate, seed, then stop
 The Angular workspace has library dependencies that must be built in order:
 
 ```sh
-cd src/Clarity.Web
+cd frontend
 npm ci
 npx ng build @api
 npx ng build @components
@@ -133,6 +119,6 @@ dotnet test
 ### E2E Tests
 
 ```sh
-cd src/Clarity.Web
+cd frontend
 npx playwright test
 ```

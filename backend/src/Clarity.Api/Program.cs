@@ -21,8 +21,6 @@ try
 
     var builder = WebApplication.CreateBuilder(args);
 
-    builder.AddServiceDefaults();
-
     var keyVaultName = builder.Configuration["KeyVaultName"];
     if (!string.IsNullOrEmpty(keyVaultName))
     {
@@ -56,8 +54,6 @@ try
 
     app.UseDefaultFiles();
     app.UseStaticFiles();
-
-    app.MapDefaultEndpoints();
 
     app.MapControllers();
 

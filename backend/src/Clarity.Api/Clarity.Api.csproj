@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Clarity.Infrastructure\Clarity.Infrastructure.csproj" />
-    <ProjectReference Include="..\Clarity.ServiceDefaults\Clarity.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>
